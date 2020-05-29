@@ -1,0 +1,126 @@
+// Module included in the following assemblies:
+//
+// * installing/installing_aws/installing-aws-user-infra.adoc
+// * installing/installing_azure/installing-azure-user-infra.adoc
+// * installing/installing_gcp/installing-gcp-user-infra.adoc
+// * installing/installing_gcp/installing-restricted-networks-gcp.adoc
+// * installing/installing_bare_metal/installing-bare-metal.adoc
+// * installing/installing_aws/installing-restricted-networks-aws.adoc
+// * installing/installing_bare_metal/installing-restricted-networks-bare-metal.adoc
+// * installing/installing_vsphere/installing-restricted-networks-vsphere.adoc
+// * installing/installing_vsphere/installing-vsphere.adoc
+// * installing/installing_ibm_z/installing-ibm-z.adoc
+// * networking/configuring-a-custom-pki.adoc
+
+ifeval::["{context}" == "installing-bare-metal"]
+:bare-metal:
+endif::[]
+ifeval::["{context}" == "installing-restricted-networks-bare-metal"]
+:bare-metal:
+endif::[]
+ifeval::["{context}" == "installing-vsphere"]
+:vsphere:
+endif::[]
+ifeval::["{context}" == "installing-installing-restricted-networks-vsphere"]
+:vsphere:
+endif::[]
+
+[id="installation-configure-proxy_{context}"]
+= Configuring the cluster-wide proxy during installation
+
+Production environments can deny direct access to the Internet and instead have
+an HTTP or HTTPS proxy available. You can configure a new {product-title}
+cluster to use a proxy by configuring the proxy settings in the
+`install-config.yaml` file.
+
+ifdef::bare-metal[]
+[NOTE]
+====
+For bare metal installations, if you do not assign node IP addresses from the
+range that is specified in the `networking.machineNetwork[].cidr` field in the
+`install-config.yaml` file, you must include them in the `proxy.noProxy` field.
+====
+endif::bare-metal[]
+
+.Prerequisites
+
+* An existing `install-config.yaml` file.
+// TODO: xref (../../installing/install_config/configuring-firewall.adoc#configuring-firewall)
+* Review the sites that your cluster requires access to and determine whether any need to bypass the proxy. By default, all cluster egress traffic is proxied, including calls to hosting cloud provider APIs. Add sites to the Proxy object's `spec.noProxy` field to bypass the proxy if necessary.
++
+[NOTE]
+====
+The Proxy object's `status.noProxy` field is populated by default with the instance metadata endpoint (`169.254.169.254`) and with the values of the `networking.machineNetwork[].cidr`, `networking.clusterNetwork[].cidr`, and `networking.serviceNetwork` fields from your installation configuration.
+====
+
+.Procedure
+
+. Edit your `install-config.yaml` file and add the proxy settings. For example:
++
+[source,yaml]
+----
+apiVersion: v1
+baseDomain: my.domain.com
+proxy:
+  httpProxy: http://<username>:<pswd>@<ip>:<port> <1>
+  httpsProxy: http://<username>:<pswd>@<ip>:<port> <2>
+  noProxy: example.com <3>
+additionalTrustBundle: | <4>
+    -----BEGIN CERTIFICATE-----
+    <MY_TRUSTED_CA_CERT>
+    -----END CERTIFICATE-----
+...
+----
+<1> A proxy URL to use for creating HTTP connections outside the cluster. The
+URL scheme must be `http`. If you use an MITM transparent proxy network that does not require additional proxy configuration but requires additional CAs, you must not specify an `httpProxy` value.
+<2> A proxy URL to use for creating HTTPS connections outside the cluster. If
+this field is not specified, then `httpProxy` is used for both HTTP and HTTPS
+connections. The URL scheme must be `http`; `https` is currently not
+supported.
+If you use an MITM transparent proxy network that does not require additional proxy configuration but requires additional CAs, you must not specify an `httpsProxy` value.
+<3> A comma-separated list of destination domain names, domains, IP addresses, or
+other network CIDRs to exclude proxying. Preface a domain with `.` to include
+all subdomains of that domain. Use `*` to bypass proxy for all destinations.
+ifdef::vsphere[]
+You must include vCenter's IP address and the IP range that you use for its machines.
+endif::vsphere[]
+<4> If provided, the installation program generates a ConfigMap that is named `user-ca-bundle` in
+the `openshift-config` namespace that contains one or more additional CA
+certificates that are required for proxying HTTPS connections. The Cluster Network
+Operator then creates a `trusted-ca-bundle` ConfigMap that merges these contents
+with the {op-system-first} trust bundle, and this ConfigMap is referenced in the Proxy
+object's `trustedCA` field. The `additionalTrustBundle` field is required unless
+the proxy's identity certificate is signed by an authority from the {op-system} trust
+bundle.
+If you use an MITM transparent proxy network that does not require additional proxy configuration but requires additional CAs, you must provide the MITM CA certificate.
++
+[NOTE]
+====
+The installation program does not support the proxy `readinessEndpoints` field.
+====
+
+. Save the file and reference it when installing {product-title}.
+
+The installation program creates a cluster-wide proxy that is named `cluster` that uses the proxy
+settings in the provided `install-config.yaml` file. If no proxy settings are
+provided, a `cluster` Proxy object is still created, but it will have a nil
+`spec`.
+
+[NOTE]
+====
+Only the Proxy object named `cluster` is supported, and no additional
+proxies can be created.
+====
+
+ifeval::["{context}" == "installing-bare-metal"]
+:!bare-metal:
+endif::[]
+ifeval::["{context}" == "installing-restricted-networks-bare-metal"]
+:!bare-metal:
+endif::[]
+ifeval::["{context}" == "installing-vsphere"]
+:!vsphere:
+endif::[]
+ifeval::["{context}" == "installing-installing-restricted-networks-vsphere"]
+:!vsphere:
+endif::[]

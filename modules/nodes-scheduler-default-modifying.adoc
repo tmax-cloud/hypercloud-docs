@@ -1,0 +1,147 @@
+// Module included in the following assemblies:
+//
+// * nodes/nodes-scheduler-default.adoc
+
+[id="nodes-scheduler-default-modifying_{context}"]
+= Modifying scheduler policies
+
+//Made changes to this file to match https://github.com/openshift/openshift-docs/pull/13626/files#diff-ba6ab177a3e2867eaefe07f48bd6e158
+
+You change scheduling behavior by creating or editing your scheduler policy ConfigMap in the `openshift-config` project.
+Add and remove predicates and priorities to the ConfigMap to create a _scheduler policy_.
+
+
+.Procedure
+
+To modify the current custom schedluling, use one of the following methods:
+
+* Edit the scheduler policy ConfigMap:
++
+----
+$ oc edit configmap <configmap-name>  -n openshift-config
+----
++
+For example:
++
+----
+$ oc edit configmap scheduler-policy -n openshift-config
+
+apiVersion: v1
+data:
+  policy.cfg: |
+    {
+        "kind" : "Policy",
+        "apiVersion" : "v1",
+        "predicates" : [ <1>
+                {"name" : "MaxGCEPDVolumeCount"},
+                {"name" : "GeneralPredicates"},
+                {"name" : "MaxAzureDiskVolumeCount"},
+                {"name" : "MaxCSIVolumeCountPred"},
+                {"name" : "CheckVolumeBinding"},
+                {"name" : "MaxEBSVolumeCount"},
+                {"name" : "PodFitsResources"},
+                {"name" : "MatchInterPodAffinity"},
+                {"name" : "CheckNodeUnschedulable"},
+                {"name" : "NoDiskConflict"},
+                {"name" : "NoVolumeZoneConflict"},
+                {"name" : "MatchNodeSelector"},
+                {"name" : "HostName"},
+                {"name" : "PodToleratesNodeTaints"}
+                ],
+        "priorities" : [ <2>
+                {"name" : "LeastRequestedPriority", "weight" : 1},
+                {"name" : "BalancedResourceAllocation", "weight" : 1},
+                {"name" : "ServiceSpreadingPriority", "weight" : 1},
+                {"name" : "NodePreferAvoidPodsPriority", "weight" : 1},
+                {"name" : "NodeAffinityPriority", "weight" : 1},
+                {"name" : "TaintTolerationPriority", "weight" : 1},
+                {"name" : "ImageLocalityPriority", "weight" : 1},
+                {"name" : "SelectorSpreadPriority", "weight" : 1},
+                {"name" : "InterPodAffinityPriority", "weight" : 1},
+                {"name" : "EqualPriority", "weight" : 1}
+                ]
+    }
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2019-09-17T17:44:19Z"
+  name: scheduler-policy
+  namespace: openshift-config
+  resourceVersion: "15370"
+  selfLink: /api/v1/namespaces/openshift-config/configmaps/scheduler-policy
+----
+<1> Add or remove predicates as needed.
+<2> Add, remove, or change the weight of predicates as needed.
++
+It can take a few minutes for the scheduler to restart the pods with the updated policy.
+
+* Change the policies and predicates being used:
+
+. Remove the scheduler policy CongifMap:
++
+----
+$ oc delete configmap -n openshift-config <name>
+----
++
+For example:
++
+----
+$ oc delete configmap -n openshift-config  scheduler-policy
+----
+
+. Edit the `policy.cfg` file to add and remove policies and predicates as needed.
++
+For example:
++
+----
+$ vi policy.cfg
+----
++
+[source,yaml]
+----
+apiVersion: v1
+data:
+  policy.cfg: |
+    {
+    "kind" : "Policy",
+    "apiVersion" : "v1",
+    "predicates" : [
+            {"name" : "PodFitsHostPorts"},
+            {"name" : "PodFitsResources"},
+            {"name" : "NoDiskConflict"},
+            {"name" : "NoVolumeZoneConflict"},
+            {"name" : "MatchNodeSelector"},
+            {"name" : "MaxEBSVolumeCount"},
+            {"name" : "MaxAzureDiskVolumeCount"},
+            {"name" : "CheckVolumeBinding"},
+            {"name" : "CheckServiceAffinity"},
+            {"name" : "PodToleratesNodeNoExecuteTaints"},
+            {"name" : "MaxGCEPDVolumeCount"},
+            {"name" : "MatchInterPodAffinity"},
+            {"name" : "PodToleratesNodeTaints"},
+            {"name" : "HostName"}
+            ],
+    "priorities" : [
+            {"name" : "LeastRequestedPriority", "weight" : 2},
+            {"name" : "BalancedResourceAllocation", "weight" : 2},
+            {"name" : "ServiceSpreadingPriority", "weight" : 2},
+            {"name" : "EqualPriority", "weight" : 2}
+            ]
+    }
+----
+
+. Re-create the scheduler policy ConfigMap based on the scheduler JSON file:
++
+[options="nowrap"]
+----
+$ oc create configmap -n openshift-config --from-file=policy.cfg <configmap-name> <1>
+----
+<1> Enter a name for the ConfigMap.
++
+For example:
++
+----
+$ oc create configmap -n openshift-config --from-file=policy.cfg scheduler-policy
+
+configmap/scheduler-policy created
+----
+

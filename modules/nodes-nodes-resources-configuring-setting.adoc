@@ -1,0 +1,120 @@
+// Module included in the following assemblies:
+//
+// * nodes/nodes-nodes-resources-configuring.adoc
+
+[id="nodes-nodes-resources-configuring-setting_{context}"]
+= Configuring allocated resources for nodes
+
+{product-title} supports the CPU and memory resource types for allocation. If
+your administrator enabled the ephemeral storage technology preview, the
+`*ephemeral-resource*` resource type is supported as well. For the `*cpu*` type, the
+resource quantity is specified in units of cores, such as `200m`, `0.5`, or `1`.
+For `*memory*` and `*ephemeral-storage*`, it is specified in units of bytes,
+such as `200Ki`, `50Mi`, or `5Gi`.
+
+As an administrator, you can set these using a Custom Resource (CR) through a set of `<resource_type>=<resource_quantity>` pairs
+(e.g., *cpu=200m,memory=512Mi*).
+
+.Prerequisites
+
+. To help you determine setting for `*--system-reserved*` and `*--kube-reserved*` you can introspect the corresponding node's resource usage
+using the node summary API, which is accessible at *_<master>/api/v1/nodes/<node>/proxy/stats/summary_*. Run the following command for your node:
++
+----
+$ curl <certificate details> https://<master>/api/v1/nodes/<node-name>/proxy/stats/summary
+----
++
+The _REST API Overview_ has details about certificate details.
+
++
+For example, to access the resources from *cluster.node22* node, you can run:
++
+----
+$ curl <certificate details> https://<master>/api/v1/nodes/cluster.node22/proxy/stats/summary
+{
+    "node": {
+        "nodeName": "cluster.node22",
+        "systemContainers": [
+            {
+                "cpu": {
+                    "usageCoreNanoSeconds": 929684480915,
+                    "usageNanoCores": 190998084
+                },
+                "memory": {
+                    "rssBytes": 176726016,
+                    "usageBytes": 1397895168,
+                    "workingSetBytes": 1050509312
+                },
+                "name": "kubelet"
+            },
+            {
+                "cpu": {
+                    "usageCoreNanoSeconds": 128521955903,
+                    "usageNanoCores": 5928600
+                },
+                "memory": {
+                    "rssBytes": 35958784,
+                    "usageBytes": 129671168,
+                    "workingSetBytes": 102416384
+                },
+                "name": "runtime"
+            }
+        ]
+    }
+}
+----
+
+. Obtain the label associated with the static Machine Config Pool CRD for the type of node you want to configure.
+Perform one of the following steps:
+
+.. View the Machine Config Pool:
++
+----
+$ oc describe machineconfigpool <name>
+----
++
+For example:
++
+[source,yaml]
+----
+$ oc describe machineconfigpool worker
+
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfigPool
+metadata:
+  creationTimestamp: 2019-02-08T14:52:39Z
+  generation: 1
+  labels:
+    custom-kubelet: small-pods <1>
+----
+<1> If a label has been added it appears under `labels`.
+
+.. If the label is not present, add a key/value pair:
++
+----
+$ oc label machineconfigpool worker custom-kubelet=small-pods
+----
+
+.Procedure
+
+. Create a Custom Resource (CR) for your configuration change.
++
+.Sample configuration for a resource allocation CR
+[source,yaml]
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: KubeletConfig
+metadata:
+  name: set-allocatable <1>
+spec:
+  machineConfigPoolSelector:
+    matchLabels:
+      custom-kubelet: small-pods <2>
+  kubeletConfig:
+    systemReserved:
+      cpu: 500m
+      memory: 512Mi
+    kubeReserved:
+      cpu: 500m
+      memory: 512Mi
+----

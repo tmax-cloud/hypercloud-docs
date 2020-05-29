@@ -1,0 +1,110 @@
+# This configuration file dictates the organization of the topic groups and
+# topics on the main page of the doc site for this branch. Each record
+# consists of the following:
+#
+# ---                                  <= Record delimiter
+# Name: Origin of the Species          <= Display name of topic group
+# Dir:  origin_of_the_species          <= Directory name of topic group
+# Topics:
+#   - Name: The Majestic Marmoset      <= Topic name
+#     File: the_majestic_marmoset      <= Topic file under group dir +/- .adoc
+#   - Name: The Curious Crocodile      <= Topic 2 name
+#     File: the_curious_crocodile      <= Topic 2 file
+#   - Name: The Numerous Nematodes     <= Sub-topic group name
+#     Dir: the_numerous_nematodes      <= Sub-topic group dir
+#     Topics:
+#       - Name: The Wily Worm          <= Sub-topic name
+#         File: the_wily_worm          <= Sub-topic file under <group dir>/<subtopic dir>
+#       - Name: The Acrobatic Ascarid  <= Sub-topic 2 name
+#         File: the_acrobatic_ascarid  <= Sub-topic 2 file under <group dir>/<subtopic dir>
+#
+# The ordering of the records in this document determines the ordering of the
+# topic groups and topics on the main page.
+
+---
+Name: Web console
+Dir: web_console
+Topics:
+- Name: Accessing the web console
+  File: web-console
+- Name: Viewing cluster information
+  File: using-dashboard-to-get-cluster-information
+- Name: Configuring the web console
+  File: configuring-web-console
+- Name: Customizing the web console
+  File: customizing-the-web-console
+- Name: Developer perspective
+  File: odc-about-developer-perspective
+- Name: Disabling the web console
+  File: disabling-web-console
+---
+Name: Applications
+Dir: applications
+Topics:
+- Name: Projects
+  Dir: projects
+  Topics:
+  - Name: Working with projects
+    File: working-with-projects
+  - Name: Creating a project as another user
+    File: creating-project-other-user
+  - Name: Configuring project creation
+    File: configuring-project-creation
+- Name:  Application life cycle management
+  Dir: application_life_cycle_management
+  Topics:
+  - Name: Creating applications using the Developer perspective
+    File: odc-creating-applications-using-developer-perspective
+  - Name: Creating applications from installed Operators
+    File: creating-apps-from-installed-operators
+  - Name: Creating applications using the CLI
+    File: creating-applications-using-cli
+  - Name: Viewing application composition using the Topology view
+    File: odc-viewing-application-composition-using-topology-view
+  - Name: Editing applications
+    File: odc-editing-applications
+  - Name: Working with Helm charts using the Developer perspective
+    File: odc-working-with-helm-charts-using-developer-perspective
+  - Name: Deleting applications
+    File: odc-deleting-applications
+- Name: Service brokers
+  Dir: service_brokers
+  Topics:
+  - Name: Installing Service Catalog
+    File: installing-service-catalog
+  - Name: Uninstalling Service Catalog
+    File: uninstalling-service-catalog
+  - Name: Installing the Template Service Broker
+    File: installing-template-service-broker
+  - Name: Uninstalling the Template Service Broker
+    File: uninstalling-template-service-broker
+- Name: Deployments
+  Dir: deployments
+  Topics:
+  - Name: Understanding Deployments and DeploymentConfigs
+    File: what-deployments-are
+  - Name: Managing deployment processes
+    File: managing-deployment-processes
+  - Name: Using DeploymentConfig strategies
+    File: deployment-strategies
+  - Name: Using route-based deployment strategies
+    File: route-based-deployment-strategies
+- Name: Quotas
+  Dir: quotas
+  Topics:
+  - Name: Resource quotas per project
+    File: quotas-setting-per-project
+  - Name: Resource quotas across multiple projects
+    File: quotas-setting-across-multiple-projects
+- Name: Monitoring project and application metrics using the Developer perspective
+  File: odc-monitoring-project-and-application-metrics-using-developer-perspective
+- Name: Monitoring application health
+  File: application-health
+- Name: Working with quotas
+  File: working-with-quotas
+- Name: Idling applications
+  File: idling-applications
+- Name: Pruning objects to reclaim resources
+  File: pruning-objects
+- Name: Using the Red Hat Marketplace
+  File: red-hat-marketplace

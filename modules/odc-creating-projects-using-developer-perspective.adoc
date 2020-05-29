@@ -1,0 +1,30 @@
+// Module included in the following assemblies:
+//
+// applications/projects/working-with-projects.adoc
+
+[id="odc-creating-projects-using-developer-perspective_{context}"]
+= Creating a project using the Developer perspective in the web console
+
+You can use the *Developer* perspective in the {product-title} web console to create a project in your namespace.
+
+[NOTE]
+====
+Projects starting with `openshift-` and `kube` host cluster components that run as Pods and other infrastructure components. As such, {product-title} does not allow you to create Projects starting with `openshift-` or `kube-` using the CLI. Cluster administrators can create these Projects using the `oc adm new-project` command.
+====
+
+.Prerequisites
+
+* Ensure that you have the appropriate link:https://docs.openshift.com/container-platform/latest/authentication/using-rbac.html#default-roles_using-rbac[roles and permissions] to create projects, applications, and other workloads in {product-title}.
+
+.Procedure
+You can create a project using the *Developer* perspective, as follows:
+
+. In the *Add* view, click the *Project* drop-down menu to see a list of all available projects. Select *Create Project*.
++
+image::odc_create_project.png[Create Project]
+
+. In the *Create Project* dialog box, enter a unique name for the *Name* field. For example, enter `myproject` as the name of the project in the *Name* field.
+. Optional: Add the *Display Name* and *Description* details for the Project.
+. Click *Create*.
+. Navigate to the *Advanced → Project Details* page to see the dashboard for your project.
+. In the *Project* drop-down menu at the top of the screen, select *all projects* to list all of the projects in your cluster. If you have adequate permissions for a project, you can use the  *Options* menu {kebab} to edit or delete the project.

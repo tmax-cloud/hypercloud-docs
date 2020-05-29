@@ -1,0 +1,85 @@
+// Module included in the following assemblies:
+//
+// * monitoring/cluster_monitoring/configuring-the-monitoring-stack.adoc
+
+[id="moving-monitoring-components-to-different-nodes_{context}"]
+= Moving monitoring components to different nodes
+
+You can move any of the monitoring stack components to specific nodes.
+
+.Prerequisites
+
+* Make sure you have the `cluster-monitoring-config` ConfigMap object with the `data/config.yaml` section.
+
+.Procedure
+
+. Start editing the `cluster-monitoring-config` ConfigMap:
++
+----
+$ oc -n openshift-monitoring edit configmap cluster-monitoring-config
+----
+
+. Specify the `nodeSelector` constraint for the component under `data/config.yaml`:
++
+[source,yaml]
+----
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-monitoring-config
+  namespace: openshift-monitoring
+data:
+  config.yaml: |
+    <component>:
+      nodeSelector:
+        <node_key>: <node_value>
+        <node_key>: <node_value>
+        <...>
+----
++
+Substitute `<component>` accordingly and substitute `<node_key>: <node_value>` with the map of key-value pairs that specifies the destination node. Often, only a single key-value pair is used.
++
+The component can only run on a node that has each of the specified key-value pairs as labels. The node can have additional labels as well.
++
+For example, to move components to the node that is labeled `foo: bar`, use:
++
+[source,yaml,subs=quotes]
+----
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-monitoring-config
+  namespace: openshift-monitoring
+data:
+  config.yaml: |
+    *prometheusOperator:
+      nodeSelector:
+        foo: bar
+    prometheusK8s:
+      nodeSelector:
+        foo: bar
+    alertmanagerMain:
+      nodeSelector:
+        foo: bar
+    kubeStateMetrics:
+      nodeSelector:
+        foo: bar
+    grafana:
+      nodeSelector:
+        foo: bar
+    telemeterClient:
+      nodeSelector:
+        foo: bar
+    k8sPrometheusAdapter:
+      nodeSelector:
+        foo: bar*
+    openshiftStateMetrics:
+      nodeSelector:
+        node-role.kubernetes.io/infra: ""
+----
+
+. Save the file to apply the changes. The components affected by the new configuration are moved to new nodes automatically.
+
+.Additional resources
+
+* See the link:https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector[Kubernetes documentation] for details on the `nodeSelector` constraint.

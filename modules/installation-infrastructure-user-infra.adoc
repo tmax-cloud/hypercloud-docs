@@ -1,0 +1,44 @@
+// Module included in the following assemblies:
+//
+// * installing/installing_bare_metal/installing-bare-metal.adoc
+// * installing/installing_bare_metal/installing-restricted-networks-bare-metal.adoc
+// * installing/installing_vsphere/installing-restricted-networks-vsphere.adoc
+// * installing/installing_vsphere/installing-vsphere.adoc
+// * installing/installing_ibm_z/installing-ibm-z.adoc
+
+ifeval::["{context}" == "installing-ibm-z"]
+:ibm-z:
+endif::[]
+
+[id="installation-infrastructure-user-infra_{context}"]
+= Creating the user-provisioned infrastructure
+
+Before you deploy an {product-title} cluster that uses user-provisioned
+infrastructure, you must create the underlying infrastructure.
+
+.Prerequistes
+
+* Review the link:https://access.redhat.com/articles/4128421[OpenShift Container Platform 4.x Tested Integrations]
+page before you create the supporting infrastructure for your cluster.
+
+.Procedure
+
+ifdef::ibm-z[]
+. Set up static IP addresses.
+. Set up an FTP server.
+endif::ibm-z[]
+ifndef::ibm-z[]
+. Configure DHCP or set static IP addresses on each node.
+endif::ibm-z[]
+
+. Provision the required load balancers.
+
+. Configure the ports for your machines.
+
+. Configure DNS.
+
+. Ensure network connectivity.
+
+ifeval::["{context}" == "installing-ibm-z"]
+:!ibm-z:
+endif::[]

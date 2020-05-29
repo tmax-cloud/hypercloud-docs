@@ -1,0 +1,28 @@
+// Module included in the following assemblies:
+//
+// * monitoring/cluster_monitoring/managing-cluster-alerts.adoc
+
+[id="getting-information-about-silences_{context}"]
+= Getting information about silences
+
+You can find a silence and view its details.
+
+.Procedure
+
+. Open the {product-title} web console and navigate to the *Monitoring* -> *Alerting* -> *Silences* page.
+
+. Optional: Filter the silences by name using the *Filter Silences by name* field.
+
+. Optional: Filter the silences by state using one or more of the state buttons *Active*, *Pending*, *Expired*.
+
+. Optional: Sort the silences by clicking one or more of the *Name*, *State*, and *Firing alerts* column headers.
+
+. After you see the silence, you can click its name to see the details, including:
++
+--
+* Alert specification
+* State
+* Start time
+* End time
+* Number and list of firing alerts
+--

@@ -1,0 +1,32 @@
+// Module included in the following assemblies:
+//
+// * openshift_images/configuring_samples_operator.adoc
+
+
+[id="samples-operator-crd{context}"]
+= Accessing the Samples Operator configuration
+
+You can configure the Samples Operator by editing the file with the provided
+parameters.
+
+.Prerequisites
+
+* Install the OpenShift Command-line Interface (CLI), commonly known as `oc`.
+
+.Procedure
+
+*  Access the Samples Operator configuration:
++
+----
+$ oc get configs.samples.operator.openshift.io/cluster -o yaml
+----
++
+The Samples Operator configuration resembles the following example:
++
+[source,yaml]
+----
+apiVersion: samples.operator.openshift.io/v1
+kind: Config
+projectName: cluster-samples-operator
+...
+----

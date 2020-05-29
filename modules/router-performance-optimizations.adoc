@@ -1,0 +1,10 @@
+[id="router-performance-optimizations_{context}"]
+= Router performance optimizations
+
+{product-title} no longer supports modifying router deployments by setting
+environment variables such as `ROUTER_THREADS`, `ROUTER_DEFAULT_TUNNEL_TIMEOUT`,
+`ROUTER_DEFAULT_CLIENT_TIMEOUT`, `ROUTER_DEFAULT_SERVER_TIMEOUT`, and
+`RELOAD_INTERVAL`.
+
+You can modify the router deployment, but if the Ingress Operator is enabled,
+the configuration is overwritten.

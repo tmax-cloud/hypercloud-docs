@@ -1,0 +1,27 @@
+// Module included in the following assemblies:
+//
+// * nodes/nodes-cluster-overcommit.adoc
+
+[id="nodes-cluster-overcommit-project-disable_{context}"]
+= Disabling overcommitment for a project
+
+When enabled, overcommitment can be disabled per-project.
+For example, you can allow infrastructure components to be configured independently of overcommitment.
+
+.Procedure
+
+To disable overcommitment in a project:
+
+. Edit the project object file
+
+. Add the following annotation:
++
+----
+quota.openshift.io/cluster-resource-override-enabled: "false"
+----
+
+. Create the project object:
++
+----
+$ oc create -f <file-name>.yaml
+----

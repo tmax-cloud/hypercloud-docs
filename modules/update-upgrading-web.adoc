@@ -1,0 +1,101 @@
+// Module included in the following assemblies:
+//
+// * updating/updating-cluster.adoc
+// * updating/updating-cluster-between-minor.adoc
+
+ifeval::["{context}" == "updating-cluster"]
+:within:
+endif::[]
+ifeval::["{context}" == "updating-cluster-between-minor"]
+:between:
+endif::[]
+ifeval::["{context}" == "updating-cluster-rhel-compute"]
+:rhel:
+:between:
+endif::[]
+
+[id="update-upgrading-web_{context}"]
+= Updating a cluster by using the web console
+
+If updates are available, you can update your cluster from the web console.
+
+You can find information about available {product-title} advisories and updates
+link:https://access.redhat.com/downloads/content/290/ver=4.4/rhel---7/4.4.0/x86_64/product-errata[in the errata section]
+of the Customer Portal.
+////
+update link to 4.4 when available
+////
+
+.Prerequisites
+
+* Have access to the web console as a user with `admin` privileges.
+
+.Procedure
+
+. From the web console, click *Administration* > *Cluster Settings* and review
+the contents of the *Overview* tab.
+. For production clusters, ensure that the *CHANNEL* is set to the correct channel for
+ifdef::within[]
+the version that you want to update to,
+endif::within[]
+ifdef::between[]
+your current minor version,
+endif::between[]
+such as `stable-{product-version}`.
++
+[IMPORTANT]
+====
+For production clusters, you must subscribe to a stable-* or fast-* channel.
+====
+** If the *UPDATE STATUS* is not *Updates Available*, you cannot upgrade your
+cluster.
+** The *DESIRED VERSION* indicates the cluster version that your cluster is running
+or is updating to.
+
+. Click *Updates Available*, select
+ifdef::within[]
+a version to update to,
+endif::within[]
+ifdef::between[]
+the highest available version
+endif::between[]
+and click *Update*.
+The *UPDATE STATUS* changes to `Updating`, and you can review the progress of
+the Operator upgrades on the *Cluster Operators* tab.
+
+ifdef::between[]
+. If you are upgrading to this release from {product-title} 4.3.3 or earlier, you must restart all Pods after the upgrade is complete. You can do this using the following command, which requires the OpenShift CLI (`oc`):
++
+----
+$ for I in $(oc get ns -o jsonpath='{range .items[*]} {.metadata.name}{"\n"} {end}'); \
+      do oc delete pods --all -n $I; \
+      sleep 1; \
+      done
+----
++
+[NOTE]
+====
+Restarting all Pods is required because the service CA is automatically rotated as of {product-title} 4.3.5. The service CA is rotated during the upgrade and a restart is required afterward to ensure that all services are using the new service CA before the previous service CA expires.
+
+After this one-time manual restart, subsequent upgrades and rotations will ensure restart before the service CA expires without requiring manual intervention.
+====
++
+// TODO: This whole step should be removed for 4.5.
+endif::between[]
+
+ifdef::between[]
+. After the update completes and the Cluster Version Operator refreshes the available updates, check if more updates are available in your current channel.
++
+--
+** If updates are available, continue to perform updates in the current channel until you can no longer update.
+** If no updates are available, change the *CHANNEL* to the stable-* or fast-* channel for the next minor version, and update to the version that you want in that channel.
+--
++
+You might need to perform several intermediate updates until you reach the version that you want.
+ifdef::rhel[]
++
+[NOTE]
+====
+When you update a cluster that contains Red Hat Enterprise Linux (RHEL) worker machines, those workers temporarily become unavailable during the update process. You must run the upgrade playbook against each RHEL machine as it enters the `NotReady` state for the cluster to finish updating.
+====
+endif::rhel[]

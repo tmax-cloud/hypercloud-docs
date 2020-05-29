@@ -1,0 +1,10 @@
+// Module included in the following assemblies:
+//
+// * operators/operator_sdk/osdk-generating-csvs.adoc
+
+[id="osdk-crds_{context}"]
+= Understanding your Custom Resource Definitions (CRDs)
+
+There are two types of Custom Resource Definitions (CRDs) that your Operator may
+use: ones that are _owned_ by it and ones that it depends on, which are
+_required_.

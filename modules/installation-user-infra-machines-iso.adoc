@@ -1,0 +1,97 @@
+// Module included in the following assemblies:
+//
+// * installing/installing_bare_metal/installing-bare-metal.adoc
+// * installing/installing_bare_metal/installing-restricted-networks-bare-metal.adoc
+// * installing/installing_ibm_z/installing-ibm-z.adoc
+
+[id="installation-user-infra-machines-iso_{context}"]
+= Creating {op-system-first} machines using an ISO image
+
+Before you install a cluster on bare metal infrastructure that you provision,
+you must create {op-system} machines for it to use. You can use an
+ISO image to create the machines.
+
+.Prerequisites
+
+* Obtain the Ignition config files for your cluster.
+* Have access to an HTTP server that you can access from your computer and that
+the machines that you create can access.
+
+.Procedure
+
+. Upload the control plane, compute, and bootstrap Ignition config files that the
+installation program created to your HTTP server. Note the URLs of these files.
+
+ifndef::openshift-origin[]
+. Obtain the {op-system} images that are required for your preferred method
+of installing operating system instances from the
+link:https://access.redhat.com/downloads/content/290[Product Downloads] page on the Red
+Hat customer portal or the
+link:https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.4/[{op-system} image mirror]
+page.
++
+[IMPORTANT]
+====
+The {op-system} images might not change with every release of {product-title}.
+You must download images with the highest version that is less than or equal
+to the {product-title} version that you install. Use the image versions
+that match your {product-title} version if they are available.
+====
++
+You must download the ISO file and the RAW disk file.
+Those file names resemble the following examples:
+
+** ISO: `rhcos-<version>-installer.<architecture>.iso`
+** Compressed metal RAW: `rhcos-<version>-metal.<architecture>.raw.gz`
+endif::openshift-origin[]
+ifdef::openshift-origin[]
+. Obtain the {op-system} images from the
+link:https://getfedora.org/en/coreos/download?tab=metal_virtualized&stream=stable[{op-system} Downloads] page
+endif::openshift-origin[]
+
+. Upload either the RAW {op-system} image file to your HTTP server and
+note its URL.
+
+. Use the ISO to start the {op-system} installation. Use one of the following
+installation options:
+** Burn the ISO image to a disk and boot it directly.
+** Use ISO redirection via a LOM interface.
+
+. After the instance boots, press the `TAB` or `E` key to edit the kernel command line.
+. Add the parameters to the kernel command line:
++
+----
+coreos.inst=yes
+coreos.inst.install_dev=sda <1>
+coreos.inst.image_url=<bare_metal_image_URL> <2>
+coreos.inst.ignition_url=http://example.com/config.ign <3>
+ip=<dhcp or static IP address> <4> <5>
+----
+<1> Specify the block device of the system to install to.
+<2> Specify the URL of the RAW image that you uploaded to your server.
+<3> Specify the URL of the Ignition config file for this machine type.
+<4> Set `ip=dhcp` or set an individual static IP address (`ip=`) and DNS server (`nameserver=`) on each node.
+For example, setting
+`ip=10.10.10.2::10.10.10.254:255.255.255.0:core0.example.com:enp1s0:none nameserver=4.4.4.41` sets:
+* Node's IP address to `10.10.10.2`
+* Gateway address to `10.10.10.254`
+* Netmask to `255.255.255.0`
+* Hostname to `core0.example.com`
+* The DNS server address to `4.4.4.41`
+<5>  If you use multiple network interfaces or DNS servers, you can further customize the IP address configuration in the following ways:
+* If your system has multiple network interfaces, you can add multiple IP address configurations by specifying multiple `ip=` entries.
+* If your system has multiple network interfaces, you can use a combination of DHCP and static IP configurations. You must specify the interface to use, for example `ip=enp1s0:dhcp ip=10.10.10.2::10.10.10.254:255.255.255.0:core0.example.com:enp2s0:none`.
+* You can provide multiple DNS servers by adding a `nameserver=` entry for each server, such as `nameserver=1.1.1.1 nameserver=8.8.8.8`.
+
+. Press Enter to complete the installation. After {op-system} installs, the system
+reboots. After the system reboots, it applies the Ignition config file that you
+specified.
+
+. Continue to create the machines for your cluster.
++
+[IMPORTANT]
+====
+You must create the bootstrap and control plane machines at this time. Because
+some pods are deployed on compute machines by default, also create at least two
+compute machines before you install the cluster.
+====

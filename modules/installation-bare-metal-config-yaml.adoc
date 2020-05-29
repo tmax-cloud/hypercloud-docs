@@ -1,0 +1,140 @@
+// Module included in the following assemblies:
+//
+// * installing/installing_bare_metal/installing-bare-metal.adoc
+// * installing/installing_bare_metal/installing-restricted-networks-bare-metal.adoc
+// * installing/installing_ibm_z/installing-ibm-z.adoc
+
+ifeval::["{context}" == "installing-restricted-networks-bare-metal"]
+:restricted:
+endif::[]
+
+[id="installation-bare-metal-config-yaml_{context}"]
+= Sample `install-config.yaml` file for bare metal
+
+You can customize the `install-config.yaml` file to specify more details about
+your {product-title} cluster's platform or modify the values of the required
+parameters.
+
+[source,yaml]
+----
+apiVersion: v1
+baseDomain: example.com <1>
+compute:
+- hyperthreading: Enabled <2> <3>
+  name: worker
+  replicas: 0 <4>
+controlPlane:
+  hyperthreading: Enabled <2> <3>
+  name: master <3>
+  replicas: 3 <5>
+metadata:
+  name: test <6>
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14 <7>
+    hostPrefix: 23 <8>
+  networkType: OpenShiftSDN
+  serviceNetwork: <9>
+  - 172.30.0.0/16
+platform:
+  none: {} <10>
+fips: false <11>
+ifndef::restricted[]
+pullSecret: '{"auths": ...}' <12>
+endif::restricted[]
+ifdef::restricted[]
+pullSecret: '{"auths":{"<bastion_host_name>:5000": {"auth": "<credentials>","email": "you@example.com"}}}' <12>
+endif::restricted[]
+sshKey: 'ssh-ed25519 AAAA...' <13>
+ifdef::restricted[]
+additionalTrustBundle: | <14>
+  -----BEGIN CERTIFICATE-----
+  ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+  -----END CERTIFICATE-----
+imageContentSources: <15>
+- mirrors:
+  - <bastion_host_name>:5000/<repo_name>/release
+  source: quay.io/openshift-release-dev/ocp-release
+- mirrors:
+  - <bastion_host_name>:5000/<repo_name>/release
+  source: registry.svc.ci.openshift.org/ocp/release
+endif::restricted[]
+----
+<1> The base domain of the cluster. All DNS records must be sub-domains of this
+base and include the cluster name.
+<2> The `controlPlane` section is a single mapping, but the compute section is a
+sequence of mappings. To meet the requirements of the different data structures,
+the first line of the `compute` section must begin with a hyphen, `-`, and the
+first line of the `controlPlane` section must not. Although both sections
+currently define a single machine pool, it is possible that future versions
+of {product-title} will support defining multiple compute pools during
+installation. Only one control plane pool is used.
+<3> Whether to enable or disable simultaneous multithreading, or
+`hyperthreading`. By default, simultaneous multithreading is enabled
+to increase the performance of your machines' cores. You can disable it by
+setting the parameter value to `Disabled`. If you disable simultaneous
+multithreading in some cluster machines, you must disable it in all cluster
+machines.
++
+[IMPORTANT]
+====
+If you disable simultaneous multithreading, ensure that your capacity planning
+accounts for the dramatically decreased machine performance.
+====
+<4> You must set the value of the `replicas` parameter to `0`. This parameter
+controls the number of workers that the cluster creates and manages for you,
+which are functions that the cluster does not perform when you
+use user-provisioned infrastructure. You must manually deploy worker
+machines for the cluster to use before you finish installing {product-title}.
+<5> The number of control plane machines that you add to the cluster. Because
+the cluster uses this values as the number of etcd endpoints in the cluster, the
+value must match the number of control plane machines that you deploy.
+<6> The cluster name that you specified in your DNS records.
+<7> A block of IP addresses from which Pod IP addresses are allocated. This block must
+not overlap with existing physical networks. These IP addresses are used for the
+Pod network, and if you need to access the Pods from an external network, configure
+load balancers and routers to manage the traffic.
+<8> The subnet prefix length to assign to each individual node. For example, if
+`hostPrefix` is set to `23`, then each node is assigned a `/23` subnet out of
+the given `cidr`, which allows for 510 (2^(32 - 23) - 2) pod IPs addresses. If
+you are required to provide access to nodes from an external network, configure
+load balancers and routers to manage the traffic.
+<9> The IP address pool to use for service IP addresses. You can enter only
+one IP address pool. If you need to access the services from an external network,
+configure load balancers and routers to manage the traffic.
+<10> You must set the platform to `none`. You cannot provide additional platform
+configuration variables for bare metal infrastructure.
+<11> Whether to enable or disable FIPS mode. By default, FIPS mode is not enabled. If FIPS mode is enabled, the {op-system-first} machines that {product-title} runs on bypass the default Kubernetes cryptography suite and use the cryptography modules that are provided with {op-system} instead.
+ifndef::restricted[]
+<12> The pull secret that you obtained from the
+link:https://cloud.redhat.com/openshift/install/pull-secret[Pull Secret] page on the {cloud-redhat-com} site. This pull secret allows you to authenticate with the services that are
+provided by the included authorities, including Quay.io, which serves the
+container images for {product-title} components.
+endif::restricted[]
+ifdef::restricted[]
+<12> For `bastion_host_name`, specify the registry domain name
+that you specified in the certificate for your mirror registry, and for
+`<credentials>`, specify the base64-encoded user name and password for
+your mirror registry.
+endif::restricted[]
+<13> The public portion of the default SSH key for the `core` user in
+{op-system-first}.
++
+[NOTE]
+====
+For production {product-title} clusters on which you want to perform installation debugging or disaster recovery, specify an SSH key that your `ssh-agent` process uses.
+====
+ifdef::restricted[]
+<14> Provide the contents of the certificate file that you used for your mirror
+registry.
+<15> Provide the `imageContentSources` section from the output of the command to
+mirror the repository.
+endif::restricted[]
+
+
+ifeval::["{context}" == "installing-restricted-networks-bare-metal"]
+:!restricted:
+endif::[]
+ifdef::openshift-origin[]
+:!restricted:
+endif::[]

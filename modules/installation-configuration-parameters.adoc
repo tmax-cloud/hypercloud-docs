@@ -1,0 +1,452 @@
+// Module included in the following assemblies:
+//
+// * installing/installing_aws/installing-aws-customizations.adoc
+// * installing/installing_aws/installing-aws-network-customizations.adoc
+// * installing/installing_aws/installing-aws-private.adoc
+// * installing/installing_aws/installing-aws-vpc.adoc
+// * installing/installing_azure/installing-azure-customizations.adoc
+// * installing/installing_azure/installing-azure-network-customizations.adoc
+// * installing/installing_azure/installing-azure-private.adoc
+// * installing/installing_azure/installing-azure-vnet.adoc
+// * installing/installing_gcp/installing-gcp-customizations.adoc
+// * installing/installing_gcp/installing-gcp-private.adoc
+// * installing/installing_gcp/installing-gcp-network-customizations.adoc
+// * installing/installing_gcp/installing-gcp-vpc.adoc
+// * installing/installing_openstack/installing-openstack-installer-custom.adoc
+// * installing/installing_openstack/installing-openstack-installer-kuryr.adoc
+// * installing/installing_rhv/installing-rhv-custom.adoc
+// * installing/installing_rhv/installing-rhv-default.adoc
+
+ifeval::["{context}" == "installing-aws-customizations"]
+:aws:
+endif::[]
+ifeval::["{context}" == "installing-aws-network-customizations"]
+:aws:
+endif::[]
+ifeval::["{context}" == "installing-aws-private"]
+:aws:
+endif::[]
+ifeval::["{context}" == "installing-aws-vpc"]
+:aws:
+endif::[]
+ifeval::["{context}" == "installing-azure-customizations"]
+:azure:
+endif::[]
+ifeval::["{context}" == "installing-azure-network-customizations"]
+:azure:
+endif::[]
+ifeval::["{context}" == "installing-azure-vnet"]
+:azure:
+endif::[]
+ifeval::["{context}" == "installing-gcp-customizations"]
+:gcp:
+endif::[]
+ifeval::["{context}" == "installing-gcp-private"]
+:gcp:
+endif::[]
+ifeval::["{context}" == "installing-gcp-network-customizations"]
+:gcp:
+endif::[]
+ifeval::["{context}" == "installing-gcp-vpc"]
+:gcp:
+endif::[]
+ifeval::["{context}" == "installing-aws-customizations"]
+:aws:
+endif::[]
+ifeval::["{context}" == "installing-openstack-installer-custom"]
+:osp:
+:osp-custom:
+endif::[]
+ifeval::["{context}" == "installing-openstack-installer-kuryr"]
+:osp:
+:osp-kuryr:
+endif::[]
+
+
+[id="installation-configuration-parameters_{context}"]
+= Installation configuration parameters
+
+Before you deploy an {product-title} cluster, you provide parameter values to
+describe your account on the cloud platform that hosts your cluster
+and optionally customize your
+cluster's platform. When you create the `install-config.yaml` installation
+configuration file, you provide values for the required parameters through the
+command line. If you customize your cluster, you can modify the
+`install-config.yaml` file to provide more details about the platform.
+
+[NOTE]
+====
+You cannot modify these parameters in the `install-config.yaml` file after installation.
+====
+
+.Required parameters
+[cols=".^2,.^3,.^5a",options="header"]
+|====
+|Parameter|Description|Values
+
+|`baseDomain`
+|The base domain of your cloud provider. This value is used to create routes
+to your {product-title} cluster components. The full DNS name for your cluster
+is a combination of the `baseDomain` and `metadata.name` parameter values that
+uses the `<metadata.name>.<baseDomain>` format.
+|A fully-qualified domain or subdomain name, such as `example.com`.
+
+|`controlPlane.platform`
+|The cloud provider to host the control plane machines. This parameter value
+must match the `compute.platform` parameter value.
+|`aws`, `azure`, `gcp`, `openstack`, or `{}`
+
+|`compute.platform`
+|The cloud provider to host the worker machines. This parameter value
+must match the `controlPlane.platform` parameter value.
+|`aws`, `azure`, `gcp`, `openstack`, or `{}`
+
+|`metadata.name`
+|The name of your cluster.
+|A string that contains uppercase or lowercase letters, such as `dev`.
+ifdef::osp[]
+The string must be 14 characters or fewer long.
+endif::osp[]
+
+|`platform.<platform>.region`
+|The region to deploy your cluster in.
+|A valid region for your cloud, such as `us-east-1` for AWS, `centralus`
+for Azure. {rh-openstack-first} does not use this parameter.
+
+|`pullSecret`
+|The pull secret that you obtained from the
+link:https://cloud.redhat.com/openshift/install/pull-secret[Pull Secret] page on the {cloud-redhat-com} site.
+You use this pull secret to authenticate with the services that are
+provided by the included authorities, including Quay.io, which serves the
+container images for {product-title} components.
+ifdef::openshift-origin[]
+This field is optional.
+endif::[]
+|
+[source,json]
+----
+{
+   "auths":{
+      "cloud.openshift.com":{
+         "auth":"b3Blb=",
+         "email":"you@example.com"
+      },
+      "quay.io":{
+         "auth":"b3Blb=",
+         "email":"you@example.com"
+      }
+   }
+}
+----
+|====
+
+.Optional parameters
+[cols=".^2,.^3a,.^3a",options="header"]
+|====
+|Parameter|Description|Values
+
+|`sshKey`
+|The SSH key to use to access your cluster machines.
+[NOTE]
+====
+For production {product-title} clusters on which you want to perform installation debugging or disaster recovery, specify an SSH key that your `ssh-agent` process uses.
+====
+|A valid, local public SSH key that you added to the `ssh-agent` process.
+
+|`fips`
+|Whether to enable or disable FIPS mode. By default, FIPS mode is not enabled. If FIPS mode is enabled, the {op-system-first} machines that {product-title} runs on bypass the default Kubernetes cryptography suite and use the cryptography modules that are provided with {op-system} instead.
+|`false` or `true`
+
+|`publish`
+|How to publish the user-facing endpoints of your cluster.
+|`Internal` or `External`. Set `publish` to `Internal` to deploy a private cluster, which cannot be accessed from the internet. The default value is `External`.
+
+|`compute.hyperthreading`
+|Whether to enable or disable simultaneous multithreading, or `hyperthreading`,
+on compute machines. By default, simultaneous multithreading is enabled
+to increase the performance of your machines' cores.
+[IMPORTANT]
+====
+If you disable simultaneous multithreading, ensure that your capacity planning
+accounts for the dramatically decreased machine performance.
+====
+|`Enabled` or `Disabled`
+
+|`compute.replicas`
+|The number of compute machines, which are also known as worker machines, to provision.
+|A positive integer greater than or equal to `2`. The default value is `3`.
+
+|`controlPlane.hyperthreading`
+|Whether to enable or disable simultaneous multithreading, or `hyperthreading`,
+on control plane machines. By default, simultaneous multithreading is enabled
+to increase the performance of your machines' cores.
+[IMPORTANT]
+====
+If you disable simultaneous multithreading, ensure that your capacity planning
+accounts for the dramatically decreased machine performance.
+====
+|`Enabled` or `Disabled`
+
+|`controlPlane.replicas`
+|The number of control plane machines to provision.
+|A positive integer greater than or equal to `3`. The default value is `3`.
+|====
+
+ifdef::aws[]
+.Optional AWS parameters
+[cols=".^2,.^3,.^5a",options="header"]
+|====
+|Parameter|Description|Values
+
+|`compute.platform.aws.rootVolume.iops`
+|The Input/Output Operations Per Second (IOPS) that is reserved for the root volume.
+|Integer, for example `4000`.
+
+|`compute.platform.aws.rootVolume.size`
+|The size in GiB of the root volume.
+|Integer, for example `500`.
+
+|`compute.platform.aws.rootVolume.type`
+|The instance type of the root volume.
+|Valid link:https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html[AWS EBS instance type],
+such as `io1`.
+
+|`compute.platform.aws.type`
+|The EC2 instance type for the compute machines.
+|Valid link:https://aws.amazon.com/ec2/instance-types/[AWS instance type],
+such as `c5.9xlarge`.
+
+|`compute.platform.aws.zones`
+|The availability zones where the installation program creates machines for the compute MachinePool. If you provide your own VPC, you must provide a subnet in that availability zone.
+|A list of valid AWS availability zones, such as `us-east-1c`, in a
+link:https://yaml.org/spec/1.2/spec.html#sequence//[YAML sequence].
+
+|`compute.aws.region`
+|The AWS region that the installation program creates compute resources in.
+|Valid link:https://docs.aws.amazon.com/general/latest/gr/rande.html[AWS region],
+such as `us-east-1`.
+
+|`controlPlane.platform.aws.type`
+|The EC2 instance type for the control plane machines.
+|Valid link:https://aws.amazon.com/ec2/instance-types/[AWS instance type],
+such as `c5.9xlarge`.
+
+|`controlPlane.platform.aws.zones`
+|The availability zones where the installation program creates machines for the
+control plane MachinePool.
+|A list of valid AWS availability zones, such as `us-east-1c`, in a
+link:https://yaml.org/spec/1.2/spec.html#sequence//[YAML sequence].
+
+|`controlPlane.aws.region`
+|The AWS region that the installation program creates control plane resources in.
+|Valid link:https://docs.aws.amazon.com/general/latest/gr/rande.html[AWS region],
+such as `us-east-1`.
+
+|`platform.aws.userTags`
+|A map of keys and values that the installation program adds as tags to all
+resources that it creates.
+|Any valid YAML map, such as key value pairs in the `<key>: <value>` format.
+For more information about AWS tags,
+see link:https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html[Tagging Your Amazon EC2 Resources]
+in the AWS documentation.
+
+|`platform.aws.subnets`
+|If you provide the VPC instead of allowing the installation program to create the VPC for you, specify the subnet for the cluster to use. The subnet must be part of the same `machineNetwork[].cidr` ranges that you specify. For a standard cluster, specify a public and a private subnet for each availability zone. For a private cluster, specify a private subnet for each availability zone.
+|Valid subnet IDs.
+
+|====
+endif::aws[]
+
+ifdef::osp[]
+.Additional {rh-openstack-first} parameters
+[cols=".^2m,.^3a,^3a,options="header"]
+|====
+|Parameter|Description|Values
+
+|`compute.platform.openstack.rootVolume.size`
+|For compute machines, the size in gigabytes of the root volume. If you do not set this value, machines use ephemeral storage.
+|Integer, for example `30`.
+
+|`compute.platform.openstack.rootVolume.type`
+|For compute machines, the root volume's type.
+|String, for example `performance`.
+
+|`controlPlane.platform.openstack.rootVolume.size`
+|For control plane machines, the size in gigabytes of the root volume. If you do not set this value, machines use ephemeral storage.
+|Integer, for example `30`.
+
+|`controlPlane.platform.openstack.rootVolume.type`
+|For control plane machines, the root volume's type.
+|String, for example `performance`.
+
+|`platform.openstack.cloud`
+|The name of the {rh-openstack} cloud to use from the list of clouds in the
+`clouds.yaml` file.
+|String, for example `MyCloud`.
+
+|`platform.openstack.externalDNS`
+|_Optional_. IP addresses for external DNS servers that cluster instances use for DNS resolution.
+|A list of IP addresses as strings, for example `["8.8.8.8", "192.168.1.12"]`.
+
+|`platform.openstack.externalNetwork`
+|The {rh-openstack} external network name to be used for installation.
+|String, for example `external`.
+
+|`platform.openstack.computeFlavor`
+|The {rh-openstack} flavor to use for control plane and compute machines.
+|String, for example `m1.xlarge`.
+
+|`platform.openstack.lbFloatingIP`
+|An existing floating IP address to associate with the load balancer API.
+|An IP address, for example `128.0.0.1`.
+
+|`platform.openstack.defaultMachinePlatform`
+| _Optional_. The default machine pool platform configuration.
+|
+[source,json]
+----
+{
+   "type": "ml.large",
+   "rootVolume": {
+      "size": 30,
+      "type": "performance"
+   }
+}
+----
+|====
+endif::osp[]
+
+ifdef::azure[]
+.Additional Azure parameters
+[cols=".^2,.^3a,.^3a",options="header"]
+|====
+|Parameter|Description|Values
+
+|`machines.platform.azure.type`
+|The Azure VM instance type.
+|VMs that use Windows or Linux as the operating system. See the
+link:https://docs.microsoft.com/en-us/azure-stack/operator/azure-stack-supported-os?view=azs-1908[Guest operating systems supported on Azure Stack]
+in the Azure documentation.
+
+|`machines.platform.azure.osDisk.diskSizeGB`
+|The Azure disk size for the VM.
+|Integer that represents the size of the disk in GB, for example `512`. The
+minimum supported disk size is `120`.
+
+|`platform.azure.baseDomainResourceGroupName`
+|The name of the resource group that contains the DNS zone for your base domain.
+|String, for example `production_cluster`.
+
+|`platform.azure.region`
+|The name of the Azure region that hosts your cluster.
+|Any valid region name.
+
+|`platform.azure.zone`
+|List of availability zones to place machines in. For high availability, specify
+at least two zones.
+|List of zones, for example `["1", "2", "3"]`.
+
+|`platform.azure.networkResourceGroupName`
+|The name of the resource group that contains the existing VNet that you want to deploy your cluster to. This name cannot be the same as the `platform.azure.baseDomainResourceGroupName`.
+|String.
+
+|`platform.azure.virtualNetwork`
+|The name of the existing VNet that you want to deploy your cluster to.
+|String.
+
+|`platform.azure.controlPlaneSubnet`
+|The name of the existing subnet in your VNet that you want to deploy your control plane machines to.
+|Valid CIDR, for example `10.0.0.0/16`.
+
+|`platform.azure.computeSubnet`
+|The name of the existing subnet in your VNet that you want to deploy your compute machines to.
+|Valid CIDR, for example `10.0.0.0/16`.
+
+|====
+
+[NOTE]
+====
+You cannot customize
+link:https://azure.microsoft.com/en-us/global-infrastructure/availability-zones/[Azure Availability Zones]
+or
+link:https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-using-tags[Use tags to organize your Azure resources]
+with an Azure cluster.
+====
+endif::azure[]
+
+
+ifdef::gcp[]
+.Additional Google Cloud Platform (GCP) parameters
+[cols=".^2,.^3a,.^3a",options="header"]
+|====
+|Parameter|Description|Values
+
+|`platform.gcp.network`
+|The name of the existing VPC that you want to deploy your cluster to.
+|String.
+
+|`platform.gcp.type`
+|The link:https://cloud.google.com/compute/docs/machine-types[GCP machine type].
+|The GCP machine type.
+
+|`platform.gcp.zones`
+|The availability zones where the installation program creates machines for the
+specified MachinePool.
+|A list of valid link:https://cloud.google.com/compute/docs/regions-zones#available[GCP availability zones], such as `us-central1-a`, in a
+link:https://yaml.org/spec/1.2/spec.html#sequence//[YAML sequence].
+
+|`platform.gcp.controlPlaneSubnet`
+|The name of the existing subnet in your VPC that you want to deploy your control plane machines to.
+|The subnet name.
+
+|`platform.gcp.computeSubnet`
+|The name of the existing subnet in your VPC that you want to deploy your compute machines to.
+|The subnet name.
+|====
+
+endif::gcp[]
+
+ifeval::["{context}" == "installing-aws-customizations"]
+:!aws:
+endif::[]
+ifeval::["{context}" == "installing-aws-network-customizations"]
+:!aws:
+endif::[]
+ifeval::["{context}" == "installing-aws-private"]
+:!aws:
+endif::[]
+ifeval::["{context}" == "installing-aws-vpc"]
+:!aws:
+endif::[]
+ifeval::["{context}" == "installing-azure-customizations"]
+:!azure:
+endif::[]
+ifeval::["{context}" == "installing-azure-network-customizations"]
+:!azure:
+endif::[]
+ifeval::["{context}" == "installing-azure-vnet"]
+:!azure:
+endif::[]
+ifeval::["{context}" == "installing-gcp-customizations"]
+:!gcp:
+endif::[]
+ifeval::["{context}" == "installing-gcp-private"]
+:!gcp:
+endif::[]
+ifeval::["{context}" == "installing-gcp-network-customizations"]
+:!gcp:
+endif::[]
+ifeval::["{context}" == "installing-gcp-vpc"]
+:!gcp:
+endif::[]
+ifeval::["{context}" == "installing-aws-customizations"]
+:!aws:
+endif::[]
+ifeval::["{context}" == "installing-openstack-installer-custom"]
+:!osp:
+:!osp-custom:
+endif::[]
+ifeval::["{context}" == "installing-openstack-installer-kuryr"]
+:!osp:
+:!osp-kuryr:
+endif::[]

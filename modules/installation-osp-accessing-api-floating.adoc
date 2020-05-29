@@ -1,0 +1,46 @@
+// Module included in the following assemblies:
+//
+// * installing/installing_openstack/installing-openstack-installer.adoc
+// * installing/installing_openstack/installing-openstack-installer-custom.adoc
+// * installing/installing_openstack/installing-openstack-installer-kuryr.adoc
+// * installing/installing_openstack/installing-openstack-user.adoc
+
+[id="installation-osp-accessing-api-floating_{context}"]
+= Enabling access with floating IP addresses
+
+Create two floating IP (FIP) addresses: one for external access to the {product-title} API, the `API FIP`, and one for {product-title} applications, the `apps FIP`.
+
+[IMPORTANT]
+The API FIP is also used in the `install-config.yaml` file.
+
+.Procedure
+
+. Using the {rh-openstack-first} CLI, create the API FIP:
++
+----
+$ openstack floating ip create --description "API <cluster_name>.<base_domain>" <external network>
+----
+
+. Using the {rh-openstack-first} CLI, create the apps, or Ingress, FIP:
++
+----
+$ openstack floating ip create --description "Ingress <cluster_name>.<base_domain>" <external network>
+----
+
+. To reflect the new FIPs, add records that follow these patterns to your DNS server:
++
+[source,dns]
+----
+api.<cluster_name>.<base_domain>.  IN  A  <API_FIP>
+*.apps.<cluster_name>.<base_domain>. IN  A <apps_FIP>
+----
++
+[NOTE]
+====
+If you do not control the DNS server you can add the record to your `/etc/hosts` file instead. This action makes the API accessible to you only, which is not suitable for production deployment but does allow installation for development and testing.
+====
+
+[TIP]
+====
+You can make {product-title} resources available outside of the cluster by assigning a floating IP address and updating your firewall configuration.
+====

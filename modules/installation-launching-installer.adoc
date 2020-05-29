@@ -1,0 +1,391 @@
+// Module included in the following assemblies:
+//
+// * installing/installing_aws/installing-aws-customizations.adoc
+// * installing/installing_aws/installing-aws-default.adoc
+// * installing/installing_aws/installing-aws-network-customizations.adoc
+// * installing/installing_aws/installing-aws-private.adoc
+// * installing/installing_aws/installing-aws-vpc.adoc
+// * installing/installing_azure/installing-azure-customizations.adoc
+// * installing/installing_azure/installing-azure-default.adoc
+// * installing/installing_azure/installing-azure-private.adoc
+// * installing/installing_azure/installing-azure-vnet.adoc
+// * installing/installing_gcp/installing-gcp-customizations.adoc
+// * installing/installing_gcp/installing-gcp-private.adoc
+// * installing/installing_gcp/installing-gcp-default.adoc
+// * installing/installing_gcp/installing-gcp-vpc.adoc
+// * installing/installing_openstack/installing-openstack-installer-custom.adoc
+// * installing/installing_openstack/installing-openstack-installer-kuryr.adoc
+// * installing/installing_openstack/installing-openstack-installer.adoc
+// * installing/installing_rhv/installing-rhv-customizations.adoc
+// * installing/installing_rhv/installing-rhv-default.adoc
+// If you use this module in any other assembly, you must update the ifeval
+// statements.
+
+ifeval::["{context}" == "installing-aws-customizations"]
+:custom-config:
+:aws:
+endif::[]
+ifeval::["{context}" == "installing-aws-network-customizations"]
+:custom-config:
+:aws:
+endif::[]
+ifeval::["{context}" == "installing-aws-vpc"]
+:custom-config:
+:aws:
+endif::[]
+ifeval::["{context}" == "installing-aws-default"]
+:no-config:
+:aws:
+endif::[]
+ifeval::["{context}" == "installing-azure-default"]
+:no-config:
+:azure:
+endif::[]
+ifeval::["{context}" == "installing-gcp-customizations"]
+:custom-config:
+:gcp:
+endif::[]
+ifeval::["{context}" == "installing-gcp-vpc"]
+:custom-config:
+:gcp:
+endif::[]
+ifeval::["{context}" == "installing-gcp-default"]
+:no-config:
+:gcp:
+endif::[]
+ifeval::["{context}" == "installing-azure-customizations"]
+:custom-config:
+:azure:
+endif::[]
+ifeval::["{context}" == "installing-azure-vnet"]
+:custom-config:
+:azure:
+endif::[]
+ifeval::["{context}" == "installing-azure-network-customizations"]
+:custom-config:
+:azure:
+endif::[]
+ifeval::["{context}" == "installing-openstack-installer-custom"]
+:osp:
+:custom-config:
+endif::[]
+ifeval::["{context}" == "installing-openstack-installer-kuryr"]
+:osp:
+:custom-config:
+endif::[]
+ifeval::["{context}" == "installing-openstack-installer"]
+:osp:
+endif::[]
+ifeval::["{context}" == "installing-rhv-customizations"]
+:custom-config:
+:rhv:
+endif::[]
+ifeval::["{context}" == "installing-rhv-default"]
+:no-config:
+:rhv:
+endif::[]
+
+[id="installation-launching-installer_{context}"]
+= Deploying the cluster
+
+You can install {product-title} on a compatible cloud platform.
+
+[IMPORTANT]
+====
+You can run the `create cluster` command of the installation program only once, during initial installation.
+====
+
+.Prerequisites
+
+ifndef::osp,rhv[* Configure an account with the cloud platform that hosts your cluster.]
+
+* Obtain the {product-title} installation program and the pull secret for your
+cluster.
+ifdef::rhv[]
+* xref:../../installing/installing_rhv/installing-rhv-creating-custom-vm.adoc#installing-rhv-creating-custom-vm[Create a custom virtual machine template on {rh-virtualization}]. Otherwise, the {product-title} cluster will fail.
+endif::rhv[]
+
+
+.Procedure
+
+ifdef::gcp[]
+. Remove any existing GCP credentials that do not use the service account key
+for the GCP account that you configured for your cluster and that are stored in the
+following locations:
+** The `GOOGLE_CREDENTIALS`, `GOOGLE_CLOUD_KEYFILE_JSON`, or `GCLOUD_KEYFILE_JSON`
+environment variables
+** The `~/.gcp/osServiceAccount.json` file
+** The `gcloud cli` default credentials
+endif::gcp[]
+
+. Run the installation program:
++
+ifndef::rhv[]
+----
+$ ./openshift-install create cluster --dir=<installation_directory> \ <1>
+    --log-level=info <2>
+----
+<1> For `<installation_directory>`, specify the
+ifdef::custom-config[]
+location of your customized `./install-config.yaml` file.
+endif::custom-config[]
+ifdef::no-config[]
+directory name to store the files that the installation program creates.
+endif::no-config[]
+<2> To view different installation details, specify `warn`, `debug`, or
+`error` instead of `info`.
+endif::rhv[]
+ifdef::rhv[]
+----
+$ sudo ./openshift-install create cluster --dir=<installation_directory> \ <1>
+    --log-level=info <2>
+----
+<1> For `<installation_directory>`, specify the
+ifdef::custom-config[]
+location of your customized `install-config.yaml` file.
+endif::custom-config[]
+ifdef::no-config[]
+directory name to store the files that the installation program creates.
+endif::no-config[]
+<2> To view different installation details, specify `warn`, `debug`, or
+`error` instead of `info`.
+endif::rhv[]
+ifdef::no-config[]
++
+[IMPORTANT]
+====
+Specify an empty directory. Some installation assets, like bootstrap X.509
+certificates have short expiration intervals, so you must not reuse an
+installation directory. If you want to reuse individual files from another
+cluster installation, you can copy them into your directory. However, the file
+names for the installation assets might change between releases. Use caution
+when copying installation files from an earlier {product-title} version.
+====
++
+--
+ifndef::rhv[]
+Provide values at the prompts:
+
+.. Optional: Select an SSH key to use to access your cluster machines.
++
+[NOTE]
+====
+For production {product-title} clusters on which you want to perform installation debugging or disaster recovery, specify an SSH key that your `ssh-agent` process uses.
+====
+ifdef::aws[]
+.. Select *aws* as the platform to target.
+.. If you do not have an Amazon Web Services (AWS) profile stored on your computer, enter the AWS
+access key ID and secret access key for the user that you configured to run the
+installation program.
+.. Select the AWS region to deploy the cluster to.
+.. Select the base domain for the Route53 service that you configured for your cluster.
+endif::aws[]
+ifdef::azure[]
+.. Select *azure* as the platform to target.
+.. If you do not have a Microsoft Azure profile stored on your computer, specify the
+following Azure parameter values for your subscription and service principal:
+*** *azure subscription id*: The subscription ID to use for the cluster.
+Specify the `id` value in your account output.
+*** *azure tenant id*: The tenant ID. Specify the `tenantId` value in your
+account output.
+*** *azure service principal client id*: The value of the `appId` parameter
+for the service principal.
+*** *azure service principal client secret*: The value of the `password`
+parameter for the service principal.
+.. Select the region to deploy the cluster to.
+.. Select the base domain to deploy the cluster to. The base domain corresponds
+to the Azure DNS Zone that you created for your cluster.
+endif::azure[]
+ifdef::gcp[]
+.. Select *gcp* as the platform to target.
+.. If you have not configured the service account key for your GCP account on
+your computer, you must obtain it from GCP and paste the contents of the file
+or enter the absolute path to the file.
+.. Select the project ID to provision the cluster in. The default value is
+specified by the service account that you configured.
+.. Select the region to deploy the cluster to.
+.. Select the base domain to deploy the cluster to. The base domain corresponds
+to the public DNS zone that you created for your cluster.
+endif::gcp[]
+ifdef::osp[]
+.. Select *openstack* as the platform to target.
+.. Specify the {rh-openstack-first} external network name to use for installing the cluster.
+.. Specify the Floating IP address to use for external access to the OpenShift API.
+.. Specify the {rh-openstack} flavor with at least 16 GB RAM to use for control plane
+and compute nodes.
+.. Select the base domain to deploy the cluster to. All DNS records will be
+sub-domains of this base and will also include the cluster name.
+endif::osp[]
+.. Enter a descriptive name for your cluster.
+ifdef::azure[]
++
+[IMPORTANT]
+====
+All Azure resources that are available through public endpoints are subject to
+resource name restrictions, and you cannot create resources that use certain
+terms. For a list of terms that Azure restricts, see
+link:https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-reserved-resource-name[Resolve reserved resource name errors]
+in the Azure documentation.
+====
+endif::azure[]
+ifdef::gcp[]
+If you provide a name that is longer
+than 6 characters, only the first 6 characters will be used in the infrastructure
+ID that is generated from the cluster name.
+endif::gcp[]
+.. Paste the pull secret that you obtained from the
+link:https://cloud.redhat.com/openshift/install/pull-secret[Pull Secret] page on the {cloud-redhat-com} site.
+ifdef::openshift-origin[]
+This field is optional.
+endif::[]
+endif::rhv[]
+ifdef::rhv[]
+Respond to the installation program prompts.
+
+.. Optional: For `SSH Public Key`, select a password-less public key, such as `~/.ssh/id_rsa.pub`. This key authenticates connections with the new {product-title} cluster.
++
+[NOTE]
+====
+For production {product-title} clusters on which you want to perform installation debugging or disaster recovery, select an SSH key that your `ssh-agent` process uses.
+====
+.. For `Platform`, select `ovirt`.
+.. For `Enter oVirt's API endpoint URL`, enter the URL of the {rh-virtualization} API using this format:
++
+----
+https://<engine-fqdn>/ovirt-engine/api <1>
+----
++
+<1> For `<engine-fqdn>`, specify the fully qualified domain name of the {rh-virtualization} environment.
++
+For example:
++
+----
+https://rhv-env.virtlab.example.com/ovirt-engine/api
+----
++
+.. For `Is the installed oVirt certificate trusted?`, enter `Yes` since you have already set up a CA certificate. Otherwise, enter `No`.
+.. For `oVirt's CA bundle`, if you entered `Yes` for the preceding question, copy the certificate content from `/etc/pki/ca-trust/source/anchors/ca.pem` and paste it here. Then, press `Enter` twice. Otherwise, if you entered `No` for the preceding question, this question does not appear.
+.. For `Enter the oVirt engine username`, enter the username and profile of the {rh-virtualization} administrator using this format:
++
+----
+<username>@<profile> <1>
+----
++
+<1> For `<username>`, specify the username of an {rh-virtualization} administrator. For `<profile>`, specify the login profile, which you can get by going to the {rh-virtualization} Administration Portal login page and reviewing the *Profile* dropdown list. Together, the user name and profile should look similar to this example:
++
+----
+admin@internal
+----
++
+.. For `Enter password`, enter the {rh-virtualization} admin password.
+.. For `Select the oVirt cluster`, select the cluster for installing {product-title}.
+.. For `Select the oVirt storage domain`, select the storage domain for installing {product-title}.
+.. For `Select the oVirt network`, select a virtual network that has access to the {rh-virtualization} Manager REST API.
+.. For `Enter the internal API Virtual IP`, enter the static IP address you set aside for the cluster’s REST API.
+.. For `Enter the internal DNS Virtual IP`, enter the static IP address you set aside for the cluster’s internal DNS service.
+.. For `Enter the ingress IP`, enter the static IP address you reserved for the wildcard apps domain.
+.. For `Base domain`, enter the base domain of the {product-title} cluster. If this cluster is exposed to the outside world, this must be a valid domain recognized by DNS infrastructure. For example, enter: `virtlab.example.com`
+.. For `Cluster name`, enter the name of the cluster. For example, `my-cluster`. Use cluster name from the externally registered/resolvable DNS entries you created for the {product-title} REST API and apps domain names. The installation program also gives this name to the cluster in the {rh-virtualization} environment.
+.. For `Pull secret`, copy the pull secret from the `pull-secret.txt` file you downloaded earlier and paste it here. You can also get a copy of the same pull secret from the link:https://cloud.redhat.com/openshift/install/pull-secret[Pull Secret] page on the {cloud-redhat-com} site.
+endif::rhv[]
+--
+endif::no-config[]
++
+[NOTE]
+====
+If the cloud provider account that you configured on your host does not have sufficient
+permissions to deploy the cluster, the installation process stops, and the
+missing permissions are displayed.
+====
++
+When the cluster deployment completes, directions for accessing your cluster,
+including a link to its web console and credentials for the `kubeadmin` user,
+display in your terminal.
++
+[IMPORTANT]
+====
+The Ignition config files that the installation program generates contain certificates that expire after 24 hours. You must keep the cluster running for 24 hours in a non-degraded state to ensure that the first certificate rotation has finished.
+====
++
+[IMPORTANT]
+====
+You must not delete the installation program or the files that the installation
+program creates. Both are required to delete the cluster.
+====
+
+ifdef::aws[]
+. Optional: Remove or disable the `AdministratorAccess` policy from the IAM
+account that you used to install the cluster.
+endif::aws[]
+
+ifdef::gcp[]
+. Optional: You can reduce the number of permissions for the service account that you used to install the cluster.
+** If you assigned the `Owner` role to your service account, you can remove that role and replace it with the `Viewer` role.
+** If you included the `Service Account Key Admin` role,
+you can remove it.
+endif::gcp[]
+
+
+ifeval::["{context}" == "installing-aws-customizations"]
+:!custom-config:
+:!aws:
+endif::[]
+ifeval::["{context}" == "installing-aws-network-customizations"]
+:!custom-config:
+:!aws:
+endif::[]
+ifeval::["{context}" == "installing-aws-vpc"]
+:!custom-config:
+:!aws:
+endif::[]
+ifeval::["{context}" == "installing-aws-default"]
+:!no-config:
+:!aws:
+endif::[]
+ifeval::["{context}" == "installing-azure-default"]
+:!no-config:
+:!azure:
+endif::[]
+ifeval::["{context}" == "installing-azure-network-customizations"]
+:!custom-config:
+:!azure:
+endif::[]
+ifeval::["{context}" == "installing-gcp-customizations"]
+:!custom-config:
+:!gcp:
+endif::[]
+ifeval::["{context}" == "installing-gcp-vpc"]
+:!custom-config:
+:!gcp:
+endif::[]
+ifeval::["{context}" == "installing-gcp-default"]
+:!no-config:
+:!gcp:
+endif::[]
+ifeval::["{context}" == "installing-azure-customizations"]
+:!custom-config:
+:!azure:
+endif::[]
+ifeval::["{context}" == "installing-azure-vnet"]
+:!custom-config:
+:!azure:
+endif::[]
+ifeval::["{context}" == "installing-openstack-installer-custom"]
+:!osp:
+:!custom-config:
+endif::[]
+ifeval::["{context}" == "installing-openstack-installer-kuryr"]
+:!osp:
+:!custom-config:
+endif::[]
+ifeval::["{context}" == "installing-openstack-installer"]
+:!osp:
+endif::[]
+ifeval::["{context}" == "installing-rhv-customizations"]
+:!custom-config:
+:!rhv:
+endif::[]
+ifeval::["{context}" == "installing-rhv-default"]
+:!no-config:
+:!rhv:
+endif::[]

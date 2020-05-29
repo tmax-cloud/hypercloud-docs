@@ -1,0 +1,82 @@
+// Module included in the following assemblies:
+//
+// * nodes/nodes-nodes-managing.adoc
+
+[id="nodes-nodes-managing-about_{context}"]
+= Modifying Nodes
+
+To make configuration changes to a cluster, or MachinePool, you must create a Custom Resource Definition, or KubeletConfig instance. {product-title} uses the Machine Config Controller to watch for changes introduced through the CRD applies the changes to the cluster.
+
+.Procedure
+
+. Obtain the label associated with the static CRD, Machine Config Pool, for the type of node you want to configure.
+Perform one of the following steps:
+
+.. Check current labels of the desired machineconfigpool.
++
+For example:
++
+----
+$  oc get machineconfigpool  --show-labels 
+NAME      CONFIG                                             UPDATED   UPDATING   DEGRADED   LABELS
+master    rendered-master-e05b81f5ca4db1d249a1bf32f9ec24fd   True      False      False      operator.machineconfiguration.openshift.io/required-for-upgrade=
+worker    rendered-worker-f50e78e1bc06d8e82327763145bfcf62   True      False      False      
+----
+
+.. Add a custom label to the desired machineconfigpool.
++
+For example:
++
+----
+$ oc label machineconfigpool worker custom-kubelet=enabled
+----
+
+
+. Create a KubeletConfig Custom Resource (CR) for your configuration change.
++
+For example:
++
+.Sample configuration for a *custom-config* CR
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: KubeletConfig
+metadata:
+  name: custom-config <1>
+spec:
+  machineConfigPoolSelector:
+    matchLabels:
+      custom-kubelet: enabled <2>
+  kubeletConfig: <3>
+    podsPerCore: 10
+    maxPods: 250
+    systemReserved:
+      cpu: 1000m
+      memory: 500Mi
+    kubeReserved:
+      cpu: 1000m
+      memory: 500Mi
+----
+<1> Assign a name to CR.
+<2> Specify the label to apply the configuration change, this is the label you added to the machineconfigpool.
+<3> Specify the new value(s) you want to change.
+
+. Create the CR object.
++
+----
+$ oc create -f <file-name>
+----
++
+For example:
++
+----
+$ oc create -f master-kube-config.yaml
+----
+
+Most https://github.com/kubernetes/kubernetes/blob/release-1.11/pkg/kubelet/apis/kubeletconfig/v1beta1/types.go#L45[KubeletConfig Options]  may be set by the user. The following options are not allowed to be overwritten:
+
+* CgroupDriver
+* ClusterDNS
+* ClusterDomain
+* RuntimeRequestTimeout
+* StaticPodPath
+
