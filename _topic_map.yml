@@ -44,3 +44,9 @@ Topics:
     File: working-with-projects
 - Name: Pruning objects to reclaim resources
   File: pruning-objects
+---
+Name: OpenShift REST APIs
+Dir: rest_api
+Topics:
+- Name: API endpoints
+  File: index
