@@ -1,0 +1,863 @@
+[id="contributing-to-docs-doc-guidelines"]
+= Documentation guidelines
+include::modules/common-attributes.adoc
+:toc: macro
+
+The documentation guidelines for OpenShift 4 build on top of the
+link:https://redhat-documentation.github.io/modular-docs/[Red Hat modular docs reference guide].
+
+toc::[]
+
+== General file guidelines
+
+* Set your editor to strip trailing whitespace.
+
+== Assembly file metadata
+Every assembly file should contain the following metadata at the top, with no line
+spacing in between, except where noted:
+
+----
+[id="<unique-heading-for-assembly>"]                            <1>
+= Assembly title                                                <2>
+include::modules/common-attributes.adoc[]                       <3>
+:context: <unique-context-for-assembly>                         <4>
+----
+
+<1> A unique (within OpenShift docs) anchor id for this assembly. Example: cli-developer-commands
+<2> Human readable title (notice the '=' top-level header)
+<3> Includes all attributes common to OpenShift docs
+<4> Context used for identifying headers in modules that is the same as the anchor id. Example: cli-developer-commands.
+
+After the heading block and a single whitespace line, you can include any content for this assembly.
+
+[NOTE]
+====
+The assembly title, which is the first line of the document, is the only level 1 ( = ) title.
+Section headers within the assembly must be level 2 ( == ) or lower. When you include modules, you must add
+leveloffsets in the include statements. You can manually add more level 2 or lower section headers in the assembly.
+====
+
+== Module file metadata
+Every module should be placed in the modules folder and should contain the following metadata at the top:
+
+----
+// Module included in the following assemblies:
+//
+// * list of assemblies where this module is included              <1>
+
+[id="<module-anchor>_{context}"]                                   <2>
+= Module title                                                     <3>
+----
+
+<1> List of assemblies in which this module is included.
+<2> A module anchor with {context} that must match the module's file name.
+<3> Human readable title. To ensure consistency in the results of the
+leveloffset values in include statements, you must use a level one heading
+( = ) for the module title.
+
+Example:
+
+----
+// Module included in the following assemblies:
+//
+// * cli_reference/openshift_cli/developer-cli-commands.adoc
+
+[id="cli-basic-commands_{context}"]
+= Basic CLI commands
+----
+
+*All headings after the initial title must have a section anchor, with no line spaces between the
+anchor and the section title and the anchor id should be similar to the section title*:
+
+----
+[id="<section-anchor>_{context}"]
+=== Section title
+----
+
+== Assembly/module file names
+
+Try to shorten the file name as much as possible _without_ abbreviating
+important terms that may cause confusion. For example, the
+`managing-authorization-policies.adoc` file name would be appropriate for an
+assembly titled "Managing Authorization Policies".
+
+== Directory names
+
+If you create a directory with a multiple-word name, separate each word with an
+underscore, for example `backup_and_restore`. Do not create a top-level directory
+in the repository without checking with the docs team. In the main OpenShift
+docs, you can create one level of subdirectories. In the docs for features that
+are designed to be used with OpenShift, such as Service Mesh and OpenShift virtualization,
+you can create two levels of subdirectories.
+
+== Assembly/Module titles and section headings
+
+Use sentence case in all titles and section headings. See http://www.titlecase.com/ or
+https://convertcase.net/ for a conversion tool.
+
+Try to be as descriptive as possible with the title or section headings
+without making them unnecessarily too long. For assemblies and task modules,
+use a gerund form in headings, such as:
+
+* Creating
+* Managing
+* Using
+
+Do not use "Overview" as a heading.
+
+=== Discrete headings
+
+If you have a section heading that you do not want to appear in the TOC
+(like if you think that some section is not worth showing up or if there are already
+too many nested levels), you can use a discrete (or floating) heading:
+
+http://asciidoctor.org/docs/user-manual/#discrete-or-floating-section-titles
+
+A discrete heading also will not get a section number in the Customer Portal
+build of the doc. Previously, we would use plain bold mark-up around a heading
+like this, but discrete headings also allow you to ignore section nesting rules
+(like jumping from a `==` section level to a `====` level if you wanted for some
+style reason).
+
+To use a discrete heading, just add `[discrete]` to the line before your unique
+ID. For example:
+
+----
+[discrete]
+[id="managing-authorization-policies_{context}"]
+== Managing authorization policies
+----
+
+== Writing concepts
+A _concept_ contains information to support the tasks that users want to do and
+must not include task information like commands or numbered steps. In most
+cases, create your concepts as individual modules and include them in
+appropriate assemblies. Avoid using gerunds in concept titles. "About <concept>"
+is a common concept module title.
+
+For more information about writing concepts, see the
+link:https://redhat-documentation.github.io/modular-docs/[Red Hat modular docs reference guide].
+
+== Writing tasks
+A _task_ contains the steps that users follow to complete a process. Tasks
+contain ordered steps and explicit commands. In most cases, create your tasks
+as individual modules and include them in appropriate assemblies.
+
+[IMPORTANT]
+====
+Use a verb in the task title (for example, Creating).
+====
+
+Task modules take the following form:
+
+----
+<module_metadata>
+
+After the module file metadata, include a paragraph explaining why the user must
+perform this task. This should be 1-2 sentences maximum.
+
+If applicable, include any gotchas (things that could trip up the user or cause the task to fail).
+
+.Prerequisites
+
+* A bulleted list of prerequisites that MUST be performed before the user can complete this task.
+Skip if there isn't any related information.
+
+.Procedure
+
+. Step 1 - One command per step.
+
+. Step 2 - One command per step.
+
+. Step N
+
+.Next steps
+
+You can explain any other tasks that MUST be completed after this task. You can
+skip this if there are none. Do not include xrefs. If the next steps are closely
+related to the task, you might be able to include their modules in the assembly.
+
+.Related information
+
+* A bulleted list of links to related information about this task. Skip if there isn't any related information.
+----
+
+For more information about writing tasks, see the
+link:https://redhat-documentation.github.io/modular-docs/[Red Hat modular docs reference guide].
+
+== Product name & version
+
+When possible, generalize references to the product name and/or version using
+the `{product-title}` and/or `{product-version}` attributes. These attributes
+are pulled from distro mapping definitions in the
+https://github.com/openshift/openshift-docs/blob/master/_distro_map.yml[distro_map.yml]
+file.
+
+The `{product-title}` comes from the first `name:` field in a distro mapping,
+while the associated `{product-version}` comes from the `name:` fields on any
+`branches:` defined.
+
+How these attributes render is dependent on which distro and branch build you
+are viewing. The following table shows the current distros and the
+possible values for `{product-title}` and `{product-version}`.
+
+[options="header"]
+|===
+|Distro |`{product-title}` |`{product-version}`
+
+|`openshift-origin`
+|OKD
+|1.2, 1.3, 1.4, 1.5, 3.6, 3.7, 3.9, 3.10, 3.11, Latest
+
+|`openshift-enterprise`
+|OpenShift Container Platform
+|3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.9, 3.10, 3.11, 4.1, 4.2
+
+|`openshift-dedicated`
+|OpenShift Dedicated
+|Latest
+
+|`openshift-online`
+|OpenShift Online
+|Latest
+|===
+
+For example:
+
+----
+You can deploy applications on {product-title}.
+----
+
+This is a safe statement that could appear in probably any of the builds, so an
+https://github.com/openshift/openshift-docs/blob/master/contributing_to_docs/contributing.adoc#conditional-text-between-products[ifdef/endif
+statement] is not necessary. For example, if you were viewing a build for the
+`openshift-enterprise` distro (for any of the distro-defined branches), this
+would render as:
+
+"You can deploy applications on OpenShift Container Platform."
+
+And for the `openshift-origin` distro:
+
+"You can deploy applications on OKD."
+
+Considering that we use distinct branches to keep content for product versions
+separated, global use of `{product-version}` across all branches is probably
+less useful, but it is available if you come across a requirement for it. Just consider
+how it will render across any branches that the content appears in.
+
+If it makes more sense in context to refer to the major version of the product
+instead of a specific minor version (for example, if comparing how something in
+OpenShift Container Platform 4 differs from OpenShift Container Platform 3),
+just use the major version number. Do not prepend with a `v`, as in `v3` or `v4`.
+
+Do not use markup in headings.
+
+*Do not use internal company server names in command or example output*. See
+suggested host name examples
+https://docs.openshift.com/container-platform/3.11/install/example_inventories.html#multi-masters-single-etcd-using-native-ha[here].
+
+
+== Links, hyperlinks, and cross references
+Links can be used to cross-reference internal assemblies or send customers to external information resources for further reading.
+
+In OpenShift docs:
+
+* All links to internal content is created using `xref` and **must have an anchor ID**.
+* Only use `xref` in assemblies, not modules.
+* All links to external websites are created using `link`.
+
+[IMPORTANT]
+====
+Do not split link paths across lines when wrapping text. This will cause issues with the doc builds.
+====
+
+=== Example URLs
+To provide an example URL path that you do not want to render as a hyperlink, use this format:
+
+....
+`\https://www.example.com`
+....
+
+=== Internal cross-references
+Whenever possible the link to another assembly should be part of the actual sentence.
+Avoid creating links as a separate sentence that begins with "See [this assembly] for more information on x".
+
+[NOTE]
+====
+Use the relative file path (from the file you are editing, to the file you are linking to),
+even if you are linking to the same directory that you are writing in. This makes search and replace
+operations to fix broken links much easier.
+
+For example, if you are writing in *_architecture/core_concepts/deployments.adoc_* and you want to
+link to *_architecture/core_concepts/routes.adoc_* then you must include the path back to the first
+level of the assembly directory:
+
+----
+xref:../../architecture/networking/routes.adoc#architecture-core-concepts-routes
+----
+====
+
+.Markup example of cross-referencing
+----
+Rollbacks revert part of an application back to a previous deployment. Rollbacks can be performed using the REST API or
+the xref:../cli_reference/openshift_cli/get_started_cli.adoc#installing-the-cli[OpenShift CLI].
+
+Before you can create a domain, you must first xref:../dev_guide/application_lifecycle/new_app.adoc#dev-guide-new-app[create an application].
+----
+
+.Rendered output of cross-referencing:
+====
+Rollbacks revert part of an application back to a previous deployment. Rollbacks can be performed using the REST API or the xref:../cli_reference/openshift_cli/get_started_cli.adoc#installing-the-cli[OpenShift CLI].
+
+Before you can create a domain, you must first xref:../dev_guide/application_lifecycle/new_app.adoc#dev-guide-new-app[create an application].
+====
+
+=== Links to external websites
+
+If you want to link to a different website, use:
+
+----
+link:http://othersite.com/otherpath[friendly reference text]
+----
+
+IMPORTANT: You must use `link:` before the start of the URL.
+
+IMPORTANT: You cannot link to a repository that is hosted on www.github.com.
+
+TIP: If you want to build a link from a URL _without_ changing the text from the actual URL, just print the URL without adding a `[friendly text]` block at the end; it will automatically be rendered as a link.
+
+=== Links to internal content
+There are two scenarios for linking to other assemblies:
+
+1. Link to another file that exists in the same directory.
+2. Link to another file that exists in a separate directory.
+
+The following examples use the example directory structure shown here:
+....
+/
+/foo
+/foo/bar.adoc
+/baz
+/baz/zig.adoc
+/baz/zag.adoc
+....
+
+*Link to assembly in same directory*
+
+----
+xref:<filename>#anchor-id[friendly title]
+----
+
+You must use the `.adoc` file extension. The document processor will correctly link this to the resulting HTML file.
+
+For example, using the above syntax, if you are working on `zig.adoc` and want to link to `zag.adoc`, do it this way:
+
+----
+xref:../zag.adoc#baz-zag[comment]
+----
+
+where `baz-zag` is the anchor ID at the top of the file `zag.adoc`.
+
+*Link to assembly in different directory*
+
+----
+xref:../dir/<filename>.adoc#anchor-id[friendly title]
+----
+
+For example, if you are working on `bar.adoc` and you want to link to `zig.adoc`, do it this way:
+
+----
+xref:../baz/zig.adoc#baz-zig[see the ZIG manual for more]
+----
+
+[NOTE]
+====
+You must use the .adoc extension in order for the link to work correctly and you must specify an anchor ID.
+====
+
+== Indicating Technology Preview features
+
+To indicate that a feature is in Technology Preview, include the
+`modules/technology-preview.adoc` file in the feature's assembly to keep the
+supportability wording consistent across Technology Preview features and provide a value for the :FeatureName: variable before you include this module.
+
+See
+link:https://github.com/openshift/openshift-docs/pull/13878/files#diff-615ba1bf3b09d11a9c2604b775aa32f2[an
+example] of how this is applied.
+
+
+== Images
+
+=== Block images
+
+To include a block image (an image on its own line):
+
+1. Put the image file in the symlinked `images` folder.
+2. In the `.adoc` content, use this format to link to the image:
++
+----
+image::<image_filename>[<alt_text>]
+----
++
+You only have to specify `<image_filename>` itself and not the full file path;
+the build mechanism automatically expands this appropriately.
+
+=== Inline images (icons)
+
+Inline images can be used to indicate graphic items in the web console, such as
+buttons or menu icons. To simplify reuse, the following common SVGs (the
+OpenShift web console uses the Font Awesome icon set) have already been added to
+the `images` folder with a user-defined entity added to the
+`common-attributes.adoc` module:
+
+|===
+|Icon |Entity |Alt text |File name
+
+|Kebab
+|`:kebab:`
+|Options menu
+|`ellipsis-v.svg`
+
+|===
+
+When using inline, include the image after the UI element name. For example:
+
+----
+Click the *Options* menu {kebab}.
+----
+
+== Formatting
+
+For all of the system blocks including table delimiters, use four characters. For example:
+
+....
+|=== for tables
+---- for code blocks
+....
+
+
+=== Code blocks
+Code blocks are used to show examples of command screen outputs, or
+configuration files. When using command blocks, always use the actual values for
+any items that a user would normally replace. Code blocks should represent
+exactly what a customer would see on their screen. If you must expand or
+provide information on what some of the contents of a screen output or
+configuration file represent, then use callouts to provide that information.
+
+Follow these general guidelines when using code blocks:
+
+* Do NOT use any markup in code blocks; code blocks generally do not accept any markup.
+
+* For all code blocks, you must include an empty line above a code block.
++
+Acceptable:
++
+....
+Lorem ipsum
+
+----
+$ lorem.sh
+----
+....
++
+Not acceptable:
++
+....
+Lorem ipsum
+----
+$ lorem.sh
+----
+....
++
+Without the line spaces, the content is likely to be not parsed correctly.
+
+* It is recommended to include source tags for the programming language used in the code block to enable syntax highlighting. For example, use the source tags
+ `[source, yaml]` or `[source, javascript]`.
++
+NOTE: Do not use `[source, bash]` for `oc` commands or any terminal commands, because it does not render properly in some cases.
++
+....
+Lorem ipsum
+
+----
+$ lorem.sh
+----
+....
+
+* Do not use more than one command per code block. For example, the following must be split up into three separate code blocks.
++
+Run the following commands to create templates you can modify:
++
+----
+$ oc adm create-login-template > login.html
+----
++
+----
+$ oc adm create-provider-selection-template > providers.html
+----
++
+----
+$ oc adm create-error-template > errors.html
+----
++
+
+* Separate a command and its related output into individual code blocks. For example:
++
+Use the `oc new-project` command to create a new project.
++
+----
+$ oc new-project my-project
+----
+
++
+The output verifies that a new project was created.
++
+
+----
+Now using project "my-project" on server "https://openshift.example.com:6443".
+----
+
+* Try to use callouts to provide information on what the output represents when required.
++
+Use this format when embedding callouts into the code block:
++
+[subs=-callouts]
+....
+----
+code example 1 <1>
+code example 2 <2>
+----
+<1> A note about the first example value.
+<2> A note about the second example value.
+....
+
+* For long lines of code that you want to break up among multiple lines, use a
+backslash to show the line break. For example:
++
+----
+$ oc get endpoints --all-namespaces --template \
+    '{{ range .items }}{{ .metadata.namespace }}:{{ .metadata.name }} \
+    {{ range .subsets }}{{ range .addresses }}{{ .ip }} \
+    {{ end }}{{ end }}{{ "\n" }}{{ end }}' | awk '/ 172\.30\./ { print $1 }'
+----
+
+* If the user must run a command as root, use a number sign, `#`, at the start of the command instead of a dollar sign, `$`. For example:
++
+----
+# subscription-manager list
+----
+
+* For snippets or sections of a larger file, use an ellipsis (`...`) to show that
+the file continues before and/or after the quoted block:
++
+----
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+...
+----
++
+or
++
+----
+...
+spec:
+  containers:
+  - args:
+    image: k8s.gcr.io/liveness
+...
+----
++
+Do not use `[...]`, `<snip>`, or any other variant.
+
+=== Inline code or commands
+Do NOT show full commands or command syntax inline within a sentence. The next section covers how to show commands and command syntax.
+
+Only use case for inline commands would be general commands and operations, without replaceables and command options. In this case an inline command is marked up using the back ticks:
+
+....
+Use the `GET` operation to do x.
+....
+
+This renders as:
+
+Use the `GET` operation to do x.
+
+=== Command Syntax and Examples
+The main distinction between showing command syntax and example is that a command syntax should just show customers how to use the command without real values. An example on the other hand should show the command with actual values with an example output of that command, where applicable.
+
+==== Command syntax
+To markup command syntax, use the code block and wrap the replaceables in <> with the required command parameters, as shown in the following example. Do NOT use commands or command syntax inline with sentences.
+
+....
+The following command returns a list of objects for the specified object type:
+
+----
+$ oc get <object_type> <object_id>
+----
+....
+
+This would render as follows:
+
+The following command returns a list of objects for the specified object type:
+
+----
+$ oc get <object_type> <object_id>
+----
+
+==== Examples
+As mentioned an example of a command should use actual values and also show an output of the command, as shown in the following example. In some a heading may not be required.
+
+[WARNING]
+====
+Do not provide examples which use `jq`. Examples should use a templating engine that is provided with oc, like `jsonpath`. See (https://bugzilla.redhat.com/show_bug.cgi?id=1764726#c6) for more information.
+====
+
+....
+In the following example the `oc get` operation returns a complete list of services that are currently defined.
+
+.Example title
+
+----
+$ oc get se
+NAME                LABELS                                    SELECTOR            IP                  PORT
+kubernetes          component=apiserver,provider=kubernetes   <none>              172.30.17.96        443
+kubernetes-ro       component=apiserver,provider=kubernetes   <none>              172.30.17.77        80
+docker-registry     <none>                                    name=registrypod    172.30.17.158       5001
+----
+....
+
+This would render as shown:
+
+In the following example the `oc get` operation returns a complete list of services that are currently defined.
+
+.Example title
+
+----
+$ oc get se
+NAME                LABELS                                    SELECTOR            IP                  PORT
+kubernetes          component=apiserver,provider=kubernetes   <none>              172.30.17.96        443
+kubernetes-ro       component=apiserver,provider=kubernetes   <none>              172.30.17.77        80
+docker-registry     <none>                                    name=registrypod    172.30.17.158       5001
+----
+
+=== Lists
+Lists are created as shown in this example:
+
+....
+. Item 1 (2 spaces between the period and the first character)
+
+. Item 2
+
+. Item 3
+....
+
+This will render as such:
+
+. Item 1
+
+. Item 2
+
+. Item 3
+
+If you must add any text, admonitions, or code blocks you have to add the continuous +, as shown in the example:
+
+....
+. Item 1
++
+----
+some code block
+----
+
+. Item 2
+
+. Item 3
+....
+
+This renders as shown:
+
+. Item 1
++
+----
+some code block
+----
+
+. Item 2
+
+. Item 3
+
+==== Quick reference
+.User accounts and info
+[option="header"]
+|===
+|Markup in command syntax |Description |Substitute value in Example block
+
+|<username>
+|Name of user account
+|user@example.com
+
+|<password>
+|User password
+|password
+|===
+
+.Projects and applications
+[option="header"]
+|===
+|Markup in command syntax |Description |Substitute value in Example block
+
+|<project>
+|Name of project
+|myproject
+
+|<app>
+|Name of an application
+|myapp
+|===
+
+== Admonitions
+Admonitions such as notes and warnings are formatted as shown:
+
+....
+[ADMONITION]
+====
+Text for admonition
+====
+....
+
+[id="api-object-formatting"]
+== API object formatting
+
+Use initial capitalization and camel case for Kubernetes/OpenShift API objects
+and do not mark them up unless referring to a specific field or variable name
+from a spec or manifest.
+
+This matches general Kubernetes usage and makes it obvious that a specific
+concept is being referred to. For example:
+
+- Pod
+- Deployment
+- Operator
+- DaemonSet (and not "daemon set", "daemonset", or "Daemonset")
+
+[id="operator-name-capitalization"]
+==== Operator name capitalization
+
+An Operator's full name must be a proper noun, with each word initially
+capitalized. If it includes a product name, defer the product's capitalization
+style guidelines. For example:
+
+- Cluster Logging Operator
+- Prometheus Operator
+- etcd Operator
+- Node Tuning Operator
+- Cluster Version Operator
+
+== Quick markup reference
+
+|===
+|Convention |Markup |Example rendered output
+
+|Code blocks
+
+a|Use the following syntax for the `oc` command:
+
+----
+$ oc <action> <object_type> <object_name_or_id>
+----
+
+a|Use the following syntax for the `oc` command:
+
+----
+$ oc <action> <object_type> <object_name_or_id>
+----
+
+a|Use backticks for all non-GUI "system items", including:
+
+* Inline commands, operations, literal values, variables, parameters, settings,
+flags, environment variables, user input
+* System term/item, user names, unique or example names for individual API
+objects/resources (e.g., a Pod named "mypod"), daemon, service, or software
+package
+* RPM packages
+* File names or directory paths
+
+a|$$`oc get`$$
+
+$$Set the `upgrade` variable to `true`.$$
+
+$$Use the `--amend` flag.$$
+
+$$Answer by typing `Yes` or `No` when prompted.$$
+
+$$`user_name`$$
+
+$$`service_name`$$
+
+$$`package_name`$$
+
+$$`filename`$$
+
+a|Use the `oc get services` command to get a list of services that are currently defined.
+
+Use the `--amend` flag.
+
+Set the `upgrade` variable to `true`.
+
+Answer by typing `Yes` or `No` when prompted.
+
+`cluster-admin` user
+
+`firewalld` service
+
+`rubygems` RPM package
+
+The `express.conf` configuration file is located in the `/usr/share` directory.
+
+|System or software variable to be replaced by the user
+a|$$`<project>`$$
+
+$$`<deployment>`$$
+
+a|Use the following command to roll back a Deployment, specifying the Deployment name:
+
+`oc rollback <deployment>`
+
+|Use single asterisks for web console / GUI items (menus, buttons, page titles, etc.).
+Use two characters to form the arrow in a series of menu items, $$->$$.
+
+a|Choose $$*Cluster Console*$$ from the list.
+
+Navigate to the $$*Operators* -> *Catalog Sources*$$ page.
+
+Click $$*Create Subscription*$$.
+
+a|Choose *Cluster Console* from the list.
+
+Navigate to the *Operators* -> *Catalog Sources* page.
+
+Click *Create Subscription*.
+
+|Use underscores to emphasize the first appearance of a new term.
+
+|An $$_Operator_$$ is a method of packaging, deploying, and managing a Kubernetes application.
+
+|An _Operator_ is a method of packaging, deploying, and managing a Kubernetes application.
+
+|Use of single asterisks for general emphasis is allowed but should only be used
+very sparingly. Let the writing, instead of font usage, create the emphasis
+wherever possible.
+
+a|Do $$*not*$$ delete the file.
+
+a|Do *not* delete the file.
+
+|Footnotes
+
+|A footnote is created with the footnote macro. If you plan to reference a footnote more than once, use the ID footnoteref macro. The customer portal does not support spaces in the footnoteref. For example, "dynamic PV" should be "dynamicPV".
+
+|See link:http://asciidoctor.org/docs/user-manual/#user-footnotes[Footnotes] for the footnote and footnoteref syntax.
+
+|===

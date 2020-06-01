@@ -7,9 +7,9 @@ hc-enterprise:
   site_url: https://docs.hypercloud.com/
   branches:
     master:
-      name: '3.00000'
-      dir: enterprise/3.00000
-hypercloud-dedicated:
+      name: 'hypercloud 4'
+      dir: enterprise/4
+hc-dedicated:
   name: HyperCloud Dedicated
   author: HyperCloud Documentation Project <hypercloud-docs@tmax.com>
   site: commercial
@@ -19,6 +19,3 @@ hypercloud-dedicated:
     master:
       name: 'test'
       dir: dedicated/test
-    master-1:
-      name: 'test-1'
-      dir: dedicated/test-1
