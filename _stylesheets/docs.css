@@ -99,6 +99,7 @@ div.gsc-option-menu-container > div.gsc-selected-option-container {
 }
 #powered_by_openshift img {
 	text-align: center;
+    width: 180px;
 }
 #built_with_asciibinder img {
 	width: 140px;
