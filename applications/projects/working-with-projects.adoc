@@ -13,8 +13,6 @@ isolation from other communities.
 Projects starting with `openshift-` and `kube-` are  xref:../../authentication/using-rbac.adoc#rbac-default-projects_using-rbac[default projects].
 ====
 
-include::modules/odc-creating-projects-using-developer-perspective.adoc[leveloffset=+1]
+include::modules/creating-projects-using-developer-perspective.adoc[leveloffset=+1]
 
 include::modules/deleting-a-project-using-the-web-console.adoc[leveloffset=+1]
-
-include::modules/deleting-a-project-using-the-CLI.adoc[leveloffset=+1]

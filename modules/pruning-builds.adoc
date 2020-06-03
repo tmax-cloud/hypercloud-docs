@@ -3,57 +3,46 @@
 // * applications/pruning-objects.adoc
 
 [id="pruning-builds_{context}"]
-= Pruning builds
+= 빌드 쳐내기
 
-In order to prune builds that are no longer required by the system due to age
-and status, administrators can run the following command:
+아래와 같이 해라:
 
 ----
 $ oc adm prune builds [<options>]
 ----
 
-.Prune builds CLI configuration options
+[NOTE]
+====
+뭐시기 어쩌고 저쩌고 이러저러하다... 알아둬.. NOTE..
+====
+
+[CAUTION]
+====
+모든 태그가 삭제될거야~~~ 주의해~~ CAUTION~~
+====
+
+[IMPORTANT]
+====
+`퇴근` 을 하지 않으면 안 돼!!! 중요해!! IMPORTANT!!
+====
+
+
+.빌드 쳐내기 CLI 설정 옵션
 [cols="4,8",options="header"]
 |===
 
-|Option |Description
-
-.^|`--confirm`
-|Indicate that pruning should occur, instead of performing a dry-run.
-
-.^|`--orphans`
-|Prune all builds whose Build Configuration no longer exists, status is complete,
-failed, error, or canceled.
-
-.^|`--keep-complete=<N>`
-|Per Build Configuration, keep the last `N` builds whose status is complete (default
-`5`).
+|옵션 |정의
 
 .^|`--keep-failed=<N>`
-|Per Build Configuration, keep the last `N` builds whose status is failed, error, or
-canceled (default `1`).
+|failed, error, or canceled 상태를 가지는 마지막 `N`개 빌드를 쳐냄 (기본값 `1`).
 
 .^|`--keep-younger-than=<duration>`
-|Do not prune any object that is younger than `<duration>` relative to the
-current time (default `60m`).
+|현재 `<duration>` 보다 오래되지 않은 것은 쳐내지 않음 (기본값 `60m`).
 |===
 
-To see what a pruning operation would delete:
+실제로 쳐내기를 하면서 무엇이 삭제되는지 보려면:
 
 ----
 $ oc adm prune builds --orphans --keep-complete=5 --keep-failed=1 \
     --keep-younger-than=60m
 ----
-
-To actually perform the prune operation:
-
-----
-$ oc adm prune builds --orphans --keep-complete=5 --keep-failed=1 \
-    --keep-younger-than=60m --confirm
-----
-
-[NOTE]
-====
-Developers can enable automatic build pruning by modifying their Build
-Configuration.
-====
