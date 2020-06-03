@@ -26,12 +26,13 @@ function versionSelector(list) {
 
 	// alert(fileRequested);
 
+	newLink = `${window.origin}/${pathArray[1]}/${pathArray[2]}/${newVersion}${fileRequested}`;
 	// in 3.3 and above, we changed to container-platform
-	if (newVersion == '3.0' || newVersion == '3.1' || newVersion == '3.2') {
-		newLink = 'https://docs.openshift.com/enterprise/' + newVersion + fileRequested;
-	} else {
-		newLink = 'https://docs.openshift.com/container-platform/' + newVersion + fileRequested;
-	}
+	// if (newVersion == '3.0' || newVersion == '3.1' || newVersion == '3.2') {
+	// 	newLink = 'https://docs.openshift.com/enterprise/' + newVersion + fileRequested;
+	// } else {
+	// 	newLink = 'https://docs.openshift.com/container-platform/' + newVersion + fileRequested;
+	// }
 
 	// without doing async loads, there is no way to know if the path actually
 	// exists - so we will just have to load
@@ -41,7 +42,13 @@ function versionSelector(list) {
 function selectVersion(currentVersion) {
 	var el = document.getElementById('version-selector');
 	if (el) {
-		el.value = currentVersion;
+		const options = [...el.options];
+		options.forEach((item) => {
+			if (item.text === currentVersion) {
+				el.value = item.value;
+			}
+		});
+		// el.value = currentVersion;
 	}
 	// alert(currentVersion);
 

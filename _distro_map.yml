@@ -1,4 +1,17 @@
 ---
+hypercloud:
+  name: HyperCloud Console
+  author: HyperCloud Documentation Project <hypercloud-docs@tmax.com>
+  site: commercial
+  site_name: Documentation
+  site_url: https://portal.tmaxcloud.com
+  branches:
+    master:
+      name: 'Latest'
+      dir: 'latest'
+    test-branch:
+      name: 'Old'
+      dir: 'old'
 HyperCloud4:
   name: HyperCloud 4
   author: HyperCloud Documentation Project
