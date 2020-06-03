@@ -41,15 +41,15 @@ function versionSelector(list) {
 
 function selectVersion(currentVersion) {
 	var el = document.getElementById('version-selector');
-	if (el) {
-		const options = [...el.options];
-		options.forEach((item) => {
-			if (item.text === currentVersion) {
-				el.value = item.value;
-			}
-		});
-		// el.value = currentVersion;
-	}
+	// if (el) {
+	// 	const options = [...el.options];
+	// 	options.forEach((item) => {
+	// 		if (item.text === currentVersion) {
+	// 			el.value = item.value;
+	// 		}
+	// 	});
+	el.value = currentVersion;
+	// }
 	// alert(currentVersion);
 
 	// in enterprise branch 4, we have modules and this is an attempt to load the

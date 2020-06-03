@@ -4,14 +4,14 @@ hypercloud:
   author: HyperCloud Documentation Project <hypercloud-docs@tmax.com>
   site: commercial
   site_name: Documentation
-  site_url: https://portal.tmaxcloud.com
+  site_url: https://www.tmaxcloud.com/
   branches:
     master:
-      name: 'Latest'
-      dir: 'latest'
+      name: '4'
+      dir: '4'
     test-branch:
-      name: 'Old'
-      dir: 'old'
+      name: '3'
+      dir: '3'
 HyperCloud4:
   name: HyperCloud 4
   author: HyperCloud Documentation Project
