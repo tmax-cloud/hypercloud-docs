@@ -23,7 +23,7 @@ nav#main {
 .navbar.navbar-default.navbar-openshift .navbar-header {
 	float: none;
 	background-color: #000;
-	height: 80px;
+	height: 56px;
 }
 .navbar.navbar-default.navbar-openshift .navbar-collapse {
 	width: 100%;
@@ -36,7 +36,7 @@ nav#main {
 	margin: 5px 15px;
 	padding: 0;
 	width: 175px;
-	height: 70px;
+	height: 56px;
 }
 .navbar.navbar-default.navbar-openshift .navbar-brand.brand-online {
 	background: url(https://assets.openshift.com/hubfs/images/logos/osh/Logo-Red_Hat-OpenShift_Online-UX-Reverse-RGB.svg) 100% no-repeat;
@@ -292,11 +292,12 @@ footer#rh nav a:last-child {
 footer#rh nav a,
 footer#rh p {
 	font-size: 0.8rem;
-	color: #6c6c6c;
+	color: #000000;
 }
 footer#rh {
-	background-color: #1f3445;
+	background-color: #efefef;
 	padding: 10px 0;
+	border-top: 1px solid #c9c9c9;
 }
 footer#rh nav a {
 	padding: 0 0.55rem;
