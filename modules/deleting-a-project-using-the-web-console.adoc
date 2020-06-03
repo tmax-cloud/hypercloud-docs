@@ -3,26 +3,17 @@
 // * applications/projects/working-with-projects.adoc
 
 [id="deleting-a-project-using-the-web-console_{context}"]
-= Deleting a project using the web console
+= 웹 콘솔을 통해 프로젝트 삭제하기
 
-You can delete a project by using the {product-title} web console.
+{product-title} web console을 통해 프로젝트를 삭제할 수 있다.
 
 [NOTE]
 ====
-If you do not have permissions to delete the project, the *Delete Project*
-option is not available.
+권한 없으면 *Delete Project* 옵션을 사용 못한다.
 ====
 
-.Procedure
+.과정
 
-. Navigate to *Home* -> *Projects*.
+. *Home* -> *Projects* 으로 가라.
 
-. Locate the project that you want to delete from the list of projects.
-
-. On the far right side of the project listing, select *Delete Project* from the
-Options menu {kebab}.
-
-. When the *Delete Project* pane opens, enter the name of the project that
-you want to delete in the field.
-
-. Click *Delete*.
+. Options menu {kebab}에서 *Delete Project* 를 선택해라.

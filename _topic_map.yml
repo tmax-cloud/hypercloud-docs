@@ -33,25 +33,17 @@ Topics:
   Id: Welcome::Test
   File: test
 ---
-Name: 웹 콘솔
-Id: WebConsole
-Dir: web_console
-Topics:
-- Name: 웹 콘솔 커스터마이즈하기
-  Id: WebConsole::CustomizingWebConsole
-  File: customizing-the-web-console
----
-Name: 애플리케이션
+Name: 예시 메뉴
 Id: Applications
 Dir: applications
 Topics:
-- Name: 프로젝트
-  Id: Applications::Projects1
+- Name: 메뉴는 3-depth까지 지원
+  Id: Applications::Projects
   Dir: projects
   Topics:
-  - Name: 프로젝트 다루기
+  - Name: 내용 예시
     Id: Applications::Projects::WorkingProject
     File: working-with-projects
-- Name: 리소스 리클레임을 위해 object prun하기
+- Name: 내용 예시
   Id: Applications::PruningObjects
   File: pruning-objects

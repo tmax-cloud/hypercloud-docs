@@ -3,14 +3,24 @@
 // * applications/pruning-objects.adoc
 
 [id="pruning-images_{context}"]
-= Automatically pruning images
+= 이미지 자동으로 쳐내기
 
-Images that are no longer required by the system due to age,
-status, or exceed limits are automatically pruned. Cluster administrators can configure the Pruning Custom Resource, or delete it to disable it.
+Cluster administrators can configure the Pruning Custom Resource, or delete it to disable it.
 
 [NOTE]
 ====
-When the Pruning Custom Resource is deleted, the pruning `CronJob` and its related components should also be deleted.
+`CronJob` and its related components should also be deleted.
+====
+
+[IMPORTANT]
+====
+`ManagementState` specified on the Image Registry Operator's `ClusterOperator` object.
+
+`ManagementState` of the Image Registry Operator alters the behavior of the deployed image pruner job:
+
+* `Managed`: the `--prune-registry` flag for the image pruner is set to `true`.
+* `Removed`: the `--prune-registry` flag for the image pruner is set to `false`, meaning it only prunes image metatdata in etcd.
+* `Unmanaged`: the `--prune-registry` flag for the image pruner is set to `false`.
 ====
 
 .Prerequisites
@@ -41,19 +51,6 @@ status:
   conditions: <13>
   - type: Available
     status: "True"
-    lastTransitionTime: 2019-10-09T03:13:45
-    reason: Ready
-    message: "Periodic image pruner has been created."
-  - type: Scheduled
-    status: "True"
-    lastTransitionTime: 2019-10-09T03:13:45
-    reason: Scheduled
-    message: "Image pruner job has been scheduled."
-  - type: Failed
-    staus: "False"
-    lastTransitionTime: 2019-10-09T03:13:45
-    reason: Succeeded
-    message: "Most recent image pruning job succeeded."
 ----
 <1> `schedule`: `CronJob` formatted schedule, defaults to daily at midnight for new clusters. This is a required field.
 <2> `suspend`: If set to `true`, the `CronJob` running pruning is suspended. This is an optional field, and it defaults to `false`.
@@ -71,15 +68,3 @@ status:
 * `Available`: Indicates if the pruning job has been created. Reasons can be Ready or Error.
 * `Scheduled`: Indicates if the next pruning job has been scheduled. Reasons can be Scheduled, Suspended, or Error.
 * `Failed`: Indicates if the most recent pruning job failed.
-
-
-[IMPORTANT]
-====
-The Image Registry Operator's behavior for managing the pruner is orthogonal to the `ManagementState` specified on the Image Registry Operator's `ClusterOperator` object. If the image registry Operator is not in the `Managed` state, the image pruner can still be configured and managed by the Pruning Custom Resource.
-
-However, the `ManagementState` of the Image Registry Operator alters the behavior of the deployed image pruner job:
-
-* `Managed`: the `--prune-registry` flag for the image pruner is set to `true`.
-* `Removed`: the `--prune-registry` flag for the image pruner is set to `false`, meaning it only prunes image metatdata in etcd.
-* `Unmanaged`: the `--prune-registry` flag for the image pruner is set to `false`.
-====
