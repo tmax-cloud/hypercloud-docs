@@ -1,4 +1,17 @@
 ---
+hypercloud:
+  name: HyperCloud Console
+  author: HyperCloud Documentation Project <hypercloud-docs@tmax.com>
+  site: commercial
+  site_name: Documentation
+  site_url: https://docs.hypercloud.com/
+  branches:
+    master:
+      name: '4.0'
+      dir: '4.0'
+    test-branch:
+      name: '3.0'
+      dir: '3.0'
 hc-enterprise:
   name: HyperCloud Container Platform
   author: HyperCloud Documentation Project <hypercloud-docs@tmax.com>
@@ -8,7 +21,7 @@ hc-enterprise:
   branches:
     master:
       name: 'hypercloud 4'
-      dir: enterprise/4
+      dir: '4'
 hc-dedicated:
   name: HyperCloud Dedicated
   author: HyperCloud Documentation Project <hypercloud-docs@tmax.com>
@@ -18,4 +31,4 @@ hc-dedicated:
   branches:
     master:
       name: 'test'
-      dir: dedicated/test
+      dir: test
