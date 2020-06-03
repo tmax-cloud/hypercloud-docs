@@ -55,9 +55,3 @@ Topics:
 - Name: 리소스 리클레임을 위해 object prun하기
   Id: Applications::PruningObjects
   File: pruning-objects
-# ---
-# Name: HyperCloud API
-# Dir: rest_api
-# Topics:
-# - Name: API 엔드포인트
-#   File: index
