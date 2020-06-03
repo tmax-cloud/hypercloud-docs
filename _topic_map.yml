@@ -22,31 +22,42 @@
 # topic groups and topics on the main page.
 
 ---
-Name: Welcome
+Name: 환영합니다!
+Id: Welcome
 Dir: welcome
 Topics:
-- Name: Test
+- Name: 환영합니다~~~
+  Id: Welcome::Welcome
+  File: index
+- Name: 테스트
+  Id: Welcome::Test
   File: test
 ---
-Name: Web console
+Name: 웹 콘솔
+Id: WebConsole
 Dir: web_console
 Topics:
-- Name: Customizing the web console
+- Name: 웹 콘솔 커스터마이즈하기
+  Id: WebConsole::CustomizingWebConsole
   File: customizing-the-web-console
 ---
-Name: Applications
+Name: 애플리케이션
+Id: Applications
 Dir: applications
 Topics:
-- Name: Projects
+- Name: 프로젝트
+  Id: Applications::Projects1
   Dir: projects
   Topics:
-  - Name: Working with projects
+  - Name: 프로젝트 다루기
+    Id: Applications::Projects::WorkingProject
     File: working-with-projects
-- Name: Pruning objects to reclaim resources
+- Name: 리소스 리클레임을 위해 object prun하기
+  Id: Applications::PruningObjects
   File: pruning-objects
----
-Name: OpenShift REST APIs
-Dir: rest_api
-Topics:
-- Name: API endpoints
-  File: index
+# ---
+# Name: HyperCloud API
+# Dir: rest_api
+# Topics:
+# - Name: API 엔드포인트
+#   File: index
