@@ -7,11 +7,11 @@ hypercloud:
   site_url: https://portal.tmaxcloud.com
   branches:
     master:
-      name: '4.0'
-      dir: '4.0'
+      name: 'Latest'
+      dir: 'latest'
     test-branch:
-      name: '3.0'
-      dir: '3.0'
+      name: 'Old'
+      dir: 'old'
 HyperCloud4:
   name: HyperCloud 4
   author: HyperCloud Documentation Project

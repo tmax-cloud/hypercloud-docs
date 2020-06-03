@@ -42,7 +42,13 @@ function versionSelector(list) {
 function selectVersion(currentVersion) {
 	var el = document.getElementById('version-selector');
 	if (el) {
-		el.value = currentVersion;
+		const options = [...el.options];
+		options.forEach((item) => {
+			if (item.text === currentVersion) {
+				el.value = item.value;
+			}
+		});
+		// el.value = currentVersion;
 	}
 	// alert(currentVersion);
 
