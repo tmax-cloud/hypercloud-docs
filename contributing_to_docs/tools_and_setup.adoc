@@ -10,7 +10,7 @@
 toc::[]
 
 == AsciiBinder 설치하기
-HyperCloud documentation은 AsciiDoc으로 이루어져 있고, http://asciidoctor.org/[AsciiDoctor] 기반의 문서 관리 시스템인 https://github.com/redhataccess/ascii_binder[AsciiBinder]으로 관리한다.
+HyperCloud documentation은 AsciiDoc으로 이루어져 있고, http://asciidoctor.org/[AsciiDoctor] 기반의 문서 관리 시스템인 https://github.com/redhataccess/ascii_binder[AsciiBinder]으로 빌드한다.
 
 CentOS 7.7.1908에서 아래와 같이 ascii_binder와 그 dependencies를 차례로 설치한다.
 (다른 Linux System에서도 할 수 있겠지만, 아래의 가이드는 CentOS 7.7.1908 에서의 재현이 보장된다.)
@@ -42,7 +42,7 @@ docs를 빌드하면, 상단 breadcrumb 및 좌측 LNB tree의 각 node에 ID가
 노드 이름에 한국어를 지원하기 위해, ID는 _topic_map.yml에서 직접 기입하도록 하고, 이 값을 사용할 수 있게 AsciiBinder의 코드를 수정하자.
 
 1. `/usr/local/share/gems/gems/ascii_binder-0.1.15.3/lib/ascii_binder/topic_entity.rb` 파일을 열고, `module AsciiBinder > class TopicEntity` 의 `attr_reader` 에 `:id` 를 추가한다.
-2. 단계 1.을 진행하는 부분 바로 아래의 `def initialize` 내용에 `@id    = topic_entity['Id']` 줄을 추가한다.
+2. 단계 1.을 진행하는 부분 바로 아래의 `def initialize` 내용에 `@id = topic_entity['Id']` 줄을 추가한다.
 
 ----
 require 'ascii_binder/helpers'
@@ -66,24 +66,20 @@ module AsciiBinder
 
 
 == 빌드하기
-With the initial setup complete, you are ready to build the collection.
 
-1. From the `hypercloud-docs` directory, run an initial build:
+1. hypercloud-docs 프로젝트 폴더를 위 AsciiBinder가 설치된 환경에 업로드한다. (.git 파일도 포함되어 있어야 한다.)
+2. `cd hypercloud-docs`
+3. `chmod +x create_symlink.sh`
+4. `./create_symlink.sh`
 +
-----
-$ cd hypercloud-docs
-$ asciibinder build
-----
-2. Open the generated HTML file in your web browser. This will be located in the
-`hypercloud-docs/_preview/<distro>/<branch>` directory, with the same path and
-filename as the original `.adoc` file you edited, only it will be with the
-`.html` extension.
+[NOTE]
+====
+`-bash: ./create_symlink.sh: /bin/bash^M: bad interpreter: No such file or directory` 에러가 발생할 수 있다.
 
-== Clean up
-The `.gitignore` file is set up to prevent anything under the `_preview` and
-`_package` directories from being committed. However, you can reset the
-environment manually by running:
+이 경우, `vi create_symlink.sh` , esc 키, `:set fileformat=unix` , `:wq` 를 차례로 입력하여 해결할 수 있다.
 
-----
-$ asciibinder clean
-----
+또한 5.단계를 진행하려면 그때마다 3.과 4.를 진행하여야 한다.
+====
+5. `asciibinder build`
+6. 새로 생성된 `hypercloud-docs/_preview` 폴더를 다운로드하고, 웹 서버에 띄워 테스트
+7. hypercloud-docs 프로젝트 폴더를 삭제한다.
