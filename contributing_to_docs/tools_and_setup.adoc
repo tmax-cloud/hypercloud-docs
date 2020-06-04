@@ -37,10 +37,9 @@ CentOS 7.7.1908에서 아래와 같이 ascii_binder와 그 dependencies를 차�
 == AsciiBinder 코드 수정하기
 
 순정 상태의 AsciiBinder는 한국어를 제대로 지원하지 못한다. 그 이유는 아래와 같다.
-+
+
 [NOTE]
 ====
-
 docs를 빌드하면, 상단 breadcrumb 및 좌측 LNB tree의 각 node에 ID가 자동으로 부여된다. 이러한 ID는 각 노드의 이름에서 영문/숫자만 남기고 camel case로 이어붙이는 방식으로 생성된다.
 
 이때 ID가 빈 스트링인 경우가 있거나 중복되는 경우가 있으면 빌드 결과에서의 정상적인 동작이 보장되지 않는다.
