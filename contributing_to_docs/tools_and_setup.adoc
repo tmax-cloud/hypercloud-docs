@@ -13,18 +13,6 @@ toc::[]
 All HyperCloud documentation is created in AsciiDoc, and is processed with https://github.com/redhataccess/ascii_binder[AsciiBinder],
 which is an http://asciidoctor.org/[AsciiDoctor]-based docs management system.
 
-
-=== What you require
-The following are minimum requirements:
-
-* A bash shell environment (Linux and OS X include a bash shell environment out
-of the box, but if you are on Windows you can use http://cygwin.com/[Cygwin])
-* https://www.ruby-lang.org/en/[Ruby]
-* http://www.git-scm.com/[Git]
-* A web browser (Firefox, Chrome, or Safari)
-* An editor that can strip trailing whitespace, such as
-link:https://atom.io/[Atom].
-
 === Install the required software dependencies on a Linux system
 The following instructions describe how to install all the required tools to do
 live content editing on a Fedora Linux system.
