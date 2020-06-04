@@ -1,5 +1,5 @@
 <div class="navbar navbar-default navbar-openshift navbar-origin" role="navigation">
-	<a class="navbar-brand origin" href="#"></a>
+	<a class="navbar-brand origin" href="<%= site_url %>"></a>
 	<div class="collapse navbar-collapse" style="display: flex !important;">
 		<ul class="navbar-nav mr-auto" style="margin-right: auto !important;">
 			<li class="nav-item">
@@ -9,7 +9,7 @@
 				<a class="nav-link" href="#">버전</a>
 			</li>
 			<li class="nav-item">
-				<select id="version-selector" onchange="versionSelector(this);">
+				<select id="version-selector" onchange="versionSelector(this, '<%= distro_key %>', '<%= version %>');">
 					<option value="4">HyperCloud 4</option>
 					<option value="3">HyperCloud 3</option>
 				</select>

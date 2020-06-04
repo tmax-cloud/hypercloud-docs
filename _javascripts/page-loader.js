@@ -1,4 +1,4 @@
-function versionSelector(list) {
+function versionSelector(list, distro_key, currentVersion) {
 	// the version we want
 	newVersion = list[list.selectedIndex].value;
 
@@ -9,24 +9,25 @@ function versionSelector(list) {
 	var fileRequested = '';
 
 	// spilt the current path
-	var pathArray = window.location.pathname.split('/');
+	var pathArray = window.location.pathname.split(distro_key);
 
 	// so we can get the current version
-	currentVersion = pathArray[2];
+	// currentVersion = version;
 
 	// if switching major versions, just take the user to the main landing page
 	// as files change a lot between major versions.
 
-	if (currentVersion.charAt(0) === newVersion.charAt(0)) {
-		// the file path is just the version number + the end of the path
-		fileRequested = window.location.pathname.substring(window.location.pathname.lastIndexOf(currentVersion) + currentVersion.length);
-	} else {
-		fileRequested = '/welcome/index.html';
-	}
+	// if (currentVersion.charAt(0) === newVersion.charAt(0)) {
+	// 	// the file path is just the version number + the end of the path
+	// 	fileRequested = window.location.pathname.substring(window.location.pathname.lastIndexOf(currentVersion) + currentVersion.length);
+	// } else {
+	// 	fileRequested = '/welcome/index.html';
+	// }
+	fileRequested = '/welcome/index.html';
 
 	// alert(fileRequested);
 
-	newLink = `${window.origin}/${pathArray[1]}/${pathArray[2]}/${newVersion}${fileRequested}`;
+	newLink = `${window.origin}${pathArray[0]}${distro_key}/${newVersion}${fileRequested}`;
 	// in 3.3 and above, we changed to container-platform
 	// if (newVersion == '3.0' || newVersion == '3.1' || newVersion == '3.2') {
 	// 	newLink = 'https://docs.openshift.com/enterprise/' + newVersion + fileRequested;
