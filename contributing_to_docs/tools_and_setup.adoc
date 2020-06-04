@@ -9,27 +9,63 @@
 
 toc::[]
 
-== Install AsciiBinder and dependencies
-All HyperCloud documentation is created in AsciiDoc, and is processed with https://github.com/redhataccess/ascii_binder[AsciiBinder],
-which is an http://asciidoctor.org/[AsciiDoctor]-based docs management system.
+== AsciiBinder 설치하기
+HyperCloud documentation은 AsciiDoc으로 되어 있고, http://asciidoctor.org/[AsciiDoctor]-based docs management system인 https://github.com/redhataccess/ascii_binder[AsciiBinder]으로 빌드한다.
 
-=== Install the required software dependencies on a Linux system
-The following instructions describe how to install all the required tools to do
-live content editing on a Fedora Linux system.
+CentOS 7.7.1908에서 아래와 같이 ascii_binder와 그 dependencies를 차례로 설치한다.
+(다른 Linux에서도 할 수 있겠지만, 아래의 가이드는 CentOS 7.7.1908 에서 재현이 보장되어 있다.)
 
-1. Install the _RubyGems_ package with `yum install rubygems`
-2. Install _Ruby_ development packages with `yum install ruby-devel`
-3. Install _gcc_ with `yum install gcc-c++`
-4. Install _redhat-rpm-config_ with `yum install redhat-rpm-config`
-5. Install _make_ with `yum install make`
-6. Install (1.5.6 version of) _asciidoctor-diagram_ with `gem install asciidoctor-diagram --version=1.5.6`
-7. Install the _ascii_binder_ gem with `gem install ascii_binder`
+1. `yum install rubygems`
+2. `yum install ruby-devel`
+3. `yum install gcc-c++`
+4. `yum install redhat-rpm-config`
+5. `yum install make`
+6. `gem install asciidoctor-diagram --version=1.5.6`
+7. `gem install ascii_binder`
 
-NOTE: If you already have AsciiBinder installed, you might be due for an update.
-These directions assume that you are using AsciiBinder 0.1.15 or newer. To check
-and update if necessary, simply run `gem update ascii_binder`. Note that you might require root permissions.
+위 7.단계에서 에러가 발생하면, 아래의 과정을 추가로 진행한다.
 
-=== Building the collection
+1. `gem install "rubygems-update:<3.0.0" --no-document`
+2. `update_rubygems`
+3. `gem install ffi -v 1.12.2`
+4. `gem install rb-inotify -v 0.9.10`
+5. `gem install listen -v 3.0.8`
+6. `gem install lumberjack -v 1.0.13`
+7. `gem install ascii_binder`
+
+
+== AsciiBinder 코드 수정하기
+순정 상태의 AsciiBinder는 한국어를 제대로 지원하지 못한다.
+
+docs를 빌드하면, 상단 breadcrumb 및 좌측 LNB tree의 각 node에 ID가 자동으로 부여된다. 이러한 ID는 각 노드의 이름에서 영문/숫자만 남기고 camel case로 이어붙이는 방식으로 생성된다. 이때 ID가 빈 스트링인 경우가 있거나 중복되는 경우가 있으면 빌드 결과에서의 정상적인 동작이 보장되지 않는다.
+
+노드 이름에 한국어를 지원하기 위해, ID는 _topic_map.yml에서 직접 기입하도록 하고, 이 값을 사용할 수 있게 AsciiBinder의 코드를 수정하자.
+
+1. `/usr/local/share/gems/gems/ascii_binder-0.1.15.3/lib/ascii_binder/topic_entity.rb` 파일을 열고, `module AsciiBinder > class TopicEntity` 의 `attr_reader` 에 `:id` 를 추가한다.
+2. 단계 1.을 진행하는 부분 바로 아래의 `def initialize` 내용에 `@id    = topic_entity['Id']` 줄을 추가한다.
+
+----
+require 'ascii_binder/helpers'
+require 'trollop'
+
+include AsciiBinder::Helpers
+
+module AsciiBinder
+  class TopicEntity
+    ########################################################### 아래 attr_reader에 :id 를 추가한다. (1.)
+    attr_reader :name, :id, :dir, :file, :topic_alias, :distro_keys, :subitems, :raw, :parent, :depth
+    def initialize(topic_entity,actual_distro_keys,dir_path='',parent_group=nil,depth=0)
+      @raw                = topic_entity
+      @parent             = parent_group
+      @dir_path           = dir_path
+      @name               = topic_entity['Name']
+      @id                 = topic_entity['Id'] ################################## 이 줄을 추가한다. (2.)
+...
+----
+
+
+
+== 빌드하기
 With the initial setup complete, you are ready to build the collection.
 
 1. From the `hypercloud-docs` directory, run an initial build:
