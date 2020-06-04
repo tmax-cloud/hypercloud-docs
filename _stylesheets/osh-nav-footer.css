@@ -160,7 +160,7 @@ nav#main {
 	.navbar.navbar-default.navbar-openshift .navbar-nav > li > a {
 		padding: 20px 8px;
 		font-size: 14px;
-		text-transform: uppercase;
+		text-transform: initial;
 		font-weight: 600;
 		color: #fff;
 	}
