@@ -9,48 +9,6 @@
 
 toc::[]
 
-== Create a GitHub account
-Before you can contribute to OpenShift documentation, you must
-https://www.github.com/join[sign up for a GitHub account].
-
-== Set up authentication
-When you have your account set up, follow the instructions to
-https://help.github.com/articles/generating-ssh-keys/[generate and set up SSH
-keys on GitHub] for proper authentication between your workstation and GitHub.
-
-Confirm authentication is working correctly with the following command:
-
-----
-$ ssh -T git@github.com
-----
-
-== Fork and clone the OpenShift documentation repository
-You must fork and set up the OpenShift documentation repository on your
-workstation so that you can create PRs and contribute. These steps must only
-be performed during initial setup.
-
-1. Fork the https://github.com/openshift/openshift-docs repository into your
-GitHub account from the GitHub UI. You can do this by clicking on *Fork* in the
-upper right-hand corner.
-
-2. On your workstation, clone the forked repository on your workstation with the
-following command. Be sure to change into the directory where you want to clone,
-and replace _<user_name>_ with your actual GitHub username.
-+
-----
-$ git clone git@github.com:user_name/openshift-docs.git
-----
-
-3. From your local repository you just cloned, add an upstream pointer back to
-the OpenShift's remote repository, in this case _openshift-docs_.
-+
-----
-$ git remote add upstream git@github.com:openshift/openshift-docs.git
-----
-
-This ensures that you are tracking the remote repository to keep your local
-repository in sync with it.
-
 == Install AsciiBinder and dependencies
 When you have the documentation repository cloned and set up, you are ready to
 install the software and tools you will use to create the content. All OpenShift
