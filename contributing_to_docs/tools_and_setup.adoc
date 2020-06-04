@@ -82,11 +82,11 @@ module AsciiBinder
 +
 [NOTE]
 ====
-- `-bash: ./create_symlink.sh: /bin/bash^M: bad interpreter: No such file or directory` 에러가 발생할 수 있다.
+- `-bash: ./create_symlink.sh: /bin/bash^M: bad interpreter: No such file or directory` 에러가 발생하면,
 +
-이 경우, `vi create_symlink.sh` , esc 키, `:set fileformat=unix` , `:wq` 를 차례로 입력하여 해결할 수 있다.
+`vi create_symlink.sh` , esc 키, `:set fileformat=unix` , `:wq` 를 차례로 입력하면 해결된다.
 - 5.단계를 진행하려면 그때마다 3.과 4.를 진행하여야 한다.
 ====
 5. `asciibinder build`
-6. 새로 생성된 `hypercloud-docs/_preview` 폴더를 다운로드하고, 웹 서버에 띄워 테스트
-7. hypercloud-docs 프로젝트 폴더를 삭제한다.
+6. 새로 생성된 `hypercloud-docs/_preview` 폴더를 다운로드하고, 웹 서버에 띄워 테스트한다.
+7. AscciBinder가 설치된 환경에서 hypercloud-docs 프로젝트 폴더를 삭제한다.
