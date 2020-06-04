@@ -10,10 +10,10 @@
 toc::[]
 
 == AsciiBinder 설치하기
-HyperCloud documentation은 AsciiDoc으로 되어 있고, http://asciidoctor.org/[AsciiDoctor]-based docs management system인 https://github.com/redhataccess/ascii_binder[AsciiBinder]으로 빌드한다.
+HyperCloud documentation은 AsciiDoc으로 이루어져 있고, http://asciidoctor.org/[AsciiDoctor] 기반의 문서 관리 시스템인 https://github.com/redhataccess/ascii_binder[AsciiBinder]으로 관리한다.
 
 CentOS 7.7.1908에서 아래와 같이 ascii_binder와 그 dependencies를 차례로 설치한다.
-(다른 Linux에서도 할 수 있겠지만, 아래의 가이드는 CentOS 7.7.1908 에서 재현이 보장되어 있다.)
+(다른 Linux System에서도 할 수 있겠지만, 아래의 가이드는 CentOS 7.7.1908 에서의 재현이 보장된다.)
 
 1. `yum install rubygems`
 2. `yum install ruby-devel`
@@ -23,7 +23,7 @@ CentOS 7.7.1908에서 아래와 같이 ascii_binder와 그 dependencies를 차�
 6. `gem install asciidoctor-diagram --version=1.5.6`
 7. `gem install ascii_binder`
 
-위 7.단계에서 에러가 발생하면, 아래의 과정을 추가로 진행한다.
+위 7.단계에서 에러가 발생하면, 아래 과정을 추가로 진행한다.
 
 1. `gem install "rubygems-update:<3.0.0" --no-document`
 2. `update_rubygems`
