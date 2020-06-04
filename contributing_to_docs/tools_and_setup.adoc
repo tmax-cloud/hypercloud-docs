@@ -51,6 +51,8 @@ docs를 빌드하면, 상단 breadcrumb 및 좌측 LNB tree의 각 node에 ID가
 2. 단계 1.을 진행하는 부분 바로 아래의 `def initialize` 내용에 `@id = topic_entity['Id']` 줄을 추가한다.
 
 ----
+(/usr/local/share/gems/gems/ascii_binder-0.1.15.3/lib/ascii_binder/topic_entity.rb)
+
 require 'ascii_binder/helpers'
 require 'trollop'
 
