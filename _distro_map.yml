@@ -2,7 +2,7 @@
 hypercloud:
   name: HyperCloud Console
   author: HyperCloud Documentation Project <hypercloud-docs@tmax.com>
-  site: commercial
+  site: HyperCloud-Docs
   site_name: Documentation
   site_url: https://www.tmaxcloud.com/
   branches:
@@ -12,13 +12,16 @@ hypercloud:
     test-branch:
       name: '3'
       dir: '3'
-HyperCloud4:
-  name: HyperCloud 4
-  author: HyperCloud Documentation Project
+hypercloud-en:
+  name: HyperCloud Console
+  author: HyperCloud Documentation Project <hypercloud-docs@tmax.com>
   site: HyperCloud-Docs
   site_name: Documentation
-  site_url: https://portal.tmaxcloud.com
+  site_url: https://www.tmaxcloud.com/
   branches:
-    master:
-      name: 'hypercloud 4'
-      dir: hypercloud4
+    test-branch1:
+      name: '4'
+      dir: '4'
+    test-branch2:
+      name: '3'
+      dir: '3'
