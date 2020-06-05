@@ -69,6 +69,31 @@ function selectVersion(currentVersion) {
 	// }
 }
 
+function languageSelector(list, distro_key) {
+	// the version we want
+	selected_distro_key = list[list.selectedIndex].value;
+
+	// the new final link to load
+	newLink = '';
+
+	// the fileRequested
+	var fileRequested = '';
+
+	// spilt the current path
+	var pathArray = window.location.pathname.split(distro_key);
+
+	fileRequested = pathArray[1];
+
+	newLink = `${window.origin}${pathArray[0]}${selected_distro_key}${fileRequested}`;
+
+	window.location = newLink;
+}
+
+function selectLanguage(distro_key) {
+	var el = document.getElementById('language-selector');
+	el.value = distro_key;
+}
+
 function goFirstPage(distro_key, currentVersion) {
 	var pathArray = window.location.pathname.split(distro_key);
 	fileRequested = '/welcome/index.html';
