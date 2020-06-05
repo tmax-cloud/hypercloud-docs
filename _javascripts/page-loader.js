@@ -68,3 +68,10 @@ function selectVersion(currentVersion) {
 	//  });
 	// }
 }
+
+function goFirstPage(distro_key, currentVersion) {
+	var pathArray = window.location.pathname.split(distro_key);
+	fileRequested = '/welcome/index.html';
+	newLink = `${window.origin}${pathArray[0]}${distro_key}/${currentVersion}${fileRequested}`;
+	window.location = newLink;
+}
