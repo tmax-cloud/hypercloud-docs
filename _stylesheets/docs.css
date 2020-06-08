@@ -22,10 +22,57 @@ nav#main {
 	/* margin-left: 20px; */
 }
 
+.mr-auto {
+	margin-right: auto !important;
+}
+
 .navbar ul {
 	list-style-type: none;
 }
 
+.navbar-other .navbar-collapse {
+	display: flex !important;
+}
+
+.navbar-other li {
+	margin: auto;
+}
+
+.nav-link.manual {
+	font-size: 20px !important;
+}
+.nav-link.version {
+	font-size: 13px;
+	margin: 0 30px 0 10px;
+	padding: 0;
+}
+
+.nav-item.console {
+	margin: auto 40px auto 25px;
+}
+.nav-item.console .nav-link {
+	border: 1px solid white;
+	padding: 7px 10px !important;
+	border-radius: 2px;
+}
+
+#version-selector {
+	width: 170px;
+	height: 33px;
+}
+#language-selector {
+	font-size: 14px;
+	width: fit-content;
+	height: 33px;
+	background: none;
+	border: none;
+	color: white;
+}
+#language-selector > option {
+	font-size: 14px;
+	color: #31475e;
+	letter-spacing: 0;
+}
 /* Tweaks for the Google-generated search widget */
 .cse .gsc-control-cse,
 .gsc-control-cse,

@@ -1,36 +1,35 @@
-<div class="navbar navbar-default navbar-openshift navbar-origin" role="navigation">
+<div class="navbar navbar-default navbar-openshift navbar-origin navbar-other" role="navigation">
 	<a class="navbar-brand origin" href="<%= site_url %>"></a>
-	<div class="collapse navbar-collapse" style="display: flex !important;">
-		<ul class="navbar-nav mr-auto" style="margin-right: auto !important; padding: 0px;">
-			<li class="nav-item" style="margin: auto">
-				<a class="nav-link" href="javascript:void(0);" onclick="goFirstPage('<%= distro_key %>', '<%= version %>'); return false;" style="font-size: 20px;">메뉴얼</a>
+	<div class="collapse navbar-collapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link manual" href="javascript:void(0);" onclick="goFirstPage('<%= distro_key %>', '<%= version %>'); return false;" >메뉴얼</a>
 			</li>
-			<li class="nav-item" style="margin: auto">
-				<a class="nav-link disabled" style="font-size: 13px; margin: 0 30px 0 10px; padding: 0; ">버전</a>
+			<li class="nav-item">
+				<a class="nav-link disabled version" >버전</a>
 			</li>
-			<li class="nav-item" style="margin: auto">
-				<select id="version-selector" onchange="versionSelector(this, '<%= distro_key %>', '<%= version %>');" style="width: 170px; height: 33px;">
+			<li class="nav-item">
+				<select id="version-selector" onchange="versionSelector(this, '<%= distro_key %>', '<%= version %>');">
+					<!-- 버전 추가 -->
 					<option value="4">HyperCloud 4</option>
 					<option value="3">HyperCloud 3</option>
 				</select>
 			</li>
 		</ul>
 		<ul class="navbar-nav">
-			<li class="nav-item" style="margin: auto">
+			<li class="nav-item">
 				<span class="fa fa-globe" style="color:white"></span>
-				<select id="language-selector" onchange="languageSelector(this, '<%= distro_key %>');" style="font-size: 14px; width: fit-content; height: 33px; background: none; border:none; color:white">
-					<option style="font-size: 14px; color: #31475E; letter-spacing: 0;" value="hypercloud">한국어</option>
-					<option style="font-size: 14px; color: #31475E; letter-spacing: 0;" value="hypercloud-en">EN-US</option>
+				<select id="language-selector" onchange="languageSelector(this, '<%= distro_key %>');" >
+					<option value="hypercloud">한국어</option>
+					<option value="hypercloud-en">EN-US</option>
 				</select>
 			</li>
-			<li class="nav-item" style="margin: auto 40px auto 25px">
-				<a class="nav-link" href="#" style="border: 1px solid white; padding: 7px 10px; border-radius: 2px;">
+			<li class="nav-item console" >
+				<a class="nav-link" href="#" >
 					콘솔
 					<span class="fa fa-external-link"></span>
 				</a>
 			</li>
 		</ul>
 	</div>
-
-
 </div>
