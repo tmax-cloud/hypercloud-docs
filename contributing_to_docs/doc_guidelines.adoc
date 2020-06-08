@@ -11,13 +11,20 @@ toc::[]
 [id="read-me"]
 == AsciiDocs 문법 외 숙지할 내용 및 convention
 
-. 여러 가지 alias를 xref:../modules/common-attributes.adoc[modules/common-attributes.adoc] 파일에 등록해두면 adoc을 작성할 때 사용할 수 있습니다.
+* adoc 문법을 숙지하였다고 해도, 이 문서 전체 내용을 추가로 읽고 나서 가이드를 작성해주시기 바랍니다.
 
-. adoc에서 사용할 이미지들은 모두 xref:../images/[images] 폴더에 위치시킵니다. 단, 다른 문서와 공유할 가능성이 전혀 없는 이미지라면 위와 같이 하지 않아도 됩니다.
+* 각 content에는 id를 부여할 수 있습니다. 필수는 아닙니다. xref:assembly-file-metadata[참고]
 
-. 다른 adoc 파일의 일부를 구성할 adoc 파일은 xref:../modules/[modules] 폴더에 위치시킵니다. 단, 다른 문서와 공유할 가능성이 전혀 없는 모듈이라면 위와 같이 하지 않아도 됩니다.
+* adoc을 작성하면서 {product-title}, {product-version}으로 xref:../_distro_map.adoc[_distro_map.yml]_distro_map.yml의 변수를 참조할 수 있습니다. xref:product-name--version[참고]
 
-. adoc을 작성하면서 {product-title}, {product-version} 으로 _distro_map.yml의 변수들을 참조할 수 있습니다.
+* 여러 가지 alias를 xref:../modules/common-attributes.adoc[modules/common-attributes.adoc] 파일에 등록해두면 adoc을 작성할 때 {kebab}과 같이 사용할 수 있습니다. xref:inline-images-icons[참고]
+
+* xref:../_distro_map.adoc[_distro_map.yml] 파일에 등록한 특정 distro에서만 보여질 컨텐츠는 
+
+* adoc에서 사용할 이미지들은 모두 images 폴더에 위치시킵니다. 단, 다른 문서와 공유할 가능성이 전혀 없는 이미지라면 이와 같이 하지 않아도 됩니다.
+
+* 다른 adoc 파일의 일부를 구성할 adoc 파일은 modules 폴더에 위치시킵니다. 단, 다른 문서와 공유할 가능성이 전혀 없는 모듈이라면 이와 같이 하지 않아도 됩니다.
+
 
 
 == General file guidelines
