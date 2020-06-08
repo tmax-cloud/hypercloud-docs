@@ -1,7 +1,10 @@
 = HyperCloud Documentation
+
 HyperCloud Documentation은 http://www.methods.co.nz/asciidoc/[AsciiDoc] 으로 작성되어 있고, http://asciidoctor.org/[AsciiDoctor]를 기반으로 하는 https://github.com/redhataccess/ascii_binder[AsciiBinder]로 빌드된다.
 
+
 == 기여하기
+
 * link:/contributing_to_docs/contributing.adoc[_distro_map.yml 및 _topic_map.yml 작성 가이드]
 * link:/contributing_to_docs/asciidoc-sample-guide.adoc[adoc 문법]
 * link:/contributing_to_docs/doc_guidelines.adoc[adoc 컨벤션]
