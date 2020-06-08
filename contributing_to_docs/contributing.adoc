@@ -250,8 +250,10 @@ link:/_templates/_topnav_other.html.erb[_topnav_other.html.erb]
 </li>
 ----
 
-== 언어 추가 (i18n) TBD
-TBD
+== 언어 추가 (i18n)
+* 지원할 언어의 개수만큼 xref:../_distro_map.adoc[_distro_map.yml] 파일에 distro를 생성합니다.
+* 다국어를 지원할 문서에서 xref:conditional-text-between-products[ifdef, endif] 문법을 사용하여, 내용이 어떤 distro에서 보여질지 지정합니다.
+* xref:../_topic_map.adoc[_topic_map.yml] 파일에서 topic title마다 Distro: 줄을 추가하여, 각각의 언어에서 제공할 목차를 재구성합니다.
 
 == Different ways to contribute
 There are a few different ways you can contribute to OpenShift documentation:
