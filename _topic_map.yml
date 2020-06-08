@@ -22,14 +22,6 @@
 # topic groups and topics on the main page.
 
 ---
-Name: AsciiDoc
-Id: Asciidoc
-Dir: asciidoc_sample
-Topics:
-  - Name: Asciidoc 기본 문법
-    Id: Asciidoc::AsciidocSampleGuide
-    File: asciidoc-sample-guide
----
 Name: Welcome
 Id: Welcome
 Dir: welcome
