@@ -15,7 +15,7 @@ link:/_distro_map.yml[_distro_map.yml]
 [source, yaml]
 ----
 hypercloud:     # 빌드 시 _preview에 떨어지는 디렉토리명. 영문, 숫자, 하이픈, 언더바 사용 가능. (distro_key)
-  name: HyperCloud Console # 제품명. (distro)
+  name: HyperCloud Console     # 제품명. (distro)
   author: HyperCloud Documentation Project <hypercloud-docs@tmax.com>
   site: HyperCloud-Docs     # 영문 대소문자, 숫자, 하이픈, 언더바 가능. 화면에 표시되지 않지만 입력 필수
   site_name: Documentation      # 브래드크럼 최상위 항목 (site_name)
@@ -64,8 +64,8 @@ _preview
 
 Docs 화면의 목차(좌측 Navigation Bar)를 구성하는 부분
 
-* 최대 3 depth 까지 작성 가능
-* Name : 제목 (목차, 브래드크럼, adoc 파일 상단에 노출되는 이름)
+* 최대 3 depth 까지 작성 가능, 최상단 항목은 Group 만 가능 (하위 Topic을 포함해야함)
+* Name : 제목 (목차, 브래드크럼, adoc 파일 상단에 노출되는 타이틀)
 * Id : 대문자로 시작, 카멜 형식으로 작성
 ** 2depth 이상일 경우 : 상위항목의 Id와 자기 자신의 id를  ::으로 연결 ( `상위 항목의 id::현재 항목 id`)
 ** ex) Component (1depth),  Component::Operator (2depth) , Component::Compute::Docker (3depth)
@@ -77,6 +77,34 @@ Docs 화면의 목차(좌측 Navigation Bar)를 구성하는 부분
 link:/_topic_map.yml[_topic_map.yml]
 [source, yaml]
 ----
+# This configuration file dictates the organization of the topic groups and
+# topics on the main page of the doc site for this branch. Each record
+# consists of the following:
+#
+# ---                                  <= Record delimiter
+# Name: Origin of the Species          <= Display name of topic group
+# Id: OriginOfTheSpecies               <= Id of topic group
+# Dir:  origin_of_the_species          <= Directory name of topic group
+# Topics:
+#   - Name: The Majestic Marmoset                       <= Topic name
+#     Id: OriginOfTheSpecies::TheMajesticMarmoset       <= Topic id
+#     File: the_majestic_marmoset                       <= Topic file under group dir +/- .adoc
+#   - Name: The Curious Crocodile                       <= Topic 2 name
+#     Id: OriginOfTheSpecies::TheCuriousCrocodile       <= Topic 2 id
+#     File: the_curious_crocodile                       <= Topic 2 file
+#   - Name: The Numerous Nematodes                      <= Sub-topic group name
+#     Id: OriginOfTheSpecies::TheNumerousNematodes      <= Sub-topic group id
+#     Dir: the_numerous_nematodes                       <= Sub-topic group dir
+#     Topics:
+#       - Name: The Wily Worm                                                <= Sub-topic name
+#         Id: OriginOfTheSpecies::TheNumerousNematodes::TheWilyWorm          <= Sub-topic id
+#         File: the_wily_worm                                                <= Sub-topic file under <group dir>/<subtopic dir>
+#       - Name: The Acrobatic Ascarid                                        <= Sub-topic 2 name
+#         Id: OriginOfTheSpecies::TheNumerousNematodes::TheAcrobaticAscarid  <= Sub-topic 2 id
+#         File: the_acrobatic_ascarid                                        <= Sub-topic 2 file under <group dir>/<subtopic dir>
+#
+# The ordering of the records in this document determines the ordering of the
+# topic groups and topics on the main page.
 ---
 Name: Welcome
 Id: Welcome
