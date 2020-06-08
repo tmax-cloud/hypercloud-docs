@@ -13,9 +13,9 @@ toc::[]
 
 . 여러 가지 alias를 xref:../modules/common-attributes.adoc[modules/common-attributes.adoc] 파일에 등록해두면 adoc을 작성할 때 사용할 수 있습니다.
 
-. adoc에서 사용할 이미지들은 모두 xref:../images[images] 폴더에 위치시킵니다. 단, 다른 문서와 공유할 가능성이 전혀 없는 이미지라면 위와 같이 하지 않아도 됩니다.
+. adoc에서 사용할 이미지들은 모두 xref:../images/[images] 폴더에 위치시킵니다. 단, 다른 문서와 공유할 가능성이 전혀 없는 이미지라면 위와 같이 하지 않아도 됩니다.
 
-. 다른 adoc 파일의 일부를 구성할 adoc 파일은 xref:../modules[modules] 폴더에 위치시킵니다. 단, 다른 문서와 공유할 가능성이 전혀 없는 모듈이라면 위와 같이 하지 않아도 됩니다.
+. 다른 adoc 파일의 일부를 구성할 adoc 파일은 xref:../modules/[modules] 폴더에 위치시킵니다. 단, 다른 문서와 공유할 가능성이 전혀 없는 모듈이라면 위와 같이 하지 않아도 됩니다.
 
 . adoc을 작성하면서 {product-title}, {product-version} 으로 _distro_map.yml의 변수들을 참조할 수 있습니다.
 
