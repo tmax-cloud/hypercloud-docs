@@ -1,27 +1,8 @@
 = HyperCloud Documentation
-All HyperCloud documentation is sourced in http://www.methods.co.nz/asciidoc/[AsciiDoc] and transformed into HTML/CSS and other formats through automation that is based on http://asciidoctor.org/[AsciiDoctor].
+HyperCloud Documentation은 http://www.methods.co.nz/asciidoc/[AsciiDoc] 으로 작성되어 있고, http://asciidoctor.org/[AsciiDoctor]를 기반으로 하는 https://github.com/redhataccess/ascii_binder[AsciiBinder]로 빌드된다.
 
-== Contributing to HyperCloud documentation
-If you are interested in contributing to HyperCloud technical documentation, you can view all our link:./contributing_to_docs[resources] that will help you get set up and provide more information.
-
-
-The following table provides quick links to help you get started.
-
-[options="header"]
-|===
-
-|Question |Link
-
-|I'm interested, how do I contribute?
-|See the link:/contributing_to_docs/contributing.adoc[contributing] topic to learn more about this repository and how you can contribute.
-
-|Are there any basic guidelines to help me?
-|The link:/contributing_to_docs/doc_guidelines.adoc[documentation guidelines] topic provides some basic guidelines to help us keep our content consistent, and includes other style information.
-
-|How do I set up my workstation?
-|See the link:/contributing_to_docs/tools_and_setup.adoc[tools and setup] topic to set up your workstation.
-
-|How do I edit an existing topic, or create new content?
-|See the link:/contributing_to_docs/create_or_edit_content.adoc[create or edit content] topic to get started.
-
-|===
+== 기여하기
+* link:/contributing_to_docs/contributing.adoc[_distro_map.yml 및 _topic_map.yml 작성 가이드]
+* link:/contributing_to_docs/asciidoc-sample-guide.adoc[adoc 문법]
+* link:/contributing_to_docs/doc_guidelines.adoc[adoc 컨벤션]
+* link:/contributing_to_docs/tools_and_setup.adoc[빌드]
