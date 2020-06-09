@@ -74,7 +74,8 @@ Docs 화면의 목차(좌측 Navigation Bar)를 구성하는 부분
 * File : adoc 파일명. 소문자로만 구성, 두 단어 이상일 경우 하이픈(-)으로 연결.
 
 
-link:/_topic_map.yml[_topic_map.yml]
+* link:/_topic_map.yml[_topic_map.yml]
++
 [source, yaml]
 ----
 # This configuration file dictates the organization of the topic groups and
@@ -237,7 +238,8 @@ Topics:
 ** 버전 추가 시 새 브랜치 생성 (ex `new-branch`)
 ** _distro_map.yml에 새 버전의 브랜치 정보 추가
 
-link:/_distro_map.yml[_distro_map.yml]
+* link:/_distro_map.yml[_distro_map.yml]
++
 [source, yml]
 ----
 ---
@@ -262,19 +264,18 @@ hypercloud: # 빌드 시 _preview에 떨어지는 디렉토리명. 영문, 숫�
 ----
 
 * _templates/_topnav_other.html.erb 파일 수정
-** id가 "version-selector"인 select태그 하위에 옵션 태그 한 줄 추가
+** id가 "**version-selector**"인 select태그 하위에 옵션 태그 한 줄 추가
 ** <option value=" `버전명` "> `화면에 보여질 버전명` </option>
 
-link:/_templates/_topnav_other.html.erb[_topnav_other.html.erb]
+** link:/_templates/_topnav_other.html.erb[_topnav_other.html.erb]
++
 [source, html]
 ----
-<li class="nav-item">
-  <select id="version-selector" onchange="versionSelector(this, '<%= distro_key %>', '<%= version %>');">
-    <option value="5">HyperCloud 5</option> // 5 버전 추가 예시
-    <option value="4">HyperCloud 4</option>
-    <option value="3">HyperCloud 3</option>
-  </select>
-</li>
+<select id="version-selector" onchange="versionSelector(this, '<%= distro_key %>', '<%= version %>');">
+  <option value="5">HyperCloud 5</option> // 5 버전 추가 예시
+  <option value="4">HyperCloud 4</option>
+  <option value="3">HyperCloud 3</option>
+</select>
 ----
 
 ** 새로운 버전의 브랜치로 이동한 상태에서 위의 코드 수정 후 새로 빌드해주어야함.
@@ -289,9 +290,25 @@ hypercloud:
 hypercloud-en:
   (...)
 ----
+
+* 사용자가 gnb에서 추가한 언어를 선택 할 수 있도록 html 파일 내 언어 option을 추가합니다. 
+** id가 "**language-selector**"인 select태그 하위에 옵션 태그 한 줄 추가
+** <option value=" `distro 명` "> `화면에 보여질 언어명` </option>
+** link:/_templates/_topnav_other.html.erb[_topnav_other.html.erb]
++
+[source, html]
+----
+<select id="language-selector" onchange="languageSelector(this, '<%= distro_key %>');" >
+  <option value="hypercloud">한국어</option>
+  <option value="hypercloud-en">EN-US</option>
+  <option value="hypercloud-fr">Français</option> // 언어 추가 예시
+</select>
+----
+
 * 다국어를 지원할 문서(`.adoc`)에서 xref:conditional-text-between-products[ifdef, endif] 문법을 사용하여, 각 부분이 어떤 distro에서 보여질지 지정합니다.
 
-sample.adoc
+** sample.adoc
++
 ----
 \ifdef::hypercloud[]
 i18n 샘플 입니다. 
