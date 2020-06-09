@@ -328,7 +328,7 @@ WARNING: 경고합니다.
 
 .결과
 --
-WARNING: 주의하세요.
+WARNING: 경고합니다.
 --
 
 
