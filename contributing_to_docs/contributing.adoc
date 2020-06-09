@@ -333,17 +333,10 @@ Here is an example of this concept in use:
 ----
 This first line is unconditionalized, and will appear for all versions.
 
-\ifdef::openshift-online[]
-This line will only appear for OpenShift Online.
-\endif::[]
-
-ifdef::openshift-enterprise
-This line will only appear for OpenShift Container Platform.
-\endif::[]
-
-ifdef::openshift-origin,openshift-enterprise
-This line will appear for OKD and OpenShift Container Platform, but not for OpenShift Online or OpenShift Dedicated.
-\endif::[]
+ifdef::openshift-enterprise,openshift-webscale,openshift-origin,openshift-dedicated[]
+`Docker` and
+endif::[]
+`Source-to-Image (S2I)` strategy builds set the following environment variables.
 ----
 
 Note that the following limitations exist when conditionalizing text:
