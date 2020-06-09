@@ -333,9 +333,9 @@ Here is an example of this concept in use:
 ----
 This first line is unconditionalized, and will appear for all versions.
 
-ifdef::openshift-enterprise,openshift-webscale,openshift-origin,openshift-dedicated[]
+\ifdef::openshift-enterprise,openshift-webscale,openshift-origin,openshift-dedicated[]
 `Docker` and
-endif::[]
+\endif::[]
 `Source-to-Image (S2I)` strategy builds set the following environment variables.
 ----
 
