@@ -15,7 +15,7 @@ toc::[]
 
 * 각 content에는 id를 부여할 수 있습니다. 필수는 아닙니다. xref:assembly-file-metadata[참고]
 
-* adoc을 작성하면서 {product-title}, {product-version}으로 xref:../_distro_map.yml[_distro_map.yml]_distro_map.yml의 변수를 참조할 수 있습니다. xref:product-name--version[참고]
+* adoc을 작성하면서 {product-title}, {product-version}으로 xref:../_distro_map.yml[_distro_map.yml]의 변수를 참조할 수 있습니다. xref:product-name-version[참고]
 
 * 여러 가지 alias를 xref:../modules/common-attributes.adoc[modules/common-attributes.adoc] 파일에 등록해두면 adoc을 작성할 때 {kebab}과 같이 사용할 수 있습니다. xref:inline-images-icons[참고]
 
