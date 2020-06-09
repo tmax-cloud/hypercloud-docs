@@ -1,13 +1,13 @@
 ---
-hypercloud: # 빌드 시 _preview에 떨어지는 디렉토리명. 영문, 숫자, 하이픈, 언더바 사용 가능. (distro_key)
-  name: HyperCloud Console # 제품명. (distro)
+hypercloud: # 빌드 시 _preview에 떨어지는 디렉토리명. 영문, 숫자, 하이픈, 언더바 사용 가능. (erb: distro_key)
+  name: HyperCloud Console # 제품명. ( adoc: product-title / erb: distro)
   author: HyperCloud Documentation Project <hypercloud-docs@tmax.com>
   site: HyperCloud-Docs # 영문 대소문자, 숫자, 하이픈, 언더바 가능. 화면에 표시되지 않지만 입력 필수
-  site_name: Documentation # 브래드크럼 최상위 항목 (site_name)
-  site_url: https://www.tmaxcloud.com/ # gnb 로고 또는 브래드크럼 최상위 항목 클릭 시 이동 링크 (site_url)
+  site_name: Documentation # 브래드크럼 최상위 항목 ( erb: site_name)
+  site_url: https://www.tmaxcloud.com/ # gnb 로고 또는 브래드크럼 최상위 항목 클릭 시 이동 링크 (erb: site_url)
   branches:
     master: # 브랜치명
-      name: '4' # 버전명 (version)
+      name: '4' # 버전명 ( adoc: product_version / erb: version)
       dir: '4' # 해당 버전의 디렉토리 명. 버전명과 동일하게 작성
     test-branch:
       name: '3'
@@ -19,9 +19,9 @@ hypercloud-en:
   site_name: Documentation
   site_url: https://www.tmaxcloud.com/
   branches:
-    test-branch1:
+    master:
       name: '4'
       dir: '4'
-    test-branch2:
+    test-branch:
       name: '3'
       dir: '3'
