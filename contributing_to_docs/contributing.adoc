@@ -289,7 +289,20 @@ hypercloud:
 hypercloud-en:
   (...)
 ----
-* 다국어를 지원할 문서에서 xref:conditional-text-between-products[ifdef, endif] 문법을 사용하여, 각 부분이 어떤 distro에서 보여질지 지정합니다.
+* 다국어를 지원할 문서(`.adoc`)에서 xref:conditional-text-between-products[ifdef, endif] 문법을 사용하여, 각 부분이 어떤 distro에서 보여질지 지정합니다.
+
+sample.adoc
+----
+\ifdef::hypercloud[]
+i18n 샘플 입니다. 
+\endif::[]
+
+\ifdef::hypercloud-en[] 
+This is i18n sample.
+\endif::[]
+----
+
+
 * 전체 목차를 다국어로 지원하려면, xref:../_topic_map.yml[_topic_map.yml] 파일에서 topic title마다 Distros: 줄을 추가하여, 특정 topic이 어떤 distro에서 어떤 title로 보여질지 지정합니다. +
 이때 Distros에 여러 개를 쉼표로 (공백없이) 이어붙여 입력할 수도 있고, all을 입력할 수도 있습니다.
 +
