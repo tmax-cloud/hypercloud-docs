@@ -276,6 +276,17 @@ link:https://tmaxcloud.com[TmaxCloud 포털]
 .결과
 link:https://tmaxcloud.com[TmaxCloud 포털]
 
+== 문서 링크
+`xref:` 라벨을 사용해서 다른 adoc 문서로 링크되도록 설정할 수 있다. +
+
+.예제
+----
+xref:../welcome/index.adoc[제품소개 페이지로 이동]
+----
+
+.결과
+link:/welcome/index.adoc[제품소개 페이지로 이동]
+
 
 == 이미지
 `image::` 라벨을 사용해서 이미지를 삽입할 수 있다. 만약 텍스트 사이에 이미지를 삽일할 경우에는 `image:` 라벨을 사용한다.
