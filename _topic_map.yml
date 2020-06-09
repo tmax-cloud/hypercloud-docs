@@ -150,3 +150,11 @@ Topics:
   - Name: Prometheus API
     Id: APIReference::PrometheusAPI
     File: prometheus-api
+---
+Name: 샘플
+Id: Sample
+Dir: sample
+Topics:
+  - Name: 샘플 페이지
+    Id: sample::sample
+    File: sample

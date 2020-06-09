@@ -1,0 +1,16 @@
+= 샘플 페이지
+
+=== 변수 사용
+
+* product_title : {product-title} 
+* product_version : {product-version}
+
+=== i18n
+
+ifdef::hypercloud[]
+i18n 샘플 입니다. 
+endif::[]
+
+ifdef::hypercloud-en[]
+This is i18n sample.
+endif::[]
