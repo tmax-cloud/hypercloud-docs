@@ -1,11 +1,11 @@
 = 샘플 페이지
 
-=== _distro_map.yml의 변수 참조
+== _distro_map.yml의 변수 참조
 
 * product-title : {product-title} 
 * product-version : {product-version}
 
-=== i18n 적용 예시
+== i18n 적용 예시
 
 ifdef::hypercloud[]
 i18n 샘플 입니다. 
@@ -15,6 +15,6 @@ ifdef::hypercloud-en[]
 This is i18n sample.
 endif::[]
 
-=== 링크
+== 링크
 - 외부 링크 : link:https://www.tmaxcloud.com/[TmaxCloud로 이동]
 - 내부 링크 : xref:../welcome/index.adoc[제품소개 페이지로 이동]
