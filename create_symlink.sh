@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "excuted create_symlink"
+
 for symname in "images" "modules"
 do
     for f in $(find . -type f -name $symname)
