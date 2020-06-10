@@ -23,7 +23,7 @@
   <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
   <%= render("_templates/_analytics.html.erb", :distro_key => distro_key) %>
 </head>
-<body onload="selectVersion('<%= version %>'); selectLanguage('<%= distro_key %>')">
+<body onload="selectVersion('<%= version %>'); selectLanguage('<%= distro_key %>', '<%= version %>')">
   <%= render("_templates/_topnav.html.erb", :distro_key => distro_key, :site_url => site_url, :version => version) %>
   <%
     unsupported_versions = ["3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.9", "3.10"];
@@ -198,6 +198,34 @@
 
     });
     /*]]>*/
+  </script>
+  <script type="text/javascript">
+    console.log('distro_key',`<%= distro_key %>`);
+    console.log('distro',`<%= distro %>`);
+    console.log('version',`<%= version %>`);
+    console.log('site_name',`<%= site_name %>`);
+    console.log('site_url',`<%= site_url %>`);
+    console.log('group_id',`<%= group_id %>`);
+    console.log('group_title',`<%= group_title %>`);
+    console.log('subgroup_id',`<%= subgroup_id %>`);
+    console.log('subsubgroup_id',`<%= subsubgroup_id %>`);
+    console.log('subgroup_title',`<%= subgroup_title %>`);
+    console.log('topic_id',`<%= topic_id %>`);
+    console.log('topic_title',`<%= topic_title %>`);
+    console.log('article_title',`<%= article_title %>`);
+    console.log('navigation',`<%= navigation %>`);
+    console.log('css_path',`<%= css_path %>`);
+    console.log('javascripts_path',`<%= javascripts_path %>`);
+    console.log('images_path',`<%= images_path %>`);
+    console.log('template_path',`<%= template_path %>`);
+    console.log('site_home_path',`<%= site_home_path %>`);
+    console.log('breadcrumb_group',`<%= breadcrumb_group %>`);
+    console.log('breadcrumb_root',`<%= breadcrumb_root %>`);
+    console.log('breadcrumb_subgroup_block',`<%= breadcrumb_subgroup_block %>`);
+    console.log('breadcrumb_subsubgroup_block',`<%= breadcrumb_subsubgroup_block %>`);
+    console.log('breadcrumb_topic',`<%= breadcrumb_topic %>`);
+    console.log('subtopic_shim',`<%= subtopic_shim %>`);
+    console.log('repo_path',`<%= repo_path %>`)  ;
   </script>
   <%= render("_templates/_footer.html.erb", :distro_key => distro_key, :images_path => images_path) %>
 </body>

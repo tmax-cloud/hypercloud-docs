@@ -1,7 +1,6 @@
-function versionSelector(list, distro_key, currentVersion) {
+function versionSelector(list, distro, currentVersion) {
 	// the version we want
 	newVersion = list[list.selectedIndex].value;
-
 	// the new final link to load
 	newLink = '';
 
@@ -9,8 +8,9 @@ function versionSelector(list, distro_key, currentVersion) {
 	var fileRequested = '';
 
 	// spilt the current path
-	var pathArray = window.location.pathname.split(distro_key);
+	var pathArray = window.location.pathname.split(`/${distro}/${currentVersion}-`);
 
+	var language = pathArray[1].split('/')[0];
 	// so we can get the current version
 	// currentVersion = version;
 
@@ -23,11 +23,10 @@ function versionSelector(list, distro_key, currentVersion) {
 	// } else {
 	// 	fileRequested = '/welcome/index.html';
 	// }
-	fileRequested = '/welcome/index.html';
-
+	fileRequested = 'welcome/index.html';
 	// alert(fileRequested);
 
-	newLink = `${window.origin}${pathArray[0]}${distro_key}/${newVersion}${fileRequested}`;
+	newLink = `${window.origin}${pathArray[0]}/${distro}/${newVersion}-${language}/${fileRequested}`;
 	// in 3.3 and above, we changed to container-platform
 	// if (newVersion == '3.0' || newVersion == '3.1' || newVersion == '3.2') {
 	// 	newLink = 'https://docs.openshift.com/enterprise/' + newVersion + fileRequested;
@@ -69,9 +68,9 @@ function selectVersion(currentVersion) {
 	// }
 }
 
-function languageSelector(list, distro_key) {
+function languageSelector(list, distro, currentVersion) {
 	// the version we want
-	selected_distro_key = list[list.selectedIndex].value;
+	selectedLanguage = list[list.selectedIndex].value;
 
 	// the new final link to load
 	newLink = '';
@@ -80,23 +79,25 @@ function languageSelector(list, distro_key) {
 	var fileRequested = '';
 
 	// spilt the current path
-	var pathArray = window.location.pathname.split(distro_key);
-
-	fileRequested = pathArray[1];
-
-	newLink = `${window.origin}${pathArray[0]}${selected_distro_key}${fileRequested}`;
-
+	// var pathArray = window.location.pathname.split(`/${distro_key}/`);
+	var pathArray = window.location.pathname.split(`/${distro}/${currentVersion}-`);
+	var language = pathArray[1].split('/')[0];
+	fileRequested = pathArray[1].split('/')[1];
+	newLink = `${window.origin}${pathArray[0]}/${distro}/${currentVersion}-${selectedLanguage}/${fileRequested}`;
 	window.location = newLink;
 }
 
-function selectLanguage(distro_key) {
+function selectLanguage(distro, currentVersion) {
 	var el = document.getElementById('language-selector');
-	el.value = distro_key;
+	var pathArray = window.location.pathname.split(`/${distro}/${currentVersion}-`);
+	var language = pathArray[1].split('/')[0];
+	el.value = language;
 }
 
-function goFirstPage(distro_key, currentVersion) {
-	var pathArray = window.location.pathname.split(distro_key);
-	fileRequested = '/welcome/index.html';
-	newLink = `${window.origin}${pathArray[0]}${distro_key}/${currentVersion}${fileRequested}`;
+function goFirstPage(distro, currentVersion) {
+	var pathArray = window.location.pathname.split(`/${distro}/${currentVersion}-`);
+	var language = pathArray[1].split('/')[0];
+	fileRequested = 'welcome/index.html';
+	newLink = `${window.origin}${pathArray[0]}/${distro}/${currentVersion}-${language}/${fileRequested}`;
 	window.location = newLink;
 }
