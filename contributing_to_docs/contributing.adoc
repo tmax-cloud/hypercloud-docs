@@ -21,13 +21,19 @@ hypercloud:                               # 빌드 시 _preview에 떨어지는 
   site_name: Documentation                # 브래드크럼 최상위 항목 (erb: site_name)
   site_url: https://www.tmaxcloud.com/    # gnb 로고 또는 브래드크럼 최상위 항목 클릭 시 이동 링크 (erb: site_url)
   branches:
-    master:                               # 브랜치명
+    4-ko:                                 # 브랜치명
       name: '4'                           # 버전명 (adoc: product-version / erb: version)
-      dir: '4'                            # 해당 버전의 디렉토리 명. 버전명과 동일하게 작성
-    test-branch:
+      dir: '4-ko'                         # 해당 버전의 디렉토리 명. 버전명-언어 로 구성
+    4-en:
+      name: '4'
+      dir: '4-en'
+    3-ko:
       name: '3'
-      dir: '3'
-hypercloud-en:
+      dir: '3-ko'
+    3-en:
+      name: '3'
+      dir: '3-en'
+hypercloud-01:
   name: HyperCloud Console
   author: HyperCloud Documentation Project <hypercloud-docs@tmax.com>
   site: HyperCloud-Docs
@@ -48,9 +54,13 @@ hypercloud-en:
 ---- 
 _preview
 ├── hypercloud
-|   ├── 4
+|   ├── 4-ko
 |   |   └── 빌드 결과물 
-|   └── 3
+|   ├── 4-en
+|   |   └── 빌드 결과물 
+|   └── 3-ko
+|       └── 빌드 결과물 
+|   └── 3-en
 |       └── 빌드 결과물 
 └── hypercloud-01
     ├── 4
@@ -235,7 +245,7 @@ Topics:
 
 == 버전 추가 방법
 * 브랜치 생성 및 _distro_map.yml에 정보 추가
-** 버전 추가 시 새 브랜치 생성 (ex `new-branch`)
+** 버전 추가 시 지원하는 언어의 갯수만큼 새 브랜치 생성 (ex 5버전이 추가될 경우  `5-ko`, `5-en` 브랜치 생성)
 ** _distro_map.yml에 새 버전의 브랜치 정보 추가
 
 * link:/_distro_map.yml[_distro_map.yml]
@@ -250,17 +260,26 @@ hypercloud: # 빌드 시 _preview에 떨어지는 디렉토리명. 영문, 숫�
   site_name: Documentation # 브래드크럼 최상위 항목 (site_name)
   site_url: https://www.tmaxcloud.com/ # gnb 로고 또는 브래드크럼 최상위 항목 클릭 시 이동 링크 (site_url)
   branches:
-    master: # 브랜치명
-      name: '4' # 버전명 (version)
-      dir: '4' # 해당 버전의 디렉토리 명. 버전명과 동일하게 작성
-    test-branch:
-      name: '3'
-      dir: '3'
     ####### 버전 추가 예시 #######
-    new-branch:
+    5-ko:
       name: '5'
-      dir: '5'
+      dir: '5-ko'
+    5-en:
+      name: '5'
+      dir: '5-en'
     ####### 버전 추가 예시 #######
+    4-ko:          # 브랜치명
+      name: '4'    # 버전명 ( adoc: product_version / erb: version)
+      dir: '4-ko'  # 해당 버전의 디렉토리 명.
+    4-en:
+      name: '4'
+      dir: '4-en'
+    3-ko:
+      name: '3'
+      dir: '3-ko'
+    3-en:
+      name: '3'
+      dir: '3-en'
 ----
 
 * _templates/_topnav_other.html.erb 파일 수정
@@ -281,27 +300,50 @@ hypercloud: # 빌드 시 _preview에 떨어지는 디렉토리명. 영문, 숫�
 ** 새로운 버전의 브랜치로 이동한 상태에서 위의 코드 수정 후 새로 빌드해주어야함.
 
 == 언어 추가 (i18n)
-* 지원할 언어의 개수만큼 xref:../_distro_map.yml[_distro_map.yml] 파일에 distro를 생성합니다.
+* 지원할 언어의 개수만큼 xref:../_distro_map.yml[_distro_map.yml] 파일에 버전별 브랜치를 생성합니다.
+* ex ) 3, 4버전에 프랑스어 추가 시 3-fr , 4-fr 브랜치 정보 추가
 +
 [source, yaml]
 ----
 hypercloud:
-  (...)
-hypercloud-en:
-  (...)
+hypercloud: 
+ (...)
+  branches:
+    4-ko:          # 브랜치명
+      name: '4'    # 버전명 ( adoc: product_version / erb: version)
+      dir: '4-ko'  # 해당 버전의 디렉토리 명.
+    4-en:
+      name: '4'
+      dir: '4-en'
+    ####### 언어 추가 예시 #######
+    4-fr:
+      name: '4'
+      dir: '4-fr'
+    ####### 언어 추가 예시 #######
+    3-ko:
+      name: '3'
+      dir: '3-ko'
+    3-en:
+      name: '3'
+      dir: '3-en'
+    ####### 언어 추가 예시 #######
+    3-fr:
+      name: '3'
+      dir: '3-fr'
+    ####### 언어 추가 예시 #######
 ----
 
 * 사용자가 gnb에서 추가한 언어를 선택 할 수 있도록 html 파일 내 언어 option을 추가합니다. 
 ** id가 "**language-selector**"인 select태그 하위에 옵션 태그 한 줄 추가
-** <option value=" `distro` "> `화면에 표시할 언어명` </option>
+** <option value=" `언어코드` "> `화면에 표시할 언어명` </option> (언어코드는 브랜치명에서 하이픈 뒷 부분)
 ** link:/_templates/_topnav_other.html.erb[_topnav_other.html.erb]
 +
 [source, html]
 ----
 <select id="language-selector" onchange="languageSelector(this, '<%= distro_key %>');" >
-  <option value="hypercloud">한국어</option>
-  <option value="hypercloud-en">EN-US</option>
-  <option value="hypercloud-fr">Français</option> // 언어 추가 예시
+  <option value="fr">Français</option> // 언어 추가 예시
+  <option value="ko">한국어</option>
+  <option value="en">English</option>
 </select>
 ----
 
