@@ -6,7 +6,7 @@ include::modules/common-attributes.adoc[]
 [.lead]
 환영한다, {product-title} {product-version} documentation에 온 것을!!
 {product-title} 정보를 얻고 사용법을 배우고 모험을 시작해라~~~ +
-kebab 테스트 : {kebab}
+kebab 테스트 : {kebab} +
 image 테스트
 
 image::odc_create_project.png[이미지 테스트]
