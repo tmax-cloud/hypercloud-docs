@@ -24,6 +24,8 @@ product-title은 distro 하위의 name 속성값, product-version은 branch 하�
 
 * 다른 adoc 파일의 일부를 구성할 adoc 파일은 modules 폴더에 위치시킵니다. 단, 다른 문서와 공유할 가능성이 전혀 없는 모듈이라면 이와 같이 하지 않아도 됩니다.
 
+* 한 adoc 파일에서 image나 module을 참조하여 사용하려면, 그 부모 폴더에 images, modules 폴더로의 symbolic link가 있어야 합니다.
+
 == General file guidelines
 
 * Set your editor to strip trailing whitespace.
