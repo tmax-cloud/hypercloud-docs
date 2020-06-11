@@ -83,8 +83,10 @@ module AsciiBinder
 +
 [NOTE]
 ====
-`/bin/bash^M: bad interpreter` 에러가 발생하면, +
-`vi create_symlink.sh` , Esc 키, `:set fileformat=unix` , `:wq` 를 차례로 입력하면 해결된다.
+- `create_symlink.sh` 를 실행하면 파일명이 'images'이거나 'modules'인 것을 symbolic link로 변환해준다. +
+image나 module을 참조하는 adoc 파일의 부모 폴더에는 images와 modules 이름을 가지는 파일이 있어야 한다.
+- `create_symlink.sh` 를 실행하면서 `/bin/bash^M: bad interpreter` 에러가 발생하면, +
+`vi create_symlink.sh` , Esc 키, `:set fileformat=unix` , `:wq` 를 차례로 입력하여 해결할 수 있다.
 ====
 5. `asciibinder build`
 6. 빌드 결과로써 생성된 `hypercloud-docs/_preview` 폴더를 다운로드하고, 웹 서버에 띄워 테스트한다.
