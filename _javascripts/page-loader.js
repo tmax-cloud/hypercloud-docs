@@ -82,7 +82,7 @@ function languageSelector(list, distro, currentVersion) {
 	// var pathArray = window.location.pathname.split(`/${distro_key}/`);
 	var pathArray = window.location.pathname.split(`/${distro}/${currentVersion}-`);
 	var language = pathArray[1].split('/')[0];
-	fileRequested = pathArray[1].split('/')[1];
+	fileRequested = pathArray[1].slice(3);
 	newLink = `${window.origin}${pathArray[0]}/${distro}/${currentVersion}-${selectedLanguage}/${fileRequested}`;
 	window.location = newLink;
 }
