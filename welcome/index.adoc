@@ -9,7 +9,7 @@ include::modules/common-attributes.adoc[]
 kebab 테스트 : {kebab} +
 image 테스트
 
-image::odc_create_project.png[이미지 테스트]
+image::sample_image.jpg[이미지 테스트]
 
 
 == 대제목
