@@ -98,6 +98,8 @@ image나 module을 참조하는 adoc 파일의 부모 폴더에는 images와 mod
 asciibinder 명령에 -a 플래그를 붙여 빌드한다. ('모든 브랜치'에 대하여 빌드하는 효과)
 +
 ----
+### 한 줄씩 말고 통째로 복사-붙여넣기 하시면 됩니다.
+
 rm -rf hypercloud-docs
 
 git clone https://github.com/tmax-cloud/hypercloud-docs.git
