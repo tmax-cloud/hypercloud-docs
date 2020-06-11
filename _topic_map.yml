@@ -45,30 +45,30 @@ Topics:
     Id: Welcome::ReleaseNote
     File: release-note
 ---
-Name: 구성 요소
+Name: 구성요소
 Id: Component
 Dir: component
 Topics:
-  - Name: HyperCloud 오퍼레이터
+  - Name: HyperCloud Operator
     Id: Component::Operator
     File: hypercloud-operator
-  - Name: HyperCloud 콘솔
+  - Name: HyperCloud Console
     Id: Component::Console
     File: hypercloud-console
-  - Name: 쿠버네티스
+  - Name: Kubernetes
     Id: Component::Kubernetes
     File: kubernetes
-  - Name: 컴퓨트
+  - Name: Compute
     Id: Component::Compute
     Dir: compute
     Topics:
-      - Name: 도커
+      - Name: Docker
         Id: Component::Compute::Docker
         File: docker
       - Name: CRI-O
         Id: Component::Compute::CRIO
         File: cri-o
-  - Name: 스토리지
+  - Name: Storage
     Id: Component::Storage
     Dir: storage
     Topics:
@@ -78,14 +78,14 @@ Topics:
       - Name: NFS
         Id: Component::Storage::NFS
         File: nfs
-  - Name: 네트워크
+  - Name: Network
     Id: Component::Network
     Dir: network
     Topics:
       - Name: Calico
         Id: Component::Network::Calico
         File: calico
-  - Name: 플러그인
+  - Name: Plugin
     Id: Component::Plugin
     Dir: plugin
     Topics:
