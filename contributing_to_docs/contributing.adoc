@@ -21,9 +21,9 @@ hypercloud:                               # 빌드 시 _preview에 떨어지는 
   site_name: Documentation                # 브래드크럼 최상위 항목 (erb: site_name)
   site_url: https://www.tmaxcloud.com/    # gnb 로고 또는 브래드크럼 최상위 항목 클릭 시 이동 링크 (erb: site_url)
   branches:
-    4-ko:                                 # 브랜치명
+    4-ko:                                 # 브랜치명 (버전-언어)
       name: '4'                           # 버전명 (adoc: product-version / erb: version)
-      dir: '4-ko'                         # 해당 버전의 디렉토리 명. 버전명-언어 로 구성
+      dir: '4-ko'                         # 해당 버전의 디렉토리 명. (버전-언어)
     4-en:
       name: '4'
       dir: '4-en'
@@ -268,9 +268,9 @@ hypercloud: # 빌드 시 _preview에 떨어지는 디렉토리명. 영문, 숫�
       name: '5'
       dir: '5-en'
     ####### 버전 추가 예시 #######
-    4-ko:          # 브랜치명
+    4-ko:          # 브랜치명 (버전-언어)
       name: '4'    # 버전명 ( adoc: product_version / erb: version)
-      dir: '4-ko'  # 해당 버전의 디렉토리 명.
+      dir: '4-ko'  # 해당 버전의 디렉토리 명. (버전-언어)
     4-en:
       name: '4'
       dir: '4-en'
@@ -309,9 +309,9 @@ hypercloud:
 hypercloud: 
  (...)
   branches:
-    4-ko:          # 브랜치명
+    4-ko:          # 브랜치명 (버전-언어)
       name: '4'    # 버전명 ( adoc: product_version / erb: version)
-      dir: '4-ko'  # 해당 버전의 디렉토리 명.
+      dir: '4-ko'  # 해당 버전의 디렉토리 명. (버전-언어)
     4-en:
       name: '4'
       dir: '4-en'
@@ -345,41 +345,6 @@ hypercloud:
   <option value="ko">한국어</option>
   <option value="en">English</option>
 </select>
-----
-
-* 다국어를 지원할 문서(`.adoc`)에서 xref:conditional-text-between-products[ifdef, endif] 문법을 사용하여, 각 부분이 어떤 distro에서 보여질지 지정합니다.
-
-** sample.adoc
-+
-----
-\ifdef::hypercloud[]
-i18n 샘플 입니다. 
-\endif::[]
-
-\ifdef::hypercloud-en[] 
-This is i18n sample.
-\endif::[]
-----
-
-
-* 전체 목차를 다국어로 지원하려면, xref:../_topic_map.yml[_topic_map.yml] 파일에서 topic title마다 Distros: 줄을 추가하여, 특정 topic이 어떤 distro에서 어떤 title로 보여질지 지정합니다. +
-이때 Distros에 여러 개를 쉼표로 (공백없이) 이어붙여 입력할 수도 있고, all을 입력할 수도 있습니다.
-+
-[source, yaml]
-----
----
-Name: 환영합니다.
-Id: Welcome
-Distros: hypercloud
-(...)
----
-Name: Welcome
-Id: Welcome
-Distros: hypercloud-en
-(...)
-
-# Distros: all 입력가능
-# Distros: hypercloud,hypercloud-en 입력가능
 ----
 
 === Conditional text between products
