@@ -66,7 +66,7 @@ Topics:
         Id: Component::Compute::Docker
         File: docker
       - Name: CRI-O
-        Id: Component::Compute::CRI-O
+        Id: Component::Compute::CRIO
         File: cri-o
   - Name: 스토리지
     Id: Component::Storage
@@ -134,7 +134,7 @@ Topics:
     Id: UserGuide::Overview
     File: index
   - Name: 로그인
-    Id: UserGuide::Welcome
+    Id: UserGuide::Login
     File: login
 ---
 Name: API Reference
@@ -150,11 +150,3 @@ Topics:
   - Name: Prometheus API
     Id: APIReference::PrometheusAPI
     File: prometheus-api
----
-Name: 샘플
-Id: Sample
-Dir: sample
-Topics:
-  - Name: 샘플 페이지
-    Id: sample::sample
-    File: sample
