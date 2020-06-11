@@ -28,10 +28,9 @@
 # topic groups and topics on the main page.
 
 ---
-Name: 환영합니다!
+Name: Welcome
 Id: Welcome
 Dir: welcome
-Distros: hypercloud-ko
 Topics:
   - Name: 제품소개
     Id: Welcome::Overview
@@ -46,28 +45,9 @@ Topics:
     Id: Welcome::ReleaseNote
     File: release-note
 ---
-Name: Welcome
-Id: Welcome
-Dir: welcome
-Distros: hypercloud-en
-Topics:
-  - Name: Overview
-    Id: Welcome::Overview
-    File: index
-  - Name: Pros & Cons
-    Id: Welcome::ProsCons
-    File: pros-cons
-  - Name: Legal Notice
-    Id: Welcome::LegalNotice
-    File: legal-notice
-  - Name: Release Note
-    Id: Welcome::ReleaseNote
-    File: release-note
----
 Name: 구성 요소
 Id: Component
 Dir: component
-Distros: hypercloud-ko
 Topics:
   - Name: HyperCloud 오퍼레이터
     Id: Component::Operator
@@ -122,113 +102,25 @@ Topics:
         Id: Component::Plugin::Kubevirt
         File: kubevirt
 ---
-Name: Components
-Id: Component
-Dir: component
-Distros: hypercloud-en
-Topics:
-  - Name: HyperCloud Operator
-    Id: Component::Operator
-    File: hypercloud-operator
-  - Name: HyperCloud Console
-    Id: Component::Console
-    File: hypercloud-console
-  - Name: Kubernetes
-    Id: Component::Kubernetes
-    File: kubernetes
-  - Name: Compute
-    Id: Component::Compute
-    Dir: compute
-    Topics:
-      - Name: Docker
-        Id: Component::Compute::Docker
-        File: docker
-      - Name: CRI-O
-        Id: Component::Compute::CRI-O
-        File: cri-o
-  - Name: Storage
-    Id: Component::Storage
-    Dir: storage
-    Topics:
-      - Name: Rook Ceph
-        Id: Component::Storage::RookCeph
-        File: rook-ceph
-      - Name: NFS
-        Id: Component::Storage::NFS
-        File: nfs
-  - Name: Network
-    Id: Component::Network
-    Dir: network
-    Topics:
-      - Name: Calico
-        Id: Component::Network::Calico
-        File: calico
-  - Name: Plugins
-    Id: Component::Plugin
-    Dir: plugin
-    Topics:
-      - Name: Prometheus
-        Id: Component::Plugin::Prometheus
-        File: prometheus
-      - Name: Grafana
-        Id: Component::Plugin::Grafana
-        File: grafana
-      - Name: Tekton
-        Id: Component::Plugin::Tekton
-        File: tekton
-      - Name: Kubevirt
-        Id: Component::Plugin::Kubevirt
-        File: kubevirt
----
 Name: 인스톨 가이드
 Id: InstallationGuide
 Dir: installation_guide
-Distros: hypercloud-ko
 Topics:
   - Name: 개요
-    Id: InstallationGuide::Overview
-    File: index
----
-Name: Installation Guide
-Id: InstallationGuide
-Dir: installation_guide
-Distros: hypercloud-en
-Topics:
-  - Name: Overview
     Id: InstallationGuide::Overview
     File: index
 ---
 Name: 튜닝 가이드
 Id: TuningGuide
 Dir: tuning_guide
-Distros: hypercloud-ko
 Topics:
   - Name: 개요
-    Id: TuningGuide::Overview
-    File: index
----
-Name: Tuning Guide
-Id: TuningGuide
-Dir: tuning_guide
-Distros: hypercloud-en
-Topics:
-  - Name: Overview
     Id: TuningGuide::Overview
     File: index
 ---
 Name: 백업 및 복구
 Id: BackupAndRestore
 Dir: backup_and_restore
-Distros: hypercloud-ko
-Topics:
-  - Name: 개요
-    Id: BackupAndRestore::Overview
-    File: index
----
-Name: Backup and Restore
-Id: BackupAndRestore
-Dir: backup_and_restore
-Distros: hypercloud-en
 Topics:
   - Name: 개요
     Id: BackupAndRestore::Overview
@@ -237,31 +129,17 @@ Topics:
 Name: 사용자가이드
 Id: UserGuide
 Dir: user_guide
-Distros: hypercloud-ko
 Topics:
   - Name: 개요
     Id: UserGuide::Overview
     File: index
   - Name: 로그인
-    Id: UserGuide::Login
-    File: login
----
-Name: User Guide
-Id: UserGuide
-Dir: user_guide
-Distros: hypercloud-en
-Topics:
-  - Name: Overview
-    Id: UserGuide::Overview
-    File: index
-  - Name: Login
-    Id: UserGuide::Login
+    Id: UserGuide::Welcome
     File: login
 ---
 Name: API Reference
 Id: APIReference
 Dir: api_reference
-Distros: all
 Topics:
   - Name: Master API
     Id: APIReference::MasterAPI
@@ -276,17 +154,7 @@ Topics:
 Name: 샘플
 Id: Sample
 Dir: sample
-Distros: hypercloud-ko
 Topics:
   - Name: 샘플 페이지
-    Id: sample::sample
-    File: sample
----
-Name: Samples
-Id: Sample
-Dir: sample
-Distros: hypercloud-en
-Topics:
-  - Name: Sample Page
     Id: sample::sample
     File: sample
