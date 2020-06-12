@@ -270,15 +270,15 @@ hypercloud:
 ----
 
 * 사용자가 gnb에서 추가한 언어를 선택 할 수 있도록 html 파일 내 언어 option을 추가합니다. 
-** id가 "**language-selector**"인 select태그 하위에 옵션 태그 한 줄 추가
-** <option value=" `언어코드` "> `화면에 표시할 언어명` </option> (언어코드는 브랜치명에서 하이픈 뒷 부분)
+** id가 "**language-options**" 인 div 하위에 옵션 태그 한 줄 추가
+** <a class="dropdown-item" value=" `언어코드` " ... > `화면에 표시할 언어명` </a> (언어코드는 브랜치명에서 하이픈 뒷 부분)
 ** link:/_templates/_topnav_other.html.erb[_topnav_other.html.erb]
 +
 [source, html]
 ----
-<select id="language-selector" onchange="languageSelector(this, '<%= distro_key %>');" >
-  <option value="fr">Français</option> // 언어 추가 예시
-  <option value="ko">한국어</option>
-  <option value="en">English</option>
-</select>
+<div class="dropdown-menu" id="language-options" aria-labelledby="navbarDropdown">
+  <a class="dropdown-item" value="ko" href="javascript:void(0);" onclick="languageSelector(this, '<%= distro_key %>','<%= version %>')">한국어</a>
+  <a class="dropdown-item" value="en" href="javascript:void(0);" onclick="languageSelector(this, '<%= distro_key %>','<%= version %>')">English</a>
+  <a class="dropdown-item" value="fr" href="javascript:void(0);" onclick="languageSelector(this, '<%= distro_key %>','<%= version %>')">Français</a>
+</div>
 ----
