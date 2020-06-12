@@ -1,13 +1,16 @@
-<div class="navbar navbar-default navbar-openshift navbar-origin navbar-other" role="navigation">
-	<a class="navbar-brand origin" href="<%= site_url %>"></a>
-	<div class="collapse navbar-collapse">
-		<ul class="navbar-nav mr-auto">
+<div class="navbar navbar-other" role="navigation">
+	<div class="nav-logo">
+		<a class="nav-logo-link" href="<%= site_url %>"></a>
+	</div>
+	<div class="nav-version">
+		<ul class="navbar-nav">
 			<li class="nav-item">
 				<a class="nav-link manual" href="javascript:void(0);" onclick="goFirstPage('<%= distro_key %>', '<%= version %>'); return false;" >메뉴얼</a>
+				<div class="divider"></div>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link disabled version" >버전</a>
-			</li>
+				</li>
 			<li class="nav-item">
 				<select id="version-selector" onchange="versionSelector(this, '<%= distro_key %>', '<%= version %>');">
 					<option value="4">HyperCloud 4</option>
@@ -16,6 +19,8 @@
 				</select>
 			</li>
 		</ul>
+	</div>
+	<div class="nav-right">
 		<ul class="navbar-nav">
 			<li class="nav-item">
 				<span class="fa fa-globe" style="color:white"></span>

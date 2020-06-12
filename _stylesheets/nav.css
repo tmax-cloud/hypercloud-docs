@@ -1,0 +1,103 @@
+.navbar-other {
+	display: flex;
+	background: #31475e;
+	height: 56px;
+	min-height: 56px;
+	margin-bottom: 20px;
+	border: none;
+	border-radius: 0%;
+	border-radius: inherit;
+}
+
+.navbar-other .navbar-nav {
+	display: flex;
+	padding: 0;
+}
+
+.nav-logo,
+.nav-version {
+	flex: none;
+}
+
+.nav-logo {
+	/* background: url('../_images/gnb_logo_bg.png') no-repeat; */
+	background: url('../_images/Mask.svg') no-repeat;
+	width: 217px;
+	background-size: contain;
+}
+
+.nav-logo-link {
+	background: url('../_images/hypercloud_wh.png');
+}
+
+.navbar-other .divider {
+	border-right: 1px solid white;
+	height: 18px;
+	align-self: center;
+}
+
+.nav-version,
+.nav-right {
+	margin: auto 0;
+}
+.nav-right {
+	margin-left: auto;
+}
+
+.nav-version .navbar-nav:first-child > li {
+	display: flex;
+}
+
+.navbar-other li > a:hover {
+	text-decoration: none;
+}
+
+.navbar-other .manual {
+	font-size: 20px !important;
+	color: #ffffff;
+	font-weight: bold;
+	line-height: 24px;
+	letter-spacing: 0;
+	padding: 0;
+	margin: auto 30px auto 10px;
+}
+.navbar-other .version {
+	font-size: 13px;
+	/* margin: 0 30px 0 10px; */
+	padding: 0;
+	color: #ffffff;
+	margin: auto 10px auto 30px;
+}
+
+.navbar-other .console {
+	margin: auto 40px auto 25px;
+	color: white;
+	font-size: 13px;
+	color: #ffffff;
+	letter-spacing: 0;
+}
+
+.navbar-other .console .nav-link {
+	border: 1px solid white;
+	padding: 8px 14px !important;
+	border-radius: 2px;
+	color: white;
+}
+
+#version-selector {
+	width: 170px;
+	height: 33px;
+}
+#language-selector {
+	font-size: 14px;
+	width: fit-content;
+	height: 33px;
+	background: none;
+	border: none;
+	color: white;
+}
+#language-selector > option {
+	font-size: 14px;
+	color: #31475e;
+	letter-spacing: 0;
+}
