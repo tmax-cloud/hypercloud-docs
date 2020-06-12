@@ -70,7 +70,7 @@ function selectVersion(currentVersion) {
 
 function languageSelector(list, distro, currentVersion) {
 	// the version we want
-	selectedLanguage = list[list.selectedIndex].value;
+	selectedLanguage = list.getAttribute('value');
 
 	// the new final link to load
 	newLink = '';
@@ -91,7 +91,13 @@ function selectLanguage(distro, currentVersion) {
 	var el = document.getElementById('language-selector');
 	var pathArray = window.location.pathname.split(`/${distro}/${currentVersion}-`);
 	var language = pathArray[1].split('/')[0];
-	el.value = language;
+
+	var options = [...document.getElementById('language-options').children];
+	options.forEach((item) => {
+		if (item.getAttribute('value') === language) {
+			el.innerText = item.text;
+		}
+	});
 }
 
 function goFirstPage(distro, currentVersion) {
