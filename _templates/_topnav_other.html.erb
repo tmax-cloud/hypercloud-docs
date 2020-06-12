@@ -13,10 +13,9 @@
 				</li>
 			<li class="nav-item">
 				<select id="version-selector" onchange="versionSelector(this, '<%= distro_key %>', '<%= version %>');">
+					<!-- 새 버전 추가 -->
 					<option value="4">HyperCloud 4</option>
 					<option value="3">HyperCloud 3</option>
-					<option value="2">HyperCloud 2</option>
-					<!-- 새 버전 추가 -->
 				</select>
 			</li>
 		</ul>
@@ -27,9 +26,9 @@
 				<span class="fa fa-globe" style="color:white"></span>
 				<a class="nav-link dropdown-toggle" href="#" id="language-selector" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
 				<div class="dropdown-menu" id="language-options" aria-labelledby="navbarDropdown">
+					<!-- 새 언어 추가 -->
 					<a class="dropdown-item" value="ko" href="javascript:void(0);" onclick="languageSelector(this, '<%= distro_key %>','<%= version %>')">한국어</a>
 					<a class="dropdown-item" value="en" href="javascript:void(0);" onclick="languageSelector(this, '<%= distro_key %>','<%= version %>')">English</a>
-					<!-- 새 언어 추가 -->
 				</div>
 			</li>
 			<li class="nav-item console" >
