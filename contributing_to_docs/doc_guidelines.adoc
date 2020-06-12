@@ -428,13 +428,18 @@ OpenShift web console uses the Font Awesome icon set) have already been added to
 the `images` folder with a user-defined entity added to the
 `common-attributes.adoc` module:
 
+`common-attributes.adoc` 에서의 내용
+----
+:kebab: image:kebab.png[title="Options menu"]
+----
+
 |===
 |Icon |Entity |Alt text |File name
 
 |Kebab
 |`:kebab:`
 |Options menu
-|`ellipsis-v.svg`
+|`kebab.png`
 
 |===
 
