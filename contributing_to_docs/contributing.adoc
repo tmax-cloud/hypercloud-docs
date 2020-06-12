@@ -242,7 +242,6 @@ hypercloud: # 빌드 시 _preview에 떨어지는 디렉토리명. 영문, 숫�
 +
 [source, yaml]
 ----
-hypercloud:
 hypercloud: 
  (...)
   branches:
