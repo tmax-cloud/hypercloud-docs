@@ -1,5 +1,5 @@
 [id="contributing-to-docs-contributing"]
-= Contribute to OpenShift documentation
+= Contribute to HyperCloud Documentation
 :icons:
 :toc: macro
 :toc-title:
@@ -21,7 +21,7 @@ hypercloud:                               # 빌드 시 _preview에 떨어지는 
   site_name: Documentation                # 브래드크럼 최상위 항목 (erb: site_name)
   site_url: https://www.tmaxcloud.com/    # gnb 로고 또는 브래드크럼 최상위 항목 클릭 시 이동 링크 (erb: site_url)
   branches:
-    4-ko:                                 # 브랜치명 (버전-언어)
+    4-ko:                                 # 브랜치명 (버전-언어) / 언어는 2자리 코드 (http://www.lingoes.net/en/translator/langcode.htm)
       name: '4'                           # 버전명 (adoc: product-version / erb: version)
       dir: '4-ko'                         # 해당 버전의 디렉토리 명. (버전-언어)
     4-en:
@@ -72,7 +72,8 @@ _preview
 
 == _topic_map.yml 작성 방법
 
-Docs 화면의 목차(좌측 Navigation Bar)를 구성하는 부분
+Docs 화면의 목차(좌측 Navigation Bar)를 구성하는 부분 +
+브랜치(버전, 언어)마다 다르게 작성 가능
 
 * 최대 3 depth 까지 작성 가능, 최상단 항목은 Group 만 가능 (하위 Topic을 포함해야함)
 * Name : 제목 (목차, 브래드크럼, adoc 파일 상단에 노출되는 타이틀)
