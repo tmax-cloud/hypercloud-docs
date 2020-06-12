@@ -9,11 +9,13 @@
 toc::[]
 
 == 브랜치 별 용도
-* master : 다른 모든 브랜치에 cherry pick되어야 할 공통적인 변경사항을 우선적으로 commit하는 데 사용, 새로운 브랜치를 만들기 위한 분기점으로 사용
+* master : 다른 모든 브랜치에 cherry pick 또는 merge 되어야 할 공통적인 변경사항을 commit하는 데 사용, 새로운 브랜치를 만들기 위한 분기점으로 사용
 * 4-ko, 4-en, ... : 버전-언어 별 매뉴얼 작성에 사용, 기존 매뉴얼과 구성이나 내용이 비슷한 새 버전/언어 매뉴얼을 작성해야 할 때 브랜치 분기점으로 사용
-* 기타 : 테스트를 위한 브랜치는 사용자 판단 하에 생성 (필요가 사라지면 삭제)
+* 기타 : 테스트를 위한 브랜치, 다른 브랜치로 merge하기 위한 임시 브랜치 등 사용자가 판단하여 생성 (필요가 사라지면 삭제)
 
 == _distro_map.yml 작성 방법
+* 모든 브랜치에서 같은 내용을 유지하는 것을 권장 +
+변경할 필요가 생기면 master에서 먼저 작성하고 각 브랜치로 cherry pick 또는 merge (즉 관리 포인트가 master)
 
 link:/_distro_map.yml[_distro_map.yml]
 [source, yaml]
@@ -45,15 +47,14 @@ hypercloud-01:
   site_url: https://www.tmaxcloud.com/
   branches:
     master:
-      name: '4'
-      dir: '4'
+      name: 'latest'
+      dir: 'latest'
     test-branch:
-      name: '3'
-      dir: '3'
-
+      name: 'deprecated'
+      dir: 'old'
 ----
 
-* 빌드 결과물 파일 구조 예시
+* 빌드 후 파일구조 예시
 +
 ---- 
 _preview
@@ -67,17 +68,19 @@ _preview
 |   └── 3-en
 |       └── 빌드 결과물 
 └── hypercloud-01
-    ├── 4
+    ├── latest
     |   └── 빌드 결과물 
-    └── 3
+    └── old
         └── 빌드 결과물 
 ----
+
+* 모든 브랜치를 한 번에 빌드한 후에는 불필요한 폴더를 삭제하는 것을 권장
 
 
 == _topic_map.yml 작성 방법
 
 Docs 화면의 목차(좌측 Navigation Bar)를 구성하는 부분 +
-브랜치(버전, 언어)마다 다르게 작성 가능
+브랜치(버전, 언어)마다 다르게 작성할 수 있음
 
 * 최대 3 depth 까지 작성 가능, 최상단 항목은 Group 만 가능 (하위 Topic을 포함해야함)
 * Name : 제목 (목차, 브래드크럼, adoc 파일 상단에 노출되는 타이틀)
@@ -173,78 +176,7 @@ Topics:
       - Name: NFS
         Id: Component::Storage::NFS
         File: nfs
-  - Name: Network
-    Id: Component::Network
-    Dir: network
-    Topics:
-      - Name: Calico
-        Id: Component::Network::Calico
-        File: calico
-  - Name: Plugin
-    Id: Component::Plugin
-    Dir: plugin
-    Topics:
-      - Name: Prometheus
-        Id: Component::Plugin::Prometheus
-        File: prometheus
-      - Name: Grafana
-        Id: Component::Plugin::Grafana
-        File: grafana
-      - Name: Tekton
-        Id: Component::Plugin::Tekton
-        File: tekton
-      - Name: Kubevirt
-        Id: Component::Plugin::Kubevirt
-        File: kubevirt
----
-Name: 인스톨 가이드
-Id: InstallationGuide
-Dir: installation_guide
-Topics:
-  - Name: 개요
-    Id: InstallationGuide::Overview
-    File: index
----
-Name: 튜닝 가이드
-Id: TuningGuide
-Dir: tuning_guide
-Topics:
-  - Name: 개요
-    Id: TuningGuide::Overview
-    File: index
----
-Name: 백업 및 복구
-Id: BackupAndRestore
-Dir: backup_and_restore
-Topics:
-  - Name: 개요
-    Id: BackupAndRestore::Overview
-    File: index
----
-Name: 사용자가이드
-Id: UserGuide
-Dir: user_guide
-Topics:
-  - Name: 개요
-    Id: UserGuide::Overview
-    File: index
-  - Name: 로그인
-    Id: UserGuide::Login
-    File: login
----
-Name: API Reference
-Id: APIReference
-Dir: api_reference
-Topics:
-  - Name: Master API
-    Id: APIReference::MasterAPI
-    File: master-api
-  - Name: Kubernetes API
-    Id: APIReference::KubernetesAPI
-    File: kubernetes-api
-  - Name: Prometheus API
-    Id: APIReference::PrometheusAPI
-    File: prometheus-api
+...
 ----
 
 
