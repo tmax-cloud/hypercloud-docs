@@ -13,7 +13,7 @@ toc::[]
 
 * adoc 문법을 숙지하였다고 해도, 이 문서 전체 내용을 추가로 읽고 나서 가이드를 작성해주시기 바랍니다.
 
-* 각 content에는 id를 부여할 수 있습니다. 필수는 아닙니다. xref:assembly-file-metadata[참고]
+* 각 content에는 id를 부여할 수 있습니다. 필수는 아닙니다. 다른 곳에서 이 content로 링크를 달아야 할 때 유용합니다. xref:assembly-file-metadata[참고]
 
 * adoc을 작성하면서 {product-title}, {product-version}으로 xref:../_distro_map.yml[_distro_map.yml]의 변수를 참조할 수 있습니다. +
 product-title은 distro 하위의 name 속성값, product-version은 branch 하위의 name 속성값입니다. xref:product-name-version[참고]
