@@ -260,6 +260,25 @@ nav#main {
 		min-width: 645px;
 	}
 }
+
+footer#rh {
+	display: flex;
+	align-items: center;
+}
+
+footer#rh > .container {
+	width: 100%;
+	padding: 0 100px;
+}
+footer#rh .row {
+	margin: 0;
+}
+
+footer .col-sm-6 {
+	margin: 0;
+	padding: 0;
+}
+
 footer#rh nav {
 	display: flex;
 	flex-direction: column;
@@ -284,25 +303,29 @@ footer#rh nav {
 }
 footer#rh nav,
 footer#rh p {
-	padding-top: 10px;
 }
 footer#rh nav a:last-child {
 	border: 0;
 }
 footer#rh nav a,
 footer#rh p {
-	font-size: 0.8rem;
+	font-size: 12px;
+	line-height: 24px;
+	letter-spacing: 0;
 	color: #000000;
+	padding: 0;
+	margin: 0;
 }
 footer#rh {
 	background-color: #efefef;
-	padding: 10px 0;
+	/* padding: 17px 0; */
 	border-top: 1px solid #c9c9c9;
+	height: 79px;
 }
 footer#rh nav a {
 	padding: 0 0.55rem;
 	border-right: 1px solid #6c6c6c;
 }
-footer#rh img[alt='Red Hat'] {
-	margin-top: 6px;
+footer#rh img {
+	max-width: inherit;
 }

@@ -21,6 +21,10 @@
 	padding: 0;
 }
 
+.navbar-other a:focus {
+	text-decoration: none;
+}
+
 .nav-logo,
 .nav-version {
 	flex: none;
@@ -103,6 +107,7 @@
 	border: none;
 	color: white;
 }
+
 #language-selector > option {
 	font-size: 14px;
 	color: #31475e;
@@ -145,7 +150,7 @@
 	z-index: 1000;
 	display: none;
 	float: left;
-	min-width: 100px;
+	min-width: 86px;
 	padding: 0.5rem 0;
 	margin: 0.125rem 0 0;
 	font-size: 1rem;
@@ -190,6 +195,7 @@
 	color: #5b6065;
 	letter-spacing: 0;
 	font-weight: bold;
+	text-decoration: none !important;
 }
 .back-to-top > i {
 	font-size: 19px;
@@ -197,9 +203,7 @@
 }
 .back-to-top:hover {
 	color: #0c70d3;
-	text-decoration: none;
 }
 .back-to-top:active {
 	color: #316396;
-	text-decoration: none;
 }
