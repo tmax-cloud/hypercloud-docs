@@ -12,6 +12,11 @@
 	width: 100%;
 }
 
+.navbar-other > .nav-logo img {
+	width: 126px;
+	margin-left: 18px;
+}
+
 .navbar-other + .container {
 	padding-top: 76px;
 }
@@ -31,10 +36,11 @@
 }
 
 .nav-logo {
-	/* background: url('../_images/gnb_logo_bg.png') no-repeat; */
-	background: url('../_images/Mask.svg') no-repeat;
+	background: url('../_images/gnb_logo_bg.svg') no-repeat;
 	width: 217px;
-	background-size: contain;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .nav-logo-link {
