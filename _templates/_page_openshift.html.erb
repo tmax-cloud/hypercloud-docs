@@ -99,7 +99,7 @@
     </ol>
     <div class="row row-offcanvas row-offcanvas-left">
       <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas">
-        <!-- <div class="row-fluid">
+        <div class="row-fluid">
           <div id="hc-search">
             <input id="hc-search-input" type="text">
             <button id="hc-search-btn">Search</button>
@@ -117,7 +117,7 @@
               </div>
             </div>
           </div>
-        </div> --!>
+        </div>
         <%= render("_templates/_nav_openshift.html.erb", :distro_key => distro_key, :navigation => navigation, :group_id => group_id, :topic_id => topic_id, :subgroup_id => subgroup_id, :subtopic_shim => subtopic_shim, :subsubgroup_id => subsubgroup_id) %>
       </div>
       <div class="col-xs-12 col-sm-9 col-md-9 main">
@@ -155,7 +155,7 @@
   <script src="<%= javascripts_path %>clipboard.min.js" type="text/javascript"></script>
   <script src="<%= javascripts_path %>clipboard.js" type="text/javascript"></script>
 
-  <!-- <script>
+ <script>
   // search 관련
   var dk = '<%= distro_key %>';
   var version = '<%= version %>';
@@ -169,7 +169,7 @@
   };
 
   distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
-  </script> -->
+  </script>
 
   <script type="text/javascript">
     /*<![CDATA[*/
