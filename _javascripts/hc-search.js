@@ -52,7 +52,7 @@ function hcsearch(searchParams) {
 
 	// the "searchprovider" is to return a JSON response in the expected format
 	// var searchprovider = "https://search.help.openshift.com/json";
-	var searchprovider = 'http://62fbb4e98a65.ngrok.io/json';
+	var searchprovider = 'http://192.168.8.36:8000/json';
 	// var searchReq = { q: searchParams.q + searchParams.urlFilter, 'fields.label': searchParams.label, start: searchParams.si };
 	var searchReq = { q: searchParams.q + searchParams.urlFilter, start: searchParams.si };
 
