@@ -1,3 +1,7 @@
+* {
+	font-family: 'Noto Sans KR' !important;
+}
+
 nav#main {
 	margin-bottom: 15px;
 }

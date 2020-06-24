@@ -10,10 +10,11 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <%= (distro_key == "openshift-webscale") ? '<meta name="robots" content="noindex,nofollow">' : '' %>
   <title><%= [topic_title, subgroup_title].compact.join(' - ') %> | <%= group_title %> | <%= distro %> <%= version %></title>
+  <link href='http://fonts.googleapis.com/css?family=Noto+Sans+KR' rel='stylesheet' type='text/css'>
   <link href="<%= css_path %>subdomain.css" rel="stylesheet" type="text/css">
-  <link href="<%= css_path %>docs.css" rel="stylesheet" type="text/css">
   <link href="<%= css_path %>search.css" rel="stylesheet" />
   <link href="<%= css_path %>osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen, print" />
+  <link href="<%= css_path %>docs.css" rel="stylesheet" type="text/css">
   <link href="<%= css_path %>nav.css" rel="stylesheet" />
   <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png">
   <link href="<%= images_path %>hypercloud_favicon.png" rel="shortcut icon" type="text/css"> 
