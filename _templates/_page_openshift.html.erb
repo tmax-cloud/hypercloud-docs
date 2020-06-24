@@ -26,7 +26,7 @@
   <%= render("_templates/_analytics.html.erb", :distro_key => distro_key) %>
 </head>
 <body onload="selectVersion('<%= version %>'); selectLanguage('<%= distro_key %>', '<%= version %>')">
-  <%= render("_templates/_topnav.html.erb", :distro_key => distro_key, :site_url => site_url, :version => version) %>
+  <%= render("_templates/_topnav.html.erb", :distro_key => distro_key, :site_url => site_url, :version => version, :images_path => images_path) %>
   <%
     unsupported_versions = ["3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.9", "3.10"];
   %>
