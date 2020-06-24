@@ -1,4 +1,4 @@
-@import "defaults";
+@import 'defaults';
 
 // Body
 
@@ -6,13 +6,13 @@ $em-base: 16px;
 $primary-color: #006699;
 //$alert-color: lighten(#6d180b, 15%);
 $global-radius: 0;
-$body-font-family: "Helvetica Neue",Helvetica,"Liberation Sans",Arial,sans-serif;
+$body-font-family: 'Helvetica Neue', Helvetica, 'Liberation Sans', Arial, sans-serif;
 
 // Title
 $title-font-color: #222;
 
 // Headings
-$header-font-family: Overpass, sans-serif;
+$header-font-family: Noto Sans KR, sans-serif;
 //$header-font-weight: normal;
 $header-font-color: #222;
 $header-top-margin: 1em;
@@ -36,7 +36,7 @@ $pre-border-size: 0;
 $pre-border-color: #ccc;
 $pre-border-style: solid;
 $pre-font-color: black;
-$pre-padding: .8em .8em .6em .8em;
+$pre-padding: 0.8em 0.8em 0.6em 0.8em;
 
 // Links
 

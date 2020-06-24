@@ -520,7 +520,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: 'Noto Sans KR', Overpass, 'Open Sans', Helvetica, Arial, sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 	font-weight: 400;
 	color: #000;
 }
