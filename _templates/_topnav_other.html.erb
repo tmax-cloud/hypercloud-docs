@@ -6,11 +6,11 @@
 	</div>
 	<div class="nav-version">
 		<ul class="navbar-nav">
-			<li class="nav-item">
-				<a class="nav-link manual" href="javascript:void(0);" onclick="goFirstPage('<%= distro_key %>', '<%= version %>'); return false;" >메뉴얼</a>
+			<li class="nav-item hidden-xs">
+				<a class="nav-link manual" href="javascript:void(0);" onclick="goFirstPage('<%= distro_key %>', '<%= version %>'); return false;" >매뉴얼</a>
 				<div class="divider"></div>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item hidden-xs">
 				<a class="nav-link disabled version" >버전</a>
 				</li>
 			<li class="nav-item">
@@ -33,7 +33,7 @@
 					<a class="dropdown-item" value="en" href="javascript:void(0);" onclick="languageSelector(this, '<%= distro_key %>','<%= version %>')">English</a>
 				</div>
 			</li>
-			<li class="nav-item console" >
+			<li class="nav-item console hidden-xs" >
 				<a class="nav-link" href="#" >
 					콘솔
 					<span class="fa fa-external-link"></span>

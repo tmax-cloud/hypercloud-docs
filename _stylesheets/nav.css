@@ -59,6 +59,7 @@
 }
 .nav-right {
 	margin-left: auto;
+	padding-right: 40px;
 }
 
 .nav-version .navbar-nav:first-child > li {
@@ -87,7 +88,7 @@
 }
 
 .navbar-other .console {
-	margin: auto 40px auto 25px;
+	margin: auto 0 auto 25px;
 	color: white;
 	font-size: 13px;
 	color: #ffffff;
@@ -118,6 +119,15 @@
 	font-size: 14px;
 	color: #31475e;
 	letter-spacing: 0;
+}
+
+@media (max-width: 767px) {
+	#version-selector {
+		width: 155px;
+	}
+	.nav-right {
+		padding-right: 10px;
+	}
 }
 
 .navbar-other .dropdown > a {

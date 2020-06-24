@@ -3630,14 +3630,15 @@ tbody.collapse.in {
 	margin-top: 4px;
 }
 .navbar-nav {
-	margin: 12.5px -25px;
+	float: left;
+	margin: 0;
 }
 .navbar-nav > li > a {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	line-height: 20px;
 }
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
 	.navbar-nav .open .dropdown-menu {
 		position: static;
 		float: none;
@@ -3658,7 +3659,7 @@ tbody.collapse.in {
 	.navbar-nav .open .dropdown-menu > li > a:hover {
 		background-image: none;
 	}
-}
+} */
 .progress-bar-striped,
 .progress-striped .progress-bar,
 .progress-striped .progress-bar-success {
