@@ -11,12 +11,10 @@ To build it:
 - compiled stylesheet is in the stylesheets/ directory
 */
 
-@import "fonts/overpass";
-@import "fonts/sourcecode";
-@import "settings/origin";
-@import "components/asciidoc";
-@import "components/awesome-icons";
-
+@import 'fonts/sourcecode';
+@import 'settings/origin';
+@import 'components/asciidoc';
+@import 'components/awesome-icons';
 
 nav.global {
 	background: #222;
@@ -32,23 +30,21 @@ nav.global {
 	}
 	a {
 		display: block;
-		padding: .5em 1em;
-		font-family: Overpass;
+		padding: 0.5em 1em;
+		font-family: inherit;
 		font-size: 1.1em;
 		color: white;
 
 		&:hover {
 			color: #ef2e32;
 		}
-		
+
 		img {
-			margin-top: .25em;
+			margin-top: 0.25em;
 			height: 2.75em;
-		
 		}
 	}
 }
-
 
 #header > h1 {
 	border: none;
@@ -59,11 +55,9 @@ nav.global {
 	border-right: none;
 
 	&.toc2 {
-		box-shadow: 1px 0 1px rgba(0,0,0,0.3);
+		box-shadow: 1px 0 1px rgba(0, 0, 0, 0.3);
 	}
-	
 }
-
 
 code {
 	font-family: source_code_pro;

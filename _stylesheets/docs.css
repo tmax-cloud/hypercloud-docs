@@ -170,16 +170,6 @@ div.gsc-option-menu-container > div.gsc-selected-option-container {
 	font-weight: normal;
 }
 
-/* Footer Edits 12/11/2015 */
-@media screen and (max-width: 768px) {
-	.footer-openshift {
-		height: 190px;
-	}
-}
-.footer-openshift a {
-	top: 0;
-	margin-left: 0;
-}
 .footer-origin-docs {
 	padding: 20px;
 	color: #ccc;
@@ -205,10 +195,6 @@ div.gsc-option-menu-container > div.gsc-selected-option-container {
 #footer_logo {
 	margin-left: 0;
 }
-#powered_by_openshift img {
-	text-align: center;
-	width: 180px;
-}
 #built_with_asciibinder img {
 	width: 140px;
 }
@@ -222,12 +208,10 @@ div.gsc-option-menu-container > div.gsc-selected-option-container {
 		border-right: 1px solid #e7e7e7;
 		background: #fff;
 	}
-	.footer-origin-docs,
-	.footer-openshift {
+	.footer-origin-docs {
 		display: none; /* hide absolute positioned footer at mobile */
 	}
-	.visible-xs-block .footer-origin-docs,
-	.visible-xs-block .footer-openshift {
+	.visible-xs-block .footer-origin-docs {
 		/* show alternate footer positioned relative at mobile */
 		display: block;
 		position: relative;
