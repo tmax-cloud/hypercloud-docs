@@ -1,1 +1,1 @@
-<%= render((distro_key == 'openshift-origin' ? "_templates/_topnav_origin.html" : "_templates/_topnav_other.html.erb"), :site_url => site_url, :distro_key => distro_key, :version => version, :images_path => images_path) %>
+<%= render("_templates/_topnav_other.html.erb", :site_url => site_url, :distro_key => distro_key, :version => version, :images_path => images_path) %>
