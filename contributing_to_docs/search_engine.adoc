@@ -2,7 +2,7 @@
 = 검색 엔진 구축 및 연동하기
 :toc: macro
 :toc-title:
-:toclevels: 1
+:toclevels: 2
 
 toc::[]
 
@@ -16,13 +16,182 @@ FESS의 UI는 검색엔진의 admin 기능을 위해서만 사용할 것이므�
 
 === 별도의 Host를 사용하는 경우
 https://github.com/codelibs/docker-fess[Docker for FESS] 의 가이드를 따르면 된다. +
-아래와 같이 진행하고 나면, http://HostIP:XXXX 로 검색엔진에 속할 수 있다. (XXXX에는 원하는 포트를 입력한다.)
+아래와 같이 진행하고 나면, http://HostIP:XXXX 로 검색엔진에 접속할 수 있다. (XXXX에는 원하는 포트를 입력한다.)
 ----
 docker pull codelibs/fess:latest
-----
-----
 docker run -d -p XXXX:8080 --name fess codelibs/fess:latest
 ----
 
-=== Kubernetes를 사용하는 경우
-아래와 같이 3개의 yaml 파일을 만들고, `kubectl create -f`를 통해 리소스를 생성한다.
+=== Kubernetes 환경에서 사용하는 경우
+아래와 같이 3개의 yaml 파일을 만든 후, 차례로 `kubectl create -f` 명령을 적용하여 필요한 리소스를 생성한다.
+모든 과정이 진행되고 pod 생성이 완료되면, http://NodeIP:31999 로 검색엔진에 접속할 수 있다. (31999 대신 다른 nodePort를 사용해도 무방하다.)
+
+[NOTE]
+====
+충분한 메모리가 확보되어야 하므로 namespace의 `ResourceQuota`를 생성하지 않고, pod의 `resources.limits`를 설정하지 않는다.
+====
+
+----
+kubectl create -f 1.initialization.yaml
+kubectl create -f 2.svc-np.yaml
+kubectl create -f 3.deployment-pod.yaml
+----
+
+* 1.initialization.yaml
++
+[source,yaml]
+----
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fess-search
+
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fess-search-admin
+  namespace: fess-search
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: fess-search-admin
+  namespace: fess-search
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]
+
+---
+
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: fess-search-admin
+subjects:
+  - kind: ServiceAccount
+    name: fess-search-admin
+    namespace: fess-search
+roleRef:
+  kind: ClusterRole
+  name: fess-search-admin
+  apiGroup: rbac.authorization.k8s.io
+----
+
+* 2.svc-np.yaml
++
+[source,yaml]
+----
+apiVersion: v1
+kind: Service
+metadata:
+  name: fess-search-np
+  namespace: fess-search
+spec:
+  type: NodePort
+  ports:
+  - name: "http"
+    port: 8080
+    targetPort: 8080
+    nodePort: 31999
+  selector:
+    app: fess
+----
+
+* 3.deployment-pod.yaml
++
+[source,yaml]
+----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fess
+  namespace: fess-search
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: fess
+  template:
+    metadata:
+      name: fess
+      labels:
+        app: fess
+    spec:
+      containers:
+      - image: codelibs/fess:latest
+        imagePullPolicy: IfNotPresent
+        name: fess
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
+----
+
+
+== FESS Admin
+http://FESS_IP:PORT/admin 으로 접속하면 admin 기능을 사용할 수 있다. +
+최초 계정 정보는 admin/admin이고, 로그인 후 비밀번호를 변경하거나 새로운 계정을 추가할 수 있다.
+
+https://fess.codelibs.org/13.8/admin/index.html[Fess Administration Guide]의 Crawler와 Scheduler 부분이 도움이 될 수 있다.
+
+=== 크롤러 설정
+Crawler > Web > Create New 에서 아래와 같이 설정하면 URLs에 등록된 URL을 기반으로 동작할 크롤러가 생성된다.
+
+Included URLs For Crawling 를 설정하여 URL 형식을 제한할 수 있는데, 여기에 Java 정규표현식을 사용할 수 있다.
+단, 이때는 의도하는 URL의 일부와 매칭되는 패턴이 아니라 전체와 매칭되는 패턴을 작성해주어야 한다.
+
+필요에 따라 다른 옵션도 사용할 수 있다.
+
+[cols="1,1,1",options="header"]
+|===
+| Name | URLs | Included URLs For Crawling
+| 4-ko
+| http://192.168.8.36/hypercloud-docs/hypercloud/4-ko/welcome/index.html
+| .*hypercloud.*html
+|===
+
+=== 크롤러 실행
+System > Scheduler 에서 Default Crawler를 선택하여 상세화면으로 들어간 다음, Start Now 버튼을 누르면 모든 Crawler가 실행된다.
+
+=== 크롤링 데이터 초기화/재수집
+우선 System > Scheduler 에서 Running 중인 Crawler가 있다면 상세화면으로 들어가 Stop 버튼을 누른다. +
+System Info > Search 에서 empty string으로 검색을 하고, Delete all with this query 버튼을 누른다. 여기까지 하면 크롤링 데이터가 모두 초기화된다.
+
+이 작업을 한 후에 '크롤러 실행' 단계를 다시 거치면, 크롤링 데이터가 처음부터 다시 수집된다.
+
+
+== HyperCloud Docs 웹서버에 Reverse Proxy 설정
+HyperCloud Docs 사이트에서 도메인 직후의 path가 /search/로 시작하면 FESS 서버로 프록시되도록 설정한다.
+웹서버로 WebtoB를 사용하고 있다면, webtob의 config 경로로 이동해서 http.m 설정파일에 아래와 같이 REVERSE_PROXY 절을 추가한다.
+
+----
+*REVERSE_PROXY
+FESS_SEARCH     PathPrefix = "/search/",
+                ServerPathPrefix = "/",
+                ServerAddress = "192.168.6.196:31999"
+----
+
+[NOTE]
+====
+HyperCloud 웹서버가 FESS 서버와 같은 네트워크망에 있다면, ServerAddress로 Backend IP (Cluster IP) 를 사용해도 된다.
+====
+
+이후 webtob의 bin 경로로 이동하고 `wscfl -i http.m`, `wsdown`, `wsboot` 를 실행하여 설정파일을 컴파일하고 WebtoB를 재기동시킨다.
+
+여기까지 완료되면 HyperCloud Docs 사이트에서 검색 기능을 사용할 수 있다.
