@@ -34,7 +34,7 @@ kubectl create -f 3.deployment-pod.yaml
 
 [NOTE]
 ====
-충분한 메모리가 확보되어야 하므로 namespace의 `ResourceQuota` 를 생성하지 않고, pod의 `resources.limits` 를 설정하지 않는다.
+충분한 메모리가 필요해서, namespace에 `ResourceQuota` 를 생성하지 않고 pod의 `resources.limits` 도 설정하지 않는다.
 ====
 
 * 1.initialization.yaml
