@@ -9,3 +9,4 @@ HyperCloud Documentation은 http://www.methods.co.nz/asciidoc/[AsciiDoc] 으로 
 * link:/contributing_to_docs/asciidoc-sample-guide.adoc[adoc 문법]
 * link:/contributing_to_docs/doc_guidelines.adoc[adoc 컨벤션]
 * link:/contributing_to_docs/tools_and_setup.adoc[빌드]
+* link:/contributing_to_docs/search_engine.adoc[검색엔진]
