@@ -28,7 +28,7 @@ docker run -d -p XXXX:8080 --name fess codelibs/fess:latest
 
 [NOTE]
 ====
-충분한 메모리가 확보되어야 하므로 namespace의 `ResourceQuota`를 생성하지 않고, pod의 `resources.limits`를 설정하지 않는다.
+충분한 메모리가 확보되어야 하므로 namespace의 `ResourceQuota` 를 생성하지 않고, pod의 `resources.limits` 를 설정하지 않는다.
 ====
 
 ----
