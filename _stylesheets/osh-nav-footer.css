@@ -268,8 +268,15 @@ footer#rh {
 
 footer#rh > .container {
 	width: 100%;
-	padding: 0 100px;
+	padding: 0 40px;
 }
+
+@media (min-width: 992px) {
+	footer#rh > .container {
+		padding: 0 100px;
+	}
+}
+
 footer#rh .row {
 	margin: 0;
 }
@@ -318,9 +325,9 @@ footer#rh p {
 }
 footer#rh {
 	background-color: #efefef;
-	/* padding: 17px 0; */
+	padding: 17px 0;
 	border-top: 1px solid #c9c9c9;
-	height: 79px;
+	/* height: 79px; */
 }
 footer#rh nav a {
 	padding: 0 0.55rem;
