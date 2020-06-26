@@ -26,16 +26,16 @@ docker run -d -p XXXX:8080 --name fess codelibs/fess:latest
 아래와 같이 3개의 yaml 파일을 만든 후, 차례로 `kubectl create -f` 명령을 적용하여 필요한 리소스를 생성한다. +
 모든 과정이 진행되고 pod 생성이 완료되면, http://NodeIP:31999 로 검색엔진에 접속할 수 있다. (31999 대신 다른 nodePort를 설정해도 무방하다.)
 
-[NOTE]
-====
-충분한 메모리가 확보되어야 하므로 namespace의 `ResourceQuota` 를 생성하지 않고, pod의 `resources.limits` 를 설정하지 않는다.
-====
-
 ----
 kubectl create -f 1.initialization.yaml
 kubectl create -f 2.svc-np.yaml
 kubectl create -f 3.deployment-pod.yaml
 ----
+
+[NOTE]
+====
+충분한 메모리가 확보되어야 하므로 namespace의 `ResourceQuota` 를 생성하지 않고, pod의 `resources.limits` 를 설정하지 않는다.
+====
 
 * 1.initialization.yaml
 +
