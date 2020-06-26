@@ -1,0 +1,28 @@
+[id="search_engine"]
+= 검색 엔진 구축 및 연동하기
+:toc: macro
+:toc-title:
+:toclevels: 1
+
+toc::[]
+
+== 검색기능 개요
+HyperCloud Docs의 검색 기능은 https://github.com/codelibs/fess[FESS] 검색엔진을 통해 제공된다. +
+이때 FESS의 검색 API는 HyperCloud Docs 웹서버에서 Reverse Proxy를 통해 사용한다.
+
+FESS의 UI는 검색엔진의 admin 기능을 위해서만 사용할 것이므로, FESS 서버의 URL이나 admin 계정 정보가 노출되지 않도록 유의하여야 한다.
+
+== FESS 검색엔진 설치
+
+=== 별도의 Host를 사용하는 경우
+https://github.com/codelibs/docker-fess[Docker for FESS] 의 가이드를 따르면 된다. +
+아래와 같이 진행하고 나면, http://HostIP:XXXX 로 검색엔진에 속할 수 있다. (XXXX에는 원하는 포트를 입력한다.)
+----
+docker pull codelibs/fess:latest
+----
+----
+docker run -d -p XXXX:8080 --name fess codelibs/fess:latest
+----
+
+=== Kubernetes를 사용하는 경우
+아래와 같이 3개의 yaml 파일을 만들고, `kubectl create -f`를 통해 리소스를 생성한다.
