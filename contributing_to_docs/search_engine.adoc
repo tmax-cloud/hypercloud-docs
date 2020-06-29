@@ -24,7 +24,7 @@ docker run -d -p XXXX:8080 --name fess codelibs/fess:latest
 
 === Kubernetes 환경에서 사용하는 경우
 아래와 같이 3개의 yaml 파일을 만든 후, 차례로 `kubectl create -f` 명령을 적용하여 필요한 리소스를 생성한다. +
-모든 과정이 진행되고 pod 생성이 완료되면, http://NodeIP:31999 로 검색엔진에 접속할 수 있다. (31999 대신 다른 nodePort를 설정해도 무방하다.)
+모든 과정이 진행되고 pod 생성이 완료되면, http://NodeIP:31999 로 검색엔진에 접속할 수 있다. (서비스 생성 시 31999 말고 다른 포트를 사용해도 무방하다.)
 
 ----
 kubectl create -f 1.initialization.yaml
@@ -167,18 +167,18 @@ Included URLs For Crawling 를 설정하여 URL 형식을 제한할 수 있는�
 |===
 
 === 크롤러 실행
-System > Scheduler 에서 Default Crawler를 선택하여 상세화면으로 들어간 다음, Start Now 버튼을 누르면 모든 Crawler가 실행된다.
+System > Scheduler 에서 Default Crawler를 선택하여 상세화면으로 들어간 다음, Start Now 버튼을 누르면 모든 크롤러가 실행된다.
 
 === 크롤링 데이터 초기화/재수집
-우선 System > Scheduler 에서 Running 중인 Crawler가 있다면 상세화면으로 들어가 Stop 버튼을 누른다. +
+우선 System > Scheduler 에서 Running 중인 크롤러가 있다면, 상세화면으로 들어가 Stop 버튼을 누른다. +
 System Info > Search 에서 empty string으로 검색을 하고, Delete all with this query 버튼을 누른다. 여기까지 하면 크롤링 데이터가 모두 초기화된다.
 
-이 작업을 한 후에 '크롤러 실행' 단계를 다시 거치면, 크롤링 데이터가 처음부터 다시 수집된다.
+이 작업을 한 다음에 위의 '크롤러 실행' 단계를 다시 거치면, 크롤링 데이터가 처음부터 다시 수집된다.
 
 
 == HyperCloud Docs 웹서버에 Reverse Proxy 설정
 HyperCloud Docs 사이트에서 도메인 직후의 path가 /search/로 시작하면 FESS 서버로 프록시되도록 설정한다. +
-웹서버로 WebtoB를 사용하고 있다면, webtob의 config 경로로 이동해서 http.m 설정파일에 아래와 같이 REVERSE_PROXY 절을 추가한다.
+웹서버로 WebtoB를 사용하고 있다면, webtob의 config 경로로 이동해서 http.m 설정파일에 아래 예시를 참고하여 REVERSE_PROXY 절을 작성한다.
 
 ----
 *REVERSE_PROXY
@@ -189,9 +189,9 @@ FESS_SEARCH     PathPrefix = "/search/",
 
 [NOTE]
 ====
-HyperCloud 웹서버가 FESS 서버와 같은 네트워크망에 있다면, ServerAddress로 Backend IP (Cluster IP) 를 사용해도 된다.
+HyperCloud 웹서버가 FESS 서버와 같은 망에 있으면, ServerAddress로 Backend IP (k8s라면 Cluster IP) 를 사용해도 된다.
 ====
 
-이후 webtob의 bin 경로로 이동하고 `./wscfl -i http.m`, `./wsdown`, `./wsboot` 를 실행하여 설정파일을 컴파일하고 WebtoB를 재기동시킨다.
+이후 webtob의 bin 경로로 이동하고, `./wscfl -i http.m`, `./wsdown`, `./wsboot` 를 차례로 실행하여 설정파일을 컴파일하고 WebtoB를 재기동시킨다.
 
 여기까지 완료되면 HyperCloud Docs 사이트에서 검색 기능을 사용할 수 있다.
