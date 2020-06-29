@@ -154,9 +154,8 @@ https://fess.codelibs.org/13.8/admin/index.html[Fess Administration Guide]의 Cr
 Crawler > Web > Create New 에서 아래와 같이 설정하면 URLs에 등록된 URL을 기반으로 동작할 크롤러가 생성된다.
 
 Included URLs For Crawling 를 설정하여 URL 형식을 제한할 수 있는데, 여기에 Java 정규표현식을 사용할 수 있다. +
-단, 이때는 의도하는 URL의 일부와 매칭되는 패턴이 아니라 전체와 매칭되는 패턴을 작성해주어야 한다.
-
-필요에 따라 다른 옵션도 사용할 수 있다.
+단, URL의 일부와 매칭되는 패턴이 아니라 URL 전체와 매칭되는 패턴을 작성해주어야 한다. 아래의 예시를 참고하자. +
+필요에 따라서 URLs, Included URLs For Crawling 외에 다른 옵션도 사용할 수 있다.
 
 [cols="1,1,1",options="header"]
 |===
