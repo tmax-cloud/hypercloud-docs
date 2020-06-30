@@ -25,16 +25,16 @@
 Name: Welcome
 Dir: welcome
 Topics:
-  - Name: 제품소개
+  - Name: Overview
     File: index
-  - Name: 장/단점
+  - Name: Pros & Cons
     File: pros-cons
-  - Name: 법적공지
+  - Name: Legal Notice
     File: legal-notice
-  - Name: 릴리즈노트
+  - Name: Release Notes
     File: release-note
 ---
-Name: 구성요소
+Name: Components
 Dir: component
 Topics:
   - Name: HyperCloud Operator
@@ -74,30 +74,30 @@ Topics:
       - Name: Kubevirt
         File: kubevirt
 ---
-Name: 인스톨 가이드
+Name: Install Guide
 Dir: installation_guide
 Topics:
-  - Name: 개요
+  - Name: Overview
     File: index
 ---
-Name: 튜닝 가이드
+Name: Tuning Guide
 Dir: tuning_guide
 Topics:
-  - Name: 개요
+  - Name: Overview
     File: index
 ---
-Name: 백업 및 복구
+Name: Backup & Restore
 Dir: backup_and_restore
 Topics:
-  - Name: 개요
+  - Name: Overview
     File: index
 ---
-Name: 사용자가이드
+Name: User Guide
 Dir: user_guide
 Topics:
-  - Name: 개요
+  - Name: Overview
     File: index
-  - Name: 로그인
+  - Name: Login
     File: login
 ---
 Name: API Reference
