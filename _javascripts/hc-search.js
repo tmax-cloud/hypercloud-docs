@@ -25,10 +25,14 @@ function hcSearchCategory(label, version) {
 				si: 0,
 				q: query.val(),
 				label: label,
-				urlFilter: typeof version === 'undefined' || version == 'Branch Build' ? '' : ' url:*\\/' + version.toLowerCase() + '\\/*',
+				urlFilter:
+					typeof version === 'undefined' || version == 'Branch Build'
+						? ''
+						: ' url:*\\/' + version.toLowerCase() + '-' + getCurrentLanguage() + '\\/*',
 			};
 			modalSearch.show();
 			hcsearch(searchParams);
+			// console.log('urlFilter', typeof version === 'undefined' || version == 'Branch Build' ? '' : ' url:*\\/' + version.toLowerCase() + '\\/*');
 		}
 	});
 

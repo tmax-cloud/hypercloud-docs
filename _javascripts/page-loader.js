@@ -62,3 +62,16 @@ function goFirstPage(distro, currentVersion) {
 	newLink = `${window.origin}${pathArray[0]}/${distro}/${currentVersion}-${language}/${fileRequested}`;
 	window.location = newLink;
 }
+
+var getCurrentLanguage = () => {
+	console.log('getCurrentLanguage..');
+	var ls = document.getElementById('language-selector');
+	var options = [...document.getElementById('language-options').children];
+	let res = '';
+	options.forEach((item) => {
+		if (item.innerText === ls.innerText) {
+			res = item.getAttribute('value');
+		}
+	});
+	return res;
+};
