@@ -4,24 +4,18 @@
 #
 # ---                                  <= Record delimiter
 # Name: Origin of the Species          <= Display name of topic group
-# Id: OriginOfTheSpecies               <= Id of topic group
 # Dir:  origin_of_the_species          <= Directory name of topic group
 # Topics:
 #   - Name: The Majestic Marmoset                       <= Topic name
-#     Id: OriginOfTheSpecies::TheMajesticMarmoset       <= Topic id
 #     File: the_majestic_marmoset                       <= Topic file under group dir +/- .adoc
 #   - Name: The Curious Crocodile                       <= Topic 2 name
-#     Id: OriginOfTheSpecies::TheCuriousCrocodile       <= Topic 2 id
 #     File: the_curious_crocodile                       <= Topic 2 file
 #   - Name: The Numerous Nematodes                      <= Sub-topic group name
-#     Id: OriginOfTheSpecies::TheNumerousNematodes      <= Sub-topic group id
 #     Dir: the_numerous_nematodes                       <= Sub-topic group dir
 #     Topics:
 #       - Name: The Wily Worm                                                <= Sub-topic name
-#         Id: OriginOfTheSpecies::TheNumerousNematodes::TheWilyWorm          <= Sub-topic id
 #         File: the_wily_worm                                                <= Sub-topic file under <group dir>/<subtopic dir>
 #       - Name: The Acrobatic Ascarid                                        <= Sub-topic 2 name
-#         Id: OriginOfTheSpecies::TheNumerousNematodes::TheAcrobaticAscarid  <= Sub-topic 2 id
 #         File: the_acrobatic_ascarid                                        <= Sub-topic 2 file under <group dir>/<subtopic dir>
 #
 # The ordering of the records in this document determines the ordering of the
@@ -29,124 +23,89 @@
 
 ---
 Name: Welcome
-Id: Welcome
 Dir: welcome
 Topics:
   - Name: 제품소개
-    Id: Welcome::Overview
     File: index
   - Name: 장/단점
-    Id: Welcome::ProsCons
     File: pros-cons
   - Name: 법적공지
-    Id: Welcome::LegalNotice
     File: legal-notice
   - Name: 릴리즈노트
-    Id: Welcome::ReleaseNote
     File: release-note
 ---
 Name: 구성요소
-Id: Component
 Dir: component
 Topics:
   - Name: HyperCloud Operator
-    Id: Component::Operator
     File: hypercloud-operator
   - Name: HyperCloud Console
-    Id: Component::Console
     File: hypercloud-console
   - Name: Kubernetes
-    Id: Component::Kubernetes
     File: kubernetes
   - Name: Compute
-    Id: Component::Compute
     Dir: compute
     Topics:
       - Name: Docker
-        Id: Component::Compute::Docker
         File: docker
       - Name: CRI-O
-        Id: Component::Compute::CRIO
         File: cri-o
   - Name: Storage
-    Id: Component::Storage
     Dir: storage
     Topics:
       - Name: Rook Ceph
-        Id: Component::Storage::RookCeph
         File: rook-ceph
       - Name: NFS
-        Id: Component::Storage::NFS
         File: nfs
   - Name: Network
-    Id: Component::Network
     Dir: network
     Topics:
       - Name: Calico
-        Id: Component::Network::Calico
         File: calico
   - Name: Plugin
-    Id: Component::Plugin
     Dir: plugin
     Topics:
       - Name: Prometheus
-        Id: Component::Plugin::Prometheus
         File: prometheus
       - Name: Grafana
-        Id: Component::Plugin::Grafana
         File: grafana
       - Name: Tekton
-        Id: Component::Plugin::Tekton
         File: tekton
       - Name: Kubevirt
-        Id: Component::Plugin::Kubevirt
         File: kubevirt
 ---
 Name: 인스톨 가이드
-Id: InstallationGuide
 Dir: installation_guide
 Topics:
   - Name: 개요
-    Id: InstallationGuide::Overview
     File: index
 ---
 Name: 튜닝 가이드
-Id: TuningGuide
 Dir: tuning_guide
 Topics:
   - Name: 개요
-    Id: TuningGuide::Overview
     File: index
 ---
 Name: 백업 및 복구
-Id: BackupAndRestore
 Dir: backup_and_restore
 Topics:
   - Name: 개요
-    Id: BackupAndRestore::Overview
     File: index
 ---
 Name: 사용자가이드
-Id: UserGuide
 Dir: user_guide
 Topics:
   - Name: 개요
-    Id: UserGuide::Overview
     File: index
   - Name: 로그인
-    Id: UserGuide::Login
     File: login
 ---
 Name: API Reference
-Id: APIReference
 Dir: api_reference
 Topics:
   - Name: Master API
-    Id: APIReference::MasterAPI
     File: master-api
   - Name: Kubernetes API
-    Id: APIReference::KubernetesAPI
     File: kubernetes-api
   - Name: Prometheus API
-    Id: APIReference::PrometheusAPI
     File: prometheus-api
