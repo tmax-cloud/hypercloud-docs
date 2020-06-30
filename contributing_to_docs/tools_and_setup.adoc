@@ -54,7 +54,7 @@ docs를 빌드하면, 상단 breadcrumb 및 좌측 LNB tree의 각 node에 ID가
 ...
     def id
       ### @id ||= hierarchy.map{ |entity| camelize(entity.name) }.join('::') ########### -> 기존 코드 제거, 혹은 주석 처리
-      @id ||= hierarchy.map{ |entity| entity.name.unpack('U*').join('') }.join('::') ### -> 새로운 코드 삽입
+      @id ||= hierarchy.map{ |entity| entity.name.unpack('U*').join('.') }.join('::') ### -> 새로운 코드 삽입
     end
 ...
 ----
