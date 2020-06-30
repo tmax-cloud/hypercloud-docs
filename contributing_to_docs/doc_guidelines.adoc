@@ -3,9 +3,6 @@
 include::modules/common-attributes.adoc
 :toc: macro
 
-// The documentation guidelines for OpenShift 4 build on top of the
-// link:https://redhat-documentation.github.io/modular-docs/[Red Hat modular docs reference guide].
-
 toc::[]
 
 [id="read-me"]
