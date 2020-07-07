@@ -97,8 +97,7 @@ cd hypercloud-docs
 git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
 git fetch --all
 git pull --all
-
-asciibinder build -a
+git branch -r | grep -v '\->' | while read remote; do git checkout "${remote#origin/}"; asciibinder build; done
 ----
 +
 [NOTE]
