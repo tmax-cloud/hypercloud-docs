@@ -1,0 +1,34 @@
+= 리소스 쿼타 생성
+:toc:
+:toc-title:
+
+본 장에서는 리소스 쿼타 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 리소스 쿼타를 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/management#img-resource-quota-main,리소스 쿼타 메인 화면>>에서 *[리소스 쿼타 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 리소스 쿼타의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: example <1>
+  namespace: default <2>
+spec: <3>
+  hard:
+    pods: '4'
+    requests.cpu: '1'
+    requests.memory: 1Gi
+    limits.cpu: '2'
+    limits.memory: 2Gi
+----
++
+<1> 리소스 쿼타의 이름
+<2> 리소스 쿼타가 생성될 네임스페이스의 이름
+<3> 할당할 리소스의 종류 및 양
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

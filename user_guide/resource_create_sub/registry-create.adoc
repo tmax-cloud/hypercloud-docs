@@ -1,0 +1,55 @@
+= 레지스트리 생성
+:toc:
+:toc-title:
+
+본 장에서는 레지스트리 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 레지스트리를 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/image#img-registry-main,레지스트리 메인 화면>>에서 *[레지스트리 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 레지스트리의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: tmax.io/v1
+kind: Registry
+metadata:
+  name: my-registry <1>
+  namespace: default <2>
+spec:
+  image: hypercloud-registry:5000/registry:b004 <3>
+  loginId: tmax <4>
+  loginPassword: xamtsecret <5>
+  service: <6>
+    ingress:
+      domainName: example
+      port: 443
+  persistentVolumeClaim: <7>
+    create:
+      accessModes: 
+        - ReadWriteOnce
+      storageSize: 10Gi
+      storageClassName: csi-cephfs-sc
+      volumeMode: Filesystem
+      deleteWithPvc: false
+----
++
+<1> 레지스트리의 이름
+<2> 레지스트리가 생성될 네임스페이스의 이름
+<3> 레지스트리 파드 생성에 사용될 이미지
+<4> 레지스트리에 로그인할 ID
+<5> 레지스트리에 로그인할 ID의 비밀번호
+<6> 레지스트리의 서비스를 정의한다. 우선 서비스의 유형으로 ingress, loadBalancer 중 하나를 선택한 후 각 유형에 따른 설정 항목을 정의한다.
+* domainName : 서비스의 도메인 이름 (ingress 유형만 해당)
+* port : 서비스에 접속하기 위한 포트 번호
+<7> 레지스트리의 영구 볼륨 클레임을 정의한다. 우선 영구 볼륨 클레임의 유형으로 exist, create 중 하나를 선택한 후 각 유형에 따른 설정 항목을 정의한다.
+* pvcName : 영구 볼륨 클레임의 이름 (exist 유형만 해당)
+* accessMode : 영구 볼륨 클레임의 접근 모드 (create 유형만 해당)
+* storageSize : 영구 볼륨 클레임의 스토리지 용량 (create 유형만 해당)
+* storageClassName : 영구 볼륨 클레임의 스토리지 클레스 이름 (create 유형만 해당)
+* volumeMode : 볼륨의 사용 모드 (create 유형만 해당)
+* deleteWithPvc : 레지스트리 삭제 시 영구 볼륨 클레임의 자동 삭제 여부 (create 유형만 해당)
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

@@ -1,0 +1,28 @@
+= 클러스터 서비스 브로커 생성
+:toc:
+:toc-title:
+
+본 장에서는 클러스터 서비스 브로커 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 클러스터 서비스 브로커를 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/service-catalog#img-cluster-service-broker-main,클러스터 서비스 브로커 메인 화면>>에서 *[클러스터 서비스 브로커 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 클러스터 서비스 브로커의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ClusterServiceBroker
+metadata:
+  name: hyperbroker4 <1>
+spec:
+  url: http://192.168.6.159:2867 <2>
+----
++
+<1> 클러스터 서비스 브로커의 이름
+<2> 서비스 브로커 서버의 서비스 URL
+
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

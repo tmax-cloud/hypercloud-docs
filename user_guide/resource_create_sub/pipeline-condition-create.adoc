@@ -1,0 +1,39 @@
+= 파이프라인 컨디션 생성
+:toc:
+:toc-title:
+
+본 장에서는 파이프라인 컨디션 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 파이프라인 컨디션을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/ci-cd#img-pipeline-condition-main,파이프라인 컨디션 메인 화면>>에서 *[파이프라인 컨디션 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 파이프라인 컨디션의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: tekton.dev/v1alpha1
+kind: Condition
+metadata:
+  name: sample-condition <1>
+  namespace: default <2>
+spec:
+  params: <3>
+    - name: path 
+  resources: <4>
+    - name: sample-resource
+      type: git
+      optional: true
+  check: <5>
+    image: alpine
+    script: test ! -f $(resources.sample-resource.path)/$(params.path)
+----
++
+<1> 파이프라인 컨디션의 이름
+<2> 파이프라인 컨디션이 생성될 네임스페이스의 이름
+<3> 태스크를 확인할 때 사용되는 변수를 정의
+<4> 태스크를 확인할 때 사용되는 리소스를 정의
+<5> 태스크를 확인하기 위해 수행할 스크립트 및 스크립트가 수행될 이미지를 정의
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

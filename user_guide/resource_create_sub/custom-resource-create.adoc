@@ -1,0 +1,43 @@
+= 커스텀 리소스 정의(CRD) 생성
+:toc:
+:toc-title:
+
+본 장에서는 커스텀 리소스 정의(CRD) 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 커스텀 리소스 정의(CRD)를 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/management#img-custom-resource-main,커스텀 리소스 메인 화면>>에서 *[사용자 리소스 정의 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 CRD의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: crontabs.stable.example.com <1>
+spec:
+  group: stable.example.com <2>
+  version: v1 <3>
+  scope: Namespaced <4>
+  names: 
+    plural: crontabs <5>
+    singular: crontab <6>
+    kind: CronTab <7>
+    shortNames: <8>
+      - ct
+----
++
+<1> CRD의 이름
+<2> REST API 사용을 위한 그룹 이름
+<3> API의 버전 정보
+<4> 사용자 리소스의 적용 범위
+* Cluster
+* Namespaced
+<5> API URL에서 사용할 복수형 이름
+<6> CLI에서 사용할 단수형 이름
+<7> kind에 사용할 단수형 단어
+<8> CLI에서 사용할 단축어 목록
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

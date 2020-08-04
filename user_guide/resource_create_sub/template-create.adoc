@@ -1,0 +1,143 @@
+= 템플릿 생성
+:toc:
+:toc-title:
+
+본 장에서는 템플릿 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 템플릿을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/service-catalog#img-template-main,템플릿 메인 화면>>에서 *[템플릿 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 템플릿의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: tmax.io/v1
+kind: Template
+metadata:
+  name: nginx-template <1>
+  namespace: default <2>
+imageUrl: example.com/example.gif <3>
+provider: tmax <4>
+recommend: true <5>
+urlDescription: http://url.example.com <6>
+tags: <7>
+- nginx
+objects: <8>
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: ${NAME}
+    labels:
+      app: ${NAME}
+  spec:
+    selector:
+      matchLabels:
+        app: ${NAME}
+    template:
+      metadata:
+        labels:
+          app: ${NAME}
+      spec:
+        containers:
+        - name: ${NAME}
+          image: ${IMAGE}
+          ports:
+          - name: http
+            containerPort: 80
+          resources:
+            requests:
+              cpu: 1
+        tolerations:
+        - effect: NoExecute
+          key: node.kubernetes.io/not-ready
+          tolerationSeconds: 10
+        - effect: NoExecute
+          key: node.kubernetes.io/unreachable
+          tolerationSeconds: 10
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: ${NAME}
+  spec:
+    ports:
+    - name: http
+      port: 81
+      protocol: TCP
+      targetPort: 80
+    selector:
+      app: ${NAME}
+    type: LoadBalancer
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    name: ${NAME}
+  data:
+    host: ZHVtbXk=
+parameters: <9>
+- name: NAME
+  description: Application name
+  valueType: string <10>
+  value: nginx <11>
+- name: IMAGE
+  description: Application Docker Image
+  valueType: string
+  value: nginx
+plans: <12>  
+- name: example-plan1
+  description: example
+  metadata:
+    bullets:
+    - feat 1
+    - feat 2
+    costs:
+      amount: 100
+      unit: $
+  free: false
+  bindable: true
+  plan_updateable: false
+  schemas:
+    service_instance:
+      create:
+        parameters:
+          NAME: nginx1
+          IMAGE: nginx:1
+- name: example-plan2
+  description: example
+  metadata:
+    bullets:
+    - feat 1
+    - feat 2
+    costs:
+      amount: 200
+      unit: $
+  free: false
+  bindable: true
+  plan_updateable: false
+  schemas:
+    service_instance:
+      create:
+        parameters:
+          NAME: nginx2
+          IMAGE: nginx:1  
+  
+----
++
+<1> 템플릿의 이름
+<2> 템플릿이 생성될 네임스페이스의 이름
+<3> 템플릿의 이미지 URL
+<4> 템플릿 제공자
+<5> 템플릿 추천 유무
+<6> 템플릿 설명 페이지 URL
+<7> 템플릿을 표현할 태그 목록
+<8> 템플릿을 기반으로 생성할 실제 오브젝트의 목록 (변수의 경우 ``${PARAMETER}`` 형식으로 명시)
+<9> 템플릿에 명시된 변수의 상세 내역
+<10> 변수의 데이터 타입
+* string
+* number
+<11> 변수의 기본값
+<12> 서비스 브로커와 연동 시 사용될 플랜 목록
+
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

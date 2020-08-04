@@ -1,0 +1,52 @@
+= 레플리카 셋 생성
+:toc:
+:toc-title:
+
+본 장에서는 레플리카 셋 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 레플리카 셋을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/work-load#img-replicaset-main,레플리카 셋 메인 화면>>에서 *[레플리카 셋 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 레플리카 셋의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: example <1>
+  namespace: default <2>
+spec: 
+  replicas: 2 <3>
+  selector:
+    matchLabels: <4>
+      app: hello-hypercloud
+  template: <5>
+    metadata:
+      name: hello-hypercloud
+      labels: <6>
+        app: hello-hypercloud
+    spec:
+      containers: <7>
+        - name: hello-hypercloud <8>
+          image: hypercloud/hello-hypercloud <9>
+          ports: <10>
+            - containerPort: 8080 <11>
+----
++
+<1> 레플리카 셋의 이름
+<2> 레플리카 셋이 생성될 네임스페이스의 이름
+<3> 파드 복제본의 개수
+<4> 레플리카 셋이 관리할 파드의 레이블 정보
+<5> 생성할 파드에 대한 상세 명세
+<6> 파드를 분류할 때 사용할 Key-Value 형식의 레이블 정보
+<7> 파드를 구성할 컨테이너의 상세 내역
+<8> 컨테이너의 이름
+<9> 컨테이너의 이미지
+<10> 컨테이너에서 노출할 포트 목록
+<11> 파드의 IP 주소에서 노출할 포트 번호
+
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

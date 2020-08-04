@@ -1,0 +1,198 @@
+= Prometheus 설치
+
+다음은 Kubernetes Pod를 모니터링하기 위한 툴인 Prometheus를 설치하는 과정에 대한 설명이다.
+
+. *이미지 준비*
++
+manifests.tar, setup.tar, prometheus.tar 압축을 푼다.
++
+----
+[root@master1 9.prometheus]# pwd
+/root/hc-install/9.prometheus
+
+[root@master1 prometheus]# tar -xvf manifests.tar
+[root@master1 prometheus]# tar -xvf setup.tar
+[root@master1 prometheus]# tar -xvf prometheus.tar
+----
++
+9.prometheus/prometheus 경로에 이미지가 준비되어 있다.
++
+----
+[root@master1 prometheus]# pwd
+/root/hc-install/9.prometheus/prometheus
+
+[root@master1 prometheus]# ls
+configmap-reload.tar  kube-rbac-proxy.tar  kube-state-metrics.tar  node-exporter.tar  prometheus-config-reloader.tar  prometheus-operator.tar  prometheus.tar
+----
+
+. *이미지 푸시(Push)*
+준비된 이미지를 프라이빗 이미지 레지스트리에 푸시한다. +
+우선 .tar 파일을 `docker load` 명령을 사용해 도커 이미지로 저장한다.
++
+----
+[root@master1 prometheus]# docker load -i configmap-reload.tar
+[root@master1 prometheus]# docker load -i kube-rbac-proxy.tar  
+[root@master1 prometheus]# docker load -i kube-state-metrics.tar  
+[root@master1 prometheus]# docker load -i node-exporter.tar
+[root@master1 prometheus]# docker load -i prometheus-config-reloader.tar
+[root@master1 prometheus]# docker load -i prometheus-operator.tar  
+[root@master1 prometheus]# docker load -i prometheus.tar
+----
++
+이후 각 도커 이미지를 `docker tag` 명령을 사용해 레지스트리의 주소를 추가한 후 푸시한다.
++
+----
+[root@master1 prometheus]# docker tag configmap-reload:v0.0.1 {IMAGE_REGISTRY}/configmap-reload:v0.0.1
+[root@master1 prometheus]# docker tag kube-rbac-proxy:v0.4.1 {IMAGE_REGISTRY}/kube-rbac-proxy:v0.4.1
+[root@master1 prometheus]# docker tag kube-state-metrics:v1.8.0 {IMAGE_REGISTRY}/kube-state-metrics:v1.8.0
+[root@master1 prometheus]# docker tag node-exporter:v0.18.1 {IMAGE_REGISTRY}/node-exporter:v0.18.1
+[root@master1 prometheus]# docker tag prometheus-config-reloader:v0.34.0 {IMAGE_REGISTRY}/prometheus-config-reloader:v0.34.0
+[root@master1 prometheus]# docker tag prometheus-operator:v0.34.0 {IMAGE_REGISTRY}/prometheus-operator:v0.34.0
+[root@master1 prometheus]# docker tag prometheus:v2.11.0 {IMAGE_REGISTRY}/prometheus:v2.11.0
+[root@master1 prometheus]# docker push {IMAGE_REGISTRY}/configmap-reload:v0.0.1
+[root@master1 prometheus]# docker push {IMAGE_REGISTRY}/kube-rbac-proxy:v0.4.1
+[root@master1 prometheus]# docker push {IMAGE_REGISTRY}/kube-state-metrics:v1.8.0 
+[root@master1 prometheus]# docker push {IMAGE_REGISTRY}/node-exporter:v0.18.1
+[root@master1 prometheus]# docker push \
+{IMAGE_REGISTRY}/prometheus-config-reloader:v0.34.0
+[root@master1 prometheus]# docker push \
+{IMAGE_REGISTRY}/prometheus-operator:v0.34.0
+[root@master1 prometheus]# docker push {IMAGE_REGISTRY}/prometheus:v2.11.0
+----
+
+. *푸시(Push) 확인*
++
+이미지가 정상적으로 푸시되었는지 확인한다.
++
+----
+curl -X GET http://{IMAGE_REGISTRY}/v2/{이미지 이름}/tags/list
+----
+
+. *yaml 내의 이미지 경로 변경*
++
+image-registry-set.sh 파일을 수행하여 yaml 파일의 이미지 경로들을 수정한다.
++
+----
+[root@master1 9.prometheus]# pwd
+/root/hc-install/9.prometheus
+
+[root@master1 9.prometheus]# ./image-registry-set.sh /root/hc-install/9.prometheus 172.22.9.130:5000 <1>
+----
+<1> ./image-registry-set.sh `{파일 위치}` `{프라이빗 이미지 레지스트리 주소(IP:PORT}`
+
+. *Prometheus CRD 및 Operator 생성*
++
+Pormetheus의 crd를 정의하고 operator를 생성한다.
++
+----
+[root@master1 9.prometheus]# kubectl create -f setup/
+----
+
+. *Prometheus 모듈들에 대한 deploy 및 RBAC 생성*
++
+Pormetheus 모듈을 deploy하고 RBAC을 생성한다.
++
+----
+[root@master1 9.prometheus]# kubectl apply -f manifests/
+----
+
+. *서비스 타입 변경*
++
+외부 접근을 위해 prometheus와 grafana의 Service type을 Loadbalancer로 변경한다.
++
+----
+[root@master1 9.prometheus]# kubectl edit svc $PROMETHEUS_SVC -n monitoring
+----
++
+.grafana
+----
+- apiVersion: v1
+  kind: Service
+  ...
+  name: grafana
+  ...
+  spec:
+  ...
+  type: ClusterIP                // type: LoadBalancer로 수정
+----
++
+.prometheus
+----
+- apiVersion: v1
+  kind: Service
+  ...
+  name: prometheus-k8s
+  ...
+  spec:
+  ...
+  type: ClusterIP                // type: LoadBalancer로 수정
+----
+
+. *접속 확인 (prometheus 및 grafana)*
++
+prometheus의 IP 주소(172.22.9.137:9090) 및 grafana의 IP(172.22.9.136:3000) 주소를 웹 브라우저의 주소 표시줄에 입력하면 접속이 가능하다. +
+이때 grafana의 최초 로그인 계정과 비밀번호는 모두 admin이다.
+
+. *kube-scheduler와 kube-controller-manager yaml 파일 적용*
++
+----
+[root@master1 9.prometheus]# kubectl create -f kube-controller-manager-prometheus-discovery.yaml
+service/kube-controller-manager-prometheus-discovery created
+
+[root@master1 9.prometheus]# kubectl create -f kube-scheduler-prometheus-discovery.yaml
+service/kube-scheduler-prometheus-discovery created
+----
+
+. *kube-scheduler와 kube-controller-manager 설정 변경*
++
+조회되는 servicemonitor 중 kube-controller-manager와 kube-scheduler의 spec.endpoints.metricRelabelings 부분을 삭제한다.
++
+----
+[root@master1 9.prometheus]# kubectl edit servicemonitor kube-controller-manager -n monitoring
+[root@master1 9.prometheus]# kubectl edit servicemonitor kube-scheduler -n monitoring
+
+# 삭제할 부분
+spec:
+  endpoints:
+  - interval: 30s
+    metricRelabelings:
+    - action: drop
+      regex: etcd_(debugging|disk|request|server).*
+      sourceLabels:
+      - __name__
+    port: http-metrics
+----
++
+kube-system namespace에 있는 모든 kube-schduler pod의 metadata.labels에 k8s-app: kube-scheduler를 추가한다. (조회되는 모든 master pod에 적용)
++
+----
+[root@master1 9.prometheus]# kubectl get pod -n kube-system | grep scheduler
+kube-scheduler-master1                     1/1     Running   2          3d13h
+kube-scheduler-master2                     1/1     Running   0          3d13h
+kube-scheduler-master3                     1/1     Running   0          3d13h
+----
++
+----
+
+[root@master1 9.prometheus]# kubectl edit pod kube-scheduler-master1  -n kube-system
+  labels:
+    component: kube-scheduler
+    k8s-app: kube-scheduler
+----
++
+kube-system namespace에 있는 모든 kube-contoroller-manager pod의 metadata.labels에 k8s-app: kube-controller-manager를 추가한다. (조회되는 모든 master pod에 적용)
++
+----
+[root@master1 9.prometheus]# kubectl get pod -n kube-system | grep controller-manager
+kube-controller-manager-master1            1/1     Running   1          3d14h
+kube-controller-manager-master2            1/1     Running   1          3d13h
+kube-controller-manager-master3            1/1     Running   0          3d13h
+----
++
+----
+[root@master1 9.prometheus]# kubectl edit pod kube-controller-manager-master1  -n kube-system
+  labels:
+    component: kube-controller-manager
+    k8s-app: kube-controller-manager
+    tier: control-plane
+----
