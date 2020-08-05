@@ -18,6 +18,6 @@
 Source-to-Image 워크플로우, CI/CD, 모니터링 등 컨테이너 기반의 어플리케이션 개발부터 배포까지 DevOps 자동화를 위한 다양한 기능을 내재화하여 제공한다. 개발자는 {product-title} {product-version}의 효율적인 DevOps를 기반으로 개발 생산성을 향상시킬 수 있다. +
 또한 Middleware, Framework, DBMS 등 카테고리별 오픈소스를 티맥스가 자체적으로 검증 및 최적화하여 제공한다. 이러한 오픈소스는 쉽게 사용할 수 있도록 서비스 카탈로그 기반으로 제공하여, 사용자는 복잡한 프로비저닝 과정 없이 손쉽게 서비스를 실행할 수 있다. 서비스 카탈로그로 제공하는 오픈소스에 대해서는 기술지원을 제공하여 안정적으로 오픈소스를 사용할 수 있는 환경을 지원한다.
 
-.{product-title} {product-version} 아키텍처
+.{product-title} {product-version} Architecture
 [caption="그림. "]
 image::../images/figure_architecture.png[]
