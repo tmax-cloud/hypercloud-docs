@@ -1,0 +1,233 @@
+= Istio 설치
+
+Istio는 Envoy 프록시를 사용하며 이를 제어하는 오픈소스인 Service Mesh 솔루션이다.
+
+다음은 Istio의 설치 과정에 대한 설명이다.
+
+. *이미지 업로드*
++
+istio-image-upload.sh를 실행하여 이미지를 레지스트리에 업로드한다.
++
+----
+[root@master1 16.istio]# pwd
+/root/hc-install/16.istio
+
+[root@master1 16.istio]# chmod +x *.sh
+
+[root@master1 16.istio]# ./istio-image-upload.sh 
+[Local Registry IP:Port]? 172.22.9.130:5000 <1>
+...
+{"name":"jaegertracing/all-in-one","tags":["1.16"]}
+----
+<1> 업로드할 프라이빗 이미지 레지스트리의 주소를 입력한다.
+
+. *업로드 확인*
++
+이미지가 정상적으로 업로드되었는지 확인한다.
++
+----
+curl -X GET http://{IMAGE_REGISTRY}/v2/{이미지 이름}/tags/list
+----
+
+. *yaml 파일 업데이트*
++
+istio-yaml-update.sh 파일을 실행하여 yaml을 업데이트한다.
++
+----
+[root@master1 16.istio]# ./istio-yaml-update.sh 
+Istio yaml updated
+----
+
+. *Istio 네임스페이스 및 CRD 생성*
++
+----
+[root@master1 16.istio]# pwd
+/root/hc-install/16.istio
+
+[root@master1 16.istio]# kubectl create -f 1.istio-base.yaml 
+...
+customresourcedefinition.apiextensions.k8s.io/templates.config.istio.io created
+----
+
+. *Kiali 설치*
++
+Kiali를 설치하면 Istio Proxy가 추가된 워크로드를 정의 및 유효성 검사, 워크로드 간의 관계를 확인할 수 있게 UI를 제공한다. 
++
+----
+[root@master1 16.istio]# kubectl create -f 2.kiali.yaml
+clusterrole.rbac.authorization.k8s.io/kiali created
+...
+----
++
+정상적으로 리소스가 생성되었는지 확인한다.
++
+----
+[root@master1 16.istio]# kubectl get all -n istio-system -l app=kiali
+NAME                         READY   STATUS    RESTARTS   AGE
+pod/kiali-7ff568c949-7s67p   1/1     Running   1          26h
+
+NAME            TYPE       CLUSTER-IP    EXTERNAL-IP   PORT(S)           AGE
+service/kiali   NodePort   10.96.18.81   <none>        20001:32411/TCP   26h
+
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/kiali   1/1     1            1           26h
+
+NAME                               DESIRED   CURRENT   READY   AGE
+replicaset.apps/kiali-7ff568c949   1         1         1       26h
+----
+
+. *Kiali 접속 확인*
++
+웹 브라우저의 주소 표시줄에 Kiali 서비스의 IP 주소와 PORT 번호를 입력해서 Kiali에 접속이 가능하다.
++
+----
+http://{Kiali IP:Port}/kiali/
+----
++
+이때 최초 로그인 계정과 비밀번호는 모두 admin이며, ConfigMap을 수정하여 변경할 수 있다. 또한 서비스는 기본적으로 NodePort로 설정되어 있지만 LoadBalancer 형식으로 지정하여 외부 접근이 가능하게 변경할 수 있다.
+
+. *Jaeger 설치*
++
+Jaeger를 설치하면 워크로드의 트랜잭션을 모니터링할 수 있게 UI를 제공한다.
++
+----
+[root@master1 16.istio]# kubectl create -f 3.istio-tracing.yaml 
+deployment.apps/istio-tracing created
+...
+----
++
+정상적으로 리소스가 생성되었는지 확인한다.
++
+----
+root@master1 16.istio]# kubectl get all -n istio-system -l app=jaeger
+NAME                                READY   STATUS    RESTARTS   AGE
+pod/istio-tracing-c7b59f68f-w5q22   1/1     Running   0          26h
+
+NAME                                TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                         AGE
+service/jaeger-agent                ClusterIP   None           <none>        5775/UDP,6831/UDP,6832/UDP      26h
+service/jaeger-collector            ClusterIP   10.96.10.122   <none>        14267/TCP,14268/TCP,14250/TCP   26h
+service/jaeger-collector-headless   ClusterIP   None           <none>        14250/TCP                       26h
+service/jaeger-query                ClusterIP   10.96.254.102  <none>        16686/TCP                       26h
+service/tracing                     NodePort    10.96.104.207  <none>        80:30441/TCP                    26h
+service/zipkin                      ClusterIP   10.96.142.61   <none>        9411/TCP                        26h
+
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/istio-tracing   1/1     1            1           26h
+
+NAME                                      DESIRED   CURRENT   READY   AGE
+replicaset.apps/istio-tracing-c7b59f68f   1         1         1       26h
+----
+
+. *Jaeger 접속 확인*
++
+tracing 서비스의 정보를 바탕으로 웹 브라우저의 주소 표시줄에 Jaeger 서비스의 IP 주소와 PORT 번호를 입력해서 Jaeger에 접속이 가능하다.
++
+----
+http://{Jaeger IP:Port}/jaeger/search
+----
++
+이때 서비스는 기본적으로 NodePort로 설정되어 있지만 LoadBalancer 형식으로 지정하여 외부 접근이 가능하게 변경할 수 있다.
+
+. *Istio 리소스 생성*
++
+Istio 필수 리소스를 생성한다.
++
+----
+[root@master1 16.istio]# kubectl create -f 4.istio-core.yaml 
+serviceaccount/istiod-service-account created
+...
+----
++
+정상적으로 리소스가 생성되었는지 확인한다.
++
+----
+[root@master1 16.istio]# kubectl get all -n istio-system -l app=istiod
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/istiod-7996469dc9-l4k8k   1/1     Running   1          26h
+
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+service/istiod  ClusterIP   10.96.215.204   <none>        15012/TCP,443/TCP   26h
+
+NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/istiod   1/1     1            1           26h
+
+NAME                                DESIRED   CURRENT   READY   AGE
+replicaset.apps/istiod-7996469dc9   1         1         1       26h
+
+NAME                                         REFERENCE           TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/istiod   Deployment/istiod   0%/80%    1         5         1          26h
+----
+
+. *Istio IngressGateway 설치*
++
+Istio IngressGateway 리소스를 생성한다.
++
+----
+[root@master1 16.istio]# kubectl create -f 5.istio-ingressgateway.yaml 
+role.rbac.authorization.k8s.io/istio-ingressgateway-sds created
+----
++
+정상적으로 리소스가 생성되었는지 확인한다.
++
+----
+[root@master1 16.istio]# kubectl get all -n istio-system -l app=istio-ingressgateway
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/istio-ingressgateway-659f898b79-zc4rc   1/1     Running   0          23h
+
+NAME                           TYPE           CLUSTER-IP    EXTERNAL-IP     PORT(S)                           AGE
+service/istio-ingressgateway   LoadBalancer   10.96.187.6   172.22.9.139    15020:31014/TCP,80:31100/TCP,...  23h
+
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/istio-ingressgateway   1/1     1            1           23h
+
+NAME                                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/istio-ingressgateway-659f898b79   1         1         1       23h
+
+NAME                                     REFERENCE                         TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/...  Deployment/istio-ingressgateway   3%/80%    1         5         1          23h
+----
+
+. *Istio 메트릭 등록*
++
+기존의 Prometheus 메트릭 서버에 Istio 메트릭을 등록한다.
++
+----
+[root@master1 16.istio]# kubectl create -f 6.istio-metric.yaml
+podmonitor.monitoring.coreos.com/envoy-stats created
+----
+
+. *Istio 메트릭 확인*
++
+prometheus-k8s 서비스의 정보를 바탕으로 "http://{Prometheus IP:Port}/graph"에 접속하여 'envoy_'로 시작하는 Istio 메트릭이 수집되었는지 확인한다.
++
+image::../images/figure_istio_metric.png[]
++
+만약 해당 메트릭이 수집되지 않았을 경우 Prometheus 접근 권한 설정의 문제일 수 있으므로 prometheus-clusterRole.yaml을 적용한다. +
+위 ClusterRole과 관련된 설정을 적용한 후 Prometheus 설정을 재적용한다.
++
+----
+[root@master1 16.istio]# kubectl apply -f prometheus-clusterRole.yaml 
+clusterrole.rbac.authorization.k8s.io/prometheus-k8s changed
+
+[root@master1 16.istio]# curl -X POST http://{Prometheus IP:Port}/-/reload
+----
+
+. *Istio 설치 검증*
++
+Envoy 프록시가 추가될 수 있는 `istio-injection=enabled` 조건을 bookinfo 예제를 실행할 수 있는 네임스페이스에 추가한 후 Istio가 정상적으로 설치되었는지 확인하기 위해 bookinfo 예제를 실행한다.
++
+----
+[root@master1 16.istio]# kubectl create namespace example
+namespace/example created
+
+[root@master1 16.istio]# kubectl label namespace example istio-injection=enabled
+namespace/example labeled
+
+[root@master1 16.istio]# kubectl create -f bookinfo.yaml -n example
+service/details created
+...
+----
++
+"http://{productpage IP:Port}/productpage"로 접근하여 bookinfo 예제를 확인한다.
++
+"http://{Kiali IP:Port}/kiali/"에 접근하여 example 네임스페이스에 워크로드가 정상적으로 생성되었는지 확인한 후 서비스 메시 구조를 그래프로 확인한다.

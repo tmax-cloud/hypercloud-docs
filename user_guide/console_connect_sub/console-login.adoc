@@ -1,0 +1,20 @@
+= 로그인
+
+HyperCloud 시스템의 웹 콘솔에 로그인하는 과정은 다음과 같다.
+
+. 웹 브라우저의 주소 표시줄에 TmaxCloud 포털 주소(link:https://tmaxcloud.com[https://tmaxcloud.com])를 입력한다.
+. TmaxCloud 포털 화면이 열리면 화면 상단의 메뉴 영역에서 **[로그인]**을 클릭한다.
++
+image::../images/figure_admin_login.png[]
+. TmaxCloud 포털 로그인 화면이 열리면 사용자 ID와 비밀번호를 입력한 후 *[로그인]* 버튼을 클릭한다.
++
+image::../images/figure_admin_login_02.png[]
+. TmaxCloud 포털에 정상적으로 로그인되면 TmaxCloud 포털 화면의 메뉴 영역에서 *[Console]* 버튼을 클릭하거나 콘텐츠 영역에서 *[Tmax Console]* 항목을 클릭한다.
++
+image::../images/figure_admin_login_03.png[]
+image::../images/figure_admin_login_04.png[]
+. HyperCloud 콘솔의 메인 화면이 열린다. 콘솔의 메인 화면 구성에 대한 자세한 내용은 xref:../console_layout_sub/console-layout-main.adoc[메인 화면 구성]을 참고한다.
++
+image::../images/figure_admin_login_05.png[]
+
+//<<hc-summary-layout,HyperCloud 콘솔 화면 구성>>

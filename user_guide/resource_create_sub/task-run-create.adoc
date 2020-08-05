@@ -1,0 +1,45 @@
+= 태스크 런 생성
+:toc:
+:toc-title:
+
+본 장에서는 태스크 런 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 태스크 런을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/ci-cd#img-task-run-main,태스크 런 메인 화면>>에서 *[테스크 런 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 태스크 런의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: example-taskrun
+  namespace: default
+spec:
+  serviceAccountName: example-san <1>
+  taskRef: <2>
+    name: example-task
+  resources:
+    inputs: <3>
+      - name: git-source
+        resourceRef:
+          name: example-pipeline-resource-git
+    outputs: <4>
+      - name: output-image
+        resourceRef:
+          name: example-pipeline-resource-image
+  params: <5>
+    - name: example-string
+      value: input-string
+----
++
+<1> 네임스페이스 내부에 리소스를 생성하기 위해 권한을 가진 서비스 어카운트의 이름
+<2> 태스크 런에서 실행할 태스크의 상세 명세
+<3> 태스크에서 실행될 컨테이너 이미지가 참조하는 파이프라인 리소스의 상세 명세
+<4> 태스크 실행 완료 후 생성될 결과물의 상세 명세
+<5> 태스크에서 실행될 컨테이너 이미지가 참조하는 파라미터의 상세 명세
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

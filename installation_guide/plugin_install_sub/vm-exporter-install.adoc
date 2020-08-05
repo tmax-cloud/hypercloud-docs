@@ -1,0 +1,59 @@
+= VM Exporter 설치
+
+VM Exporter는 가상머신의 CPU, Memory, fs 사용량 모니터링을 위한 기능이다. +
+반드시 가상머신이 생성된 네임스페이스별로 Exporter를 생성해야 하고, 가상머신 내부에서 Agent를 실행해야 한다. 따라서 가상머신이 생성되어 있는 상태에서만 확인이 가능하다.
+
+다음은 VM Exporter의 설치 과정에 대한 설명이다.
+
+. *vm-exporter.yaml 네임스페이스 변경*
++
+vm-exporter.yaml의  service 및 servicemonitor의 `namespace: default` 부분을 가상머신이 생성되어 있는 네임스페이스로 변경한다.
++
+----
+[root@master1 18.vm-exporter]# cp vm-exporter.yaml vm-exporter-default.yaml
+----
+
+. *vm-exporter 설치*
++
+이전 단계에서 네임스페이스를 변경한 vm-exporter.yaml을 실행한다.
++
+----
+[root@master1 18.vm-exporter]# kubectl apply -f vm-exporter-default.yaml
+----
+
+. *vm-exporter 설치 확인*
++
+vm-exporter가 정상적으로 설치됐는지 확인한다.
++
+----
+[root@master1 18.vm-exporter]# kubectl get service -A | grep vm-exporter
+[root@master1 18.vm-exporter]# kubectl get servicemonitor -A | grep vm-exporter
+----
+
+. *가상머신 내부 Agent 실행*
++
+`18.vm-exporter/` 경로의 vm_exporter, vm_exporter.exe를 각각 Linux, Windows 가상머신에 옮긴 후 9226 포트를 오픈하고 Agent를 실행한다.
++
+.Linux 가상머신
+----
+iptables -I INPUT 1 -p tcp --dport 9226 -j ACCEPT
+iptables -I OUTPUT 1 -p tcp --dport 9226 -j ACCEPT
+
+./vm_exporter & <1>
+----
+<1> 백그라운드로 vm_exporter 실행
++
+.Windows 가상머신
+----
+방화벽 > 고급설정 > 인바운드규칙 - 새 규칙 > 9226 포트 설정
+vm_exporter.exe 파일 실행
+----
+
+. *vm exporter 동작 확인*
++
+마스터 노드에서 `curl` 명령을 실행하여 metrics 조회값이 호출되는지 확인한다.
++
+----
+[root@master1 ~]# curl -X GET http://10.244.180.5:9226/metrics <1>
+----
+<1>  curl -X GET http://`{가상머신 IP 주소}`:9226/metrics

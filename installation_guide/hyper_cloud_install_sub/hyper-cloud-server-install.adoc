@@ -1,0 +1,208 @@
+= HyperCloud 4 서버 설치
+
+다음은 HyperCloud 4의 서버(Operator와 Secret Watcher, Mysql)를 설치하는 과정에 대한 설명이다.
+
+. *설치 파일 확인*
++
+HyperCloud 4의 서버 설치를 위해 필요한 .tar 파일을 확인한다.
++
+----
+[root@master1 yaml_install]# pwd
+/root/hc-install/8.hypercloud4/yaml_install
+
+[root@master1 yaml_install]# ls |grep tar
+hypercloud4-operator_b4.1.0.32.tar
+hypercloud4-secret-watcher-b4.1.0.6.tar
+----
+
+. *이미지 푸시(Push)*
++
+준비된 이미지를 프라이빗 이미지 레지스트리에 푸시한다. +
+우선 .tar 파일을 `docker load` 명령을 사용해 도커 이미지로 저장한다.
++
+----
+[root@master1 yaml_install]# docker load -i hypercloud4-operator_b4.1.0.32.tar
+[root@master1 yaml_install]# docker load -i hypercloud4-secret-watcher-b4.1.0.6.tar
+
+[root@master1 yaml_install]# docker images|grep hypercloud
+hypercloud4-secret-watcher  b4.1.0.6 fcb5e4438bbb   6 days ago           183MB
+hypercloud-operator    b4.1.0.32  c06dccb4ceb9      6 days ago          327MB
+----
++
+이후 각 도커 이미지를 `docker tag` 명령을 사용해 레지스트리의 주소를 추가한 후 푸시한다.
++
+----
+root@master1 yaml_install]# docker tag hypercloud4-operator:b4.1.0.32 \
+{IMAGE_REGISTRY}/hypercloud4-operator:b4.1.0.32
+[root@master1 yaml_install]# docker tag hypercloud4-secret-watcher:b4.1.0.6 \
+{IMAGE_REGISTRY}/hypercloud4-secret-watcher:b4.1.0.6
+
+[root@master1 yaml_install]# docker push \
+{IMAGE_REGISTRY}/hypercloud4-operator:b4.1.0.32
+[root@master1 yaml_install]# docker push \
+{IMAGE_REGISTRY}/hypercloud4-secret-watcher:b4.1.0.6
+----
+
+. *푸시(Push) 확인*
++
+이미지가 정상적으로 푸시되었는지 확인한다.
++
+----
+curl -X GET http://{IMAGE_REGISTRY}/v2/{이미지 이름}/tags/list
+----
+
+. *yaml 내의 이미지 경로 변경*
++
+설치 yaml에는 필요한 이미지들이 명시되어 있다.  +
+3.mysql-create.yaml, 4.hypercloud4-operator.yaml, 5.secret-watcher.yaml 파일에서 image 부분을 실제 프라이빗 이미지 레지스트리 주소로 변경한다.
++
+----
+image: {IMAGE_REPOSITORY}/mysql:5.6 등
+----
+
+. *설치 yaml 수행*
++
+8.hypercloud4/yaml_install 경로에서 1.initialization.yaml을 apply하여 초기화한다.
++
+----
+[root@master1 yaml_install]# pwd
+/root/hc-install/8.hypercloud4/yaml_install 
+
+[root@master1 yaml_install]#k apply -f 1.initialization.yaml 
+namespace/hypercloud4-system created
+resourcequota/hypercloud4-system-quota created
+...
+----
++
+8.hypercloud4/yaml_crd 경로에서 crd.sh을 수행하여 CRD를 정의한다.
++
+----
+[root@master1 yaml_crd]# pwd
+/root/hc-install/8.hypercloud4/yaml_crd
+
+[root@master1 yaml_crd]# chmod +x crd.sh
+
+[root@master1 yaml_crd]# ./crd.sh 
+customresourcedefinition.apiextensions.k8s.io/clients.tmax.io created
+customresourcedefinition.apiextensions.k8s.io/tokens.tmax.io created
+...
+----
++
+8.hypercloud4/yaml_install 경로에서 2.mysql-settings.yaml과 3.mysql-create.yaml을 apply하여 myql db를 생성한다.
++
+----
+[root@master1 yaml_install]# pwd
+/root/hc-install/8.hypercloud4/yaml_install 
+
+[root@master1 yaml_install]# k apply -f 2.mysql-settings.yaml 
+secret/mysql-secrets created
+configmap/mysql-initdb-config created
+
+[root@master1 yaml_install]# k apply -f 3.mysql-create.yaml 
+persistentvolumeclaim/mysql-data created
+deployment.apps/mysql-deployment created
+service/mysql-service created
+----
++
+8.hypercloud4/yaml_install 경로에서 4.hypercloud4-operator.yaml을 apply하여 hypercloud4-operator Pod를 생성한다.
++
+----
+[root@master1 yaml_install]# pwd
+/root/hc-install/8.hypercloud4/yaml_install 
+
+[root@master1 yaml_install]# k apply -f 4.hypercloud4-operator.yaml 
+deployment.apps/hypercloud4-operator created
+service/hypercloud4-operator-service created
+----
++
+8.hypercloud4/yaml_install 경로에서 5.secret-watcher.yaml을 apply하여 Hypercloud4-secret-watcher Pod를 생성한다.
++
+----
+[root@master1 yaml_install]# pwd
+/root/hc-install/8.hypercloud4/yaml_install 
+
+[root@master1 yaml_install]# k apply -f 5.secret-watcher.yaml 
+daemonset.apps/hypercloud4-secret-watcher created
+----
++
+8.hypercloud4/yaml_install 경로에서 6.default-auth-object-init.yaml의 email 부분에 admin으로 사용할 계정의 email을 입력한 후, apply하여 User를 생성한다.
++
+----
+apiVersion: tmax.io/v1
+kind: User
+metadata:
+  labels:
+    app: test
+    encrypted: f
+  name: admin-tmax.co.kr
+userInfo:
+  department: HyperCloud4
+  description: For test
+  email: test@tmax.co.kr
+  password: c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931
+dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec
+...
+[root@master1 yaml_install]# k apply -f 6.default-auth-object-init.yaml 
+user.tmax.io/admin-tmax.co.kr created
+clusterrolebinding.rbac.authorization.k8s.io/admin created
+clusterrole.rbac.authorization.k8s.io/namespace-owner created
+clusterrole.rbac.authorization.k8s.io/namespace-user created
+----
+
+. *webhook 설정*
++
+hypercloud4-operator Service의 IP를 확인한다.
++
+----
+[root@master1 8.hypercloud4]# kubectl get svc -n hypercloud4-system 
+NAME    TYPE           CLUSTER-IP     EXTERNAL-IP    PORT(S)
+hypercloud4-operator-service LoadBalancer 10.96.70.195 \
+172.22.9.134 28677: ... <1> 
+----
+<1> hypercloud4-operator-service LoadBalancer `{클러스터 IP 주소}` \
+`{외부 IP 주소}` 28677
++
+8.hypercloud4/ 경로의 webhook-config에 Service의 IP를 넣어준다. 아래 예제에서는 LB IP를 사용하여 추가한다.
++
+----
+[root@master1 8.hypercloud4]# pwd
+/root/hc-install/8.hypercloud4
+
+[root@master1 8.hypercloud4]# vi webhook-config
+    cluster:
+      server: http://172.22.9.134:28677/authenticate <1>
+----
+<1> server: http://`{HYPERCLOUD_IP}`:``{PORT}``/authenticate
++
+webhook-config 파일을 /etc/kubernetes/pki/ 아래로 복사한 후, manifests/kube-apiserver.yaml의 command 부분에 --authentication-token-webhook-config-file=/etc/kubernetes/pki/webhook-config를 추가한다.
++
+----
+[root@master1 8.hypercloud4]# cp webhook-config /etc/kubernetes/pki/
+
+[root@master1 8.hypercloud4]# vi /etc/kubernetes/manifests/kube-apiserver.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+...
+    - --authentication-token-webhook-config-file=/etc/kubernetes/pki/webhook-config
+----
++
+kube-adiserver.yaml 파일을 저장하고 나면 kube-apiserver Pod가 자동으로 재기동되면서 적용된다.
++
+----
+[root@master1 ~]# kubectl get pod -n kube-system -w
+NAME                     READY   STATUS              RESTARTS   AGE
+kube-apiserver-master1   0/1     ContainerCreating   0          9
+...
+kube-apiserver-master1   1/1     Running             0          8s
+----

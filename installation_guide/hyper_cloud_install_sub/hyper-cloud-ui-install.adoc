@@ -1,0 +1,109 @@
+= HyperCloud 4 콘솔(UI) 설치
+
+다음은 HyperCloud 4의 콘솔(UI)을 설치하는 과정에 대한 설명이다.
+
+. *설치 파일 확인*
++
+HyperCloud 4의 콘솔 설치를 위해 필요한 .tar 파일을 확인한다.
++
+----
+[root@master1 yaml_install]# pwd
+/root/hc-install/10.console-system
+
+[root@master1 10.console-system]# ls
+1.initialization.yaml  2.svc-lb.yaml  2.svc-np.yaml  3.deployment-pod.yaml  console.tar
+----
+
+. *이미지 푸시(Push)*
++
+준비된 이미지를 프라이빗 이미지 레지스트리에 푸시한다. +
+우선 .tar 파일을 `docker load` 명령을 사용해 도커 이미지로 저장한다.
++
+----
+[root@master1 10.console-system]# docker load -i console.tar
+
+[root@master1 10.console-system]# docker images | grep console
+hypercloud-console      1.1.26.0            2d76069f21fd        3 days ago          401MB
+----
++
+이후 각 도커 이미지를 `docker tag` 명령을 사용해 레지스트리의 주소를 추가한 후 푸시한다.
++
+----
+[root@master1 10.console-system]# docker tag hypercloud-console:1.1.26.0 {IMAGE_REGISTRY}/hypercloud-console:1.1.26.0
+[root@master1 10.console-system]# docker push {IMAGE_REGISTRY}/hypercloud-console:1.1.26.0
+----
+
+. *푸시(Push) 확인*
++
+이미지가 정상적으로 푸시되었는지 확인한다.
++
+----
+curl -X GET http://{IMAGE_REGISTRY}/v2/{이미지 이름}/tags/list
+----
+
+. *yaml 내의 변수 설정*
++
+설치 yaml에는 필요한 이미지들이 명시되어 있다.  +
+3.deployment-pod.yaml 파일에서 설치에 필요한 변수를 설정한다. 
++
+----
+- command:
+        ....
+        - --hypercloud-endpoint=http://172.22.9.134:28677 <1>
+        - --prometheus-endpoint=http://172.22.9.137:9090/api <2>
+        image: 172.22.9.130:5000/hypercloud-console:1.1.26.0 <3>
+----
+<1> operator svc의 external-ip:port를 입력한다.
+<2> prometheus-k8s의 external-ip:port를 입력한다.
+<3> image: `{IMAGE_REPOSITORY}`/hypercloud-console:1.1.26.0
+
+. *secret 생성*
++
+tls/ 아래에 다음과 같은 순서로 tls.key와 tls.csr을 생성한다.
++
+----
+[root@master1 tls]# openssl genrsa -out tls.key 2048
+[root@master1 tls]# openssl req -new -key tls.key -out tls.csr
+[root@master1 tls]# openssl x509 -req -days 3650 -in tls.csr -signkey tls.key -out tls.crt
+----
++
+tls.key와 tls.csr 생성이 완료되면 secret을 생성한다. 
++
+----
+[root@master1 10.console-system]# kubectl create secret tls console-https-secret --cert=./tls/tls.crt --key=./tls/tls.key -n console-system
+secret/console-https-secret created
+----
+
+. *설치 yaml 수행*
++
+10.console-system/ 경로에서 1.initialization.yaml을 apply하여 초기화 한다.
++
+----
+[root@master1 10.console-system]# kubectl apply -f 1.initialization.yaml
+namespace/console-system created
+resourcequota/console-system-quota created
+serviceaccount/console-admin created
+clusterrole.rbac.authorization.k8s.io/console-system-admin created
+clusterrolebinding.rbac.authorization.k8s.io/console-system-admin created
+----
++
+2.svc-lb.yaml와 2.svc-np.yaml 중 하나를 apply하여 Service를 생성한다. +
+lb - load balance port로서 새로운 ip:port가 생성된다. 이때 iprange 기능은 lb에서만 동작한다. (특정 ip에서만 로그인하도록 설정하는 기능) +
+np - node port로서 host ip:port가 생성된다.
++
+----
+[root@master1 10.console-system]# kubectl apply -f 2.svc-lb.yaml
+service/console-lb created
+----
++
+3.deployment-pod.yaml을 apply 하여 console pod를 생성한다.
++
+----
+[root@master1 10.console-system]# kubectl apply -f 3.deployment-pod.yaml
+deployment.apps/console created
+----
+
+. *접속 확인*
++
+생성된 console-system Service IP:PORT로 hypercloud 4 환경에 접속이 가능하다. +
+이때 기본 계정의 아이디는 admin-tmax.co.kr이고, 비밀번호는 admin이다.

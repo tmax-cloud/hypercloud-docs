@@ -1,0 +1,128 @@
+= 도커 설치 및 이미지 레지스트리 구성
+
+쿠버네티스는 도커를 컨테이너 런타임으로 지원한다. +
+추가로 도커 이미지들을 저장할 프라이빗 이미지 레지스트리를 마스터 1번 노드에 생성하고, 나머지 노드에서 1번 노드로 접근하여 사용할 수 있다.
+
+다음은 19.03.5 버전의 도커 엔진을 설치하는 과정에 대한 설명이다.
+
+NOTE: 1~8번까지의 과정은 전체 노드에서 동일하게 수행하고, 9~10번 과정은 마스터 1번 노드에서만 수행한다.
+
+. *패키지 설치*
++
+yum-utils 등 도커 설치에 필요한 패키지를 설치한다.
++
+----
+[root@master1 ~]# yum install -y yum-utils device-mapper-persistent-data lvm2
+...
+Complete!
+----
+
+. *도커 설치*
++
+docker-ce를 설치한다.
++
+----
+[root@master1 ~]# yum install -y docker-ce
+...
+Complete!
+----
+
+. *도커 버전 확인*
++
+설치된 도커의 버전을 확인한다.
++
+----
+[root@master1 ~]# docker -v
+Docker version 19.03.5, build 633a0ea
+----
+
+. *도커 서비스 기동*
++
+도커 서비스를 활성화 및 시작한다.
++
+----
+[root@master1 ~]# systemctl enable docker && systemctl start docker
+----
+
+. *도커 서비스 상태 확인*
++
+도커의 상태를 조회하여 "active(running)" 상태인 것을 확인한다.
++
+----
+[root@master1 ~]# systemctl status docker
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; vendor preset:
+   disabled)
+   Active: active (running) since ...
+----
+
+. *daemon.json 파일 생성*
++
+도커에서 daemon.json의 설정들은 도커 데몬이 시작될 때 옵션으로 사용된다. 
++
+----
+# cat > /etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2",
+  "insecure-registries": ["172.22.9.130:5000"]] <1>
+}
+ EOF
+----
+<1> 별도의 보안 절차 없이 접근이 가능한 IP 주소와 포트 번호를 입력한다.
++
+NOTE: 본 안내서에서는 설치에 필요한 이미지들을 저장할 용도로 마스터 1번 노드에 프라이빗 이미지 레지스트리를 생성한다. +
+따라서 모든 노드에서 마스터 1번 노드의 프라이빗 이미지 레지스트리로 접근할 수 있도록 각 노드의 ``insecure-registries``에 마스터 1번 노드의 IP 주소와 포트 번호를 설정한다.
+
+. *daemon.json 적용*
++
+도커를 재기동하여 daemon.json의 설정 내용을 적용한다.
++
+----
+[root@master1 docker]# mkdir -p /etc/systemd/system/docker.service.d
+[root@master1 docker]# systemctl daemon-reload && systemctl restart docker
+----
+
+. *도커 서비스 상태 확인*
++
+도커의 상태를 조회하여 "active(running)" 상태인 것을 확인한다.
++
+----
+[root@master1 ~]# systemctl status docker
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; vendor preset:
+   disabled)
+   Active: active (running) since ...
+----
+
+. *프라이빗 이미지 레지스트리 생성*
++
+프라이빗 이미지 레지스트리를 마스터 1번 노드에 하나 생성한다. +
+``hc-install/4.registry/``로 배포한 run-registry.sh 파일을 실행하면 쿠버네티스 관련 이미지와 Rook-Ceph 관련 이미지 등이 한꺼번에 레지스트리에 푸시(Push)된다.
++
+----
+[root@master1 ~]# cd hc-install/4.registry/ && ls
+docker-registry.tar  images.tar  run-registry.sh
+
+[root@master1 4.registry]# chmod +x run-registry.sh 
+
+[root@master1 4.registry]# ./run-registry.sh /root/hc-install/4.registry 172.22.9.130:5000 <1>
+...
+73d61bf022fd: Loading layer [==========>]  2.048kB/2.048kB
+Loaded image: registry:latest
+80c468f96e3469358367568283713117be0ba55fda9e60db59a71b312ed54958
+----
+<1> ./run-registry.sh `{images.tar 파일이 존재하는 경로}` `{레지스트리를 띄울 마스터 1번 노드의 IP 주소:포트 번호}`
+
+. *레지스트리 정상 동작 확인*
++
+`curl` 명령을 실행하여 레지스트리가 정상 동작하는 것을 확인한다.
++
+----
+curl -X GET http://172.22.9.130:5000/v2/_catalog <1>
+----
+<1> curl -X GET http://`{프라이빗 이미지 레지스트리 주소}`/v2/_catalog

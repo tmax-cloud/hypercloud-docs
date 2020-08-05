@@ -1,0 +1,160 @@
+= VM Image Exporter 설치
+
+VM Image Exporter는 가상머신의 루트(Root) 디스크를 스냅샷 이미지로 백업하는 기능이다. +
+Rook-Ceph와 Kubevirt, CDI가 설치되어 있어야 하며, 가상머신이 생성되어 있는 상태에서만 확인이 가능하다.
+
+다음은 VM Image Exporter의 설치 과정에 대한 설명이다.
+
+. *이미지 생성*
++
+tar 파일을 `docker load` 명령을 사용해 도커 이미지로 생성한다.
++
+----
+[root@master1 images]# pwd
+/root/hc-install/19.vm-image-exporter/images
+
+[root@master1 images]# docker load -i image-exporter.tar
+----
+
+. *이미지 업로드*
++
+생성된 도커 이미지를 프라이빗 이미지 레지스트리에 업로드한다.
++
+우선 `docker tag` 명령을 사용해 각 이미지에 레지스트리의 주소를 추가한다.
++
+----
+[root@master1 images]# docker tag image-exporter:v1.5 \ {IMAGE_REGISTRY}/image-exporter:v1.5
+----
++
+이후 `docker push` 명령을 사용해 각 이미지를 레지스트리에 업로드한다.
++
+----
+[root@master1 images]# docker push {IMAGE_REGISTRY}/image-exporter:v1.5
+----
+
+. *업로드 확인*
++
+이미지가 정상적으로 업로드되었는지 확인한다.
++
+----
+curl -X GET http://{IMAGE_REGISTRY}/v2/{이미지 이름}/tags/list
+----
+
+. *가상머신 종료*
++
+`19.vm-image-exporter/`에 존재하는 virtctl 툴을 사용해 스냅샷으로 백업할 가상머신을 종료한다.
++
+----
+[root@master1 19.vm-image-exporter]# pwd
+/root/hc-install/19.vm-image-exporter
+
+[root@master1 18.vm-exporter]# chmod +x virtctl 
+[root@master1 19.vm-image-exporter]# ./virtctl stop -n {vm-namsepace} {vmname}
+----
+
+. *가상머신 종료 확인*
++
+가상머신이 정상적으로 종료되었는지 확인한다. `kubectl get vmi -A | grep {vmname}` 명령을 실행해서 가상머신이 조회되지 않으면 정상적으로 종료된 상태이다.
++
+----
+[root@master1 19.vm-image-exporter]# kubectl get vmi -A | grep {vmname}
+----
+
+. *dst-pvc 변수 수정*
++
+`19.vm-image-exporter/yaml/2_run-image-exporter` 경로의 dst-pvc.yaml를 사용하기 위해 변수를 수정한다. 이때 가상머신 루트(Root) 디스크별로 dst-pvc가 필요하므로 yaml 파일을 복사해서 사용한다. 
++
+----
+[root@master1 2_run-image-exporter]# pwd
+/root/hc-install/19.vm-image-exporter/yaml/2_run-image-exporter
+ 
+[root@master1 2_run-image-exporter]# cp dst-pvc.yaml samplevm-dst-pvc.yaml
+----
++
+수정할 변수 항목에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|항목|설명
+|name|생성할 dst pvc 이름을 입력한다.
+|namespace|내보내기(Export)할 가상머신과 동일한 네임스페이스를 입력한다.
+|storage|내보내기(Export)할 가상머신의 루트 pvc와 동일한 스토리지 크기를 입력한다.
+|====================
+
+. *dst-pvc 실행 및 확인*
++
+dst-pvc.yaml 파일을 실행한 후 정상적으로 생성된 것을 확인한다.
++
+----
+[root@master1 2_run-image-exporter]# kubectl apply -f samplevm-dst-pvc.yaml
+persistentvolumeclaim/dst-pvc created
+
+[root@master1 2_run-image-exporter]# kubectl get pvc -A | grep {설정한 name}
+----
+
+. *var-lib-docker-pvc 변수 수정*
++
+var-lib-docker-pvc.yaml를 사용하기 위해 변수를 수정한다. 이때 가상머신 루트(Root) 디스크별로 pvc가 필요하므로 복사해서 사용한다.
++
+----
+[root@master1 2_run-image-exporter]# cp var-lib-docker-pvc.yaml samplevm-var-lib-docker-pvc.yaml
+----
++
+수정할 변수 항목에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|항목|설명
+|name|생성할 var-lib-docker pvc 이름을 입력한다.
+|namespace|내보내기(Export)할 가상머신과 동일한 네임스페이스를 입력한다.
+|storage|내보내기(Export)할 가상머신의 스토리지 크기를 입력한다. +
+이때 ``ROOT pvc 크기 × 3 + 3Gi`` 결과값을 입력한다.
+|====================
+
+. *var-lib-docker-pvc 실행 및 확인*
++
+var-lib-docker-pvc.yaml 파일을 실행한 후 정상적으로 생성된 것을 확인한다.
++
+----
+[root@master1 2_run-image-exporter]# kubectl apply -f samplevm-var-lib-docker-pvc .yaml
+persistentvolumeclaim/var-pvc configured
+[root@master1 2_run-image-exporter]# kubectl get pvc -A | grep {설정한 name}
+----
+
+. *imageExporterJob 변수 수정*
++
+imageExportJob.yaml를 사용하기 위해 변수를 수정한다. 이때 가상머신 루트(Root) 디스크별로 pvc가 필요하므로 복사해서 사용한다.
++
+----
+[root@master1 2_run-image-exporter]# cp imageExporterJob.yaml samplevm-imageExporterJob.yaml
+----
++
+수정할 변수 항목에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|항목|설명
+|namespace|내보내기(Export)할 가상머신과 동일한 네임스페이스를 입력한다.
+|src_pvc_name|가상머신 루트 pvc 이름을 설정한다.
+|dst_pvc_name|이전 과정에서 생성한 dst-pvc 이름을 입력한다.
+|var_lib_docker_pvc_name|이전 과정에서 생성한 var-lib-docker-pvc 이름을 입력한다.
+|registry_endpoint_1|image-exporter:v1.5 이미지가 업로드된 레지스트리의 ``ip:port``를 입력한다.
+|image_name|내보내기(Export)할 이미지의 이름을 입력한다.
+|image_version|내보내기(Export)할 이미지의 태그(tag)를 입력한다.
+|registry_endpoint_2|내보내기(Export)할 이미지를 업로드할 레지스트리의 ``ip:port``를 입력한다.
+|====================
+
+. *vm image exporter job 실행 및 확인*
++
+imageExportJob.yaml 파일을 실행한 후 정상적으로 동작하는 것을 확인한다.
++
+----
+[root@master1 2_run-image-exporter]# kubectl apply -f samplevm-imageExporterJob .yaml
+----
++
+image expoter pod가 completed로 변경된 것을 확인하고, 레지스트리에 `curl` 명령을 실행하여 이미지가 있는지 확인한다.
++
+----
+[root@master1 2_run-image-exporter]# kubectl get pod -A | grep {7의 name}
+[root@master1 2_run-image-exporter]# curl -X GET http://{7.에서 설정한 registry_endpoint_2}/v2/_catalog | grep {7.에서 설정한 image_name}
+----

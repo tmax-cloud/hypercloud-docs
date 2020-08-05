@@ -1,0 +1,94 @@
+= Kubevirt 설치
+
+Kubevirt는 쿠버네티스에서 가상머신을 관리할 수 있는 API이다.
+
+다음은 Kubevirt의 설치 과정에 대한 설명이다.
+
+. *이미지 생성*
++
+tar 파일을 `docker load` 명령을 사용해 도커 이미지로 생성한다. +
++
+----
+[root@master1 13.kubevirt]# pwd
+/root/hc-install/13.kubevirt/images
+
+[root@master1 images]# docker load -i virt-api.tar  
+[root@master1 images]# docker load -i virt-controller.tar 
+[root@master1 images]# docker load -i virt-handler.tar  
+[root@master1 images]# docker load -i virt-launcher.tar  
+[root@master1 images]# docker load -i virt-operator.tar
+----
+
+
+. *이미지 업로드*
++
+생성된 도커 이미지를 프라이빗 이미지 레지스트리에 업로드한다. 
++
+우선 `docker tag` 명령을 사용해 각 이미지에 레지스트리의 주소를 추가한다.
++
+----
+[root@master1 images]# docker tag \
+kubevirt/virt-api:latest {IMAGE_REGISTRY}/index.docker.io/kubevirt/virt-api:latest
+[root@master1 images]# docker tag kubevirt/virt-controller:latest \
+  {IMAGE_REGISTRY}/index.docker.io/kubevirt/virt-controller:latest
+[root@master1 images]# docker tag kubevirt/virt-handler:latest \
+{IMAGE_REGISTRY}/index.docker.io/kubevirt/virt-handler:latest
+[root@master1 images]# docker tag kubevirt/virt-launcher:latest \
+ {IMAGE_REGISTRY}/index.docker.io/kubevirt/virt-launcher:latest
+[root@master1 images]# docker tag kubevirt/virt-operator:latest \
+ {IMAGE_REGISTRY}/index.docker.io/kubevirt/virt-operator:latest
+----
++
+이후 `docker push` 명령을 사용해 각 이미지를 레지스트리에 업로드한다.
++
+----
+[root@master1 images]# docker push \
+{IMAGE_REGISTRY}/index.docker.io/kubevirt/virt-api:latest
+[root@master1 images]# docker push \
+{IMAGE_REGISTRY}/index.docker.io/kubevirt/virt-controller:latest
+[root@master1 images]# docker push \
+{IMAGE_REGISTRY}/index.docker.io/kubevirt/virt-handler:latest
+[root@master1 images]# docker push \
+{IMAGE_REGISTRY}/index.docker.io/kubevirt/virt-launcher:latest
+[root@master1 images]# docker push \
+{IMAGE_REGISTRY}/index.docker.io/kubevirt/virt-operator:latest
+----
+
+. *업로드 확인*
++
+이미지가 정상적으로 업로드되었는지 확인한다.
++
+----
+curl -X GET http://{IMAGE_REGISTRY}/v2/{이미지 이름}/tags/list
+----
+
+. *kubevirt install 스크립트 실행*
++
+13.kubevirt/install-kubevirt.sh 파일을 사용해 kubevirt를 설치한다.
++
+----
+[root@master1 13.kubevirt]# chmod +x *.sh
+
+[root@master1 13.kubevirt]# ./install-kubevirt.sh /root/hc-install/13.kubevirt 172.22.9.130:5000 <1>
+----
+<1> ./install-kubevirt.sh `{파일 위치}` `{프라이빗 이미지 레지스트리}`
+
+
+. *kubevirt 설치 확인*
++
+kubevirt 설치가 정상적으로 되었는지 확인한다.
++
+----
+[root@master1 13.kubevirt]# kubectl get pod -n kubevirt
+NAME                               READY   STATUS    RESTARTS   AGE
+virt-api-6d8d4cc5f9-hwvbj          1/1     Running   0          5m1s
+virt-api-6d8d4cc5f9-llhs6          1/1     Running   0          5m1s
+virt-controller-5ddb6cff49-kqdqs   1/1     Running   1          4m42s
+virt-controller-5ddb6cff49-r2c2l   1/1     Running   1          4m42s
+virt-operator-7495555686-bm9x9     1/1     Running   0          5m13s
+virt-operator-7495555686-tgp5r     1/1     Running   0          5m13s
+virt-handler-fhpqm                 1/1     Running   0          4m42s
+virt-handler-qhxsz                 1/1     Running   0          4m42s
+virt-handler-qr7fv                 1/1     Running   0          4m42s
+...
+----

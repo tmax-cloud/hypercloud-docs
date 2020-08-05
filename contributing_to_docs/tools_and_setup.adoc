@@ -81,9 +81,7 @@ image나 module을 참조하는 adoc 파일의 부모 폴더에는 images와 mod
 7. 빌드환경에서 hypercloud-docs 프로젝트 폴더를 삭제한다.
 
 === 배포용 소스를 생성할 목적으로 빌드하는 경우
-* AsciiBinder가 설치된 환경에서 git clone, 모든 브랜치 pull을 하고, +
-(현재 디렉토리 하위에 hypercloud-docs 폴더가 있으면 `rm -rf hypercloud-docs` 로 미리 삭제) +
-asciibinder 명령에 -a 플래그를 붙여 빌드한다. ('모든 브랜치'에 대하여 빌드하는 효과)
+* AsciiBinder가 설치된 환경에서 git clone, 모든 브랜치 pull을 하고, 각 브랜치를 체크아웃하며 빌드한다.
 +
 ----
 ### 한 줄씩 말고 통째로 복사-붙여넣기 하시면 됩니다.
@@ -97,8 +95,7 @@ cd hypercloud-docs
 git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
 git fetch --all
 git pull --all
-
-asciibinder build -a
+git branch -r | grep -v '\->' | while read remote; do git checkout "${remote#origin/}"; asciibinder build; done
 ----
 +
 [NOTE]

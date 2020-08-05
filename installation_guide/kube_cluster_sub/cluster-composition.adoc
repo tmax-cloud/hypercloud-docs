@@ -1,0 +1,242 @@
+= 클러스터 구성
+
+다음은 쿠버네티스 클러스터를 구성하고 Networking을 위한 CNI를 설치하는 과정에 대한 설명이다.
+
+. *iptables 설정*
++
+라우팅의 정상적인 동작을 위해 iptables을 설정한다.
++
+----
+[root@master1 ~]# cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+> net.bridge.bridge-nf-call-ip6tables = 1
+> net.bridge.bridge-nf-call-iptables = 1
+> EOF
+
+[root@master1 ~]# sudo sysctl --system
+----
+
+. *Selinux 설정*
++
+----
+[root@master1 ~]# setenforce 0
+[root@master1 ~]# sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+----
+
+. *Kubeadm, Kubectl, Kubelet 설치*
++
+kubeadm, kubectl, kubelet을 설치한다.
++
+----
+[root@master1 ~]# yum install -y kubeadm kubectl kubelet
+----
+
+. *Kubeadm, Kubectl, Kubelet 설치 확인*
++
+kubeadm, kubectl, kubelet 모두 1.15.3 버전으로 설치됐는지 확인한다.
++
+----
+[root@master1 ~]# kubeadm version
+kubeadm version: &version.Info{Major:"1", Minor:"15", GitVersion:"v1.15.3", ...
+[root@master1 ~]# kubectl version
+Client Version: version.Info{Major:"1", Minor:"15", GitVersion:"v1.15.3", ...
+[root@master1 ~]# kubelet --version
+Kubernetes v1.15.3
+----
+
+. *swap off 설정*
++
+Kubernetes는 swap이 잡혀있을 경우 정상 동작하지 않기 때문에 반드시 off로 설정해야 한다.
++
+----
+[root@master1 ~]# swapoff -a
+----
++
+재부팅 후에도 자동으로 swap이 잡히지 않도록 /etc/fstab에서 swap 설정 라인을 주석 처리한다.
++
+----
+[root@master1 ~]# vi /etc/fstab 
+...
+#/dev/mapper/centos-swap swap           swap    defaults        0 0
+----
+
+. *클러스터 Init 파일 작성*
++
+마스터 노드 중 하나의 노드에서 쿠버네티스 클러스터를 구성하고, 나머지 마스터 노드들에서 해당 노드에 조인(join)하여 클러스터가 완성된다. +
+먼저 kubeadm-config.yaml 설정 파일을 다음과 같은 형식으로 작성한다.
++
+----
+[root@master1 ~]# cat > kubeadm-config.yaml << EOF
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+kubernetesVersion: "v1.15.3" <1>
+controlPlaneEndpoint: "{VIP:6443}" <2>
+imageRepository: "{IMAGE_REGISTRY}/k8s.gcr.io" <3>
+networking: <4>
+   serviceSubnet: "10.96.0.0/16"
+   podSubnet: "10.244.0.0/16"
+apiServer: <5>
+   extraArgs:
+      advertise-address: "{VIP}"
+EOF
+----
+<1> 쿠버네티스의 버전을 입력한다.
+<2> 엔드포인트를 설정한다. 이때 VIP를 입력한다.
+<3> 설치에 사용되는 이미지를 받아올 저장소를 설정한다.
+<4> 서비스 객체의 대역과 파드 객체의 대역을 설정한다. 만약 동일 장비에서 중복되는 대역이 있을 경우에는 반드시 변경한다. 
+<5> advertise-address에 요청을 보낼 API 서버 주소를 설정한다. 이때 VIP를 입력한다.
+
+. *클러스터 Init 수행*
++
+작성한 kubeadm-config.yaml의 경로를 `--config` 옵션에 입력하고 구성을 시작한다. 이때 ``--upload-certs``는 certificates를 control-plane으로 업로드해 주는 옵션이므로 추가해 준다.
++
+----
+[root@master1 ~]# kubeadm init --config=kubeadm-config.yaml --upload-certs
+[init] Using Kubernetes version: v1.15.3
+...
+Your Kubernetes control-plane has initialized successfully!
+----
+
+. *클러스터 Init 완료*
++
+kubeadm init 과정이 완료되면 아래와 같은 명령어 수행 가이드가 출력된다. +
+init한 해당 노드에서 명령어 세 줄을 모두 수행하면 마스터 노드 준비가 완료된다.
++
+----
+To start using your cluster, you need to run the following as a regular user:
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+----
+
+. *클러스터 확인*
++
+init 후 해당 노드에 클러스터가 구성된 것을 확인할 수 있다. 단, CNI는 설치 전이므로 현재 상태가 ``NotReady``로 표시된다.
++
+----
+[root@master1 ~]# kubectl get nodes
+NAME       STATUS       ROLES      AGE     VERSION
+master     NotReady     master     1m      v1.15.3
+----
++
+NOTE: 노드는 `kubectl get nodes` 명령으로 확인이 가능하고, 파드는 `kubectl get pods --all-namespaces` 명령으로 확인이 가능하다.
+
+. *조인(Join) 명령어 저장*
++
+config 명령과 함께 다른 노드의 조인을 위해 가이드된 명령어는 CNI 설치 후 수행할 예정이므로 별도로 저장해 둔다.
++
+----
+You can now join any number of the control-plane node running the following command on each as root: <1>
+        kubeadm join ... 
+Then you can join any number of worker nodes by running the following on each as root: <2>
+        kubeadm join ...
+----
+<1> 마스터 노드에서 수행할 명령어 영역이다.
+<2> 워커 노드에서 수행할 명령어 영역이다.
+
+. *Calico CNI 설치 파일 수정*
++
+CNI를 설치한다. +
+우선 ``hc-install/6.cni/``로 배포된 kube-calico.yaml.template 파일에서 ``CALICO_IPV4POOL_CIDR``를 init 시에 podSubnet으로 설정했던 대역으로 수정한다.
++
+----
+[root@master1 ~]# cd hc-install/6.cni/
+
+[root@master1 6.cni]# vi kube-calico.yaml.template
+...
+- name: CALICO_IPV4POOL_CIDR
+              value: "10.244.0.0/16"
+----
+
+. *Metal LB IP Pool 설정*
++
+deploy_metallb_metal-lb-config-layer2.yaml 파일에서 서비스의 외부 IP로 사용할 대역을 설정한다.
++
+----
+[root@master1 6.cni]# vi deploy_metallb_metal-lb-config-layer2.yaml
+……
+data:
+  config: |
+    address-pools:
+    - name: metallb-ippool
+      protocol: layer2
+      addresses:
+      - 172.22.9.114-172.22.9.149 <1>
+----
+<1> 서비스의 외부 IP 대역을 설정한다.
+
+. *CNI & Metal LB 설치*
++
+install-cni.sh를 수행하여 Calico CNI와 Metal LB를 설치한다.
++
+----
+[root@master1 6.cni]# chmod +x install-cni.sh
+
+[root@master1 6.cni]# ./install-cni.sh /root/hc-install/6.cni/ 172.22.9.130:5000 <1>
+configmap/calico-config created
+...
+----
+<1> ./install-cni.sh `{설치 yaml 파일 위치}` `{프라이빗 이미지 레지스트리 주소}`
+
+. *클러스터 확인*
++
+CNI 설치 후 해당 노드의 상태가 ``NotReady``에서 ``Ready``로 변경된 것을 확인한다.
++
+----
+[root@master1 ~]# kubectl get nodes
+NAME       STATUS       ROLES      AGE     VERSION
+master     Ready        master     1m      v1.15.3
+----
+
+. *노드 조인(Join)*
++
+클러스터를 구성한 마스터 노드의 클러스터에 추가할 다른 노드들을 조인한다. +
+이때 10번 과정에서 저장했던 조인 명령어를 사용한다.
++
+.마스터 노드 조인 수행 예
+----
+[root@master2 ~]# kubeadm join 172.22.9.133:6443 \
+--token wvjbpv.0f4tt0svdz8dua2p  \
+--discovery-token-ca-cert-hash a256:ca9bcbf851d6cbc8dc4595473 \
+fb9a1c9b0cd40a863fcf54bfac76811a0528279 \
+--control-plane --certificate-key \
+79c5b0e9d7390fa82f56c401080133cc2747760ecf4027200e6b1ce51a97b2be 
+[preflight] Running pre-flight checks
+----
+
+. *클러스터 확인*
++
+조인한 마스터 노드와 워커 노드의 상태가 ``Ready``인 것을 확인한다.
++
+----
+[root@master1 5.kubeadm]# k get node -w
+NAME      STATUS   ROLES    AGE     VERSION
+master1   Ready    master   7m14s   v1.15.3
+master2   Ready    master   62s     v1.15.3
+master3   Ready    master   16s     v1.15.3
+...(worker 노드는 필요한 만큼 추가)...
+----
+
+. *노드 taint 해제*
++
+마스터 노드에는 기본적으로 ``node-role.kubernetes.io/master:NoSchedule taint``가 설정되어 있다. +
+클러스터 구성을 위해 모든 마스터 노드에서 해당 설정을 잠시 해제한다.
++
+NOTE: 클러스터 구성을 완료한 후 필요에 따라 taint 설정을 재설정할 수 있다.
++
+----
+[root@master1 ~]# kubectl taint node {hostname} \
+ node-role.kubernetes.io/master:NoSchedule-
+----
+
+. *파드 확인*
++
+기본적으로 생성되는 파드의 상태가 모두 ``Running``인 것을 확인한다.
++
+----
+[root@master1 ~]# k get pod -A
+NAMESPACE      NAME                READY    STATUS     RESTART    AGE     
+kube-system    calico-node-7gq9b   1/1      Running    0          6m33s
+kube-system    calico-node-c5lzg   1/1      Running    0          8m36s
+kube-system    etcd-master1        1/1      Running    0          12m
+...
+----

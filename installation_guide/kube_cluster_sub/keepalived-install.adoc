@@ -1,0 +1,91 @@
+= Keepalived 설치
+
+Keepalived는 VRRP(Virtual Router Redundancy Protocol) 기능을 사용하여 서버를 다중화하고 노드의 기동 및 장애 상태를 감시하는 도구로, 마스터 역할을 하는 서버와 백업 역할을 하는 서버로 나뉜다. +
+이를 위해 VRRP를 사용하는 VIP(가상 IP)를 생성하고, VIP가 떠있는 서버가 마스터 서버가 된다. 클라이언트 측에서는 마스터 서버로 접근하다가 마스터 서버로 통신이 불가하게 되면 백업 서버들 중 가장 우선 순위가 높은 서버로 VIP를 이동시켜 마스터를 전환한다.
+
+image::../images/figure_keepalived_intro.png[]
+
+다음은 Keepalived 1.3.5 버전을 설치하는 과정에 대한 설명이다.
+
+. *패키지 설치*
++
+Keepalived 패키지를 설치한다.
++
+----
+[root@master1 ~]# yum install -y keepalived
+...
+Complete!
+----
+
+. *keepalived.conf 파일 작성*
++
+Keepalived 동작을 위한 설정 파일을 작성한다. +
+다음은 마스터 서버를 기준으로 작성하였으며, 백업 서버의 경우 설정이 다르다.
++
+----
+[root@master1 ~]# cat > /etc/keepalived/keepalived.conf <<EOF
+vrrp_instance VI_1 {
+    state MASTER <1>
+    interface enp2s0 <2>
+    virtual_router_id 51 <3>
+    priority 100 <4>
+    advert_int 1 <5>
+    nopreempt
+    authentication { 
+        auth_type PASS
+        auth_pass 1234 <6>
+    }
+    virtual_ipaddress { 
+        172.22.9.133 <7>
+    }
+}
+EOF
+----
+<1> Keepalived를 시작할 때 사용할 서버의 종류를 선택한다.
+* MASTER : 마스터 서버로 사용 (하나의 노드에 설정)
+* BACKUP : 백업 서버로 사용 (마스터 서버로 사용할 노드 이외의 나머지 노드에 설정)
+<2> VRRP 패킷을 송수신할 interface를 설정한다. 각 환경의 통신 가능한 IP의 interface 이름을 입력한다.
+<3> 가상의 라우터 ID이다. 모든 노드에 동일하게 설정한다. (설정 범위 : 0~255)
+<4> VRRP 우선순위 값이다. 마스터를 선정할 때 해당 값이 큰 서버가 우선이 된다. +
+예를들어 마스터 1, 2, 3번 3개의 노드에 설치할 경우 각각 100, 99, 98로 설정하면 100 값을 가진 마스터 1번이 VIP가 뜨는 최우선 순위의 서버가 된다. 보통 마스터 서버로 사용하는 노드의 값을 가장 높게 설정한다.
+<5> VRRP 패킷 송신 간격이다. (단위 : 초)
+<6> 인증에 사용할 비밀번호를 설정한다. 특별하지 않은 값으로 간단하게 설정한다.
+<7> 통신 가능한 VIP(가상 IP)를 설정한다.
+
+. *Keepalived 서비스 기동*
++
+Keepalived 서비스를 활성화 및 시작한다.
++
+----
+root@master1 ~]# systemctl enable keepalived && systemctl start keepalived
+----
+
+. *Keepalived 서비스 확인*
++
+Keepalived의 상태를 조회하여 "active(running)" 상태인 것을 확인한다.
++
+----
+[root@master1 ~]# systemctl status keepalived
+● keepalived.service - LVS and VRRP High Availability Monitor
+   Loaded: loaded (/usr/lib/systemd/system/keepalived.service; ...
+   Active: active (running) since ...
+----
+
+. *VIP 통신 확인*
++
+설정한 VIP로 인터페이스의 생성 및 통신 여부를 확인한다.
++
+----
+[root@master1 ~]# ip a|grep 172.22.9.133 <1>
+    inet 172.22.9.133/22 scope global enp2s0
+
+[root@master1 ~]# ping 172.22.9.133 <2>
+PING 172.22.9.133 (172.22.9.133) 56(84) bytes of data.
+64 bytes from 172.22.9.133: icmp_seq=1 ttl=64 time=0.048 ms
+----
+<1> 인터페이스 생성 확인 +
+ip a|grep `{VIP}`
+<2> 통신 여부 확인 +
+ping `{VIP}`
++
+NOTE: 인터페이스 생성 확인은 현재 VIP가 떠있는 하나의 노드에서만 가능하다.

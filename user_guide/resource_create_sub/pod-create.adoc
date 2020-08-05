@@ -1,0 +1,31 @@
+= 파드 생성
+:toc:
+:toc-title:
+
+본 장에서는 파드 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 파드를 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/work-load#img-pod-main,파드 메인 화면>>에서 *[파드 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 파드의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+  name: nginx-binding <1>
+  namespace: hypercloud-system <2>
+spec:
+  instanceRef: <3>
+    name: nginx-instance
+----
++
+<1> 서비스 바인딩의 이름
+<2> 서비스 바인딩이 생성될 네임스페이스의 이름
+<3> 서비스 바인딩이 참조하는 서비스 인스턴스의 이름
+
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
