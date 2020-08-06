@@ -1,0 +1,7 @@
+= Easy and economical cloud construction based on open source
+
+
+As shifting from infrastructure cloud to next-generation platform cloud environment, container-based cloud architecture is becoming an essential element, and Kubernetes is emerging as a standard as its core engine. And based on this, we intend to use the full power of the cloud with the standards of each company in a multi-cloud environment.
+
+In order to secure its own technology for these core engines, Tmax is contributing to open source and strengthening products by exerting abundant R&D power with the participation of the Cloud Native Computing Foundation (CNCF) Foundation. In addition, it acquired CK certification, which is the official certification of CNCF for {product-title} {product-version} based on Kubernetes. In addition, it provides easy to use various open sources running on {product-title} {product-version}. This OSS provides a system directly verified and technically supported by Tmax. +
+With {product-title} {product-version}, which is based on Tmax's open source technology, you can easily and quickly build a cloud environment, configure an open, economical software environment, and experience stable operation of the infrastructure through Tmax's rapid technical support.

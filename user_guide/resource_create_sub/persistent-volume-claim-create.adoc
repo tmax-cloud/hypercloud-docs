@@ -1,0 +1,54 @@
+= 영구 볼륨 클레임 생성
+:toc:
+:toc-title:
+
+본 장에서는 영구 볼륨 클레임 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 영구 볼륨 클레임을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/storage#img-pvc-main,영구 볼륨 클레임 메인 화면>>에서 *[영구 볼륨 클레임 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 영구 볼륨 클레임의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: example <1>
+  # namespace: default <2>
+spec:
+  accessModes: <3>
+    - ReadWriteOnce
+  # volumeMode: Filesystem <4>
+  resources:
+    requests:
+      storage: 8Gi <5>
+  storageClassName: slow <6>
+  selector: <7>
+    matchLabels: 
+      release: stable
+    matchExpressions:
+      - key: environment
+        operator: In
+        values:
+          - dev
+----
++
+<1> 영구 볼륨 클레임의 이름
+<2> 영구 볼륨 클레임이 생성될 네이스페이스의 이름 (기본값: default)
+<3> 영구 볼륨 클레임의 접근 모드 +
+만약 블록 스토리지 클래스를 사용하는 경우 volumeMode가 Block인 경우에만 ReadWriteMany 적용이 가능
+* ReadWriteOnce : 하나의 노드에서 볼륨을 읽기, 쓰기로 마운트
+* ReadOnlyMany : 여러 노드에서 볼륨을 읽기 전용으로 마운트
+* ReadWriteMany : 여러 노드에서 볼륨을 읽기, 쓰기로 마운트
+<4> 볼륨의 사용 모드 (기본값: Filesystem)
+* Filesystem
+* Block
+<5> 영구 볼륨 클레임의 크기
+<6> 영구 볼륨 클레임의 스토리지 클래스 이름
+<7> 영구 볼륨 클레임과 바인딩할 볼륨 정보 +
+이때 'matchLabels'와 'matchExpressions'에 작성된 조건을 모두 충족하는 볼륨만 바인딩이 가능
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

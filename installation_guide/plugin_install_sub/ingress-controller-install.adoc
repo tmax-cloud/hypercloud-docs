@@ -1,0 +1,88 @@
+= Ingress Controller 설치
+
+서비스 종류 중 하나인 Ingress 기능을 사용하기 위해서는 Controller 설치가 필요하다.
+
+다음은 Ingress Controller의 설치 과정에 대한 설명이다.
+
+. *설치 파일 확인*
++
+Ingress Controller의 설치를 위해 필요한 tar 파일을 확인한다.
++
+----
+[root@master1 22.ingress-controller]# pwd
+/root/hc-install/22.ingress-controller
+
+[root@master1 22.ingress-controller]# ls | grep tar
+nginx-ingress-controller.tar
+----
+
+. *이미지 생성*
++
+tar 파일을 `docker load` 명령을 사용해 도커 이미지로 생성한다. +
++
+----
+[root@master1 22.ingress-controller]# docker load -i nginx-ingress-controller.tar
+
+[root@master1 22.ingress-controller]#  docker images | grep ingress-controller
+quay.io/kubernetes-ingress-controller/nginx-ingress-controller         
+                  0.25.1       0439eb3e11f1        10 months ago       511MB
+----
+
+. *이미지 업로드*
++
+생성된 도커 이미지를 프라이빗 이미지 레지스트리에 업로드한다. 
++
+우선 `docker tag` 명령을 사용해 각 이미지에 레지스트리의 주소를 추가한다.
++
+----
+[root@master1 22.ingress-controller]# docker tag \
+quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.25.1 {IMAGE_REGISTRY}/quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.25.1
+----
++
+이후 `docker push` 명령을 사용해 각 이미지를 레지스트리에 업로드한다.
++
+----
+[root@master1 22.ingress-controller]# docker push \
+{IMAGE_REGISTRY}/quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.25.1
+----
+
+. *업로드 확인*
++
+이미지가 정상적으로 업로드되었는지 확인한다.
++
+----
+curl -X GET http://{IMAGE_REGISTRY}/v2/{이미지 이름}/tags/list
+----
+
+. *yaml 파일 이미지 경로 변경*
++
+1.ingress-deployment.yaml 파일에서 {IMAGE_REPOSITORY}를 실제 프라이빗 이미지 레지스트리 주소로 변경한다.
++
+----
+image: {IMAGE_REPOSITORY}/quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.25.1
+----
+
+. *설치 yaml 수행*
++
+0.ingress-mandatory.yaml, 1.ingress-deployment.yaml, 2.ingress-service.yaml를 순서대로 apply하여 ingress controller를 생성한다.
++
+----
+[root@master1 22.ingress-controller]# kubectl apply -f 0.ingress-mandatory.yaml 
+namespace/ingress-system created
+...
+[root@master1 22.ingress-controller]# kubectl apply -f 1.ingress-deployment.yaml 
+deployment.apps/nginx-ingress-controller created
+
+[root@master1 22.ingress-controller]# kubectl apply -f 2.ingress-service.yaml 
+service/ingress-nginx created
+----
+
+. *설치 확인*
++
+ingress controller가 정상적으로 설치된 것을 확인한다.
++
+----
+[root@master1 22.ingress-controller]# kubectl get pod -n ingress-system
+NAME                                        READY   STATUS    RESTARTS   AGE
+nginx-ingress-controller-7dbfdcd4b5-xcp25   1/1     Running   0          22m
+----

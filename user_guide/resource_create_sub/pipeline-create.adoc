@@ -1,0 +1,58 @@
+= 파이프라인 생성
+:toc:
+:toc-title:
+
+본 장에서는 파이프라인 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 파이프라인을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/ci-cd#img-pipeline-main,파이프라인 메인 화면>>에서 *[파이프라인 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 파이프라인의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: example-pipeline
+  namespace: default
+spec:
+  resources: <1>
+    - name: source-repo
+      type: git
+    - name: sample-image
+      type: image
+  tasks:
+    - name: task1
+      taskRef: <2>
+        name: example-task1
+      params: <3>
+        - name: example-string
+          value: sample-string1
+      resources:
+        inputs: <4>
+          - name: example-pipeline-resource-git
+            resource: source-repo
+        outputs: <5>
+          - name: example-pipeline-resource-image
+            resource: sample-image
+    - name: task2
+      taskRef:
+        name: example-task2
+      resources:
+        inputs:
+          - name: example-input-image
+            resource: sample-image
+            from:
+              - task1
+----
++
+<1> 태스크에서 참조하는 파이프라인의 상세 명세
+<2> 파이프라인에서 실행할 태스크의 이름
+<3> 태스크에서 실행될 컨테이너 이미지가 참조하는 파라미터의 상세 명세
+<4> 태스크에서 실행될 컨테이너 이미지가 참조하는 파이프라인 리소스의 상세 명세
+<5> 태스크 실행 완료 후 생성될 결과물의 상세 명세
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

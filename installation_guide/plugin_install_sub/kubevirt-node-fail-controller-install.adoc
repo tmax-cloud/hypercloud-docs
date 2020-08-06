@@ -1,0 +1,96 @@
+= Kubevirt Node Fail Controller 설치
+
+Kubevirt Node Fail Controller는 가상머신이 떠있는 호스트가 다운될 경우 정상적으로 failover될 수 있도록 하는 기능이다. 따라서 가상머신이 생성되어 있는 상태에서만 확인이 가능하다.
+
+다음은 Kubevirt Node Fail Controller의 설치 과정에 대한 설명이다.
+
+. *사전 조건 확인*
++
+----
+vm root disk의 accessMode=RWX
+vm yaml의 spec.template.metadata.labels에 tmax/virt-auto-failover="true" 추가
+----
+
+. *설치 파일 확인*
++
+Kubevirt Node Fail Controller의 설치를 위해 필요한 tar 파일을 확인한다.
++
+----
+[root@master1 images]# pwd
+/root/hc-install/20.kubevirt-node-fail-controller/images
+
+[root@master1 images]# ls | grep tar
+kubevirt-node-fail-controller.tar
+----
+
+. *이미지 생성*
++
+tar 파일을 `docker load` 명령을 사용해 도커 이미지로 생성한다. +
++
+----
+[root@master1 images]# docker load -i kubevirt-node-fail-controller.tar
+
+[root@master1 images]# docker images | grep kubevirt-node-fail
+kubevirt-node-fail-controller   5  d8dbe2d12695    8 days ago          120MB
+----
+
+. *이미지 업로드*
++
+생성된 도커 이미지를 프라이빗 이미지 레지스트리에 업로드한다. 
++
+우선 `docker tag` 명령을 사용해 각 이미지에 레지스트리의 주소를 추가한다.
++
+----
+[root@master1 images]# docker tag \
+kubevirt-node-fail-controller:5 172.22.9.130:5000/ kubevirt-node-fail-controller:5
+----
++
+이후 `docker push` 명령을 사용해 각 이미지를 레지스트리에 업로드한다.
++
+----
+[root@master1 images]# docker push \
+172.22.9.130:5000/ kubevirt-node-fail-controller:5
+----
+
+. *업로드 확인*
++
+이미지가 정상적으로 업로드되었는지 확인한다.
++
+----
+curl -X GET http://{IMAGE_REGISTRY}/v2/{이미지 이름}/tags/list
+----
+
+. *yaml 파일 이미지 경로 변경*
++
+`hc-install/20.kubevirt-node-fail-controller/` 아래의 kubevirt-node-fail-controller.yaml 파일에서 {registry_endpoint}를 kubevirt-node-fail-controller:5 이미지가 업로드되어있는 레지스트리 주소로 변경한다.
++
+----
+image: 172.22.9.130:5000/kubevirt-node-fail-controller:5
+----
+
+. *kubevirt-node-fail-controller 설치*
++
+`20.kubevirt-node-fail-controller/` 경로의 kubevirt-node-fail-controller.yaml을 apply하여 Node fail controller를 설치한다. +
+이때 생성되는 리소스는 Namespace, PodSecurityPolicy, 
+ServiceAccount, ClusterRole, Role, ClusterRoleBinding (ClusterRole, ServiceAccount), RoleBinding(Role, ServiceAccount), DaemonSet 들이 있다.
++
+----
+[root@master1 20.kubevirt-node-fail-controller]# pwd
+/root/hc-install/20.kubevirt-node-fail-controller
+
+[root@master1 20.kubevirt-node-fail-controller]# kubectl apply -f kubevirt-node-fail-controller.yaml
+namespace/kubevirt-system configured
+...
+----
+
+. *kubevirt-node-fail-controller 확인*
++
+kubevirt-node-fail-controller가 정상적으로 생성된 것을 확인한다.
++
+----
+[root@master1 ~]# kubectl get pod -n kubevirt-system 
+NAME                                  READY   STATUS    RESTARTS   AGE
+kubevirt-node-fail-controller-gpfm4   1/1     Running   0          3m3s
+kubevirt-node-fail-controller-gvjlt   1/1     Running   0          3m3s
+kubevirt-node-fail-controller-jzb7t   1/1     Running   0          3m3s
+----

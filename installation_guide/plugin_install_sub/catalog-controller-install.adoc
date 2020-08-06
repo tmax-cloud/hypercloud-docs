@@ -1,0 +1,64 @@
+= Catalog Controller 설치
+
+다음은 helm을 이용한 Catalog Controller의 설치 과정에 대한 설명이다.
+
+. *helm 설치*
++
+helm 설치 파일의 압축을 해제 후 바이너리를 이동한다.
++
+----
+[root@master1 12.catalogcontroller]# pwd
+/root/hc-install/12.catalogcontroller
+
+[root@master1 12.catalogcontroller]# tar -zxvf helm-v3.1.2-linux-amd64.tar.gz
+[root@master1 12.catalogcontroller]# mv linux-amd64/helm /usr/local/bin/helm
+----
+
+. *Service Catalog Controller 관련 이미지 설치*
++
+service catalog controller 관련 이미지들을 업로드한다.
++
+----
+[root@master1 12.catalogcontroller]# docker load -i service-catalog-image.tar
+----
++
+각 도커 이미지를 `docker tag` 명령을 사용해 레지스트리의 주소를 추가한 후 푸시한다.
++
+----
+[root@master1 12.catalogcontroller]# docker tag quay.io/kubernetes-service-catalog/service-catalog:v0.3.0-beta.2 {IMAGE_REGISTRY}/quay.io/kubernetes-service-catalog/service-catalog:v0.3.0-beta.2
+[root@master1 12.catalogcontroller]# docker push {IMAGE_REGISTRY}/quay.io/kubernetes-service-catalog/service-catalog:v0.3.0-beta.2
+----
+
+. *Service Catalog Controller 설정*
++
+service catalog controller의 압축을 해제한다.
++
+----
+[root@master1 12.catalogcontroller]# tar -xvf service-catalog-master.tar service-catalog-master
+[root@master1 12.catalogcontroller]# cd service-catalog-master/charts/catalog
+----
++
+values.yaml의 내용 중 image 부분을 실제 프라이빗 이미지 레지스트리 주소로 변경한다.
++
+----
+image: 172.22.9.130:/quay.io/kubernetes-service-catalog/service-catalog:v0.3.0-beta.2 <1>
+----
+<1> image: `{프라이빗 이미지 레지스트리 주소}`/quay.io/kubernetes-service-
+catalog/service-catalog:v0.3.0-beta.2
+
+. *Service Catalog Controller 설치*
++
+----
+[root@master1 catalog]# kubectl create namespace catalog
+[root@master1 catalog]# helm install catalog . --namespace catalog \
+--values values.yaml
+----
+
+. *Service Catalog Controller 설치 확인*
++
+----
+[root@master1 ~]# kubectl get pod -n catalog
+NAME                                                  READY   STATUS    RESTARTS   AGE
+catalog-catalog-controller-manager-6f46796bdb-xdpz6   1/1     Running   0          69m
+catalog-catalog-webhook-675c84c5fd-sq776              1/1     Running   0          69m
+----

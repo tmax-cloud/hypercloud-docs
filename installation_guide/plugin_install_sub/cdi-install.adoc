@@ -1,0 +1,112 @@
+= CDI 설치
+
+CDI는 영구 볼륨 관리를 위한 쿠버네티스의 애드온(add-on)으로 kubevirt로 가상머신을 생성할 때 마운트시킬 영구 볼륨 클레임에 이미지 등의 데이터를 담아 생성할 수 있는 기능을 제공한다.
+
+다음은 CDI의 설치 과정에 대한 설명이다.
+
+. *이미지 생성*
++
+tar 파일을 `docker load` 명령을 사용해 도커 이미지로 생성한다. +
++
+----
+[root@master1 images]# pwd
+/root/hc-install/14.cdi/images
+
+[root@master1 images]# docker load -i cdi-apiserver.tar
+[root@master1 images]# docker load -i cdi-cloner.tar
+[root@master1 images]# docker load -i cdi-controller.tar
+[root@master1 images]# docker load -i cdi-importer.tar
+[root@master1 images]# docker load -i cdi-operator.tar
+[root@master1 images]# docker load -i cdi-uploadproxy.tar
+[root@master1 images]# docker load -i cdi-uploadserver.tar
+----
+
+. *이미지 업로드*
++
+생성된 도커 이미지를 프라이빗 이미지 레지스트리에 업로드한다. 
++
+우선 `docker tag` 명령을 사용해 각 이미지에 레지스트리의 주소를 추가한다.
++
+----
+[root@master1 images]# docker tag kubevirt/cdi-apiserver:v1.11.0 {IMAGE_REGISTRY}/cdi-apiserver:v1.11.0
+[root@master1 images]# docker tag kubevirt/cdi-cloner:v1.11.0 {IMAGE_REGISTRY}/cdi-cloner:v1.11.0
+[root@master1 images]# docker tag kubevirt/cdi-controller:v1.11.0 {IMAGE_REGISTRY}/cdi-controller:v1.11.0
+[root@master1 images]# docker tag kubevirt/cdi-importer:v1.11.0 {IMAGE_REGISTRY}/cdi-importer:v1.11.0
+[root@master1 images]# docker tag kubevirt/cdi-operator:v1.11.0 {IMAGE_REGISTRY}/cdi-operator:v1.11.0
+[root@master1 images]# docker tag kubevirt/cdi-uploadproxy:v1.11.0 {IMAGE_REGISTRY}/cdi-uploadproxy:v1.11.0
+[root@master1 images]# docker tag kubevirt/cdi-uploadserver:v1.11.0 {IMAGE_REGISTRY}/cdi-uploadserver:v1.11.0
+----
++
+이후 `docker push` 명령을 사용해 각 이미지를 레지스트리에 업로드한다.
++
+----
+[root@master1 images]# docker push {IMAGE_REGISTRY}/cdi-apiserver:v1.11.0
+[root@master1 images]# docker push {IMAGE_REGISTRY}/cdi-cloner:v1.11.0
+[root@master1 images]# docker push {IMAGE_REGISTRY}/cdi-controller:v1.11.0
+[root@master1 images]# docker push {IMAGE_REGISTRY}/cdi-importer:v1.11.0
+[root@master1 images]# docker push {IMAGE_REGISTRY}/cdi-operator:v1.11.0
+[root@master1 images]# docker push {IMAGE_REGISTRY}/cdi-uploadproxy:v1.11.0
+[root@master1 images]# docker push {IMAGE_REGISTRY}/cdi-uploadserver:v1.11.0
+----
+
+. *업로드 확인*
++
+이미지가 정상적으로 업로드되었는지 확인한다.
++
+----
+curl -X GET http://{IMAGE_REGISTRY}/v2/{이미지 이름}/tags/list
+----
+
+. *yaml 파일 registry 변경*
++
+script.sh를 사용해 cdi-operator.yaml, cdi-cr.yaml 파일의 레지스트리 주소를 변경한다. 
++
+----
+[root@master1 14.cdi]# chmod +x script.sh
+
+[root@master1 14.cdi]# ./script.sh 172.22.9.130:5000 <1>
+----
+<1> ./script.sh `{프라이빗 이미지 레지스트리}`
+
+. *CDI 설치*
++
+cdi-cr.yaml, cdi-operator.yaml을 apply하여 설치한다. 
++
+----
+[root@master1 14.cdi]# kubectl apply -f cdi-operator.yaml
+[root@master1 14.cdi]# kubectl apply -f cdi-cr.yaml
+----
+
+. *CDI 설치 확인*
++
+CDI 관련 파드가 정상적으로 설치됐는지 확인한다.
++
+----
+[root@master1 14.cdi]# kubectl get pod -n cdi 
+NAME                               READY   STATUS    RESTARTS   AGE
+cdi-apiserver-846488655-28xkk      1/1     Running   0          34m
+cdi-deployment-7b494d9bd4-t2t48    1/1     Running   0          34m
+cdi-operator-6769699b85-jfjzf      1/1     Running   0          35m
+cdi-uploadproxy-7f6cc8df55-8x7ht   1/1     Running   0          34m
+----
++
+CDI Object 또한 정상적으로 Deployed됐는지 확인한다.
++
+----
+[root@master1 14.cdi]# k get cdi
+NAME   AGE   PHASE
+cdi    62s   Deployed
+----
+
+. *insecure-registries 설정*
++
+cdi-insecure-registry를 설정한다. dv 생성 시 사용할 이미지를 가져올 레지스트리를 지정하기 위해 cdi-insecure-registries configmap을 edit 명령어로 열어 data.url을 추가한다.
++
+----
+[root@master1 14.cdi]# kubectl edit configmap -n cdi cdi-insecure-registries
+apiVersion: v1
+data:
+url: 172.22.9.130:5000 <1>
+kind: ConfigMap
+----
+<1> url: `{IMAGE_REGISTRY}`

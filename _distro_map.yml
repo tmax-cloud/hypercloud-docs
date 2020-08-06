@@ -1,6 +1,6 @@
 ---
 hypercloud: # 빌드 시 _preview에 떨어지는 디렉토리명. 영문, 숫자, 하이픈, 언더바 사용 가능. (erb: distro_key)
-  name: HyperCloud Console # 제품명. ( adoc: product-title / erb: distro)
+  name: HyperCloud # 제품명. ( adoc: product-title / erb: distro)
   author: HyperCloud Documentation Project <hypercloud-docs@tmax.com>
   site: HyperCloud-Docs # 영문 대소문자, 숫자, 하이픈, 언더바 가능. 화면에 표시되지 않지만 입력 필수
   site_name: Documentation # 브래드크럼 최상위 항목 ( erb: site_name)

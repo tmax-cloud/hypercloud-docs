@@ -1,0 +1,150 @@
+= 가상머신 생성
+:toc:
+:toc-title:
+
+본 장에서는 가상머신 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 가상머신을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/work-load#img-vm-main,가상머신 메인 화면>>에서 *[가상머신 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 가상머신의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: kubevirt.io/v1alpha3
+kind: VirtualMachine
+metadata: 
+  name: windows-vm <1>
+  namespace: default <2>
+spec:
+  running: true <3>
+  template:
+    spec:
+      hostname: guestos-name <4>
+      affinity:
+        nodeAffinity: <5>
+          requiredDuringSchedulingIgnoredDuringExecution:  
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname <6>
+                    operator: In <7>
+                    values: <8>
+                      - k8s-3-3
+      domain:
+        machine:
+          type: q35 <9>
+        devices:
+          disks: <10>
+            - disk:
+                bus: virtio <11>
+              name: rootdisk <12>
+              bootOrder: 1 <13>
+            - cdrom: <14>
+                bus: sata
+                readonly: true <15>
+              name: cloudinitdisk
+            - disk:
+                bus: virtio
+              name: additionaldisk
+          interfaces: <16>
+            - name: default <17>
+              model: virtio <18>
+              bridge: {} <19>
+              macAddress: 'de:ad:00:00:be:aa' <20>
+        gpus: <21>
+          - deviceName: nvidia.com/GP102GL_Tesla_P40 <22>
+            name: gpu1 <23>
+        cpu: 
+          cores: 2 <24>
+        memory:
+          guest: 2Gi <25>
+        resources:
+          overcommitGuestOverhead: false <26>
+          requests:
+            cpu: 1500m <27>
+            memory: 2Gi <28>
+          limits:
+            cpu: 2500m <29>
+            memory: 3Gi <30>
+      terminationGracePeriodSeconds: 0 <31>
+      networks: <32>
+        - name: default <33>
+          pod: {} <34>
+      volumes: <35>
+        - containerDisk: <36>
+            image: '172.21.7.20:5000/ubuntu:18.04' <37>
+          name: rootdisk <38>
+        - name: cloudinitdisk <39>
+          cloudInitConfigDrive: <40>
+            userData: | <41>
+              #ps1_sysnative
+              NET USER tmax "Qwer12345" /ADD 
+              NET LOCALGROUP "Administrators" "tmax" /add
+        - name: additionaldisk <42>
+          persistentVolumeClaim: <43>
+            claimName: empty-pvc <44>
+----
++
+<1> 가상머신의 이름
+<2> 가상머신이 생성될 네임스페이스의 이름
+<3> 가상머신의 실행 여부
+* true : 가상머신 생성 및 실행
+* false : 가상머신 생성
+<4> 게스트 OS의 호스트 이름
+<5> 선호하는 노드에 대한 설정
+<6> 노드 선택 시 노드 레이블에 대한 키
+<7> Key-Value에 대한 판단 연산자
+<8> 노드 레이블에 대한 키의 실제 값
+<9> Qemu 머신 유형 (기본값: q35)
+<10> 인스턴스에 연결할 디스크 정보
+<11> 에뮬레이션할 디스크 장치 유형
+* virtio
+* sata
+* scsi
+<12> 디스크 장치 이름 (사용될 볼륨과 일치)
+<13> 디스크 장치의 부팅 순서
+<14> 연결할 CD-ROM 정보
+<15> 읽기/쓰기 권한 (기본값: true)
+<16> 네트워크 인터페이스 정보
+<17> 네트워크 장치 이름
+<18> 인터페이스 모델 (기본값: virtio)
+* e1000
+* e1000e
+* ne2k_pci
+* pcnet
+* rtl8139
+* virtio
+<19> 네트워크 구성 방식
+* bridge
+* masquerade
+* slirp
+* sriov
+<20> MAC 주소 정보
+<21> 연결할 GPU 장치 정보
+<22> GPU 장치 이름
+<23> 장치 플러그인에 의해 노출될 GPU 장치 이름
+<24> 가상머신 프로세스에서 할당받을 CPU 코어 개수
+<25> 가상머신 프로세스에서 할당받을 메모리
+<26> 가상머신을 실행하기 위한 오버헤드의 허용 여부 (기본값: false)
+<27> 스케줄링하기 위한 최소 CPU 값
+<28> 스케줄링하기 위한 최소 메모리 값
+<29> 가상머신 프로세스의 CPU 한계 값
+<30> 가상머신 프로세스의 메모리 한계 값
+<31> 가상머신 정지 후 강제 종료 시키기까지의 유예 시간
+<32> 가상머신의 가상 인터페이스에 연결할 네트워크 정보
+<33> 네트워크 인터페이스에서 사용되도록 노출될 이름
+<34> 파드 네트워크 사용
+<35> 가상머신에 마운트할 볼륨 정보
+<36> Docker 이미지를 참조해서 VMI와 생명 주기를 같이하는 일회성 디스크
+<37> Docker 레지스트리에 등록된 이미지 이름
+<38> 장치에 노출될 볼륨의 이름
+<39> 장치에 노출될 볼륨의 이름
+<40> cloud-init 또는 cloudbaseinit에서 사용할 데이터 소스
+<41> 사용자 데이터에 대한 설정 정보
+<42> 장치에 노출될 볼륨의 이름
+<43> 영구 볼륨 클레임 정보
+<44> 영구 볼륨 클레임의 이름
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

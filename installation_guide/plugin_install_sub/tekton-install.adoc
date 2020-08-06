@@ -1,0 +1,51 @@
+= Tekton 설치
+
+다음은 Task, TaskRun, Pipeline, PipelineRun 리소스를 통해 CI/CD 기능을 제공하는 Tekton의 설치 과정에 대한 설명이다.
+
+. *이미지 준비*
++
+pipeline-image-upload.sh 파일을 실행하여 이미지를 한 번에 업로드한다.
++
+----
+[root@master1 11.tekton]# pwd
+/root/hc-install/11.tekton
+
+[root@master1 16.istio]# chmod +x *.sh
+
+[root@master1 11.tekton]# ./pipeline-image-upload.sh 
+[Local Registry IP:Port]? 172.22.9.130:5000 <1>
+...
+{"name":"google-cloud-sdk","tags":["v0.11.2"]}
+----
+<1> [Local Registry IP:Port]? `{IMAGE_ REGISTRY}`
+
+. *푸시(Push) 확인*
++
+이미지가 정상적으로 푸시되었는지 확인한다.
++
+----
+curl -X GET http://{IMAGE_REGISTRY}/v2/{이미지 이름}/tags/list
+----
+
+. *Tekton 파이프라인 리소스 생성*
++
+Tekton 필수 리소스를 생성한다.
++
+----
+[root@master1 11.tekton]# ./pipeline-yaml-deploy.sh
+########### Deploy tekton pipeline yaml ###########
+...
+service/tekton-pipelines-webhook created
+----
+
+. *Tekton CRD 업데이트*
++
+HyperCloud 4 UI (CI/CD) YAML Editor에서 자동으로 resource에 대한 관련 변수를 확인할 수 있도록 Tekton CRD를 업데이트한다.
++
+----
+[root@master1 11.tekton]# ./pipeline-crd-update.sh 
+customresourcedefinition.apiextensions.k8s.io/pipelines.tekton.dev configured
+customresourcedefinition.apiextensions.k8s.io/pipelineruns.tekton.dev configured
+customresourcedefinition.apiextensions.k8s.io/tasks.tekton.dev configured
+customresourcedefinition.apiextensions.k8s.io/taskruns.tekton.dev configured
+----

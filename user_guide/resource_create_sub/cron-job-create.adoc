@@ -1,0 +1,39 @@
+= 크론 잡 생성
+:toc:
+:toc-title:
+
+본 장에서는 크론 잡 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 크론 잡을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/work-load#img-cron-job-main,크론 잡 메인 화면>>에서 *[크론 잡 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 크론 잡의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: hello <1>
+  namespace: default <2>
+spec:
+  schedule: "*/1 * * * *" <3>
+  jobTemplate: <4>
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            command: ["/bin/sh", "-c", "date"]
+          restartPolicy: OnFailure
+----
++
+<1> 크론 잡의 이름
+<2> 크론 잡이 생성될 네임스페이스의 이름
+<3> 잡이 실행될 주기 (Cron 문법으로 작성)
+<4> 주기적으로 실행될 잡의 상세 내역
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

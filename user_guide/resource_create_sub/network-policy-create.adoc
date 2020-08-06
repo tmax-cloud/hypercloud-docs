@@ -1,0 +1,68 @@
+= 네트워크 정책 생성
+:toc:
+:toc-title:
+
+본 장에서는 네트워크 정책 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 네트워크 정책을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/security#img-network-main,네트워크 정책 메인 화면>>에서 *[네트워크 정책 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 네트워크 정책의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: example-network-policy <1>
+  namespace: default <2>
+spec:
+  podSelector: <3>
+    matchLabels:
+     role: db
+  policyTypes: <4>
+  - Ingress
+  - Egress
+  ingress: <5>
+  - from:
+    - ipBlock: <6>
+        cidr: 172.17.0.0/16
+        except:
+        - 172.17.1.0/24
+    - namespaceSelector: <7>
+        matchLabels:
+          project: myproject
+    - podSelector: <8>
+        matchLabels:
+          role: frontend
+  - ports: <9>
+    - port: 5000
+      protocol: TCP
+  egress: <10>
+  - to:
+    - ipBlock:
+        cidr: 172.17.0.0/16
+        except:
+        - 172.17.1.0/24
+    - namespaceSelector:
+        matchLabels:
+          project: myproject
+  - ports:
+    - port: 5000
+      protocol: TCP
+----
++
+<1> 네트워크 정책의 이름
+<2> 네트워크 정책이 생성될 네임스페이스의 이름
+<3> 네트워크 정책을 적용할 대상 파드 셀렉터
+<4> 적용할 정책 유형 (기본값: Ingress)
+<5> 적용할 정책 유형(예: ingress)에 대한 상세 명세
+<6> 트래픽을 허용할 특정 IP 대역
+<7> 트래픽을 허용할 네임스페이스 셀렉터
+<8> 트래픽을 허용할 파드 셀렉터
+<9> 트래픽을 허용할 포트 및 프로토콜
+<10> 적용할 정책 유형(예: egress)에 대한 상세 명세
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

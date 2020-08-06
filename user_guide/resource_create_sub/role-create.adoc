@@ -1,0 +1,38 @@
+= 롤 생성
+:toc:
+:toc-title:
+
+본 장에서는 롤 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 롤을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/permission#img-role-main,롤 메인 화면>>에서 *[롤 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 롤의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: example <1>
+  namespace: default <2>
+rules:
+  - apiGroups: <3>
+      - ''
+    resources: <4>
+      - pods
+    verbs: <5>
+      - get
+      - watch
+      - list
+----
++
+<1> 롤의 이름
+<2> 롤이 생성될 네임스페이스의 이름 (단, 클러스터 롤을 생성할 경우 작성 금지)
+<3> 제어할 리소스가 속한 API 그룹의 종류
+<4> 제어할 리소스의 이름
+<5> 리소스를 제어할 수 있는 동작의 종류
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

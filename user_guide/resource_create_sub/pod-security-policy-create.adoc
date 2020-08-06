@@ -1,0 +1,191 @@
+= 파드 보안 정책 생성
+:toc:
+:toc-title:
+
+본 장에서는 파드 보안 정책 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+=== Privileged 권한
+
+새로운 Privileged 권한의 파드 보안 정책을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/security#img-pod-security-main,파드 보안 정책 메인 화면>>에서 *[파드 보안 정책 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 파드 보안 정책(Privileged 권한)의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: privileged <1>
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*' <2>
+spec:
+  privileged: true <3>
+  allowPrivilegeEscalation: true <4>
+  readOnlyRootFilesystem: false <5>
+  allowedCapabilities: <6>
+  - '*'
+  volumes: <7>
+  - '*'
+  hostNetwork: true <8>
+  hostPorts: <9>
+  - min: 0
+    max: 65535
+  hostIPC: true <10>
+  hostPID: true <11>
+  runAsUser: <12>
+    rule: 'RunAsAny'
+  seLinux: <13>
+    rule: 'RunAsAny'
+  supplementalGroups: <14>
+    rule: 'RunAsAny'
+  fsGroup: <15>
+    rule: 'RunAsAny'
+----
++
+<1> 파드 보안 정책의 이름
+<2> seccomp에 허용되는 값을 지정 (``*``은 모든 프로파일을 허용) +
+만약 해당 값을 설정하지 않으면 기본값의 변경이 불가능
+* unconfined
+* runtime/default
+* docker/default
+* localhost/<path>
+* *
+<3> 파드에 속한 컨테이너의 Privileged 모드 사용 여부
+* true : 허용
+* false : 컨테이너의 하위 프로세스가 상위 프로세스보다 더 많은 권한을 가질 수 없음
+<4> 루트 권한에 대한 에스컬레이션 허용 여부
+* true : 허용
+* false : 컨테이너의 하위 프로세스가 상위 프로세스보다 더 많은 권한을 가질 수 없음
+<5> 루트 파일 시스템에 대한 읽기/쓰기 권한 (기본값: true)
+* true : 읽기만 가능
+* false : 읽기, 쓰기 가능
+<6> 컨테이너에 추가될 수 있는 기능 목록 (``*``은 모든 기능을 허용)
+<7> 허용되는 볼륨 유형 목록 +
+이때 허용 가능한 값은 볼륨을 생성할 때 정의된 볼륨 소스에 해당 (``*``은 모든 볼륨 유형을 허용)
+<8> 노드의 네트워크 네임스페이스에 대한 사용 여부
+<9> 호스트의 네트워크 네임스페이스에 허용되는 포트 범위
+<10> 호스트의 IPC 네임스페이스에 대한 공유 가능 여부
+<11> 호스트의 프로세스 ID 네임스페이스에 대한 공유 가능 여부
+<12> 컨테이너를 실행할 사용자 ID의 제어 범위
+* MustRunAs
+* MustRunAsNonRoot
+* RunAsAny
+<13> SELinux의 제어 범위
+* MustRunAs
+* RunAsAny
+<14> 컨테이너가 추가할 그룹 ID의 제어 범위
+* MustRunAs
+* MayRunAs
+* RunAsAny
+<15> 일부 볼륨에 적용되는 보충 그룹의 제어 범위
+* MustRunAs
+* MayRunAs
+* RunAsAny
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+
+=== Restricted 권한
+
+새로운 Restricted 권한의 파드 보안 정책을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/security#img-pod-security-main,파드 보안 정책 메인 화면>>에서 *[파드 보안 정책 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 파드 보안 정책(Restricted 권한)의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: restricted <1>
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default,runtime/default' <2>
+    seccomp.security.alpha.kubernetes.io/defaultProfileName: 'runtime/default' <3>
+    apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default' <4>
+    apparmor.security.beta.kubernetes.io/defaultProfileName: 'runtime/default' <5>
+spec:
+  privileged: false <6>
+  allowPrivilegeEscalation: false <7>
+  requiredDropCapabilities: <8>
+    - ALL
+  volumes: <9>
+    - 'configMap'
+    - 'emptyDir'
+    - 'projected'
+    - 'secret'
+    - 'downwardAPI'
+    - 'persistentVolumeClaim'
+  hostNetwork: false <10>
+  hostIPC: false <11>
+  hostPID: false <12>
+  runAsUser: <13>
+    rule: 'MustRunAsNonRoot'
+  seLinux: <14>
+    rule: 'RunAsAny'
+  supplementalGroups: <15>
+    rule: 'MustRunAs'
+    ranges:
+      - min: 1
+        max: 65535
+  fsGroup: <16>
+    rule: 'MustRunAs'
+    ranges:
+      - min: 1
+        max: 65535
+  readOnlyRootFilesystem: true <17>
+----
++
+<1> 파드 보안 정책의 이름
+<2> seccomp에 허용되는 값을 지정 (``*``은 모든 프로파일을 허용) +
+만약 해당 값을 설정하지 않으면 기본값의 변경이 불가능
+* unconfined
+* runtime/default
+* docker/default
+* localhost/<path>
+* *
+<3> seccomp에서 사용하는 기본값을 지정
+* unconfined
+* runtime/default
+* docker/default
+* localhost/<path>
+<4> apparmor에 허용되는 값을 지정
+* unconfined
+* runtime/default
+* localhost/<profile_name>
+<5> apparmor에서 사용하는 기본값을 지정
+* unconfined
+* runtime/default
+* localhost/<profile_name>
+<6> 파드에 속한 컨테이너의 Privileged 모드 사용 여부
+<7> 루트 권한에 대한 에스컬레이션 허용 여부
+* true : 허용
+* false : 컨테이너의 하위 프로세스가 상위 프로세스보다 더 많은 권한을 가질 수 없음
+<8> 컨테이너에서 제거할 기능 목록 +
+해당 필드에 작성된 목록은 반드시 ``allowedCapabilities``나 ``defaultAddCapabilities``에 포함되지 않아야 함
+<9> 허용되는 볼륨 유형 목록 +
+이때 허용 가능한 값은 볼륨을 생성할 때 정의된 볼륨 소스에 해당 (``*``은 모든 볼륨 유형을 허용)
+<10> 노드의 네트워크 네임스페이스에 대한 사용 여부
+<11> 호스트의 IPC 네임스페이스에 대한 공유 가능 여부
+<12> 호스트의 프로세스 ID 네임스페이스에 대한 공유 가능 여부
+<13> 컨테이너를 실행할 사용자 ID의 제어 범위
+* MustRunAs
+* MustRunAsNonRoot
+* RunAsAny
+<14> SELinux의 제어 범위
+* MustRunAs
+* RunAsAny
+<15> 컨테이너가 추가할 그룹 ID의 제어 범위
+* MustRunAs
+* MayRunAs
+* RunAsAny
+<16> 일부 볼륨에 적용되는 보충 그룹의 제어 범위
+* MustRunAs
+* MayRunAs
+* RunAsAny
+<17> 루트 파일 시스템에 대한 읽기/쓰기 권한 (기본값: true)
+* true : 읽기만 가능
+* false : 읽기, 쓰기 가능
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

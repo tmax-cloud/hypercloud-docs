@@ -1,0 +1,152 @@
+= HyperNetLocalAgent 설치
+
+HyperNetLocalAgent는 파드에 원하는 공인 IP를 설정 및 파드에 사설 IP를 설정하고, 외부로 나갈 때 공인 IP로 SNAT & DNAT하는 기능을 제공한다. 
+
+다음은 HyperNetLocalAgent의 설치 과정에 대한 설명이다.
+
+. *설치 파일 확인*
++
+HyperNetLocalAgent의 설치를 위해 필요한 tar 파일을 확인한다.
++
+----
+[root@master1 21.HyperNetLocalAgent]# pwd 
+/root/hc-install/21.HyperNetLocalAgent
+
+[root@master1 21.HyperNetLocalAgent]# ls | grep tar
+hypernet-local-agent.0.3.tar
+----
+
+. *이미지 생성*
++
+tar 파일을 `docker load` 명령을 사용해 도커 이미지로 생성한다. +
++
+----
+[root@master1 21.HyperNetLocalAgent]# docker load -i hypernet-local-agent.0.3.tar 
+
+[root@master1 21.HyperNetLocalAgent]# docker images | grep hypernet
+hypernet-local-agent                                                   0.3                               6329832a356c        3 months ago        129MB
+----
+
+. *이미지 업로드*
++
+생성된 도커 이미지를 프라이빗 이미지 레지스트리에 업로드한다. 
++
+우선 `docker tag` 명령을 사용해 각 이미지에 레지스트리의 주소를 추가한다.
++
+----
+[root@master1 21.HyperNetLocalAgent]# docker tag \
+hypernet-local-agent:0.3 {IMAGE_REGISTRY}/hypernet-local-agent:0.3
+----
++
+이후 `docker push` 명령을 사용해 각 이미지를 레지스트리에 업로드한다.
++
+----
+root@master1 21.HyperNetLocalAgent]# docker push \
+{IMAGE_REGISTRY}/hypernet-local-agent:0.3
+----
+
+. *업로드 확인*
++
+이미지가 정상적으로 업로드되었는지 확인한다.
++
+----
+curl -X GET http://{IMAGE_REGISTRY}/v2/{이미지 이름}/tags/list
+----
+
+. *yaml 파일 이미지 경로 변경*
++
+hypernet-local-agent.yaml 파일에서 {IMAGE_REPOSITORY}를 실제 프라이빗 이미지 레지스트리 주소로 변경한다.
++
+----
+image: {IMAGE_REPOSITORY}/hypernet-local-agent:0.3
+----
+
+. *설치 yaml 수행*
++
+hypernet-local-agent.yaml을 apply하여 hypernet-local-agent를 생성한다.
++
+----
+[root@master1 21.HyperNetLocalAgent]# kubectl apply -f hypernet-local-agent.yaml 
+namespace/hypernet-local-agent-system created
+podsecuritypolicy.policy/agent created
+...
+----
+
+. *설치 확인*
++
+HyperNetLocalAgent가 정상적으로 설치된 것을 확인한다.
++
+----
+[root@master1 ~]# kubectl get pod -n hypernet-local-agent-system
+NAME          READY   STATUS    RESTARTS   AGE
+agent-5p96c   1/1     Running   0          64s
+agent-6cbq5   1/1     Running   0          64s
+agent-jkq9c   1/1     Running   0          64s
+...
+----
+
+. *Static IP Pool 등록*
++
+`21.HyperNetLocalAgent/` 경로에서 public-ipv4-ippool.yaml 내 CIDR을 원하는 대역으로 설정한다. 이때 Host, Metal LB 대역과 겹치지 않도록 주의한다.
++
+----
+apiVersion: crd.projectcalico.org/v1
+kind: IPPool
+metadata:
+  name: public-ipv4-ippool-152
+spec:
+  cidr: {STATIC_IPADDR}/{CIDR}
+  blockSize: 31
+  ipipMode: Never
+  natOutgoing: false
+----
++
+public-ipv4-ippool.yaml을 apply하여 IP Pool을 생성한다.
++
+----
+[root@master1 21.HyperNetLocalAgent]# kubectl apply -f public-ipv4-ippool.yaml 
+ippool.crd.projectcalico.org/public-ipv4-ippool-152 created
+----
++
+추후 사용할 땐 Pod의 Annotation에 명시하는 방식으로 적용한다.
++
+----
+metadata:
+  annotations:
+    cni.projectcalico.org/ipAddrs: '["172.22.9.152"]'
+    cni.projectcalico.org/ipv4pools: '["public-ipv4-ippool-152"]'
+----
+
+. *Floating IP Pool 등록*
++
+`21.HyperNetLocalAgent/` 경로에서 floatingIp.yaml의 NatIpList에 IP를 지정한다. 이때 Host, Metal LB, Static IP 대역과 겹치지 않도록 주의한다.
++
+----
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: natip
+  namespace: kube-system
+data:
+  NatIpList: | <1>
+    - "172.22.9.150"
+    - "172.22.9.151"
+    - "172.22.9.156"
+----
+<1> Floating IP 목록들을 작성한다.
++
+floatingIp.yaml을 apply하여 configmap을 생성한다.
++
+----
+[root@master1 21.HyperNetLocalAgent]# kubectl apply -f floatingIp.yaml 
+configmap/natip created
+----
++
+추후 사용할 땐 Pod의 Annotation에 명시하는 방식으로 적용한다.
++
+----
+metadata:
+  annotations:
+    NatIP: '["172.22.9.150"]'
+    cni.projectcalico.org/ipv4pools: '["default-ipv4-ippool"]'
+----
