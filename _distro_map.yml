@@ -4,7 +4,7 @@ hypercloud: # 빌드 시 _preview에 떨어지는 디렉토리명. 영문, 숫�
   author: HyperCloud Documentation Project <hypercloud-docs@tmax.com>
   site: HyperCloud-Docs # 영문 대소문자, 숫자, 하이픈, 언더바 가능. 화면에 표시되지 않지만 입력 필수
   site_name: 문서 # 브래드크럼 최상위 항목 ( erb: site_name)
-  site_url: https://www.tmaxcloud.com/ # gnb 로고 또는 브래드크럼 최상위 항목 클릭 시 이동 링크 (erb: site_url)
+  site_url: https://tmaxanc.com/ # gnb 로고 또는 브래드크럼 최상위 항목 클릭 시 이동 링크 (erb: site_url) https://www.tmaxcloud.com/
   branches:
     4.1-ko: # 브랜치명
       name: '4.1' # 버전명 ( adoc: product_version / erb: version)
