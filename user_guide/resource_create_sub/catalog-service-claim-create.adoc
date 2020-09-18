@@ -14,9 +14,76 @@
 .기본 작성 예
 [source,yaml]
 ----
-
+apiVersion: tmax.io/v1
+kind: CatalogServiceClaim
+metadata:
+  name: nginx-catalog-service-claim <1>
+  namespace: default <2>
+spec:
+  apiVersion: tmax.io/v1
+  kind: Template
+  metadata:
+    name: example-template
+    namespace: default
+  imageUrl: example.com/example.gif <3>
+  urlDescription: https://www.nginx.com/ <4>
+  provider: tmax <5>
+  recommend: true <6>
+  objects: <7>
+    - apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: '${NAME}'
+        labels:
+          app: '${NAME}'
+      spec:
+        selector:
+          matchLabels:
+            app: '${NAME}'
+        template:
+          metadata:
+            labels:
+              app: '${NAME}'
+          spec:
+            containers:
+              - name: '${NAME}'
+                image: 'example/image:version'
+                ports:
+                  - name: example
+                    containerPort: 80
+  plans: <8>
+    - name: example-plan
+      metadata:
+        bullets:
+          - feat 1
+          - feat 2
+        costs:
+          amount: 100
+          unit: $
+        bindable: true
+        schemas:
+          service_instance:
+            create:
+              parameters:
+                EXAMPLE_PARAM: value
+  parameters: <9>
+    - name: NAME
+      description: Application name
+      valueType: string <10>
+      value: example <11>
 ----
 +
-
-
+<1> 카탈로그 서비스 클레임의 이름
+<2> 카탈로그 서비스 클레임이 생성될 네임스페이스의 이름
+<3> 템플릿의 이미지 URL
+<4> 템플릿 설명 페이지 URL
+<5> 템플릿 제공자
+<6> 템플릿 추천 유무
+<7> 템플릿을 기반으로 생성할 실제 오브젝트의 목록 (변수의 경우 ${PARAMETER} 형식으로 명시)
+<8> 서비스 브로커와 연동 시 사용될 플랜 목록
+<9> 템플릿에 명시된 변수의 상세 내역
+<10> 변수의 데이터 타입
+* string
+* number
+<11> 변수의 기본값
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

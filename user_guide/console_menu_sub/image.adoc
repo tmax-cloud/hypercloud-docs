@@ -54,3 +54,6 @@ image:../images/figure_action_icon.png[]
 * Error : 리소스 중 하나 이상이 생성되지 못했거나, 오류가 발생하여 레지스트리를 사용할 수 없는 상태
 |생성 시간|레지스트리가 생성된 시간이다.
 |====================
+
+NOTE: HyperCloud의 레지스트리는 도커(Docker)의 Private Registry를 구현한 것으로 레지스트리를 생성할 때 Docker Private Registry가 파드로 생성된다. +
+또한 해당 레지스트리를 바로 사용하기 위해 HyperCloud 서비스에서 인증서 파일과 시크릿(Secret)을 자동으로 발급한다.

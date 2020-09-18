@@ -1,0 +1,131 @@
+= 트레이닝 잡 생성
+:toc:
+:toc-title:
+
+본 장에서는 트레이닝 잡 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+=== 텐서플로(TensorFlow) 잡
+
+새로운 텐서플로(TensorFlow) 잡을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/ai-dev#img-training-job-main,트레이닝 잡 메인 화면>>에서 *[트레이닝 잡 생성]* 버튼을 클릭한다.
+. 드롭다운 메뉴가 열리면 **[Yaml 에디터(TF Job)]**을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 텐서플로 잡의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: kubeflow.org/v1
+kind: TFJob
+metadata: <1>
+  name: demo-tfjob <2>
+  namespace: demo <3>
+spec: <4>
+  tfReplicaSpecs: <5>
+    Worker: <6>
+      replicas: 1 <7>
+      template: <8>
+        metadata:
+          annotations:
+            sidecar.istio.io/inject: "false"
+          name: fairing-deployer
+        spec:
+          containers:
+          - command:
+            - python
+            - /app/fmnist-save-model-renew.py
+            - "--learning_rate=0.01393"
+            - "--dropout_rate=0.84807"
+            env:
+            - name: FAIRING_RUNTIME
+              value: "1"
+            image: rhojw/sample-job:3C8CE2EE
+            name: tensorflow
+            resources:
+              limits:
+                cpu: 1
+                memory: 1.86Gi
+            securityContext:
+              runAsUser: 0
+            volumeMounts:
+            - mountPath: /result
+              name: fairing-volume-demo-pvc
+            workingDir: /app/
+          restartPolicy: Never
+          volumes:
+          - name: fairing-volume-demo-pvc
+            persistentVolumeClaim:
+              claimName: demo-pvc
+----
++
+<1> 텐서플로 잡의 메타데이터
+<2> 텐서플로 잡이 생성될 네임스페이스의 이름
+<3> 텐서플로 잡의 이름
+<4> 텐서플로 잡의 스펙
+<5> 텐서플로 잡이 생성할 레플리카의 스펙
+<6> Worker의 스펙
+<7> 레플리카의 개수
+<8> Worker 파드의 템플릿
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+
+=== 파이토치(PyTorch) 잡
+
+새로운 텐서플로(TensorFlow) 잡을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/ai-dev#img-training-job-main,트레이닝 잡 메인 화면>>에서 *[트레이닝 잡 생성]* 버튼을 클릭한다.
+. 드롭다운 메뉴가 열리면 **[Yaml 에디터(PyTorch Job)]**을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 파이토치 잡의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: kubeflow.org/v1
+kind: PyTorchJob
+metadata: <1>
+  name: pytorch-tcp-dist-mnist <2>
+  namespace: default <3>
+spec: <4>
+  pytorchReplicaSpecs: <5>
+    Master: <6>
+      replicas: 1 <7>
+      restartPolicy: OnFailure <8>
+      template: <9>
+        spec:
+          containers:
+            - name: pytorch
+              image: 'gcr.io/kubeflow-ci/pytorch-dist-mnist_test:1.0'
+              ports:
+                - name: pytorchjob-port
+                  containerPort: 23456
+              resources:
+                limits:
+                  nvidia.com/gpu: 1
+    Worker: <10>
+      replicas: 1
+      restartPolicy: OnFailure
+      template:
+        spec:
+          containers:
+            - name: pytorch
+              image: 'gcr.io/kubeflow-ci/pytorch-dist-mnist_test:1.0'
+              ports:
+                - name: pytorchjob-port
+                  containerPort: 23456
+              resources:
+                limits:
+                  nvidia.com/gpu: 1
+----
++
+<1> 파이토치 잡의 메타데이터
+<2> 파이토치 잡의 이름
+<3> 파이토치 잡이 생성될 네임스페이스의 이름
+<4> 파이토치 잡의 스펙
+<5> 파이토치 잡이 생성할 레플리카의 스펙
+<6> Master의 스펙
+<7> 레플리카의 개수
+<8> Master 파드의 템플릿
+<9> 실패 시 재시작 정책
+<10> 실제 학습을 수행하는 Worker의 스펙
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

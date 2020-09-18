@@ -1,0 +1,40 @@
+= 서비스 엔트리 생성
+:toc:
+:toc-title:
+
+본 장에서는 서비스 엔트리 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 서비스 엔트리를 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/service-mesh#img-service-entry-main,서비스 엔트리 메인 화면>>에서 *[서비스 엔트리 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 서비스 엔트리의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: external-svc-https <1>
+  namespace: bookinfo
+spec:
+  hosts: <2>
+  - api.dropboxapi.com
+  - www.googleapis.com
+  - api.facebook.com
+  location: MESH_EXTERNAL <3>
+  ports: <4>
+  - number: 443
+    name: https
+    protocol: TLS
+  resolution: DNS <5>
+----
++
+<1> 서비스 엔트리의 이름
+<2> 서비스 엔트리와 연결된 호스트
+<3> 메시 내부 및 외부 서비스의 위치
+<4> 메시 내부 및 외부 서비스의 포트 정보 (서비스 요청 시 해당 포트로만 요청이 가능)
+<5> 호스트에 대한 서비스 검색 모드
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

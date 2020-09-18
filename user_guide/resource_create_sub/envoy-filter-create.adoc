@@ -1,0 +1,53 @@
+= 엔보이 필터 생성
+:toc:
+:toc-title:
+
+본 장에서는 엔보이 필터 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 엔보이 필터를 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/service-mesh#img-envoy-filter-main,엔보이 필터 메인 화면>>에서 *[엔보이 필터 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 엔보이 필터의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: trace-sampling <1>
+spec:
+  workloadSelector: <2>
+    labels:
+      version: v1
+  configPatches:
+  - applyTo: NETWORK_FILTER (3)
+    match:
+      context: ANY
+      listener:
+        filterChain: (4)
+          filter:
+            name: "envoy.http_connection_manager"
+    patch: (5)
+      operation: MERGE
+      value:
+        typed_config:
+          "@type": "type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager"
+          tracing:
+            random_sampling:
+              value: 99.9
+          access_log:
+            - name: envoy.file_access_log
+              config:
+                path: /dev/stdout
+                format: '%PROTOCOL% %RESPONSE_CODE% %RESPONSE_FLAGS% %REQ(:METHOD)% '
+----
++
+<1> 엔보이 필터의 이름
+<2> 엔보이 필터를 적용하는 특정 파드 집합을 선택하는데 사용되는 기준 (만약 생략될 경우 모든 워크로드 인스턴스에 적용)
+<3> patch를 적용할 위치
+<4> patch를 적용할 조건
+<5> 적용할 patch의 상세 내용
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

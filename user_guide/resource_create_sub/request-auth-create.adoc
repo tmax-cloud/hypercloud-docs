@@ -1,0 +1,35 @@
+= 요청 인증 생성
+:toc:
+:toc-title:
+
+본 장에서는 요청 인증 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 요청 인증을 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/service-mesh#img-request-auth-main,요청 인증 메인 화면>>에서 *[요청 인증 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 요청 인증의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: httpbin <1>
+  namespace: foo
+spec:
+  selector: <2>
+    matchLabels:
+      app: httpbin
+  jwtRules: <3>
+  - issuer: "issuer-foo"
+    jwksUri: https://example.com/.well-known/jwks.json
+----
++
+<1> 요청 인증의 이름
+<2> 요청 인증 방식이 적용될 워크로드의 레이블 정보
+<3> 지정된 워크로드에 유효성을 검사할 수 있는 JWT 클레임 목록 +
+해당 규칙에 의해 재구성된 위치에 토큰이 있는 경우에만 활성화된다. 이때 토큰은 JWT 규칙을 기반으로 검증되고, 유효성 검사가 실패하면 요청이 거부된다.
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

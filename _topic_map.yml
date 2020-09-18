@@ -161,6 +161,8 @@ Topics:
         File: execution-environment
       - Name: 로그인
         File: console-login
+      - Name: 콘솔 계정 관리
+        File: console-id-management
   - Name: 콘솔 화면
     Dir: console_layout_sub
     Topics:
@@ -177,12 +179,16 @@ Topics:
         File: service-catalog
       - Name: 워크로드
         File: work-load
+      - Name: 서비스 메시
+        File: service-mesh
       - Name: 네트워크
         File: network
       - Name: 스토리지
         File: storage
       - Name: CI-CD
         File: ci-cd
+      - Name: AI DevOps
+        File: ai-dev
       - Name: 보안
         File: security
       - Name: 이미지
@@ -198,16 +204,22 @@ Topics:
     Topics:
       - Name: HPA 생성
         File: hpa-create
+      - Name: KF 서빙 생성
+        File: kf-serving-create
       - Name: 가상머신 생성
         File: virtual-machine-create
-      - Name: 기본 리소스 제한 생성
-        File: basic-resource-create
+      - Name: 가상 서비스 생성
+        File: virtual-service-create
+      - Name: 게이트웨이 생성
+        File: gateway-create
       - Name: 네임스페이스 생성
         File: namespace-create
       - Name: 네임스페이스 클레임 생성
         File: namespace-claim-create
       - Name: 네트워크 정책 생성
         File: network-policy-create
+      - Name: 노트북 서버 생성
+        File: notebook-server-create
       - Name: 데몬셋 생성
         File: daemonset-create
       - Name: 데이터 볼륨 생성
@@ -228,16 +240,24 @@ Topics:
         File: resource-quota-create
       - Name: 리소스 쿼타 클레임 생성
         File: resource-quota-claim-create
+      - Name: 목적지 룰 생성
+        File: destination-rule-create
+      - Name: 사용자 생성
+        File: user-create
       - Name: 사용자 그룹 생성
         File: user-group-create
+      - Name: 사이드카 생성
+        File: sidecar-create
+      - Name: 서비스 계정 생성
+        File: service-account-create
       - Name: 서비스 생성
         File: service-create
       - Name: 서비스 바인딩 생성
         File: service-binding-create
       - Name: 서비스 브로커 생성
         File: service-broker-create
-      - Name: 서비스 어카운트 생성
-        File: service-account-create
+      - Name: 서비스 엔트리 생성
+        File: service-entry-create
       - Name: 서비스 인스턴스 생성
         File: service-instance-create
       - Name: 스테이트 풀셋 생성
@@ -246,16 +266,30 @@ Topics:
         File: storage-class-create
       - Name: 시크릿 생성
         File: secret-create
+      - Name: 앤보이 필터 생성
+        File: envoy-filter-create
       - Name: 영구 볼륨 생성
         File: persistent-volume-create
       - Name: 영구 볼륨 클레임 생성
         File: persistent-volume-claim-create
+      - Name: 요청 인증 생성
+        File: request-auth-create
+      - Name: 워크플로우 생성
+        File: workflow-create
+      - Name: 워크플로우 템플릿 생성
+        File: work-temp-create
+      - Name: 인가 정책 생성
+        File: auth-policy-create
       - Name: 인그레스 생성
         File: ingress-create
       - Name: 잡 생성
         File: job-create
+      - Name: 제한 범위 생성
+        File: basic-resource-create
       - Name: 카탈로그 서비스 클레임 생성
         File: catalog-service-claim-create
+      - Name: 카티브 생성
+        File: katib-create
       - Name: 커스텀 리소스 정의 생성
         File: custom-resource-create
       - Name: 컨피그 맵 생성
@@ -272,6 +306,8 @@ Topics:
         File: template-create
       - Name: 템플릿 인스턴스 생성
         File: template-instance-create
+      - Name: 트레이닝 잡 생성
+        File: training-job-create
       - Name: 파드 생성
         File: pod-create
       - Name: 파드 보안 정책 생성
@@ -284,6 +320,8 @@ Topics:
         File: pipeline-resource-create
       - Name: 파이프라인 컨디션 생성
         File: pipeline-condition-create
+      - Name: 피어 인증 생성
+        File: peer-auth-create
   - Name: 공통 기능
     Dir: common_function_sub
     Topics:
@@ -299,6 +337,8 @@ Topics:
         File: yaml-sample
       - Name: YAML 파일 다운로드
         File: yaml-down
+      - Name: 레지스트리에 이미지 등록
+        File: image-push
 # ---
 # Name: API Reference
 # Dir: api_reference

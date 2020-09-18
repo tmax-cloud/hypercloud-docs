@@ -1,0 +1,52 @@
+= 가상 서비스 생성
+:toc:
+:toc-title:
+
+본 장에서는 가상 서비스 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 가상 서비스를 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/service-mesh#img-virtual-service-main,가상 서비스 메인 화면>>에서 *[가상 서비스 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 가상 서비스의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: bookinfo <1>
+  namespace: bookinfo
+spec:
+  gateways: <2>
+    - bookinfo-gateway 
+  hosts: <3>
+    - '*' 
+  http:
+    - match: <4>
+        - uri:
+            exact: /productpage 
+        - uri:
+            prefix: /static
+        - uri:
+            exact: /login
+        - uri:
+            exact: /logout
+        - uri:
+            prefix: /api/v1/products
+      route:
+        - destination:
+            host: productpage <5>
+            port:
+              number: 9080
+----
++
+<1> 가상 서비스의 이름
+<2> 라우팅 규칙을 적용할 게이트웨이의 이름
+<3> 라우팅 규칙이 적용될 가상 서비스의 호스트 +
+이때 와일드 카드 접두사(*)로 DNS 이름을 표기하거나 FQDN(Fully Qualified Domain Name) 형식으로 입력
+<4> 라우팅 규칙을 적용하기 위한 요청의 조건
+<5> 조건에 일치하는 트래픽의 실제 목적지
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

@@ -430,7 +430,7 @@ image:../images/figure_action_icon.png[]
 * kubernetes.io/dockerconfigjson : 도커 저장소 인증 정보를 저장
 * kubernetes.io/tls : TLS 인증서를 저장
 * kubernetes.io/service-account-token : 쿠버네티스 인증 토큰을 저장
-* Opaque : key - value 데이터
+* Opaque : 키-값 데이터
 |크기|시크릿에 포함된 데이터의 개수이다.
 |생성 시간|시크릿이 생성된 시간이다.
 |====================

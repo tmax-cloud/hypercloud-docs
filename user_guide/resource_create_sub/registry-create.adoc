@@ -9,6 +9,7 @@
 새로운 레지스트리를 YAML 에디터를 사용해서 생성할 수 있다.
 
 . <<../console_menu_sub/image#img-registry-main,레지스트리 메인 화면>>에서 *[레지스트리 생성]* 버튼을 클릭한다.
+. 드롭다운 메뉴가 열리면 **[Yaml 에디터]**를 클릭한다.
 . YAML 에디터 화면이 열리면 생성할 레지스트리의 구성 정보를 작성한다.
 +
 .기본 작성 예
@@ -17,34 +18,33 @@
 apiVersion: tmax.io/v1
 kind: Registry
 metadata:
-  name: my-registry <1>
+  name: example <1>
   namespace: default <2>
 spec:
-  image: hypercloud-registry:5000/registry:b004 <3>
+  image: 'registry:2.6.2' <3>
   loginId: tmax <4>
   loginPassword: xamtsecret <5>
-  service: <6>
-    ingress:
-      domainName: example
+  service:
+    serviceType: LoadBalancer <6>
+    loadBalancer:
       port: 443
   persistentVolumeClaim: <7>
     create:
-      accessModes: 
+      accessModes:
         - ReadWriteOnce
       storageSize: 10Gi
-      storageClassName: csi-cephfs-sc
+      storageClassName: example
       volumeMode: Filesystem
       deleteWithPvc: false
 ----
 +
 <1> 레지스트리의 이름
 <2> 레지스트리가 생성될 네임스페이스의 이름
-<3> 레지스트리 파드 생성에 사용될 이미지
+<3> 레지스트리 파드 생성에 사용될 이미지 *(현재 'registry:2.6.2' 만 가능)*
 <4> 레지스트리에 로그인할 ID
 <5> 레지스트리에 로그인할 ID의 비밀번호
-<6> 레지스트리의 서비스를 정의한다. 우선 서비스의 유형으로 ingress, loadBalancer 중 하나를 선택한 후 각 유형에 따른 설정 항목을 정의한다.
-* domainName : 서비스의 도메인 이름 (ingress 유형만 해당)
-* port : 서비스에 접속하기 위한 포트 번호
+<6> 레지스트리의 서비스 유형을 정의한다. 우선 서비스의 유형으로 Ingress, LoadBalancer 중 하나를 선택한 후 각 유형에 따른 설정 항목을 정의한다. +
+이때 LoadBalancer를 선택한 경우에는 서비스에 접속하기 위한 포트 번호를 설정해야 한다.
 <7> 레지스트리의 영구 볼륨 클레임을 정의한다. 우선 영구 볼륨 클레임의 유형으로 exist, create 중 하나를 선택한 후 각 유형에 따른 설정 항목을 정의한다.
 * pvcName : 영구 볼륨 클레임의 이름 (exist 유형만 해당)
 * accessMode : 영구 볼륨 클레임의 접근 모드 (create 유형만 해당)
@@ -53,3 +53,28 @@ spec:
 * volumeMode : 볼륨의 사용 모드 (create 유형만 해당)
 * deleteWithPvc : 레지스트리 삭제 시 영구 볼륨 클레임의 자동 삭제 여부 (create 유형만 해당)
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+
+== 폼 에디터
+
+새로운 레지스트리를 폼 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/image#img-registry-main,레지스트리 메인 화면>>에서 *[레지스트리 생성]* 버튼을 클릭한다.
+. 드롭다운 메뉴가 열리면 **[폼 에디터]**를 클릭한다.
+. *레지스트리 생성* 화면이 열리면 생성할 레지스트리의 구성 정보를 설정한다. +
+각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|항목|설명  
+|이름 *|레지스트리의 이름을 입력한다.
+|네임스페이스 *|레지스트리가 생성될 네임스페이스의 이름을 선택한다.
+|레지스트리 생성 이미지 *|레지스트리 파드 생성에 사용될 이미지의 주소를 입력한다. *(현재 'registry:2.6.2' 만 가능)*
+|로그인 정보 *|레지스트리에 접근하기 위해 필요한 계정 정보(ID, 비밀번호)를 입력한다.
+|서비스 *|레지스트리의 서비스 타입에 따른 네트워크 정책을 설정한다.
+
+* 인그레스
+* 로드밸런서 : 서비스에 접속하기 위한 포트 번호를 설정
+|영구 볼륨 클레임 *|레지스트리에 사용할 영구 볼륨 클레임을 선택한다. 이때 기존에 생성된 영구 볼륨 클레임을 선택하거나 새로운 영구 볼륨 클레임을 직접 생성해서 선택할 수 있다.
+|레이블|레지스트리에 추가할 레이블 정보를 입력한다.
+|====================
+. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.

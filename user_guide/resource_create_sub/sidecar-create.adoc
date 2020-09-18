@@ -1,0 +1,48 @@
+= 사이드카 생성
+:toc:
+:toc-title:
+
+본 장에서는 사이드카 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 사이드카를 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/service-mesh#img-sidecar-main,사이드카 메인 화면>>에서 *[사이드카 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 사이드카의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: networking.istio.io/v1alpha3
+kind: Sidecar
+metadata:
+  name: no-ip-tables <1>
+  namespace: bookinfo
+spec:
+  workloadSelector: <2>
+    labels:
+      app: productpage
+  ingress: <3>
+  - port:
+      number: 9080
+      protocol: HTTP
+      name: somename
+    defaultEndpoint: 127.0.0.1:8080
+    captureMode: NONE
+  egress: <4>
+  - port:
+      number: 3306
+      protocol: MYSQL
+      name: egressmysql
+    captureMode: NONE
+    bind: 127.0.0.1
+    hosts:
+    - "*/mysql.foo.com"
+----
++
+<1> 사이드카의 이름
+<2> 사이드카 구성을 적용할 특정 파드 집합의 선택 기준 (만약 생략할 경우 동일 네임스페이스의 모든 워크로드 인스턴스에 구성이 적용)
+<3> 연결된 워크로드 인스턴스에 대해 인바운드 트래픽을 처리하기 위한 사이드카의 구성 정보
+<4> 연결된 워크로드 인스턴스에서 메시 내 다른 서비스로의 아웃바운드 트래픽을 처리하기 위한 사이드카의 구성 정보
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

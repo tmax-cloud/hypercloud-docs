@@ -1,0 +1,150 @@
+= 워크플로우 생성
+:toc:
+:toc-title:
+
+본 장에서는 워크플로우 리소스의 생성 방법에 대해서 설명한다.
+
+== YAML 에디터
+
+새로운 워크플로우를 YAML 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/ai-dev#img-workflow-main,워크플로우 메인 화면>>에서 *[워크플로우 생성]* 버튼을 클릭한다.
+. YAML 에디터 화면이 열리면 생성할 워크플로우의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata: <1>
+  name: demo-workflow <2>
+  namespace: demo <3>
+spec: <4>
+  arguments: <5>
+    parameters: <6>
+    - name: learning_rate <7>
+      value: "0.001397" <8>
+    - name: dropout_rate
+      value: "0.18"
+    - name: epoch
+      value: "11"
+    - name: act
+      value: sigmoid
+    - name: layer
+      value: "2"
+    - name: checkpoint_dir
+      value: /reuslt/training_checkpoints
+    - name: saved_model_dir
+      value: /result/saved_model/
+    - name: pvc_name
+      value: demo-pvc
+    - name: tensorboard_log
+      value: /result/log
+    - name: name
+      value: demo-inferenceservice
+    - name: model_version
+      value: "0001"
+    - name: namespace
+      value: demo
+  entrypoint: fmnist <9>
+  onExit: demo-inferenceservice <10>
+  serviceAccountName: default-editor <11>
+  templates: <12>
+  - arguments: {}
+    container: <13>
+      args:
+      - --learning_rate
+      - '{{inputs.parameters.learning_rate}}'
+      - --dropout_rate
+      - '{{inputs.parameters.dropout_rate}}'
+      - --epoch
+      - '{{inputs.parameters.epoch}}'
+      - --act
+      - '{{inputs.parameters.act}}'
+      - --layer
+      - '{{inputs.parameters.layer}}'
+      - --checkpoint_dir
+      - '{{inputs.parameters.checkpoint_dir}}'
+      - --saved_model_dir
+      - '{{inputs.parameters.saved_model_dir}}'
+      - --model_version
+      - '{{inputs.parameters.model_version}}'
+      - --tensorboard_log
+      - '{{inputs.parameters.tensorboard_log}}'
+      command:
+      - python
+      - /app/fmnist-save-model-renew.py
+      image: rhojw/sample-job:3C8CE2EE
+      name: ""
+      resources: {}
+      volumeMounts:
+      - mountPath: /result
+        name: pvolume-4a58304317c5a3f7e710d2eb21f621e4ee3cae3e64f19e1d55a8a09
+    inputs: <14>
+      parameters: <15>
+      - name: act
+      - name: checkpoint_dir
+      - name: dropout_rate
+      - name: epoch
+      - name: layer
+      - name: learning_rate
+      - name: model_version
+      - name: pvc_name
+      - name: saved_model_dir
+      - name: tensorboard_log
+    metadata: <16>
+      annotations:
+        sidecar.istio.io/inject: "false"
+    name: fmnist <17>
+    outputs: {} <18>
+    volumes: <19>
+    - name: pvolume-4a58304317c5a3f7e710d2eb21f621e4ee3cae3e64f19e1d55a8a09
+      persistentVolumeClaim:
+        claimName: '{{inputs.parameters.pvc_name}}'
+  - arguments: {}
+    container:
+      args:
+      - --namespace
+      - '{{inputs.parameters.namespace}}'
+      - --storage_uri
+      - pvc://{{inputs.parameters.pvc_name}}/saved_model
+      - --name
+      - '{{inputs.parameters.name}}'
+      command:
+      - python
+      - /app/KFServing-fairing.py
+      image: docker.io/rhojw/kfserving:745DCD9A
+      name: ""
+      resources: {}
+    inputs:
+      parameters:
+      - name: name
+      - name: namespace
+      - name: pvc_name
+    metadata: 
+      annotations:
+        sidecar.istio.io/inject: "false"
+    name: demo-inferenceservice
+    outputs: {}
+----
++
+<1> 워크플로우의 메타데이터
+<2> 워크플로우의 이름
+<3> 워크플로우가 생성될 네임스페이스의 이름
+<4> 워크플로우의 스펙
+<5> 워크플로우에서 사용할 아규먼트(argument)
+<6> 워크플로우에서 사용할 파라미터의 목록
+<7> 파라미터의 이름
+<8> 파라미터의 값
+<9> 시작 태스크의 이름
+<10> 마지막 태스크의 이름
+<11> 워크플로우 관리 파드에 할당할 서비스 어카운트의 이름
+<12> 워크플로우 내 태스크의 템플릿
+<13> 태스크의 컨테이너 스펙
+<14> 태스크에서 사용할 Input 데이터
+<15> Input으로 사용할 파라미터의 목록
+<16> 태스크의 메타데이터
+<17> 태스크의 이름
+<18> 태스크의 Output
+<19> 태스크 파드에 마운트할 볼륨 정보
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
