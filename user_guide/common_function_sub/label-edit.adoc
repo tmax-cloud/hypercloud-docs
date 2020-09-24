@@ -8,7 +8,7 @@ You can add or delete lables on each resource.
 . The *Update Label* dialog box opens. The label can be updated or a new label can be added by clicking **[+ Add]**. To delete an annotation, click *[-]* in the right to the annotation. +
 
 
-. When the update is complete, click *[Save Changes]* to apply . 
+. When the update is complete, click *[Save Changes]* to apply the changes. 
 
 *☞ Learn more* +
 You can also add or delete labels on resources in the following ways.
