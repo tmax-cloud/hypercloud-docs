@@ -4,11 +4,11 @@ You can add or delete lables on each resource.
 
 . Go to the main view of the console menu that allows you to access the resource to be updated. Then click image:../images/figure_action_icon.png[]
 (Config) for the resource of the label to be updated.
-. Select **[Update Label]** from the dropdown menu. To add a label, enter the label press <Enter>. To delete the added label, click *[×]* to the right side of the label.  
+. Select **[Update Label]** from the dropdown menu. To add a label, enter the label and then press <Enter>. To delete the added label, click *[×]* beside the label.  
 . The *Update Label* dialog box opens. The label can be updated or a new label can be added by clicking **[+ Add]**. To delete an annotation, click *[-]* in the right to the annotation. +
 
 
-. Click *[Save Changes]* when you are done. 
+. When the update is complete, click *[Save Changes]* to apply . 
 
 *☞ Learn more* +
 You can also add or delete labels on resources in the following ways.
