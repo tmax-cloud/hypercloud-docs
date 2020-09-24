@@ -6,7 +6,6 @@ You can add, update, or delete annotations on each resource.
 (Config) for the resource of the annotation to be updated. 
 . Select **[Update Annotation]** from the dropdown menu.
 . The *Update Annotation* dialog box opens. The annotation can be updated or a new annotation can be added by clicking **[+ Add]**. To delete an annotation, click *[-]* in the right to the annotation. +
-
 The following is the description of each item in the dialog box.
 +
 [width="100%",options="header", cols="1,3"]
