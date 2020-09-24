@@ -14,7 +14,7 @@ The following is the description of each item in the dialog box.
 |Key|The property key of the annotation.
 |Value|The property value of the annotation.
 |====================
-. Click *[Save Changes]* when you are done. 
+. When the update is complete, click *[Save Changes]* to apply the changes. 
 
 *☞ Learn more* +
 You can also add, update, or delete annotations on resources in the following ways.
