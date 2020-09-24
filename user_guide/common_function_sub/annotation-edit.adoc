@@ -1,23 +1,23 @@
-= 주석 추가/수정/삭제
+= Add/Update/Delete Annotations
 
-각 리소스에 주석 내용을 수정하거나 추가 및 삭제할 수 있다.
+You can add, update, or delete annotations on each resource. 
 
-. 각 메뉴의 메인 화면에서 주석 내용을 수정할 리소스의 image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[주석 수정]**을 선택한다.
-. *주석 수정* 팝업이 열린다. 이때 기존에 추가된 주석 내용을 수정하거나, *[+ 추가]* 버튼을 클릭하여 입력 항목이 추가되면 새로운 주석을 추가할 수 있다. 만약 추가된 주석을 삭제하려면 주석 내용 오른쪽의 *[-]* 버튼을 클릭한다. +
-각 입력 항목에 대한 설명은 다음과 같다.
+. Go the main view of the console menu that allows you access the resource to be updated. Then click image:../images/figure_action_icon.png[]
+(Config) for the resource of the annotation to be updated. 
+. Select **[Update Annotation]** from the dropdown menu.
+. The *Update Annotation* dialog box opens. The annotation can be updated or a new annotation can be added by clicking **[+ Add]**. To delete an annotation, click *[-]* in the right to the annotation. +
+The following is the description of each item in the dialog box.
 +
 [width="100%",options="header", cols="1,3"]
 |====================
-|항목|설명  
-|키|주석의 속성 키를 입력한다.
-|값|주석의 속성 값을 입력한다.
+|Item|Description
+|Key|The property key of the annotation.
+|Value|The property value of the annotation.
 |====================
-. 주석의 수정, 추가, 삭제가 완료되면 *[변경 내용 저장]* 버튼을 클릭해서 현재 내용을 저장한다.
+. Click *[Save Changes]* when you are done. 
 
-*☞ 더 알아보기* +
-다음과 같은 방법으로도 리소스에 주석 내용을 수정하거나 추가 및 삭제할 수 있다.
+*☞ Learn more* +
+You can also add, update, or delete annotations on resources in the following ways.
 
-. 각 리소스의 상세 정보 화면에서 오른쪽 상단의 *[액션]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[주석 수정]**을 선택한다.
+. Click the *[Action]* at the top right of each resource's detailed information screen.
+. Select **[Update Annodation]** in the dropdown menu. 
