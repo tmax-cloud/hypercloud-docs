@@ -2,7 +2,7 @@
 
 You can add, update, or delete annotations on each resource. 
 
-. Go the main view of the console menu that allows you access the resource to be updated. Then click image:../images/figure_action_icon.png[]
+. Go the home screen of the console menu that allows you access the resource to be updated. Then click image:../images/figure_action_icon.png[]
 (Config) beside the resource of the annotation to be updated. 
 . Select **[Update Annotation]** from the dropdown menu.
 . The *Update Annotation* dialog box opens. The annotation can be updated or a new annotation can be added by clicking **[+ Add]**. To delete an annotation, click *[-]* beside the annotation. +
