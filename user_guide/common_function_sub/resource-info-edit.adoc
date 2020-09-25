@@ -2,7 +2,7 @@
 
 You can update the configuration information of each resource. 
 
-. Go to the main view of the console menu that allows you to access the resource to be updated. Then click image:../images/figure_action_icon.png[]
+. Go to the home screen of the console menu that allows you to access the resource to be updated. Then click image:../images/figure_action_icon.png[]
 (Config) beside the resource to be updated.
 . Select **[Update (Resource Type)]** from the dropdown menu.
 . Through the YAML editor, update the configuration of the resource. 
