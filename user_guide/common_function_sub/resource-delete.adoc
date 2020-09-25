@@ -2,7 +2,7 @@
 
 You can delete the created resources. 
 
-. Go to the main view of the console menu that allows you to access the resource to be deleted. Then click image:../images/figure_action_icon.png[] (Config) beside the resource to be deleted. 
+. Go to the home screen of the console menu that allows you to access the resource to be deleted. Then click image:../images/figure_action_icon.png[] (Config) beside the resource to be deleted. 
 
 . Select **[Delete (Resource Type)]** from the dropdown menu.
 . In *[Check Deletion]* dialog box, click *[OK]*. 
