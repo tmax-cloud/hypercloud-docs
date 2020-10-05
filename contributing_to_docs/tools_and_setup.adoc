@@ -31,7 +31,7 @@ CentOS 7.7.1908에서 아래와 같이 ascii_binder와 그 dependencies를 차�
 4. `gem install rb-inotify -v 0.9.10`
 5. `gem install listen -v 3.0.8`
 6. `gem install lumberjack -v 1.0.13`
-7. `gem install ascii_binder`
+7. `gem install ascii_binder --version=0.1.15.3`
 
 
 == AsciiBinder 코드 수정하기
