@@ -21,7 +21,7 @@ CentOS 7.7.1908에서 아래와 같이 ascii_binder와 그 dependencies를 차�
 4. `yum install redhat-rpm-config`
 5. `yum install make`
 6. `gem install asciidoctor-diagram --version=1.5.6`
-7. `gem install ascii_binder`
+7. `gem install ascii_binder --version=0.1.15.3`
 
 위의 단계 7.에서 에러가 발생하면, 아래를 추가로 진행한다.
 
