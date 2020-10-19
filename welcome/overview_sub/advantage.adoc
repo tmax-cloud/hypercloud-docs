@@ -6,12 +6,12 @@
 
 == 쿠버네티스 기반의 No Lock-in 컨테이너 플랫폼
 
-{product-title} {product-version}는 시장의 디펙토 표준인 쿠버네티스를 기반으로 벤더 및 플랫폼 종속성을 완전히 제거한 No Lock-in PaaS 플랫폼을 지향한다. 물리, 가상 환경과 CentOS, Ubuntu, RHEL 등 Linux 계열의 모든 OS를 지원하여 기반 인프라에 대한 제약이 없다. +
+{product-title} {product-version}은 시장의 디펙토 표준인 쿠버네티스를 기반으로 벤더 및 플랫폼 종속성을 완전히 제거한 No Lock-in PaaS 플랫폼을 지향한다. 물리, 가상 환경과 CentOS, Ubuntu, RHEL 등 Linux 계열의 모든 OS를 지원하여 기반 인프라에 대한 제약이 없다. +
 쿠버네티스에 대한 엔진 레벨을 컨트롤할 수 있는 풍부한 전문 인력을 기반으로 쿠버네티스 버전은 항상 최신 버전을 유지하며, 쿠버네티스를 베이스로 하는 모든 {product-title} {product-version} 솔루션은 CNCF의 CK인증을 취득하는 것을 기본으로 한다.
 
 == 표준 기반의 멀티/하이브리드 클라우드 지원
 
-쿠버네티스 표준 기반인 {product-title} {product-version}는 AWS, Azure, GCP 등 쿠버네티스를 기반으로 하는 모든 클라우드 환경과 호한이 가능하여 최적의 클러스터 확장성을 보장한다. +
+쿠버네티스 표준 기반인 {product-title} {product-version}은 AWS, Azure, GCP 등 쿠버네티스를 기반으로 하는 모든 클라우드 환경과 호한이 가능하여 최적의 클러스터 확장성을 보장한다. +
 따라서 Cloud-Native 멀티 및 하이브리드 클라우드 구축에 용이하며, 관련하여 다음과 같은 기능을 제공한다.
 
 * Cluster API를 통한 클러스터 프로비저닝 및 모니터링
@@ -27,7 +27,7 @@ image::../images/figure_multi_architecture.png[]
 
 == 검증된 오픈소스 내재화 및 최적화 제공
 
-{product-title} {product-version}는 쿠버네티스를 기반으로 엔진을 구성했을 뿐만 아니라, 모니터링, 로깅, 서비스 매시 등의 기능에 대해 쿠버네티스에 최적화된 오픈소스를 내재화하여 패키징한 플랫폼이다.
+{product-title} {product-version}은 쿠버네티스를 기반으로 엔진을 구성했을 뿐만 아니라, 모니터링, 로깅, 서비스 매시 등의 기능에 대해 쿠버네티스에 최적화된 오픈소스를 내재화하여 패키징한 플랫폼이다.
 
 내재화된 오픈소스 리스트는 다음과 같다.
 [width="100%",options="header", cols="1,2"]
@@ -48,5 +48,5 @@ image::../images/figure_multi_architecture.png[]
 
 == 사용이 편리한 웹 콘솔
 
-{product-title} {product-version}는 사용자의 편의성을 높인 웹 콘솔을 제공한다. 기본적으로 숙련된 사용자를 위한 YAML Editor를 제공할 뿐만 아니라, 클라우드 환경을 처음 사용해보는 초보 사용자도 쉽게 사용할 수 있도록 UI 기반의 Form Editor를 함께 제공한다. YAML Editor의 경우 샘플 가이드를 함께 제공하여 편리하게 YAML을 작성할 수 있다. +
-또한 {product-title} {product-version}는 다국어 UI를 지원한다. 기본적으로 영어를 지원하고, 추가적으로 국내 사용자를 위한 한국어 UI를 지원하여 선택하여 사용할 수 있다.
+{product-title} {product-version}은 사용자의 편의성을 높인 웹 콘솔을 제공한다. 기본적으로 숙련된 사용자를 위한 YAML Editor를 제공할 뿐만 아니라, 클라우드 환경을 처음 사용해보는 초보 사용자도 쉽게 사용할 수 있도록 UI 기반의 Form Editor를 함께 제공한다. YAML Editor의 경우 샘플 가이드를 함께 제공하여 편리하게 YAML을 작성할 수 있다. +
+또한 {product-title} {product-version}은 다국어 UI를 지원한다. 기본적으로 영어를 지원하고, 추가적으로 국내 사용자를 위한 한국어 UI를 지원하여 선택하여 사용할 수 있다.

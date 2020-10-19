@@ -12,7 +12,7 @@ function versionSelector(list, distro, currentVersion) {
 
 	var language = pathArray[1].split('/')[0];
 
-	fileRequested = 'welcome/index.html';
+	fileRequested = 'welcome/overview_sub/index.html';
 
 	newLink = `${window.origin}${pathArray[0]}/${distro}/${newVersion}-${language}/${fileRequested}`;
 	//
@@ -58,7 +58,7 @@ function selectLanguage(distro, currentVersion) {
 function goFirstPage(distro, currentVersion) {
 	var pathArray = window.location.pathname.split(`/${distro}/${currentVersion}-`);
 	var language = pathArray[1].split('/')[0];
-	fileRequested = 'welcome/index.html';
+	fileRequested = 'welcome/overview_sub/index.html';
 	newLink = `${window.origin}${pathArray[0]}/${distro}/${currentVersion}-${language}/${fileRequested}`;
 	window.location = newLink;
 }

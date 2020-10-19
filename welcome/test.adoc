@@ -1,7 +1,0 @@
-test adoc
-hypercloud console
-tmaxa&c 
-
-내부링크 이동 테스트 **xref:../welcome/index.adoc[Welcome]**
-
-외부링크 이동 테스트  link:https://kr.tmaxsoft.com/main.do[*tmax*] 

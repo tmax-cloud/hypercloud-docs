@@ -1,63 +1,62 @@
-= 콘솔 계정 관리
+= Console Account Management
 :toc:
 :toc-title:
 
-본 장에서는 HyperCloud 콘솔 계정을 신규로 생성하는 방법과 계정의 비밀번호 찾는 방법에 대해서 설명한다.
+This chapter describes how to create a new HyperCloud console account and find the forgotten password for the account.
 
-== 신규 계정 생성
-HyperCloud 콘솔의 신규 계정을 생성하는 과정은 다음과 같다.
+== Create a New Account
+Follow the steps below to create a new HyperCloud console account. 
 
-. <<../console_connect_sub/img-admin-login-main,HyperCloud 콘솔 로그인 화면>>에서 **[등록하기]**를 클릭한다.
+. Click **[Create]** in <<../console_connect_sub/img-admin-login-main,HyperCloud Console Login Screen>>.  
 +
 image::../images/figure_admin_user_create_01.png[]
 
-. *등록하기* 화면이 열리면 생성할 계정의 정보를 입력한 후 *[등록하기]* 버튼을 클릭한다.
-+
-다음은 각 입력 항목에 대한 설명이다.
+. In the *Create New Account* window that opens, enter the information of the account to be created and click *[Create]*. 
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|사용자의 이름을 입력한다.
-|성|사용자의 성을 입력한다.
-|이메일|사용자의 이메일 주소를 입력한다. 이때 입력한 이메일 주소는 비밀번호 찾기, OTP 인증 등의 정보를 수신할 때 사용된다.
-|사용자 이름|HyperCloud 콘솔의 로그인 ID를 입력한다.
-|비밀번호|계정의 비밀번호를 입력한다.
+|Item|Description   
+|First Name|First name of the user.
+|Last Name|Last name of the user.
+|Email|Email address of the user. The specified email address is used to receive the information for Find Password or Authenticate OTP. 
+|User Name|Login ID of the HyperCloud console.
+|Password|Password of the account.
 
-이때 입력 조건은 다음과 같다.
+The password rules are as follows.
 
-* 영문 대/소문자, 숫자, 특수문자 중 3가지 이상을 조합
-* 9자 이상
-|비밀번호 확인|확인을 위해 *'비밀번호'* 항목에 입력한 내용을 동일하게 입력한다.
+* Must contain at least one upper or lower case letter, numeric character, and special character. 
+
+* At least nine characters in length
+|Password Confirm|Enter the same password again for confirmation. 
 |====================
-. 계정이 정상적으로 등록되면 해당 계정으로 로그인하여 HyperCloud 콘솔을 이용할 수 있다.
+. You can log in to the HyperCloud console when the account is created successfully.  
 
-== 비밀번호 찾기
-계정의 비밀번호를 분실했을 때 계정 등록 정보를 이용하여 새로운 비밀번호를 생성하는 과정은 다음과 같다.
+== Find a Password
+Follow the stpes below to reset a forgotten password. 
 
-. <<../console_connect_sub/img-admin-login-main,HyperCloud 콘솔 로그인 화면>>에서 **[비밀번호 찾기]**를 클릭한다.
+. Click **[Find Password]** in the  <<../console_connect_sub/img-admin-login-main,HyperCloud Console Login>> window. 
 +
 image::../images/figure_admin_password_change_01.png[]
 
-. *비밀번호 찾기* 화면이 열리면 *'사용자 이름'* 입력란에 비밀번호를 찾을 사용자 이름을 입력한 후 *[전송]* 버튼을 클릭한다.
+. In the *Find Password* window that opens, enter the user name and click *[Submit]*  
 
-. 해당 사용자의 이메일 주소로 *'비밀번호 재설정'* 메일이 전송되면, 메일 내용 중에서 **'자격 증명 변경 링크'**를 클릭한다. 이때 반드시 메일 수신 시간을 기준으로 5분 이내에 클릭해야 한다.
+. When the *'Reset Password'* email is sent to the user, click **'Change Credentials'**. You must click the link within 5 minutes after reception of this email.  
 +
 image::../images/figure_admin_password_change_02.png[]
 
-. *비밀번호 업데이트하기* 화면이 열리면 변경할 비밀번호를 설정한 후 *[전송]* 버튼을 클릭한다.
+. In the *Update Password* window that opens, set the password to change and then click *[Submit]*. 
 +
-다음은 각 입력 항목에 대한 설명이다.
+The following is the description of each item. 
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|새 비밀번호|변경할 비밀번호를 입력한다.
+|Item|Description 
+|New Password|New password.
 
-이때 입력 조건은 다음과 같다.
+The password rules are as follows.
 
-* 영문 대/소문자, 숫자, 특수문자 중 3가지 이상을 조합
-* 9자 이상
-|비밀번호 확인|확인을 위해 *'새 비밀번호'* 항목에 입력한 내용을 동일하게 입력한다.
+* Must contain at least one upper or lower case letter, number, and special character.
+* At least nine characters in length
+|Password Confirm|Enter the same password again for confirmation.
 |====================
-. 계정이 정상적으로 등록되면 해당 계정으로 로그인하여 HyperCloud 콘솔을 이용할 수 있다.
+. You can log in to the HyperCloud console when the password is created successfully.  
