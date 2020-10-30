@@ -1,38 +1,168 @@
-= Task Bar
+= 작업표시줄 영역
 :toc:
 :toc-title:
 
-This chapter describes the functions available in the Task Bar.
+본 장에서는 작업표시줄 영역에서 수행할 수 있는 기능들에 대해서 설명한다.
 
-== Extend the Session Timeout
+== 세션 유효 시간 연장
 
-The default session timeout of the HyperCloud console is 60 minutes. You are automatically logged out after the session time expires. +
-To extend the session timeout before the automatic logout, click *[Extend Timeout]* in the Task Bar. Clicking the button initializes the session timeout to the default. 
+HyperCloud 콘솔의 기본 세션 유효 시간은 60분이며, 세션 유효 시간이 지나면 자동으로 로그아웃된다. +
+만약 자동 로그아웃 전에 세션 유지 시간을 연장하려면 작업 표시줄 영역에서 *[시간 연장]* 버튼을 클릭한다. 해당 버튼을 클릭하면 미리 설정된 세션 유효 시간으로 초기화된다.
 
 image::../images/figure_session_extension.png[]
 
-== Change the Default Language
+== 기본 언어 변경
 
-You can change the default language of the HyperCloud console. +
-Follow the steps below to change the default language of the HyperCloud console.
+HyperCloud 콘솔의 기본 언어를 변경할 수 있다.
 
-. Select the Language area from the Task Bar.
+다음은 기본 언어를 변경하는 과정에 대한 설명이다.
+
+. HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 언어 선택 영역 클릭한다.
 +
 image::../images/figure_admin_lang_change.png[]
-. In the dropdown list that opens, select the language to specify.
+. 드롭다운 메뉴가 열리면 변경할 언어를 선택한다.
 +
 image::../images/figure_admin_lang_change_02.png[]
-. The default language of the HyperCloud console is set to the selected language.
+. HyperCloud 콘솔의 기본 언어가 선택한 언어로 변경된다.
 
-== Logout
+== 계정 정보 관리
 
-You can close a user connection to the HyperCloud console. +
-Follow the steps below to log out from the HyperCloud console.
+HyperCloud 콘솔에 로그인된 사용자 계정의 정보를 확인하고, 수정할 수 있다.
 
-. Click the user name from the Task Bar of the HyperCloud screen. 
+다음은 계정 정보를 관리하는 과정에 대한 설명이다.
+
+. HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 계정 이름을 클릭한다.
++
+image::../images/figure_admin_logout.png[]  
+. 드롭다운 메뉴가 열리면 **[계정 관리]**를 선택한다.
++
+image::../images/figure_admin_user_management.png[]
+. HyperAuth 화면이 열리면 화면 왼쪽의 카테고리를 선택해서 관련된 정보를 확인 및 수정할 수 있다.
++
+image::../images/figure_admin_user_management_02.png[]
++
+각 카테고리에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|카테고리|설명  
+|계정|사용자 계정의 기본 정보(이메일, 이름, 성)를 확인 및 수정한다.
+|비밀번호|사용자 계정의 비밀번호를 변경한다.
+|세션|클라이언트별 세션 정보를 확인한다.
+|애플리케이션|HyperAuth의 tmax realm에 연동된 애플리케이션의 정보를 확인한다.
+|로그|HyperAuth의 tmax realm에서 사용자 계정이 발생시킨 이벤트의 정보를 확인한다.
+|====================
+
+=== 기본 정보 변경
+
+사용자 계정의 기본 정보(이메일, 이름, 성)를 변경할 수 있다.
+
+. HyperAuth 화면 왼쪽의 카테고리 영역에서 **[계정]**을 선택한다.
+
+. *계정 수정* 화면이 열리면 각 항목의 입력란에 변경할 정보를 입력한다.
++
+다음은 수정 가능한 항목에 대한 설명이다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|항목|설명  
+|이메일|사용자의 이메일 주소를 입력한다.
+|이름|사용자의 이름을 입력한다.
+|성|사용자의 성씨를 입력한다.
+|====================
+. 변경할 정보를 모두 입력한 후 *[저장]* 버튼을 클릭해서 작성 내용을 저장한다.
+
+=== 비밀번호 변경
+
+사용자 계정의 비밀번호를 변경할 수 있다.
+
+. HyperAuth 화면 왼쪽의 카테고리 영역에서 **[비밀번호]**를 선택한다.
+
+. *비밀번호 변경* 화면이 열리면 각 항목의 입력란에 변경할 정보를 입력한다.
++
+다음은 각 항목에 대한 설명이다.
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|항목|설명  
+|비밀번호|현재 비밀번호를 입력한다.
+|새 비밀번호|변경할 비밀번호를 입력한다.
+
+이때 입력 조건은 다음과 같다.
+
+* 영문 대/소문자, 숫자, 특수문자를 모두 포함
+* 9자 이상
+|확인|확인을 위해 *'새 비밀번호'* 항목에 입력한 내용을 동일하게 입력한다.
+|====================
+. 비밀번호 정보를 모두 입력한 후 *[저장]* 버튼을 클릭해서 작성 내용을 저장한다.
+
+=== 세션 정보 확인
+
+클라이언트별 세션 정보를 확인할 수 있다.
+
+. HyperAuth 화면 왼쪽의 카테고리 영역에서 **[세션]**을 선택한다.
+
+. *세션* 화면이 열리면 클라이언트별 세션 정보를 확인할 수 있다. 이때 *[모든 세션 로그아웃]* 버튼을 클릭하면 현재 로그인된 모든 세션을 로그아웃할 수 있다.
++
+다음은 각 항목에 대한 설명이다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|항목|설명  
+|IP|클라이언트에 접속한 IP 주소 정보
+|시작|첫 세션에 로그인한 시간 정보
+|마지막 접근|마지막으로 클라이언트에서 활동한 시간 정보
+|만료 날짜|세션 만료 시간 정보
+|클라이언트|세션이 접근한 클라이언트의 목록
+|====================
+
+=== 애플리케이션 권한 확인
+
+HyperAuth의 tmax realm에 연동된 애플리케이션의 정보를 확인할 수 있다.
+
+. HyperAuth 화면 왼쪽의 카테고리 영역에서 **[애플리케이션]**을 선택한다.
+
+. *애플리케이션* 화면이 열리면 HyperAuth의 tmax realm에 연동된 애플리케이션의 정보를 확인할 수 있다.
++
+다음은 각 항목에 대한 설명이다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|항목|설명  
+|애플리케이션|HyperAuth의 tmax realm에 연동된 애플리케이션의 종류
+|사용 가능한 롤|로그인된 계정이 해당 애플리케이션에서 가지고 있는 역할 정보
+|====================
+
+=== 계정 로그 확인
+
+HyperAuth의 tmax realm에서 사용자 계정이 발생시킨 이벤트의 정보를 확인할 수 있다.
+
+. HyperAuth 화면 왼쪽의 카테고리 영역에서 **[로그]**를 선택한다.
+
+. *계정 로그* 화면이 열리면 HyperAuth의 tmax realm에서 발생한 이벤트의 정보를 확인할 수 있다.
++
+다음은 각 항목에 대한 설명이다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|항목|설명  
+|날짜|이벤트가 발생한 시간 정보
+|이벤트|발생한 이벤트 정보
+|IP|세션의 IP 정보
+|클라이언트|이벤트가 발생한 클라이언트의 종류
+|상세 정보|접근 프로토콜 및 접근한 사용자 계정의 이름 정보
+|====================
+
+== 로그아웃
+
+HyperCloud 콘솔에 현재 접속된 사용자 계정의 접속을 종료할 수 있다.
+
+다음은 로그아웃하는 과정에 대한 설명이다.
+
+. HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 계정 이름을 클릭한다.
 +
 image::../images/figure_admin_logout.png[]
-. In the dropdown list that opens, select **[Logout]**.
+. 드롭다운 메뉴가 열리면 **[로그아웃]**을 선택한다.
 +
 image::../images/figure_admin_logout_02.png[]
-. The account is logged out, and the login screen of the TmaxCloud portal opens. 
+. 해당 계정이 로그아웃되고, HyperCloud 콘솔의 로그인 화면이 열린다.
