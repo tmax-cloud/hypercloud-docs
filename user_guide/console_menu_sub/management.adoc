@@ -29,8 +29,8 @@ The following is the description of each area.
 
 <1> *Create Namespace* +
 Create a new namespace using the form or YAML editor. 
-<2> *Search by Name* +
-Enter the name of the namespace you want to search from the Namespace List.
+<2> *Filter by Name* +
+Enter the name of the namespace you want to earch from the Namespace List.
 <3> *Namespace List* +
 View the list of namespace created in the namespace. +
 The following is the description of each item.
@@ -70,9 +70,9 @@ The following is the description of each area.
 
 <1> *Create Namespace* +
 Create a new namespace claim using the form or YAML editor. 
-<2> *Search by Name* +
+<2> *Filter by Name* +
 Enter the name of the namespace claim you want to search from the Namespace Claim List.
-<3> *Search by Status* +
+<3> *Filter by Status* +
 Select the status of the namespace claims you want to search from the list of the namespace claims. 
 Selecting multiple status is possible, and clicking the selected status will cancel the selection.
 <4> *Namespace Claim List* +
@@ -119,7 +119,7 @@ The following is the description of each item.
 Select a namespace to create limits or view the list of limits. 
 <2> *Create Limit Range* +
 Create a new limit range using the form or YAML editor.
-<3> *Search by Name* +
+<3> *Filter by Name* +
 Enter the name of the limit range you want to search from the limit List.
 <4> *Limit Range List* +
 You can check the list of limit ranges created in the namespace. +
@@ -156,7 +156,7 @@ The following is the description of each area.
 Select a namespace to create resource quotas or view the list of resource quotas. 
 <2> *Create Limit Range* +
 Create a new resource quota using the form or YAML editor.
-<3> *Search by Name* +
+<3> *Filter by Name* +
 Enter the name of the resource quota you want to search from the resource quota List.
 <4> *Resource Quota List* +
 You can check the list of resource quotas created in the namespace. +
@@ -191,9 +191,9 @@ The following is the description of each area.
 Select a namespace to create resource quota claims or view the list of resource quota claims.
 <2> *Create Resource Quota Claim* +
 Create a new resource quota claim using the form or YAML editor.
-<3> *Search by Name* +
+<3> *Filter by Name* +
 Enter the name of the resource quota claim you want to search from the resource quota claim List.
-<4> *Search by Status* +
+<4> *Filter by Status* +
 Select the status of the resource quota claims you want to search from the list of the resource quota claims. 
 Selecting multiple status is possible, and clicking the selected status will cancel the selection.
 <5> *Resource Quota Claim List* +
@@ -235,7 +235,7 @@ The following is the description of each area.
 
 <1> *CRD Creation* +
 Create a new CRD. 
-<2> *Search by Name* +
+<2> *Filter by Name* +
 Enter the name of the CRD you want to search from the CRD List.
 <3> *CRD List* +
 You can check the list of CRDs created in the cluster.  +
