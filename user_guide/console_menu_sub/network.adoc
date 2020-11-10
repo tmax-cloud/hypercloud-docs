@@ -1,97 +1,95 @@
-= [네트워크] 메뉴
+= [Network] Menu
 :toc:
 :toc-title:
 
-*[네트워크]* 메뉴는 통신을 위해 사용하는 리소스들을 관리할 수 있는 메뉴이다.
+*[Network]* menu allows you to manage the resources through network.
 [width="100%",options="header", cols="1,3"]
 |====================
-|하위 메뉴|기능
-|인그레스|클러스터 내의 서비스들에 대한 외부 접근을 관리하는 "인그레스"의 생성 및 조회
-|서비스|파드에 접근하는 방법을 정의하는 "서비스"의 생성 및 조회
+|Submenu|Function
+|Ingresses|Create and view "Ingresses" that manage external access to the services within the cluster
+|Services|Create and view "Services" that define how to access Pods
 |====================
 
-본 장에서는 하위 메뉴의 화면 구성과 기능에 대해서 설명한다.
+This chapter describes the layout and functions of the submenus.
 
-== 인그레스
+== Ingresses
 
-콘솔 메뉴에서 *[네트워크]* -> *[인그레스]* 메뉴를 선택하면 *인그레스* 메인 화면으로 이동한다. +
-*인그레스* 메인 화면에서는 클러스터 내의 서비스들에 대한 외부 접근을 관리하는 ``인그레스``를 생성 및 조회할 수 있다.
+Clicking *[Network]* -> *[Ingresses]* from the console menus displays the main screen of *Ingresses*. +
+In the main screen of *Ingresses*, you can view the current status of clusters and namespaces.
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-ingress-main]
 image::../images/figure_admin_ingress_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-인그레스를 생성하거나 인그레스 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 인그레스를 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 인그레스 목록에서 조회할 인그레스의 이름을 입력한다.
-<4> *인그레스 목록* +
-네임스페이스에 생성된 인그레스 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create ingresses or view the Ingress List.
+<2> *Create Ingress* +
+Create new ingresses using YAML editor.
+<3> *Filter by Name* +
+Enter the name of the ingress you want to search from the Ingress List.
+<4> *Ingress List* +
+View the list of ingresses created in the namespace. +
+The following is the description of each item. 
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|인그레스의 이름이다. 이때 이름을 클릭하면 해당 인그레스의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 인그레스를 삭제하거나 정보를 수정할 수 있다.
+|Item|Description 
+|Name|Name of the ingress. Clicking on the name displays a screen that allows you to check the detailed information of the ingress. +
+To delete or update the information about the KF serving, click 
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 수정, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 인그레스 수정 : YAML 에디터를 사용해 인그레스의 구성 정보를 수정
-* 인그레스 삭제 : 인그레스를 삭제
-|네임스페이스|인그레스가 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
-|레이블|인그레스에 추가된 레이블 정보이다.
-|호스트|인그레스 규칙을 적용할 호스트 이름이다.
+* Update Label: Add or delete the labels that identify resources.
+* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources. 
+* Update Ingress: Update the configuration information of the ingress using the YAML editor.
+* Delete Ingress: Delete ingresses
+|Namespace|Name of the namespace that the ingress was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace. 
+|Label|Label information added to the ingress.
+|Host|Name of the host to apply the ingress rule. 
 |====================
 
-== 서비스
+== Services
 
-콘솔 메뉴에서 *[네트워크]* -> *[서비스]* 메뉴를 선택하면 *서비스* 메인 화면으로 이동한다. +
-*서비스* 메인 화면에서는 파드에 접근하는 방법을 정의하는 ``서비스``를 생성 및 조회할 수 있다.
+Clicking *[Network]* -> *[Services]* from the console menus displays the main screen of *Services*.+
+In the main screen of *Services*, you can create and view the ``Services`` that define how to access Pods. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-service-main]
 image::../images/figure_admin_service_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-서비스를 생성하거나 서비스 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 서비스를 폼 에디터 또는 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 서비스 목록에서 조회할 서비스의 이름을 입력한다.
-<4> *서비스 목록* +
-네임스페이스에 생성된 서비스 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create services or view the Service List.
+<2> *Create Service* +
+Create new service using form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the service you want to search from the Service List.
+<4> *Service List* +
+View the list of services created in the namespace. +
+The following is the description of each item. 
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|서비스의 이름이다. 이때 이름을 클릭하면 해당 서비스의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 서비스를 삭제하거나 정보를 수정할 수 있다.
+|Item|Description  
+|Name|Name of the service. Clicking on the name displays a screen that allows you to check the detailed information of the service. +
+To delete or update the information about the service, click
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 파드 선택기 수정 : 관리할 파드의 레이블을 추가, 삭제
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 서비스 수정 : YAML 에디터를 사용해 서비스의 구성 정보를 수정
-* 서비스 삭제 : 서비스를 삭제
-|네임스페이스|서비스가 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
-|타입|서비스의 유형 정보이다.
+* Update Pod Selector: Add or delet lables for Pods to be managed. 
+* Update Label: Add or delete the labels that identify resources.
+* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
+* Update Service: Update the configuration information of the service using the YAML editor.
+* Delete Service: Delete services. 
+|Namespace|Name of the namespace that the service was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace. 
+|Type|Type of a service.
 
-* ClusterIP : 클러스터 내부에서만 접근 가능
-* LoadBalancer : 외부 로드밸런서를 통한 접근 가능
-* NodePort : 클러스터 외부에서도 접근 가능
-|외부 IP|서비스의 외부 IP 주소 정보이다.
-|레이블|서비스에 추가된 레이블 정보이다.
-|파드 선택기|서비스가 관리할 파드의 레이블 정보이다.
-|위치|서비스에 접근하기 위한 클러스터 IP 주소와 포트 번호 정보이다.
+* ClusterIP: Accessible only within the cluster
+* LoadBalancer: Accessible through external load balancer
+* NodePort: Accessible from outside the cluster
+|External IP|External IP address information of the service.
+|Label|Label information added to the service
+|Pod Selector|서비스가 관리할 파드의 레이블 정보이다.
+|Location| Information on the cluster IP address and port number for accessing the service.
 |====================
