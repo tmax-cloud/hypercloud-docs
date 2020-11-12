@@ -39,7 +39,7 @@
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
-  src: url(https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2)
+  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2)
       format("woff2"),
     url(https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff)
       format("woff"),
