@@ -308,7 +308,7 @@ span.clipboard-button:hover {
 }
 
 .collapse a.active {
-  background-color: #deeaf4;
+  background-color: #afccea;
   color: #000;
   position: relative;
 }
@@ -318,7 +318,7 @@ span.clipboard-button:hover {
 }
 
 .collapse a.active:before {
-  background-color: #a0c3e5;
+  /* background-color: #a0c3e5; */
   content: "";
   display: inline-block;
   height: 100%;
@@ -467,6 +467,8 @@ h6 > a.anchor:hover {
 
 .nav-sidebar li a:hover {
   color: #000;
+  background-color: #cbe1f9;
+  text-decoration: none;
 }
 
 .nav-sidebar ul li ul.nav-tertiary li a {
@@ -878,7 +880,7 @@ p a > code:hover {
   font-size: 0.92em;
 }
 #toc a:active {
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 #toctitle {
   color: #7a2518;
