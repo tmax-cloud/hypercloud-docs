@@ -1,265 +1,265 @@
-= [AI DevOps] 메뉴
+= [AI DevOps] Menu
 :toc:
 :toc-title:
 
-*[AI DevOps]* 메뉴는 AI 모델을 동작시키고 관리하기 위해 사용하는 리소스들을 관리할 수 있는 메뉴이다.
+*[AI DevOps]* menu allows you to manage the resources used to operate and manage AI models.
 [width="100%",options="header", cols="1,3"]
 |====================
-|하위 메뉴|기능
-|노트북 서버|AI 모델을 정의하는 "노트북 서버"의 생성 및 조회
-|카티브|모델의 하이퍼 파라미터를 튜닝할 때 사용하는 "카티브"의 생성 및 조회
-|트레이닝 잡|하이퍼 파라미터를 조합해 모델 트레이닝하는 "트레이닝 잡"의 생성 및 조회
-|KF 서빙|모델에 대한 Inference 서버를 띄워주는 "KF 서빙"의 생성 및 조회
-|워크플로우 템플릿|네임스페이스에서 사용 가능한 워크플로우를 정의하는 "워크플로우 템플릿"의 생성 및 조회
-|워크플로우|축적된 데이터를 새로운 모델로 업데이트하는 작업을 자동화하는 "워크플로우"의 생성 및 조회
+|Submenu|Function
+|Notebook Server|Create and view the "Notebook Servers" that define AI models.
+|Katib|Create and view the "Katibs" used to tune the hyperparameters of AI model. 
+|Training Jobs|Create and view the "Training Jobs" used to train models by combining hyperparameters. 
+|KFServing|Create and view the "KFServing" that start interface servers for AI model. 
+|Workflow Templates|Create and view the "Workflow Models" that define the workflows available in the namespace. 
+|Workflows|Create and view the "Workflows" that automate updating the accumulated data to a new model.
 |====================
 
-본 장에서는 하위 메뉴의 화면 구성과 기능에 대해서 설명한다.
+This chapter describes the layout and functions of the submenus. 
 
-== 노트북 서버
+== Notebook Server
 
-콘솔 메뉴에서 *[AI DevOps]* -> *[노트북 서버]* 메뉴를 선택하면 *노트북 서버* 메인 화면으로 이동한다. +
-*노트북 서버* 메인 화면에서는 AI 모델을 정의하는 `노트북 서버` 리소스를 생성 및 조회할 수 있다.
+Selecting *[AI DevOps]* -> *[Notebook Server]* from the console menus displays the main screen of *Notebook Server*. +
+In the main screen of *Notebook Server*, you can create and view the `Notebook Server` resources that define AI models. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-notebook-server-main]
 image::../images/figure_admin_notebook_server_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-노트북 서버를 생성하거나 노트북 서버 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 노트북 서버를 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 노트북 서버 목록에서 조회할 노트북 서버의 이름을 입력한다.
-<4> *노트북 서버 목록* +
-네임스페이스에 생성된 노트북 서버 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create notebook servers or view the list of notebook servers.
+<2> *Create Notebook* +
+Create new notebook servers using the YAML editor. 
+<3> *Filter by Name* +
+Enter the name of the notebook server you want to search from the notebook server list.
+<4> *Notebook Server List* +
+View the list of notebook servers created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|노트북 서버의 이름이다. 이때 이름을 클릭하면 해당 노트북 서버의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 노트북 서버를 삭제하거나 정보를 수정할 수 있다.
+|ITEM|Description  
+|NAME|Name of the notebook server. Clicking on the name displays a screen that allows you to check the detailed information of the notebook server. +
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 노트북 서버 수정 : YAML 에디터를 사용해 노트북 서버의 구성 정보를 수정
-* 노트북 서버 삭제 : 노트북 서버를 삭제
-* Connect : 주피터 노트북 서버 화면으로 연결
-|네임스페이스|노트북 서버가 생성된 네임스페이스의 이름이다.
-|이미지|노트북 서버를 생성한 이미지의 이름이다.
+To delete or update the information about the notebook server, click 
+image:../images/figure_action_icon.png[]
+(Config) beside the name. 
+
+* Edit Labels: Add or delete the labels that identify resources 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources  
+* Edit Notebook Server: Update the configuration information of the notebook server using the YAML editor 
+* Delete Notebook Server: Delete the notebook server 
+* Connect: Connect to the Jupyter notebook server screen 
+|NAMESPACE|Namespace that the notebook server was created in 
+|IMAGE|Name of the image that created the notebook server 
 |====================
 
-== 카티브
+== Katib
 
-콘솔 메뉴에서 *[AI DevOps]* -> *[카티브]* 메뉴를 선택하면 *카티브* 메인 화면으로 이동한다. +
-*카티브* 메인 화면에서는 모델의 하이퍼 파라미터를 튜닝할 때 사용하는 `카티브` 리소스를 생성 및 조회할 수 있다.
+Clicking *[AI DevOps]* -> *[Katib]* from the console menus displays the main screen of *Katib*. +
+In th main screen of *Katib*, you can create and view the `Katib` resources used to tune the hyperparameters of AI models. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-katib-main]
 image::../images/figure_admin_katib_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-카티브를 생성하거나 카티브 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 카티브를 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 카티브 목록에서 조회할 카티브의 이름을 입력한다.
-<4> *카티브 목록* +
-네임스페이스에 생성된 카티브 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create a Katib or view the list of Katib.
+<2> *Create Katib* +
+Create a new Katib using the YAML editor. 
+<3> *Filter by Name* +
+Enter the name of the Katib you want to search from the Katib list.
+<4> *Katib List* +
+View the list of Katib created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|카티브의 이름이다. 이때 이름을 클릭하면 해당 카티브의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
+|ITEM|Description
+|NAME|Name of the Katib. Clicking on the name displays a screen that allows you to check the detailed information of the Katib. +
+To delete or update the information about the Katib, click 
 image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 카티브를 삭제하거나 정보를 수정할 수 있다.
+(Config) beside the name. 
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 카티브 수정 : YAML 에디터를 사용해 카티브의 구성 정보를 수정
-* 카티브 삭제 : 카티브를 삭제
-|네임스페이스|카티브가 생성된 네임스페이스의 이름이다.
-|알고리즘 이름|하이퍼 파라미터 탐색에 사용한 알고리즘의 이름이다.
-|트라이얼 개수|진행된 트라이얼의 개수와 총 트라이얼의 개수이다.
-|최적화 상태|시도된 트라이얼의 정확성 중 최댓값과 목푯값이다.
-|상태|실행된 카티브의 현재 진행 상태이다.
+* Edit Labels: Add or delete the labels that identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources
+* Edit Katib: Update the configuration information of the Katib using the YAML editor
+* Edit Katib: Delete the Katib 
+|NAMESPACE|Name of the namespace that the Katib was created in. 
+|ALGORITHM NAME|Name of the algorithm used to search for hyperparameters.
+|CURRENT TRIAL/MAX TRIAL COUNT| Number of trials in progress and total number of trials.
+|CURRENT OPTIMAL/OBJECTIVE|Accuracy of the attempted trial based on the maximum and target trial counts.
+|STATUS|Current progress of the executed Katib. 
 |====================
 
-== 트레이닝 잡
+== Training Jobs
 
-콘솔 메뉴에서 *[AI DevOps]* -> *[트레이닝 잡]* 메뉴를 선택하면 *트레이닝 잡* 메인 화면으로 이동한다. +
-*트레이닝 잡* 메인 화면에서는 하이퍼 파라미터를 조합해 모델 트레이닝하는 `트레이닝 잡` 리소스를 생성 및 조회할 수 있다.
+Selecting *[AI DevOps]* -> *[Training Jobs]* from the console menus displays the main screen of *Training Jobs*. +
+In the main screen of *Training Jobs*, you can create and view the `Training Job` resources used to train models by combining hyperparameters.  
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-training-job-main]
 image::../images/figure_admin_training_job_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-트레이닝 잡을 생성하거나 트레이닝 잡 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 트레이닝 잡을 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 트레이닝 잡 목록에서 조회할 트레이닝 잡의 이름을 입력한다.
-<4> *종류 검색* +
-전체 트레이닝 잡 목록에서 조회할 트레이닝 잡의 종류(텐서플로, 파이토치)를 선택한다. 이때 다중 선택이 가능하며, 선택된 종류를 다시 클릭하면 선택이 해제된다.
+<1> *Select Namespace* +
+Select a namespace to create training jobs or view the list of training jobs.
+<2> *Create Training Job* +
+Create new training job using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the training job you want to search from the training job list.
+<4> *Filter by Type* +
+Select the type of training job (TensorFlow, Pytorch) you want to search from the training job list. Selecting multiple values is possible, and clicking the selected type again cancels the selection.
 
-* TF Job : 텐서플로(TensorFlow)의 트레이닝을 위한 잡
-* Pytorch Job : 파이토치(PyTorch)의 트레이닝을 위한 잡
-<5> *트레이닝 잡 목록* +
-네임스페이스에 생성된 트레이닝 잡 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+* TF Job: Job to train TensorFlow. 
+* PyTorch Job: Job to train PyTorch. 
+<5> *Training Job List* +
+You can check the list of training jobs created in the namespace. +
+The following is the description of each area. 
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|트레이닝 잡의 이름이다. 이때 이름을 클릭하면 해당 트레이닝 잡의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
+|ITEM|Description
+|NAME|Name of the training job. Clicking on the name displays a screen that allows you to check the detailed information of the training job. +
+To delete or update the information about the training job, click 
 image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 트레이닝 잡을 삭제하거나 정보를 수정할 수 있다.
+(Config) beside the name. 
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 트레이닝 잡 수정 : YAML 에디터를 사용해 트레이닝 잡의 구성 정보를 수정
-* 트레이닝 잡 삭제 : 트레이닝 잡을 삭제
-|네임스페이스|트레이닝 잡이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
-|상태|트레이닝 잡의 현재 진행 상태이다.
-|구성|트레이닝 잡을 구성한 프로세스들의 이름이다.
+* Edit Labels: Add or delete the labels that identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources 
+* Edit TF Jobs: Update the configuration information of the training job using the YAML editor
+* Delete TF Jobs: Delete training jobs 
+|NAMESPACE|Name of the namespace that the training job was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace. 
+|STATUS|Current status of the training job. 
+|COMPOSITION|Name of the processes that consist of the training job. 
 |====================
 
-== KF 서빙
+== KFServing
 
-콘솔 메뉴에서 *[AI DevOps]* -> *[KF 서빙]* 메뉴를 선택하면 *KF 서빙* 메인 화면으로 이동한다. +
-*KF 서빙* 메인 화면에서는 모델에 대한 Inference 서버를 띄워주는 `KF 서빙` 리소스를 생성 및 조회할 수 있다.
+Selecting *[AI DevOps]* -> *[KFServing]* from the console menus displays the main screen of *KFServing*. +
+In th main screen of *KFServing*, you can create and view the `KFServing` resources used to start interface servers for AI models. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-kf-serving-main]
 image::../images/figure_admin_kf_serving_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-KF 서빙을 생성하거나 KF 서빙 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 KF 서빙을 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 KF 서빙 목록에서 조회할 KF 서빙의 이름을 입력한다.
-<4> *KF 서빙 목록* +
-네임스페이스에 생성된 KF 서빙 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create KFserving or view the list of KFServing.
+<2> *Create KF Serving* +
+Create new KF serving using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the KFserving you want to search from the KFServing list.
+<4> *KF Serving List* +
+You can check the list of KF serving created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|KF 서빙의 이름이다. 이때 이름을 클릭하면 해당 KF 서빙의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
+|ITEM|Description
+|NAME|Name of the KFserving. Clicking on the name displays a screen that allows you to check the detailed information of the KFserving. +
+To delete or update the information about the KFserving, click 
 image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 KF 서빙을 삭제하거나 정보를 수정할 수 있다.
+(Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* KF 서빙 수정 : YAML 에디터를 사용해 KF 서빙의 구성 정보를 수정
-* KF 서빙 삭제 : KF 서빙을 삭제
-|네임스페이스|KF 서빙이 생성된 네임스페이스의 이름이다.
-|프레임워크|KF 서빙에서 사용한 프레임워크 모델의 이름이다.
-|스토리지 URI|KF 서빙에서 사용한 ML 모델의 저장 경로이다.
-|URL|KF 서빙 테스트용 클라이언트 웹에 접근할 수 있는 URL 주소이다.
-|CANARY|카나리 배포의 사용 유무를 표시한다.
+* Edit Labels: Add or delete the labels that identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources
+* Edit KFServing: Update the configuration information of the KFserving using the YAML editor
+* Delete KFServing: Delete KF serving
+|NAMESPACE|Name of the namespace that the KF serving was created in 
+|FRAMEWORK|Name of the framework model used in the KFServing
+|STORAGE URI|Path to the ML model used in the KFServing
+|URL|URL to access the client for testing the KFserving
+|CANARY|Option to deploy a canary
 
-* Y : 사용함 
-* N : 사용 안 함
-|상태|KF 서빙의 생성 여부를 표시한다.
+* Y: Use 
+* N: Not use
+|Status|Option to create a KFserving.
 
-* True : 생성 완료
-* False : 생성 안 됨
+* True: Created
+* False: Not created
 |====================
 
-== 워크플로우 템플릿
+== Workflow Templates
 
-콘솔 메뉴에서 *[AI DevOps]* -> *[워크플로우 템플릿]* 메뉴를 선택하면 *워크플로우 템플릿* 메인 화면으로 이동한다. +
-*워크플로우 템플릿* 메인 화면에서는 네임스페이스에서 사용 가능한 워크플로우를 정의하는 `워크플로우 템플릿` 리소스를 생성 및 조회할 수 있다.
+Selecting *[AI DevOps]* -> *[Workflow Templates]* from the console menus displays the main screen of *Workflow Templates*. +
+In th main screen of *Workflow Templates* is used to create and view the `Workflow Model` resources available in the namespace. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-work-temp-main]
 image::../images/figure_admin_work_temp_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-워크플로우 템플릿을 생성하거나 워크플로우 템플릿 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 워크플로우 템플릿을 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 워크플로우 템플릿 목록에서 조회할 워크플로우 템플릿의 이름을 입력한다.
-<4> *워크플로우 템플릿 목록* +
-네임스페이스에 생성된 워크플로우 템플릿 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Namespace* +
+Select a namespace to create workflow templates or view the list of workflow templates. 
+<2> *Create Workflow Template* +
+Create new workflow templates using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the workflow template you want to search from the list of workflow templates.
+<4> *Workflow Template List* +
+View the list of workflow templates created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|워크플로우 템플릿의 이름이다. 이때 이름을 클릭하면 해당 워크플로우 템플릿의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
+|Item|Description
+|NAME|Name of the workflow template. Clicking on the name displays a screen that allows you to check the detailed information of the workflow template. +
+To delete or update the information about the workflow template, click 
 image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 워크플로우 템플릿을 삭제하거나 정보를 수정할 수 있다.
+(Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 워크플로우 템플릿 수정 : YAML 에디터를 사용해 워크플로우 템플릿의 구성 정보를 수정
-* 워크플로우 템플릿 삭제 : 워크플로우 템플릿을 삭제
-|네임스페이스|워크플로우 템플릿이 생성된 네임스페이스의 이름이다.
-|생성 시간|워크플로우 템플릿이 생성된 시간이다.
+* Edit Labels: Add or delete the labels that identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources. 
+* Edit Workflow Templates: Update the configuration information of the workflow template using the YAML editor.
+* Delete Workflow Templates: Delete workflow templates. 
+|NAMESPACE|Name of the namespace that the workflow template was created in. 
+|CREATED|Time when the workflow template was created.
 |====================
 
-== 워크플로우
+== Workflows
 
-콘솔 메뉴에서 *[AI DevOps]* -> *[워크플로우]* 메뉴를 선택하면 *워크플로우* 메인 화면으로 이동한다. +
-*워크플로우* 메인 화면에서는 축적된 데이터를 새로운 모델로 업데이트하는 작업을 자동화하는 `워크플로우` 리소스를 생성 및 조회할 수 있다.
-
+Selecting *[AI DevOps]* -> *[Workflows]* from the console menus displays the main screen of *Workflows*. +
+In th main screen of *Workflows*, you can create and view the `Workflow` resources that automate updating the accumulated data to a new model. 
 //[caption="그림. "] //캡션 제목 변경
 [#img-workflow-main]
 image::../images/figure_admin_workflow_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-워크플로우를 생성하거나 워크플로우 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 워크플로우를 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 워크플로우 목록에서 조회할 워크플로우의 이름을 입력한다.
-<4> *워크플로우 목록* +
-네임스페이스에 생성된 워크플로우 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create workflows or view the list of workflows.
+<2> *Create Workflow* +
+Create new workflows using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the workflow you want to search from the list of workflows.
+<4> *Workflow List* +
+View the list of workflows created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|워크플로우의 이름이다. 이때 이름을 클릭하면 해당 워크플로우의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
+|ITEM|Description
+|NAME|Name of the workflow. Clicking on the name displays a screen that allows you to check the detailed information of the workflow. +
+To delete or update the information about the workflow, click 
 image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 워크플로우를 삭제하거나 정보를 수정할 수 있다.
+(Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 워크플로우 수정 : YAML 에디터를 사용해 워크플로우의 구성 정보를 수정
-* 워크플로우 삭제 : 워크플로우를 삭제
-|네임스페이스|워크플로우가 생성된 네임스페이스의 이름이다.
-|상태|워크플로우의 현재 상태 정보이다.
+* Edit Labels: Add or delete the labels that identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources 
+* Edit Workflows: Update the configuration information of the workflow using the YAML editor
+* Delete Workflows: Delete workflows 
+|NAMESPACE|Name of the namespace that the workflow was created in.
+|STATUS|Current status of the workflow.
 
-* Running : 워크플로우가 실행 중
-* Succeeded : 워크플로우가 정상적으로 생성 완료
-* Failed : 워크플로우 실행 중 에러 발생하여 실패로 종료됨
-|시작 시간|워크플로우 작업이 시작된 시간이다.
-|종료 시간|워크플로우 작업이 종료된 시간이다.
+* Running: The workflow is running. 
+* Succeeded: The workflow was created successfully. 
+* Failed: An error occurred during the execution of the workflow and the workflow operation failed. 
+|START TIME|Time when the workflow operation started. 
+|END TIME|Time when the workflow operation ended. 
 |====================
