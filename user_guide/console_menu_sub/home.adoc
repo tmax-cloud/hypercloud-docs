@@ -66,15 +66,15 @@ image::../images/figure_admin_search_main.png[]
 The following is the description of each area. 
 
 <1> *Select Namespace* +
-Select a namespace to view resources. 
+Select a namespace to view resources 
 <2> *Select Resource Type* +
-Select the type of a resource to search. 
+Select the type of a resource to search 
 <3> *Enter Label* +
-Enter the label specified in the resource.
+Enter the label specified in the resource
 <4> *Create Resource* +
-Newly create the resources of the selected resource type. 
+Newly create the resources of the selected resource type 
 <5> *Resource List* +
-View the list of resources that match your search condition. 
+View the list of resources that match your search condition 
 
 == Audit
 
@@ -86,11 +86,11 @@ image::../images/figure_admin_audit_main.png[]
 The following is the description of each area. 
 
 <1> *Select Namespace* +
-Select a namespace to view events. 
+Select a namespace to view events 
 <2> *Select Resource Type* +
-Select the type of a resource to search.
+Select the type of a resource to search
 <3> *Select Action Type* +
-Select the action type of a resource to search. 
+Select the action type of a resource to search 
 
 * create: Create new resources
 * delete: Delete each resource
@@ -105,13 +105,13 @@ Select the result of an action that occurred on the resource.
 * Success: Succeeded
 * Failure: Failed
 <5> *Select Status Code* +
-Select the HTTP Status Code for the resource status. 
+Select the HTTP Status Code for the resource status 
 <6> *Event Occurrence Period* +
-Select the period of occurrence of events.  
+Select the period of occurrence of events  
 <7> *Select Contents* +
-Enter the contents of events to search.
+Enter the contents of events to search
 <8> *Event List* +
-View a list of resources that match your search condition. 
+View a list of resources that match your search condition 
 
 == Event
 
@@ -150,14 +150,14 @@ Grafana home menus
 <2> *Select Namespace* +
 Dashboard information to monitor
 <3> *Share Dashboard* +
-Copy the URL and send the dashboard as a Json file. 
+Copy the URL and send the dashboard as a Json file 
 <4> *Switch Screen Mode* +
-Remove the menu bar from the dashboard and display only graphs. 
+Remove the menu bar from the dashboard and display only graphs 
 <5> *Set Search Period* +
-Select a period of time to view data based on the current time. 
+Select a period of time to view data based on the current time 
 <6> *Time Range Zoom Out* +
-View data for a longer period of time. 
+View data for a longer period of time 
 <7> *Refresh Dashboard* +
-Manually update the dashboard. 
+Manually update the dashboard
 <8> *Monitoring Information* +
-Monitor the CPU, memory, and network usage of pods.
+Monitor the CPU, memory, and network usage of pods
