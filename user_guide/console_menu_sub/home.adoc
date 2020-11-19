@@ -1,163 +1,163 @@
-= [홈] 메뉴
+= [Host] Menu
 :toc:
 :toc-title:
 
-*[홈]* 메뉴는 클러스터 및 네임스페이스의 현재 상태 정보를 확인할 수 있는 메뉴이다.
+*[Host]* menu allows you to check the current status of clusters and namespaces. 
 [width="100%",options="header", cols="1,3"]
 |====================
-|하위 메뉴|기능
-|상태|클러스터 및 네임스페이스의 현재 상태 정보를 확인
-|검색|HyperCloud의 모든 리소스를 검색
-|감사 로그|리소스의 생성 및 변경 정보(리소스 이름, 계정, 액션, 코드)를 데이터베이스에 저장하여 특정 조건에 해당하는 정보만 조회
-|이벤트|네임스페이스에서 발생한 이벤트를 실시간으로 조회 (최대 1시간)
-|그라파나|선택한 네임스페이스의 파드 정보를 모니터링
+|Submenu|Function
+|Status|View the current status of clusters and namespaces
+|Search|Search across all HyperCloud resources 
+|Audit|Save the creation and updates (resource name, account, action, and code) of the resources in the database and view only the information that matches specific conditions
+|Event|Real-time view of events that occur in the namespace (maximum an hour)
+|Grafana|Monitor the pod information of the selected namespace
 |====================
 
-본 장에서는 하위 메뉴의 화면 구성과 기능에 대해서 설명한다.
+This chapter describes the layout and functions of the submenus.
 
-== 상태
+== Status
 
-콘솔 메뉴에서 *[홈]* -> *[상태]* 메뉴를 선택하면 *상태* 메인 화면으로 이동한다. +
-*상태* 메인 화면에서는 클러스터 및 네임스페이스의 현재 상태 정보를 확인할 수 있다.
+Selecting *[Home]* -> *[Status]* from the console menus displays the main screen of *Status*. +
+In the main screen of *Status*, you can view the current status of clusters and namespaces.
 
 image::../images/figure_admin_status_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-현재 상태를 확인할 네임스페이스를 선택한다. 만약 **"all namespaces"**를 선택할 경우에는 클러스터의 현재 상태가 조회된다.
-<2> *상태* +
-선택한 네임스페이스의 기본적인 상태를 확인할 수 있다.
+<1> *Select Namespace* +
+Select a namespace to view the current status. If **"all namespaces"** is selected, the current status of the cluster is retrieved.
+<2> *Status* +
+View the basic status of the selected namespace. 
 +
 [width="100%",options="header", cols="1,3"]
 |====================
-|항목|설명  
-|쿠버네티스 API|API 서버를 헬스 체크하여 상태를 표시
-|하이퍼클라우드 콘솔|HyperCloud 콘솔을 헬스 체크하여 상태를 표시
-|경고 발생|정의된 룰을 기준으로 모니터링된 경고의 개수
-|Crashlooping 파드|한 시간 동안 재시작된 파드의 개수
+|Item|Description   
+|Kubernetes API|Check the health of each API server to display the status 
+|HyperCloud Console|Check the health of the HyperCloud console to display the status 
+|Alerts Firing|Check the number of alerts notified based on defined rules 
+|Crashlooping Pod|Check the number of pods restarted within an hour 
 |====================
-<3> *컨트롤 플레인 상태* +
-PLEG(Pod Lifecycle Event Generator)를 통한 클러스터의 현재 상태를 확인할 수 있다. 단, 네임스페이스를 **"all namespaces"**로 선택한 경우에만 확인이 가능하다.
+<3> *Control Plain Status* +
+View the current status of clusters through Pod Lifecycle Event Generator (PLEG). This is only applicable when the namespace is set to **"all namespaces"**.
 +
 [width="100%",options="header", cols="1,3"]
 |====================
-|항목|설명  
-|API 서버 정상|정상적인 API 서버의 비율을 백분율로 표시
-|컨트롤러 관리자 정상|정상적인 컨트롤러 관리자의 비율을 백분율로 표시
-|스케줄러 정상|정상적인 스케줄러의 비율을 백분율로 표시
-|API 요청 성공률|API 요청에 대힌 정상적인 응답을 받은 비율을 백분율로 표시
+|Item|Description  
+|API Servers Up|View the percentage of API servers in the normal status 
+|Controller Managers Up|View the percentage of controller managers in the normal status
+|Scheudulers Up|View the percentage of schedulers in the normal status
+|API Request Success Rate|View the percentage of normal responses to API requests
 |====================
-<4> *용량 계획* +
-모든 노드에 할당된 자원(CPU, 메모리, 디스크, 파드)의 사용량을 확인할 수 있다. 단, 네임스페이스를 **"all namespaces"**로 선택한 경우에만 확인이 가능하다.
-<5> *이벤트* +
-클러스터 및 네임스페이스에서 한 시간 동안 발생한 이벤트를 시간 순으로 조회할 수 있다. +
-이때 해당 영역 오른쪽 상단의 *[전체 보기]* 버튼을 클릭하면 *[홈]* -> *[이벤트]* 화면이 열리고, 선택한 네임스페이스에서 발생한 모든 이벤트 이력을 확인할 수 있다.
-<6> *소프트웨어 정보* +
-HyperCloud에서 사용하는 쿠버네티스 엔진의 버전 정보이다.
+<4> *Capacity Plan* +
+View the usage of the resources allocated to all nodes (CPU, memory, disk, and pod). This is only applicable when the namespace is set to **"all namespaces"**. 
+<5> *Event* +
+View the events that occurred for an hour in a cluster or namespace in chronological order.  +
+Clicking *[View All]* in the top-right corner screen displays *[Home]* -> *[Event]*, in which you can view all events that occurred in the selected namespace. 
+<6> *Software Info* +
+The version information of Kubernetes engine used in HyperCloud. 
 
-== 검색
+== Search
 
-콘솔 메뉴에서 *[홈]* -> *[검색]* 메뉴를 선택하면 *검색* 메인 화면 으로 이동한다. +
-*검색* 메인 화면에서는 HyperCloud의 모든 리소스를 검색할 수 있다.
+Selecting *[Home]* -> *[Search]* from the console menus displays the main screen of *Search*. +
+In the main screen of *Search*, you can search across all HyperCloud resources. 
 
 image::../images/figure_admin_search_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-리소스를 검색할 네임스페이스를 선택한다.
-<2> *리소스 종류 선택* +
-검색할 리소스의 종류를 선택한다.
-<3> *레이블 입력* +
-리소스에 지정된 레이블을 입력한다.
-<4> *리소스 생성 버튼* +
-현재 선택된 리소스 종류에 해당하는 리소스를 새롭게 생성한다.
-<5> *리소스 목록* +
-모든 검색 조건에 해당하는 리소스 목록을 확인할 수 있다.
+<1> *Select Namespace* +
+Select a namespace to view resources. 
+<2> *Select Resource Type* +
+Select the type of a resource to search. 
+<3> *Enter Label* +
+Enter the label specified in the resource.
+<4> *Create Resource* +
+Newly create the resources of the selected resource type. 
+<5> *Resource List* +
+View the list of resources that match your search condition. 
 
-== 감사 로그
+== Audit
 
-콘솔 메뉴에서 *[홈]* -> *[감사 로그]* 메뉴를 선택하면 *감사 로그* 메인 화면 으로 이동한다. +
-*감사 로그* 메인 화면에서는 리소스의 생성 및 변경 정보(리소스 이름, 계정, 액션, 코드)를 데이터베이스에 저장하여 특정 조건에 해당하는 정보만 조회할 수 있다.
+Selecting *[Home]* -> *[Audit]* from the console menus displays the main screen of *Audit*. +
+In the main screen of *Audit*, you can save the creation and updates (resource name, account, action, and code) of the resources in the database and view only the information that match specific conditions.
 
 image::../images/figure_admin_audit_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-이벤트를 확인할 네임스페이스를 선택한다.
-<2> *리소스 종류 선택* +
-조회할 리소스의 종류를 선택한다.
-<3> *액션 종류 선택* +
-조회할 리소스의 액션 종류를 선택한다.
+<1> *Select Namespace* +
+Select a namespace to view events. 
+<2> *Select Resource Type* +
+Select the type of a resource to search.
+<3> *Select Action Type* +
+Select the action type of a resource to search. 
 
-* create : 새로운 리소스 생성
-* delete : 개별 리소스 삭제
-* get : 개별 리소스 조회
-* list : 여러 건의 리소스 조회
-* patch : 기존 리소스 중 일부 내용 변경
-* update : 기존 리소스 내용 전체 업데이트
-* watch : 리소스의 상태 변경 과정 확인
-<4> *상태 선택* +
-리소스에 발생한 액션에 대한 결과를 선택한다.
+* create: Create new resources
+* delete: Delete each resource
+* get: Get each resource
+* list: View a number of resources
+* patch: Update only part of the existing resources
+* update: Update all of the existing resources
+* watch: Check the changes in the status of resources 
+<4> *Select Status* +
+Select the result of an action that occurred on the resource.
 
-* Success : 성공
-* Failure : 실패
-<5> *코드 선택* +
-리소스 상태에 대한 결과 코드(HTTP Status Code)를 선택한다.
-<6> *조회 기간* +
-이벤트의 발생 기간을 선택한다.
-<7> *내용 검색* +
-검색할 이벤트의 내용을 입력한다.
-<8> *이벤트 목록* +
-모든 검색 조건에 해당하는 이벤트 목록을 확인할 수 있다.
+* Success: Succeeded
+* Failure: Failed
+<5> *Select Status Code* +
+Select the HTTP Status Code for the resource status. 
+<6> *Event Occurrence Period* +
+Select the period of occurrence of events.  
+<7> *Select Contents* +
+Enter the contents of events to search.
+<8> *Event List* +
+View a list of resources that match your search condition. 
 
-== 이벤트
+== Event
 
-콘솔 메뉴에서 *[홈]* -> *[이벤트]* 메뉴를 선택하면 *이벤트* 메인 화면으로 이동한다. +
-*이벤트* 메인 화면에서는 네임스페이스에서 한 시간 동안 발생한 이벤트를 실시간으로 조회할 수 있다.
+Clicking *[Home]* -> *[Event]* from the console menus displays the main screen of *Event*. +
+In the main screen of *Event*, you can view events that occur in the namespace in real time for an hour. 
 
 image::../images/figure_admin_event_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-이벤트를 확인할 네임스페이스를 선택한다.
-<2> *리소스 종류 선택* +
-조회할 리소스의 종류를 선택한다.
-<3> *이벤트 종류 선택* +
-조회할 이벤트의 종류를 선택한다.
-* 전체 카테고리
-* 정보
-* 오류
-<4> *[정지]*/*[시작]* 버튼 +
-image:../images/figure_pause_button.png[](정지) 버튼을 클릭하면 실시간으로 쌓이던 이벤트 목록이 일시 정지된다. 이때 image:../images/figure_start_button.png[](시작) 버튼을 클릭하면 이벤트 목록이 다시 실시간으로 쌓인다.
-<5> *이름 및 내용 검색* +
-검색할 이벤트의 이름 및 이벤트 내용을 입력한다.
+<1> *Select Namespace* +
+Select a namespace to view events. 
+<2> *Select Resource Type* +
+Select the type of a resource to search.
+<3> *Select Event Type* +
+Select the type of an event to search.
+* All categories
+* Information 
+* Error
+<4> *[Suspend]*/*[Resume]* +
+Clicking image:../images/figure_pause_button.png[] (Suspend) suspends the collection of events in real time. Clicking image:image:../images/figure_start_button.png[] (Resume) resumes the collection of events in real time. 
+<5> *Filter by Name or Message* +
+Enter the name or messages of an event to search.
 
-== 그라파나
+== Grafana
 
-콘솔 메뉴에서 *[홈]* -> *[그라파나]* 메뉴를 선택하면 *그라파나* 메인 화면 으로 이동한다. +
-*그라파나* 메인 화면에서는 사용자가 선택한 네임스페이스의 파드 정보를 모니터링 확인할 수 있다. 그라파나 툴의 사용 방법에 대한 자세한 설명은 link:https://grafana.com/docs/grafana/latest/getting-started/getting-started/[그라파나 설명서]를 참고한다.
+Selecting *[Home]* -> *[Grafana]* from the console menus displays the main screen of *Grafana*. +
+In the main screen of *Grafana*, you can view the pod information of the selected namespace. For more information about the usage of Grafana tool, refer to link:https://grafana.com/docs/grafana/latest/getting-started/getting-started/[Grafana Documentation].
 
 image::../images/figure_admin_grafana_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *그라파나 메뉴바* +
-그라파나의 기본 홈 메뉴
-<2> *네임스페이스 선택* +
-모니터링할 대시보드의 정보
-<3> *대시보드 공유* +
-URL을 복사하거나, 대시보드를 JSON파일로 내보내기
-<4> *화면 모드 전환* +
-대시보드 화면의 메뉴바를 제거하고, 그래프만 표시
-<5> *조회 시간 설정* +
-현재 시간 기준으로 조회할 데이터의 기간을 선택
-<6> *조회 시간 확대* +
-넓은 시간 대역의 대시보드를 조회
-<7> *대시보드 갱신* +
-대시보드를 수동으로 갱신
-<8> *모니터링 정보* +
-파드의 CPU, 메모리, 네트워크 사용량 정보를 모니터링
+<1> *Grafana Menu Bar* +
+Grafana home menus
+<2> *Select Namespace* +
+Dashboard information to monitor
+<3> *Share Dashboard* +
+Copy the URL and send the dashboard as a Json file. 
+<4> *Switch Screen Mode* +
+Remove the menu bar from the dashboard and display only graphs. 
+<5> *Set Search Period* +
+Select a period of time to view data based on the current time. 
+<6> *Time Range Zoom Out* +
+View data for a longer period of time. 
+<7> *Refresh Dashboard* +
+Manually update the dashboard. 
+<8> *Monitoring Information* +
+Monitor the CPU, memory, and network usage of pods.
