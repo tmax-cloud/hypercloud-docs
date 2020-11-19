@@ -2,7 +2,7 @@
 :toc:
 :toc-title:
 
-*[Host]* menu is used to manage nodes.
+*[Host]* menu allows you to manage nodes.
 [width="100%",options="header", coas="1,3"]
 |====================
 |Submenu|Function
