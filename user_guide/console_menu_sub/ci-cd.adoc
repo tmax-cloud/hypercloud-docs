@@ -1,288 +1,577 @@
-= [CI/CD] 메뉴
+= [CI/CD] Menu
 :toc:
 :toc-title:
 
-*[CI/CD]* 메뉴는 지속적인 통합 및 배포를 위한 리소스들을 관리할 수 있는 메뉴이다.
+*[CI/CD]* menu allows you to manage resources for continuous integration and deployment. 
 [width="100%",options="header", cols="1,3"]
 |====================
-|하위 메뉴|기능
-|태스크|코드 컴파일, 테스트 실행 및 이미지 빌드와 배치 같은 빌드 단계 세트를 정의하는 "태스크"의 생성 및 조회
-|태스크 런|태스크의 실행을 정의하는 "태스크 런"의 생성 및 조회
-|파이프라인|태스크 세트를 구성하는 "파이프라인"의 생성 및 조회
-|파이프라인 런|파이프라인의 실행을 정의하는 "파이프라인 런"의 생성 및 조회
-|파이프라인 승인|파이프라인을 구성하고 있는 태스크의 스텝별 진행에 대한 승인 상태를 조회하고, 승인 대기(Waiting) 상태인 스텝의 승인 여부를 설정
-|파이프라인 리소스|파이프라인의 입력(예: Git 저장소) 또는 출력(예: Docker 이미지)을 정의하는 "파이프라인 리소스"의 생성 및 조회
-|파이프라인 컨디션|태스크의 수행 여부를 확인하는 "파이프라인 컨디션"의 생성 및 조회
+|Submenu|Function
+|Tasks|Create and view the ``Tasks`` that define a set of build steps such as code compilation, testing, and image build and deployment. 
+|Task Runs|Create and view the ``Task Runs`` that define the execution of tasks. 
+|Pipelines|Create and view the ``Pipelines`` that define a set of tasks.  
+|Pipeline Runs|Create and view the ``Pipeline Runs`` that define the execution of Pipelines. 
+|Pipeline Approval|View the approval status for each step of the tasks that consist of the pipeline and determine whether to approve waiting steps in the Pipeline. 
+|Pipeline Resources|Create and view ``Pipeline Resources`` that define the inputs (e.g. Git Storage) or outputs (e.g. Docker Image) of the pipeline. 
+|Pipeline Conditions|Create and view ``Pipeline Conditions`` that determine whether to execute tasks. 
 |====================
 
-본 장에서는 하위 메뉴의 화면 구성과 기능에 대해서 설명한다.
+This chapter describes the layout and functions of the submenus.
 
-== 태스크
+== Tasks
 
-콘솔 메뉴에서 *[CI/CD]* -> *[태스크]* 메뉴를 선택하면 *태스크* 메인 화면으로 이동한다. +
-*태스크* 메인 화면에서는 코드 컴파일, 테스트 실행 및 이미지 빌드와 배치 같은 빌드 단계 세트를 정의하는 ``태스크``를 생성 및 조회할 수 있다.
+Selecting *[CI/CD]* -> *[Tasks]* from the console menus displays the main screen of *Tasks*. +
+In the main screen of *Tasks*, you can create and view the ``Tasks`` that define a set of build steps such as code compilation, testing, and image build and deployment. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-task-main]
 image::../images/figure_admin_task_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-태스크를 생성하거나 태스크 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 태스크를 폼 에디터 또는 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 태스크 목록에서 조회할 태스크의 이름을 입력한다.
-<4> *종류 검색* +
-전체 태스크 목록에서 조회할 태스크의 종류(클러스터, 네임스페이스)를 선택한다. 이때 다중 선택이 가능하며, 선택된 종류를 다시 클릭하면 선택이 해제된다.
-* Cluster-wide Tasks : 쿠버네티스 클러스터 기반의 태스크
-* Namespace Tasks : 네임스페이스 기반의 테스크
-<5> *태스크 목록* +
-네임스페이스에 생성된 태스크 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create tasks or view the list of tasks. 
+<2> *Create Task* +
+Create new tasks using the form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the task you want to search from the list of tasks.
+<4> *Filter by Type* +
+Select the type of task (Cluster, Namespace) you want to search from the task list. Selecting multiple values is possible, and clicking the selected type will cancel the selection.
+
+* Cluster-wide Tasks: Kubernetes cluster-based tasks
+* Namespace Tasks: Namespace based tasks
+<5> *Task List* +
+View the list of tasks created in the namespace. +
+The following is the description of each item. 
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|태스크의 이름이다. 이때 이름을 클릭하면 해당 태스크의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
+|Item|Description
+|NAME|Name of the task. Clicking on the name displays a screen that allows you to check the detailed information of the task. +
+To delete or update the information about the task, click 
 image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 태스크를 삭제하거나 정보를 수정할 수 있다.
+(Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 태스크 수정 : YAML 에디터를 사용해 태스크의 구성 정보를 수정
-* 태스크 삭제 : 태스크를 삭제
-|네임스페이스|태스크가 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
-|생성 시간|태스크가 생성된 시간이다.
+* Edit Labels: Add or delete the labels that identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources
+* Edit Tasks: Update the configuration information of tasks using the YAML editor
+* Delete Task: Delete tasks. 
+|NAMESPACE|Name of the namespace that the task was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace. 
+|CREATED|Time when the task was created. 
 |====================
 
-== 태스크 런
+== Task Runs
 
-콘솔 메뉴에서 *[CI/CD]* -> *[태스크 런]* 메뉴를 선택하면 *태스크 런* 메인 화면으로 이동한다. +
-*태스크 런* 메인 화면에서는 태스크의 실행을 정의하는 ``태스크 런``을 생성 및 조회할 수 있다.
+Selecting *[CI/CD]* -> *[TaskRuns]* from the console menus displays the main screen of *Task Runs*. +
+In the main screen of *Task Runs*, you can create and view the ``Task Runs`` that define the execution of tasks.  
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-task-run-main]
 image::../images/figure_admin_task_run_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-태스크 런을 생성하거나 태스크 런 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 태스크 런을 폼 에디터 또는 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 태스크 런 목록에서 조회할 태스크 런의 이름을 입력한다.
-<4> *태스크 런 목록* +
-네임스페이스에 생성된 태스크 런 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create Task Runs or view the list of Task Runs.
+<2> *Create Task Run* +
+Create new Task Runs using the form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the Task Run you want to search from the Task Run list.
+<4> *Task Run List* +
+View the list of Task Runs created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|태스크 런의 이름이다. 이때 이름을 클릭하면 해당 태스크 런의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
+|Item|Description  
+|NAME|Name of the Task Run. Clicking on the name displays a screen that allows you to check the detailed information of the Task Run. +
+To delete or update the information about the Task Run, click 
 image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 태스크 런을 삭제하거나 정보를 수정할 수 있다.
+(Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 태스크 런 수정 : YAML 에디터를 사용해 태스크 런의 구성 정보를 수정
-* 태스크 런 삭제 : 태스크 런을 삭제
-|네임스페이스|태스크 런이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
-|생성 시간|태스크 런이 생성된 시간이다.
+* Edit Labels: Add or delete labels that identify resources.
+* Edit Annotations: Add, update, or delete annotations that allow external reference to the resources.
+* Edit Task Runs: Update the configuration information of the Task Runs using the YAML editor.
+* Delete Task Runs: Delete Task Runs. 
+|NAMESPACE|Name of the namespace that the Task Run was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace. 
+|CREATED|Time when the Task Run was created. 
 |====================
 
-== 파이프라인
+== Pipelines
 
-콘솔 메뉴에서 *[CI/CD]* -> *[파이프라인]* 메뉴를 선택하면 *파이프라인* 메인 화면으로 이동한다. +
-*파이프라인* 메인 화면에서는 태스크 세트를 구성하는 ``파이프라인``을 생성 및 조회할 수 있다.
+Selecting *[CI/CD]* -> *[Pipelines]* from the console menus displays the main screen of *Pipelines*. +
+In the main screen of *Pipelines*, you can create and view the ``Pipelines`` that define a set of tasks.  
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-pipeline-main]
 image::../images/figure_admin_pipeline_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of ewch area. 
 
-<1> *네임스페이스 선택* +
-파이프라인을 생성하거나 파이프라인 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 파이프라인을 폼 에디터 또는 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 파이프라인 목록에서 조회할 파이프라인의 이름을 입력한다.
-<4> *파이프라인 목록* +
-네임스페이스에 생성된 파이프라인 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create pipelines or view the list of pipelines. 
+<2> *Create Pipeline* +
+Create new pipelines using the form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the pipeline you want to search from the pipeline list.
+<4> *Pipeline List* +
+View the list of pipelines created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|파이프라인의 이름이다. 이때 이름을 클릭하면 해당 파이프라인의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
+|Item|Description 
+|NAME|Name of the pipeline. Clicking on the name displays a screen that allows you to check the detailed information of the pipeline. +
+To delete or update the information about the pipeline, click 
 image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 파이프라인을 삭제하거나 정보를 수정할 수 있다.
+(Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 파이프라인 수정 : YAML 에디터를 사용해 파이프라인의 구성 정보를 수정
-* 파이프라인 삭제 : 파이프라인을 삭제
-|네임스페이스|파이프라인이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
-|생성 시간|파이프라인이 생성된 시간이다.
+* Edit Labels: Add or delete the labels that identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources
+* Edit Pipelines: Update the configuration information of pipelines using the YAML editor
+* Delete Pipelines: Delete pipelines. 
+|NAMESPACE|Name of the namespace that the pipeline was created in. 
+|CREATED|Time when the pipeline was created.
 |====================
 
-== 파이프라인 런
+== Pipeline Runs
 
-콘솔 메뉴에서 *[CI/CD]* -> *[파이프라인 런]* 메뉴를 선택하면 *파이프라인 런* 메인 화면으로 이동한다. +
-*파이프라인 런* 메인 화면에서는 파이프라인의 실행을 정의하는 ``파이프라인 런``을 생성 및 조회할 수 있다.
+Clicking *[CI/CD]* -> *[Pipeline Runs]* from the console menus displays the main screen of *Pipeline Runs*. +
+In the main screen of *Pipeline Runs*, you can create and view the ``Pipeline Runs`` that define the execution of Pipelines. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-pipeline-run-main]
 image::../images/figure_admin_pipeline_run_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-파이프라인 런을 생성하거나 파이프라인 런 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 파이프라인 런을 폼 에디터 또는 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 파이프라인 런 목록에서 조회할 파이프라인 런의 이름을 입력한다.
-<4> *파이프라인 런 목록* +
-네임스페이스에 생성된 파이프라인 런 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create PipelineRuns or view the PipelineRun List.
+<2> *Create Pipeline Run* +
+Create new Pipeline Runs using the form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the pipeline run you want to search from the pipeline run list.
+<4> *Pipeline Run List* +
+View the list of pipeline runs created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|파이프라인 런의 이름이다. 이때 이름을 클릭하면 해당 파이프라인 런의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
+|Item|Description  
+|NAME|Name of the pipeline run. Clicking on the name displays a screen that allows you to check the detailed information of the pipeline run. +
+To delete or update the information about the pipeline run, click 
 image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 파이프라인 런을 삭제하거나 정보를 수정할 수 있다.
+(Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 파이프라인 런 수정 : YAML 에디터를 사용해 파이프라인 런의 구성 정보를 수정
-* 파이프라인 런 삭제 : 파이프라인 런을 삭제
-|네임스페이스|파이프라인 런이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
-|생성 시간|파이프라인 런이 생성된 시간이다.
+* Edit Labels: Add or delete the labels that identify resources.
+* Edit Annotations: Add, update, or delete annotations that allow external reference to the resources.
+* Edit Pipeline Runs: Update the configuration information of the Pipeline Runs using the YAML editor.
+* Delete Pipeline Runs: Delete the Pipeline Runs. 
+|NAMESPACE|Name of the namespace that the Pipeline Run was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace.
+|CREATED|Time when the Pipeline Run was created.
 |====================
 
-== 파이프라인 승인
+== Pipeline Approval
 
-콘솔 메뉴에서 *[CI/CD]* -> *[파이프라인 승인]* 메뉴를 선택하면 *파이프라인 승인* 메인 화면으로 이동한다. +
-*파이프라인 승인* 메인 화면에서는 파이프라인을 구성하고 있는 태스크의 스텝별 진행에 대한 승인 상태를 조회하고, 승인 대기(Waiting) 상태인 스텝의 승인 여부를 설정할 수 있다.
+Clicking *[CI/CD]* -> *[Pipeline Approval]* from the console menus displays the main screen of *Pipeline Approval*. +
+In the main screen of *Pipeline Approval*, you can view the approval status for each step of the tasks that consist of the pipeline and determine whether to approve waiting steps in the pipeline. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-pipeline-approval-main]
 image::../images/figure_admin_pipeline_approval_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-파이프라인 승인 목록을 조회할 네임스페이스를 선택한다.
-<2> *이름 검색* +
-전체 파이프라인 승인 목록에서 조회할 파이프라인 승인의 이름을 입력한다.
-<3> *상태 검색* +
-전체 파이프라인 승인 목록에서 조회할 파이프라인 승인의 상태를 선택한다. 이때 다중 선택이 가능하며, 선택된 상태를 다시 클릭하면 선택이 해제된다.
-<4> *파이프라인 승인 목록* +
-네임스페이스에 생성된 파이프라인 승인 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to view the list of approved pipelines.
+<2> *Filter by Name* +
+Enter the name of the approved pipeline you want to search from the pipeline list.
+<3> *Filter by Status* +
+Select the status of the approved pipelines you want to search from the list of the approved pipelines. 
+Selecting multiple status is possible, and clicking the selected status will cancel the selection.
+<4> *Pipleline Approval List* +
+View the list of the approved pipelines created in the namespace. +
+The following is the description of each item. 
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|파이프라인 승인의 이름이다. 이때 이름을 클릭하면 해당 파이프라인 승인의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
+|Item|Description  
+|NAME|Name of the approved pipeline. Clicking on the name displays a screen that allows you to check the detailed information of the approved pipeline. +
+To delete or update the information about the pipeline, click 
 image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 파이프라인 승인을 삭제하거나 정보를 수정할 수 있다.
+(Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 파이프라인 승인 수정 : YAML 에디터를 사용해 파이프라인 승인의 구성 정보를 수정
-* 파이프라인 승인 삭제 : 파이프라인 승인을 삭제
-* 상태 수정 : 승인 대기(Waiting) 상태인 스텝의 승인 여부를 선택 (Approved, Reject)
-|네임스페이스|파이프라인 승인이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
-|상태|파이프라인 승인의 현재 상태 정보이다.
+* Edit Labels: Add or delete labels that identify resources
+* Edit Annotations: Add, update, or delete annotations that allow external reference to the resources
+* Edit Approved Pipelines: Update the configuration information of approved pipelines using the YAML editor
+* Delete Approved Pipelines: Delete approved pipelines
+* Update Status: Option to approve waiting steps. (Approved, Rejected)
+|NAMESPACE|Name of the namespace that the approved pipeline was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace.
+|STATUS|Current status information of the approved pipeline. 
 
-* Waiting : 파이프라인 진행의 승인을 기다리는 상태
-* Approved : 파이프라인 진행이 승인된 상태
-* Rejected :  파이프라인 진행이 거부된 상태
-* Canceled : 파이프라인 런 자체가 제거되어 파이프라인 진행이 취소된 상태
-|생성 시간|파이프라인 승인이 생성된 시간이다.
+* Waiting: Waiting for the pipeline execution to be approved 
+* Approved: Pipeline execution approved
+* Rejected: Pipeline execution rejected
+* Canceled: Pipeline execution canceled after the Pipeline Run was removed. 
+|CREATED|Time when the pipeline approval was created.
 |====================
 
-== 파이프라인 리소스
+== Pipeline Resources
 
-콘솔 메뉴에서 *[CI/CD]* -> *[파이프라인 리소스]* 메뉴를 선택하면 *파이프라인 리소스* 메인 화면으로 이동한다. +
-*파이프라인 리소스* 메인 화면에서는 파이프라인의 입력(예: Git 저장소) 또는 출력(예: Docker 이미지)을 정의하는 ``파이프라인 리소스``를 생성 및 조회할 수 있다.
+
+Clicking *[CI/CD]* -> *[Pipeline Resources]* from the console menus displays the main screen of *Pipeline Resources*. +
+In the main screen of *Pipeline Resources*, you can create and view ``Pipeline Resources`` that define the inputs (e.g. Git Storage) or outputs (e.g. Docker Image) of the pipeline. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-pipeline-resource-main]
 image::../images/figure_admin_pipeline_resource_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-파이프라인 리소스를 생성하거나 파이프라인 리소스 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 파이프라인 리소스를 폼 에디터 또는 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 파이프라인 리소스 목록에서 조회할 파이프라인 리소스의 이름을 입력한다.
-<4> *파이프라인 리소스 목록* +
-네임스페이스에 생성된 파이프라인 리소스 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create pipeline resources or view the list of pipeline resources. 
+<2> *Create Pipeline* +
+Create new pipelines using the form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the pipeline resource you want to search from the pipeline resource list. 
+<4> *Pipeline Resource List* +
+View the list of the pipeline resources created in the namespace. +
+The following is the description of each area. 
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|파이프라인 리소스의 이름이다. 이때 이름을 클릭하면 해당 파이프라인 리소스의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 파이프라인 리소스를 삭제하거나 정보를 수정할 수 있다.
+|Item|Description 
+|NAME|Name of the pipeline resource. Clicking on the name displays a screen that allows you to check the detailed information of the pipeline resource. +
+To delete or update the information about the pipeline resource, click 
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 파이프라인 리소스 수정 : YAML 에디터를 사용해 파이프라인 리소스의 구성 정보를 수정
-* 파이프라인 리소스 삭제 : 파이프라인 리소스를 삭제
-|네임스페이스|파이프라인 리소스가 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
-|생성 시간|파이프라인 리소스가 생성된 시간이다.
+* Edit Labels: Add or delete the labels that identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Pipeline Resources: Update the configuration information of pipeline resources using the YAML editor.
+* Delete Pipeline Resources: Delete pipeline resources. 
+|NAMESPACE|Name of the namespace that the pipeline resource was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace.
+|CREATED|Time when the pipeline resource was created.
 |====================
 
-== 파이프라인 컨디션
+== Pipeline Conditions 
 
-콘솔 메뉴에서 *[CI/CD]* -> *[파이프라인 컨디션]* 메뉴를 선택하면 *파이프라인 컨디션* 메인 화면으로 이동한다. +
-*파이프라인 컨디션* 메인 화면에서는 태스크의 수행 여부를 확인하는 ``파이프라인 컨디션``을 생성 및 조회할 수 있다.
+Clicking *[CI/CD]* -> *[Pipeline Conditions]* from the console menus displays the main screen of *Pipeline Conditions*. +
+In the main screen of *Pipeline Conditions*, you can create and view ``Pipeline Conditions`` that determine whether to execute the task. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-pipeline-condition-main]
 image::../images/figure_admin_pipeline_condition_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *네임스페이스 선택* +
-파이프라인 컨디션을 생성하거나 파이프라인 컨디션 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 파이프라인 컨디션을 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 파이프라인 컨디션 목록에서 조회할 파이프라인 컨디션의 이름을 입력한다.
-<4> *파이프라인 컨디션 목록* +
-네임스페이스에 생성된 파이프라인 컨디션 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create pipeline conditions= [CI/CD] Menu
+:toc:
+:toc-title:
+
+*[CI/CD]* menu allows you to manage resources for continuous integration and deployment. 
+[width="100%",options="header", cols="1,3"]
+|====================
+|Submenu|Function
+|Tasks|Create and view the ``Tasks`` that define a set of build steps such as code compilation, testing, and image build and deployment. 
+|Task Runs|Create and view the ``Task Runs`` that define the execution of tasks. 
+|Pipelines|Create and view the ``Pipelines`` that define a set of tasks.  
+|Pipeline Runs|Create and view the ``Pipeline Runs`` that define the execution of Pipelines. 
+|Pipeline Approval|View the approval status for each step of the tasks that consist of the pipeline and determine whether to approve waiting steps in the Pipeline. 
+|Pipeline Resources|Create and view ``Pipeline Resources`` that define the inputs (e.g. Git Storage) or outputs (e.g. Docker Image) of the pipeline. 
+|Pipeline Conditions|Create and view ``Pipeline Conditions`` that determine whether to execute tasks. 
+|====================
+
+This chapter describes the layout and functions of the submenus.
+
+== Tasks
+
+Selecting *[CI/CD]* -> *[Tasks]* from the console menus displays the main screen of *Tasks*. +
+In the main screen of *Tasks*, you can create and view the ``Tasks`` that define a set of build steps such as code compilation, testing, and image build and deployment. 
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-task-main]
+image::../images/figure_admin_task_main.png[]
+
+The following is the description of each area. 
+
+<1> *Select Namespace* +
+Select a namespace to create tasks or view the list of tasks. 
+<2> *Create Task* +
+Create new tasks using the form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the task you want to search from the list of tasks.
+<4> *Filter by Type* +
+Select the type of task (Cluster, Namespace) you want to search from the task list. Selecting multiple values is possible, and clicking the selected type will cancel the selection.
+
+* Cluster-wide Tasks: Kubernetes cluster-based tasks
+* Namespace Tasks: Namespace based tasks
+<5> *Task List* +
+View the list of tasks created in the namespace. +
+The following is the description of each item. 
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|파이프라인 컨디션의 이름이다. 이때 이름을 클릭하면 해당 파이프라인 컨디션의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
+|Item|Description
+|NAME|Name of the task. Clicking on the name displays a screen that allows you to check the detailed information of the task. +
+To delete or update the information about the task, click 
 image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 파이프라인 컨디션을 삭제하거나 정보를 수정할 수 있다.
+(Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 파이프라인 컨디션 수정 : YAML 에디터를 사용해 파이프라인 컨디션의 구성 정보를 수정
-* 파이프라인 컨디션 삭제 : 파이프라인 컨디션을 삭제
-|네임스페이스|파이프라인 컨디션이 생성된 네임스페이스의 이름이다.
-|생성 시간|파이프라인 컨디션이 생성된 시간이다.
+* Edit Labels: Add or delete the labels that identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources
+* Edit Tasks: Update the configuration information of tasks using the YAML editor
+* Delete Task: Delete tasks. 
+|NAMESPACE|Name of the namespace that the task was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace. 
+|CREATED|Time when the task was created. 
+|====================
+
+== Task Runs
+
+Selecting *[CI/CD]* -> *[Task Runs]* from the console menus displays the main screen of *Task Runs*. +
+In the main screen of *Task Runs*, you can create and view the ``Task Runs`` that define the execution of tasks.  
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-task-run-main]
+image::../images/figure_admin_task_run_main.png[]
+
+The following is the description of each area. 
+
+<1> *Select Namespace* +
+Select a namespace to create Task Runs or view the list of Task Runs.
+<2> *Create Task Run* +
+Create new Task Runs using the form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the Task Run you want to search from the Task Run list.
+<4> *Task Run List* +
+View the list of Task Runs created in the namespace. +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description  
+|NAME|Name of the Task Run. Clicking on the name displays a screen that allows you to check the detailed information of the Task Run. +
+To delete or update the information about the Task Run, click 
+image:../images/figure_action_icon.png[]
+(Config) beside the name.
+
+* Edit Labels: Add or delete labels that identify resources.
+* Edit Annotations: Add, update, or delete annotations that allow external reference to the resources.
+* Edit Task Runs: Update the configuration information of the Task Runs using the YAML editor.
+* Delete Task Runs: Delete Task Runs. 
+|NAMESPACE|Name of the namespace that the Task Run was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace. 
+|CREATED|Time when the Task Run was created. 
+|====================
+
+== Pipelines
+
+Selecting *[CI/CD]* -> *[Pipelines]* from the console menus displays the main screen of *Pipelines*. +
+In the main screen of *Pipelines*, you can create and view the ``Pipelines`` that define a set of tasks.  
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-pipeline-main]
+image::../images/figure_admin_pipeline_main.png[]
+
+The following is the description of ewch area. 
+
+<1> *Select Namespace* +
+Select a namespace to create pipelines or view the list of pipelines. 
+<2> *Create Pipeline* +
+Create new pipelines using the form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the pipeline you want to search from the pipeline list.
+<4> *Pipeline List* +
+View the list of pipelines created in the namespace. +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description 
+|NAME|Name of the pipeline. Clicking on the name displays a screen that allows you to check the detailed information of the pipeline. +
+To delete or update the information about the pipeline, click 
+image:../images/figure_action_icon.png[]
+(Config) beside the name.
+
+* Edit Labels: Add or delete the labels that identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources
+* Edit Pipelines: Update the configuration information of pipelines using the YAML editor
+* Delete Pipelines: Delete pipelines. 
+|NAMESPACE|Name of the namespace that the pipeline was created in. 
+|CREATED|Time when the pipeline was created.
+|====================
+
+== Pipeline Runs
+
+Clicking *[CI/CD]* -> *[Pipeline Runs]* from the console menus displays the main screen of *Pipeline Runs*. +
+In the main screen of *Pipeline Runs*, you can create and view the ``Pipeline Runs`` that define the execution of Pipelines. 
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-pipeline-run-main]
+image::../images/figure_admin_pipeline_run_main.png[]
+
+The following is the description of each area. 
+
+<1> *Select Namespace* +
+Select a namespace to create Pipeline Runs or view the list of Pipeline Runs.
+<2> *Create Pipeline Run* +
+Create new Pipeline Runs using the form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the pipeline run you want to search from the Pipeline Run list.
+<4> *Pipeline Run List* +
+View the list of pipeline runs created in the namespace. +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description  
+|NAME|Name of the Pipeline Run. Clicking on the name displays a screen that allows you to check the detailed information of the Pipeline Run. +
+To delete or update the information about the Pipeline Run, click 
+image:../images/figure_action_icon.png[]
+(Config) beside the name.
+
+* Edit Labels: Add or delete the labels that identify resources.
+* Edit Annotations: Add, update, or delete annotations that allow external reference to the resources.
+* Edit Pipeline Runs: Update the configuration information of the Pipeline Runs using the YAML editor.
+* Delete Pipeline Runs: Delete the Pipeline Runs. 
+|NAMESPACE|Name of the namespace that the Pipeline Run was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace.
+|CREATED|Time when the Pipeline Run was created.
+|====================
+
+== Pipeline Approval
+
+Clicking *[CI/CD]* -> *[Pipeline Approval]* from the console menus displays the main screen of *Pipeline Approval*. +
+In the main screen of *Pipeline Approval*, you can view the approval status for each step of the tasks that consist of the pipeline and determine whether to approve waiting steps in the pipeline. 
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-pipeline-approval-main]
+image::../images/figure_admin_pipeline_approval_main.png[]
+
+The following is the description of each area. 
+
+<1> *Select Namespace* +
+Select a namespace to view the list of approved pipelines.
+<2> *Filter by Name* +
+Enter the name of the approved pipeline you want to search from the pipeline list.
+<3> *Filter by Status* +
+Select the status of the approved pipelines you want to search from the list of the approved pipelines. 
+Selecting multiple status is possible, and clicking the selected status will cancel the selection.
+<4> *Pipleline Approval List* +
+View the list of the approved pipelines created in the namespace. +
+The following is the description of each item. 
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description  
+|NAME|Name of the approved pipeline. Clicking on the name displays a screen that allows you to check the detailed information of the approved pipeline. +
+To delete or update the information about the pipeline, click 
+image:../images/figure_action_icon.png[]
+(Config) beside the name.
+
+* Edit Labels: Add or delete labels that identify resources
+* Edit Annotations: Add, update, or delete annotations that allow external reference to the resources
+* Edit Approved Pipelines: Update the configuration information of approved pipelines using the YAML editor
+* Delete Approved Pipelines: Delete approved pipelines
+* Update Status: Option to approve waiting steps. (Approved, Rejected)
+|NAMESPACE|Name of the namespace that the approved pipeline was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace.
+|STATUS|Current status information of the approved pipeline. 
+
+* Waiting: Waiting for the pipeline execution to be approved 
+* Approved: Pipeline execution approved
+* Rejected: Pipeline execution rejected
+* Canceled: Pipeline execution canceled after the Pipeline Run was removed. 
+|CREATED|Time when the pipeline approval was created.
+|====================
+
+== Pipeline Resources
+
+
+Clicking *[CI/CD]* -> *[Pipeline Resources]* from the console menus displays the main screen of *Pipeline Resources*. +
+In the main screen of *Pipeline Resources*, you can create and view ``Pipeline Resources`` that define the inputs (e.g. Git Storage) or outputs (e.g. Docker Image) of the pipeline. 
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-pipeline-resource-main]
+image::../images/figure_admin_pipeline_resource_main.png[]
+
+The following is the description of each area. 
+
+<1> *Select Namespace* +
+Select a namespace to create pipeline resources or view the list of pipeline resources. 
+<2> *Create Pipeline* +
+Create new pipelines using the form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the pipeline resource you want to search from the pipeline resource list. 
+<4> *Pipeline Resource List* +
+View the list of the pipeline resources created in the namespace. +
+The following is the description of each area. 
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description 
+|NAME|Name of the pipeline resource. Clicking on the name displays a screen that allows you to check the detailed information of the pipeline resource. +
+To delete or update the information about the pipeline resource, click 
+image:../images/figure_action_icon.png[] (Config) beside the name.
+
+* Edit Labels: Add or delete the labels that identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Pipeline Resources: Update the configuration information of pipeline resources using the YAML editor.
+* Delete Pipeline Resources: Delete pipeline resources. 
+|NAMESPACE|Name of the namespace that the pipeline resource was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace.
+|CREATED|Time when the pipeline resource was created.
+|====================
+
+== Pipeline Conditions 
+
+Clicking *[CI/CD]* -> *[Pipeline Conditions]* from the console menus displays the main screen of *Pipeline Conditions*. +
+In the main screen of *Pipeline Conditions*, you can create and view ``Pipeline Conditions`` that determine whether to execute the task. 
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-pipeline-condition-main]
+image::../images/figure_admin_pipeline_condition_main.png[]
+
+The following is the description of each area. 
+
+<1> *Select Namespace* +
+Select a namespace to create pipeline conditions or view the list of pipeline conditions. 
+<2> *Create Pipeline Condition* +
+Create new pipeline conditions using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the pipeline condition you want to search from the pipeline condition list.
+<4> *Pipeline Condition List* +
+View the list of the pipeline conditions created in the namespace. +
+The following is the description of each item. 
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description  
+|NAME|Name of the Pipeline condition. Clicking on the name displays a screen that allows you to check the detailed information of the pipeline condition. +
+To delete or update the information about the pipeline, click 
+image:../images/figure_action_icon.png[] (Config) beside the name.
+
+* Edit Labels: Add or delete labels that identify resources.
+* Edit Annotations: Add, update, or delete annotations that allow external reference to the resources.
+* Edit Pipeline Conditions: Update the configuration information of pipeline conditions using the YAML editor.
+* Delete Pipeline Conditions: Delete the pipeline conditions. 
+|NAMESPACE|Name of the namespace that the pipeline condition was created in.
+|CREATED|Time when the pipeline condition was created.
+|==================== or view the list of pipeline conditions. 
+<2> *Create Pipeline Condition* +
+Create new pipeline conditions using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the pipeline condition you want to search from the pipeline condition list.
+<4> *Pipeline Condition List* +
+View the list of the pipeline conditions created in the namespace. +
+The following is the description of each item. 
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description  
+|NAME|Name of the Pipeline condition. Clicking on the name displays a screen that allows you to check the detailed information of the pipeline condition. +
+To delete or update the information about the pipeline, click 
+image:../images/figure_action_icon.png[] (Config) beside the name.
+
+* Edit Labels: Add or delete labels that identify resources.
+* Edit Annotations: Add, update, or delete annotations that allow external reference to the resources.
+* Edit Pipeline Conditions: Update the configuration information of pipeline conditions using the YAML editor.
+* Delete Pipeline Conditions: Delete the pipeline conditions. 
+|NAMESPACE|Name of the namespace that the pipeline condition was created in.
+|CREATED|Time when the pipeline condition was created.
 |====================
