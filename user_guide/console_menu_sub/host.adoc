@@ -1,55 +1,55 @@
-= [호스트] 메뉴
+= [Host] Menu
 :toc:
 :toc-title:
 
-*[호스트]* 메뉴는 노드를 관리할 수 있는 메뉴이다.
-[width="100%",options="header", cols="1,3"]
+*[Host]* menu is used to manage nodes.
+[width="100%",options="header", coas="1,3"]
 |====================
-|하위 메뉴|기능
-|노드|컨테이너가 배치되는 서버인 "노드"를 조회
+|Submenu|Function
+|Nodes|View the "Nodes" in which containers are deployed. 
 |====================
 
-본 장에서는 하위 메뉴의 화면 구성과 기능에 대해서 설명한다.
+This chapter describes the layout and functions of the submenus.
 
-== 노드
+== Nodes
 
-콘솔 메뉴에서 *[호스트]* -> *[노드]* 메뉴를 선택하면 *노드* 메인 화면으로 이동한다. +
-*노드* 메인 화면에서는 컨테이너가 배치되는 서버인 ``노드``를 조회할 수 있다.
+Clicking *[Host]* -> *[Nodes]* from the console menus displays the main screen of *Nodes*. + 
+In the main screen of *Nodes*, you can view the ``Nodes`` where containers are deployed. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-node-main]
 image::../images/figure_admin_node_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area. 
 
-<1> *축소/확장 버튼* +
-노드 목록의 정보를 확장 또는 축소한다. +
-*[확장]* 버튼을 클릭하면 노드 목록의 정보가 확장되고, *[컴팩트]* 버튼을 클릭하면 노드 목록의 정보가 축소된다. 이때 확장되는 정보는 서버의 호스트 이름 및 노드에 추가된 레이블 정보이다.
-<2> *상태 검색* +
-전체 노드 목록에서 조회할 노드의 상태를 선택한다.
-<3> *이름 검색* +
-전체 노드 목록에서 조회할 노드의 이름을 입력한다.
-<4> *노드 목록* +
-클러스터에 존재하는 노드 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Compact/Expand* +
+Compact or collapse the list of nodes. +
+Selecting *[Expand]* expands the nodes in the list, and clicking *[Compact]* collapses the nodes in the list. The expanded information includes the server's host name and label information added to the node. 
+<2> *Select Status* +
+Select the node status you want to search from node list. 
+<3> *Filter by Name* +
+Enter the name of the node you want to search from list of nodes.
+<4> *Node List* +
+View a list of nodes that reside in the cluster. +
+The following is the description of each item. 
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|노드 이름|노드의 이름이다. 이때 이름을 클릭하면 해당 노드의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
+|Item|Description
+|NODE NAME|Name of the node. Clicking the node displays the screen that allows you to view the detailed information of the node. +
+To update the information about the node, click 
 image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 노드의 정보를 수정할 수 있다.
+(Config) beside the name.
 
-* 예약 불가 표시 : 해당 노드에 새로운 파드가 추가로 생성되지 않도록 설정
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 노드 수정 : YAML 에디터를 사용해 노드의 구성 정보를 수정
-|상태|노드의 현재 상태 정보이다.
+* Mark as Unschedulable: Set not to create new pods on the node
+* Edit Labels: Add or delete labels that identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Nodes: Update the configuration information of the node using the YAML editor.
+|Status|Current status of nodes.
 
-* Ready : 파드를 수용할 수 있는 상태
-* Not Ready : 파드를 수용할 수 없는 상태
-* Unknown : 노드 컨트롤러가 노드로부터 응답을 받지 못한 상태
-|OS 업데이트|OS 업데이트의 필요 여부를 표시한다.
-|노드 주소|노드의 내부 IP 주소 정보이다.
+* Ready: Can accept pods
+* Not Ready: Cannot accept pods
+* Unknown: Node controller has not received any response from the node
+|OS UPDATE|Option to update the OS
+|NODE ADDRESS|Internal IP address of the node
 |====================
