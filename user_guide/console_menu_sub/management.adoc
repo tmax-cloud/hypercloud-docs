@@ -6,20 +6,20 @@
 [width="100%",options="header", cols="1,3"]
 |====================
 |Submenu|Function
-|Namespaces|Create and view "Namespaces", a logical partitioning unit to support multiple virtual clusters in the same physical cluster
-|Namespace Claims|Create and view "Namespace Claims" that define the requirements for creating namespaces
-|Limit Ranges|Creates and view "Limits" that limit container resources
-|Resource Quotas|Create and view "Resource Quotas" that limit the amount of resources available per namespace
-|Resource Quota Claims|Create and view “Resource Quota Claims” that define the requirements for creating resource quotas.
-|User Resource Definitions|Create and view "Custom Resource Definitions (CRDs)" that define the type of custom resources
+|Namespaces|Create and view "Namespaces", logical partitioning unit to support multiple virtual clusters in the same physical cluster
+|Namespace Claims|Create and view the "Namespace Claims" that define the requirements for creating namespaces
+|Limit Ranges|Create and view the "Limits" that limit container resources
+|Resource Quotas|Create and view the "Resource Quotas" that limit the amount of resources available per namespace
+|Resource Quota Claims|Create and view the “Resource Quota Claims” that define the requirements for creating resource quotas
+|User Resource Definitions|Create and view the "Custom Resource Definitions (CRDs)" that define the types of custom resources
 |====================
 
 This chapter describes the layout and functions of the submenus.
 
 == Namespaces
 
-Clicking *[Management]* -> *[Namespaces]* from the console menus displays the main screen of *Namespaces*. +
-In the main screen of *Namespaces*, you can create and view the `Namespaces` a logical partitioning unit to support multiple virtual clusters in the same physical cluster.
+Selecting *[Management]* -> *[Namespaces]* from the console menus displays the main screen of *Namespaces*. +
+In the main screen of *Namespaces*, you can create and view the `Namespaces` logical partitioning unit to support multiple virtual clusters in the same physical cluster.
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-namespace-main]
@@ -28,37 +28,37 @@ image::../images/figure_admin_namespace_main.png[]
 The following is the description of each area.
 
 <1> *Create Namespace* +
-Create a new namespace using the form or YAML editor. 
+Create new namespaces using the form or YAML editor. 
 <2> *Filter by Name* +
-Enter the name of the namespace you want to earch from the Namespace List.
+Enter the name of the namespace you want to search from the list of namespaces.
 <3> *Namespace List* +
-View the list of namespace created in the namespace. +
+View the list of namespaces created in the namespace. +
 The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
 |Item|Description 
-|Name|Name of the namespace. Clicking on the name displays a screen that allows you to check the detailed information of the namespace. +
+|NAME|Name of the namespace. Clicking on the name displays a screen that allows you to check the detailed information of the namespace. +
 To delete or update the information about the namespace, click 
 image:../images/figure_action_icon.png[] (Config) beside the name. 
 
-* Update Label: Add or delete the labels that identify resources.
-* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
-* Update Namespace: Update the configuration information of the namespace using the YAML editor.
-* Delete Namespace: Delete the namespace.
-|Namespace|Name of the namespace that the registry was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace. 
-|Status|Time when the namespace was created. 
+* Edit Labels: Add or delete the labels that identify resources
+* Edit Annotation: Add, update, or delete the annotations that allow external reference to the resources
+* Edit Namespaces: Update the configuration information of namespaces using the YAML editor
+* Delete Namespaces: Delete namespaces
+|NAMESPACE|Name of the namespace that the registry was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace. 
+|CREATED|Time when the namespace was created. 
 
 * Active: Using the namespace
 * Terminating: Deleting the namespace
-|Validity Period|Lifespan of the namespace created through the trial. +
-However, trial is an object for requesting namespace creation in HyperCloud's public model, and claims for all namespaces not creatd using trials do no have a separate validity period. 
-|Label|Label information added to the namespace. 
+|TRIAL TIME|Lifespan of the namespace created through the trial. +
+However, trial is an object for requesting namespace creation in HyperCloud's public model. The all namespace requests not created using trials do no have a separate validity period. 
+|LABLES|Label information added to the namespace. 
 |====================
 
 == Namespace Claims
 
-Clicking *[Management]* -> *[Namespace Claims]* from the console menus displays the main screen of *Namespace Claims*. +
+Selecting *[Management]* -> *[Namespace Claims]* from the console menus displays the main screen of *Namespace Claims*. +
 In the main screen of *Namespace Claims*, you can create and view the `Namespace Claims` that define the requirements for creating namespaces. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -69,9 +69,9 @@ image::../images/figure_admin_namespace_claim_main.png[]
 The following is the description of each area.
 
 <1> *Create Namespace* +
-Create a new namespace claim using the form or YAML editor. 
+Create new namespace claims using the form or YAML editor. 
 <2> *Filter by Name* +
-Enter the name of the namespace claim you want to search from the Namespace Claim List.
+Enter the name of the namespace claim you want to search from the list of namespace claims.
 <3> *Filter by Status* +
 Select the status of the namespace claims you want to search from the list of the namespace claims. 
 Selecting multiple status is possible, and clicking the selected status will cancel the selection.
@@ -82,32 +82,32 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]
 |====================
 |Item|Description
-|Name|Name of the namespace claim. Clicking on the name displays a screen that allows you to check the detailed information of the namespace claim. +
+|NAME|Name of the namespace claim. Clicking on the name displays a screen that allows you to check the detailed information of the namespace claim. +
 To delete or update the information about the namespace claim, click 
 image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* Update Label: Add or delete the labels that identify resources.
-* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
-* Update Namespace Claim: Update the configuration information of namespace claims using the YAML editor.
-* Delete Namespace Claim: Delete namespace claims. 
-* Update Status: Select whether to approve namespace claims in the Awaiting status (Success, Reject)
-|Namespace|Name of the namespace that is created through the namespace claim.
-|Status|Current approval status of namespace claims.
+* Edit Labels: Add or delete the labels that identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources
+* Edit Namespace Claims: Update the configuration information of namespace claims using the YAML editor
+* Delete Namespace Claims: Delete namespace claims 
+* Edit Status: Approve or not namespace claims in the Awaiting status (Success, Reject)
+|NAMESPACE|Name of the namespace that is created through the namespace claim.
+|STATUS|Current approval status of namespace claims
 
 * Awaiting: Waiting for the claim to be approved 
 * Success: Claim approved
 * Reject: Claim rejected
 * Error: Namespace and resource quota creation failed
-|User Name|The name of the user who created the namespace claim.
-|Created at|Time when the namespace was created.
+|USER NAME|Name of the user who created the namespace claim.
+|CREATED|Time when the namespace was created.
 |====================
 +
 NOTE: Namespace is created when a namespace claim is approved. At this time, if a namespace with the same name already exists, the namespace is not newly created and the configuration information of the namespace is updated.
 
 == Limit Ranges
 
-Clicking *[Management]* -> *[Limit Ranges]* from the console menus displays the main screen of *Limit Ranges*. +
-In the main screen of *Limit Ranges*, you can create and view the `Limit Ranges` resources that limit container resources. 
+Selecting *[Management]* -> *[Limit Ranges]* from the console menus displays the main screen of *Limit Ranges*. +
+In the main screen of *Limit Ranges*, you can create and view the `Limit Ranges` that limit container resources. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-basic-resource-main]
@@ -118,9 +118,9 @@ The following is the description of each item.
 <1> *Select Namespace* +
 Select a namespace to create limits or view the list of limits. 
 <2> *Create Limit Range* +
-Create a new limit range using the form or YAML editor.
+Create new limit ranges using the form or YAML editor.
 <3> *Filter by Name* +
-Enter the name of the limit range you want to search from the limit List.
+Enter the name of the limit range you want to search from the limit list.
 <4> *Limit Range List* +
 You can check the list of limit ranges created in the namespace. +
 The following is the description of each item.
@@ -128,22 +128,21 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]
 |====================
 |Item|Description 
-|Name|Name of the limit range. Clicking on the name displays a screen that allows you to check the detailed information of the limit range.  +
+|NAME|Name of the limit range. Clicking on the name displays a screen that allows you to check the detailed information of the limit range.  +
 To delete or update the information about the limit range, click 
-image:../images/figure_action_icon.png[]
-(Config) beside the name.
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* Update Label: Add or delete the labels that identify resources.
-* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
-* Update Limit Range: Update the configuration information of limit ranges using the YAML editor.
-* Delete Limit Range: Delete the limit range. 
-|Namespace|Name of the namespace that the namespace was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace.
-|Created at|Time when the limit range was created.
+* Edit Labels: Add or delete the labels that identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Limit Ranges: Update the configuration information of limit ranges using the YAML editor.
+* Delete Limit Ranges: Delete the limit range. 
+|NAMESPACE|Name of the namespace that the limit range was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace.
+|CREATED|Time when the limit range was created.
 |====================
 
 == Resource Quotas
 
-Clicking *[Management]* -> *[Resource Quotas]* from the console menus displays the main screen of *Resource Quotas*. +
+Selecting *[Management]* -> *[Resource Quotas]* from the console menus displays the main screen of *Resource Quotas*. +
 In the main screen of *Resource Quotas*, you can create and view the `Resource Quotas` that limit the amount of resources available per namespace. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -155,9 +154,9 @@ The following is the description of each area.
 <1> *Select Namespace* +
 Select a namespace to create resource quotas or view the list of resource quotas. 
 <2> *Create Limit Range* +
-Create a new resource quota using the form or YAML editor.
+Create new resource quotas using the form or YAML editor.
 <3> *Filter by Name* +
-Enter the name of the resource quota you want to search from the resource quota List.
+Enter the name of the resource quota you want to search from the resource quota list.
 <4> *Resource Quota List* +
 You can check the list of resource quotas created in the namespace. +
 The following is the description of each item.
@@ -165,20 +164,20 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]
 |====================
 |Item|Description   
-|Name|Name of the resource quota. Clicking on the name displays a screen that allows you to check the detailed information of the resource quota.  +
-To delete or update the information about the limit range, click  
+|NAME|Name of the resource quota. Clicking on the name displays a screen that allows you to check the detailed information of the resource quota.  +
+To delete or update the information about the resource quota, click  
 image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* Update Label: Add or delete the labels that identify resources.
-* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
-* Update Resource Quota: Update the configuration information of resource quotas using the YAML editor.
-* Delete Resource Quota: Delete resource quotas.
-|Namespace|Name of the namespace that the resource quota was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace.
+* Edit Labels: Add or delete the labels that identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Resource Quotas: Update the configuration information of resource quotas using the YAML editor.
+* Delete Resource Quotas: Delete resource quotas.
+|NAMESPACE|Name of the namespace that the resource quota was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace.
 |====================
 
 == Resource Quota Claims
 
-Clicking *[Management]* -> *[Resource Quota Claims]* from the console menus displays the main screen of *Resource Quota Claims*. +
+Selecting *[Management]* -> *[Resource Quota Claims]* from the console menus displays the main screen of *Resource Quota Claims*. +
 In the main screen of *Resource Quota Claims*, you can create and view the `Resource Quota Claims` that define the requirements for creating resource quotas.
 
 //[caption="그림. "] //캡션 제목 변경
@@ -190,7 +189,7 @@ The following is the description of each area.
 <1> *Select Namespace* +
 Select a namespace to create resource quota claims or view the list of resource quota claims.
 <2> *Create Resource Quota Claim* +
-Create a new resource quota claim using the form or YAML editor.
+Create new resource quotas claim using the form or YAML editor.
 <3> *Filter by Name* +
 Enter the name of the resource quota claim you want to search from the resource quota claim List.
 <4> *Filter by Status* +
@@ -203,14 +202,14 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]
 |====================
 |Item|Description  
-|Name|Name of the resource quota claim. Clicking on the name displays a screen that allows you to check the detailed information of the resource quota claim. +
-To delete or update the information about the limit range, click image:../images/figure_action_icon.png[] (Config) beside the name.
+|NAME|Name of the resource quota claim. Clicking on the name displays a screen that allows you to check the detailed information of the resource quota claim. +
+To delete or update the information about the resource quota claim, click image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* Update Label: Add or delete the labels that identify resources.
-* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
-* Update Resource Quota Claim: Update the configuration information of resource quota claims using the YAML editor.
-* Delete Resource Quota Claim: Delete resource quota claims.
-* Update Status: Select whether to approve resource quota claims in the Awaiting status (Success, Reject)
+* Edit Labels: Add or delete the labels that identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources
+* Edit Resource Quota Claims: Update the configuration information of resource quota claims using the YAML editor
+* Delete Resource Quota Claims: Delete resource quota claims
+* Edit Status: Approve or not resource quota claims in the Awaiting status (Success, Reject)
 |Namespace|Name of the namespace that the resource quota claim was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace. 
 |Status|Current approval status of resource quota claims.
 
@@ -218,13 +217,13 @@ To delete or update the information about the limit range, click image:../images
 * Success: Claim approved
 * Reject: Claim rejected
 * Error: Creation of the resource quota claim failed 
-|Resource Name|Name of the resource quota to be created through the resource quota claim.
-|Created at|Time when the resource quota claim was created.
+|RESOURCE NAME|Name of the resource quota to be created through the resource quota claim.
+|CREATED|Time when the resource quota claim was created.
 |====================
 
 == User Resource Definitions
 
-Clicking *[Management]* -> *[User Resource Definitions]* from the console menus displays the main screen of *User Resource Definitions*. +
+Selecting *[Management]* -> *[User Resource Definitions]* from the console menus displays the main screen of *User Resource Definitions*. +
 In the main screen of *User Resource Definitions*, you can create and view the `Cutom Resource Definitions (CRDs)` that define the type of custom resources. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -233,8 +232,8 @@ image::../images/figure_admin_custom_resource_main.png[]
 
 The following is the description of each area.
 
-<1> *CRD Creation* +
-Create a new CRD. 
+<1> *Create CRD* +
+Create new CRDs. 
 <2> *Filter by Name* +
 Enter the name of the CRD you want to search from the CRD List.
 <3> *CRD List* +
@@ -244,19 +243,19 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]
 |====================
 |Item|Description  
-|Name|CRD name. Clicking on the name displays a screen that allows you to check the list of custom resources created in the format defined in the CRD. +
+|NAME|CRD name. Clicking on the name displays a screen that allows you to check the list of custom resources created in the format defined in the CRD. +
 To delete or update the CRD, click image:../images/figure_action_icon.png[]
 (Config) beside the name.
 
-* Update Label: Add or delete the labels that identify resources.
-* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
-* Update User Resource Definition: Update the configuration information of CRDs using the YAML editor.
-* Delete User Resource Definition: Delete CRDs.
-|Group|Group name to use the REST API.
-|Version|API version information.
-|Namespace|Option to include namespaces. 
+* Edit Labels: Add or delete the labels that identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit User Resource Definitions: Update the configuration information of CRDs using the YAML editor.
+* Delete User Resource Definitions: Delete CRDs.
+|GROUP|Group name to use the REST API.
+|VERSION|API version information.
+|NAMESPACE|Include or not namespaces. 
 
 * YES: Include
 * NO: Not include
-|Created at|Option to enable CRDs.
+|CREATED|Enable or not CRDs.
 |====================
