@@ -1,0 +1,439 @@
+= [Service Catalog] Menu
+:toc:
+:toc-title:
+
+*[Service Catalog]* menu allows you to define the services and environment variables to connect within the cluster.
+[width="100%",options="header", cols="1,3"]
+|====================
+|Submenu|Function
+|Service Brokers|Create and view the "Service Broker" resources that provide all the information necessary to connect to service instances. (application range: particular namespace) 
+|Service Classes|View the "Service Class" resources that define templates for using services instances in service brokers.
+|Service Plans|View the "Service Plan" resources that provide service information such as cost, capacity, and quality of services. (application range: particular namespace)
+|Cluster Service Brokers|Create and view the "Cluster Service Broker" resources that provide all the information necessary to connect to service instances. (application range: particular namespace)
+|Cluster Service Class|View the "Cluster Service Class" resources that define templates for using service instances in service brokers. 
+|Cluster Service Plans|View the "Cluster Service Plan" resources that provide service information such as cost, capacity, and quality of services. 
+|Service Instances|Create and view the "Service Instances" available within the cluster. 
+|Service Bindings|Create and view the "Service Binding" that provide connection and authentication information of service instances. 
+|Catalog Service Claims|Create and view the "Catalog Service Claims" that define the requirements for creating templates.
+|Templates|Create and view the "Templates" that define information on objects, plans, and parameters to be created as service instances and template instances.
+|Template Instances|Create and view "Instances" of available services by using the defined templates. 
+|====================
+
+This chapter describes the layout and functions of the submenus. 
+
+== Service Brokers
+
+Selecting *[Service Catalog]* -> *[Service Brokers]* from the console menus displays the main screen of *Service Brokers*. +
+In the main screen of *Service Brokers*, you can create and view the `Service Brokers` that provide all the information necessary to connect to service instances. At this time, service brokers are scoped to a particular namespace. 
+
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-service-broker-main]
+image::../images/figure_admin_service_broker_ns_main.png[]
+
+
+The following is the description of each area.
+
+<1> *Select Namespace* +
+Select a namespace to create service brokers or view the list of service brokers.
+<2> *Create Service Broker* +
+Create new service brokers using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the service broker you want to search from the list of service brokers. 
+<4> *Service Broker List* +
+View the list of service brokers created in the namespace. +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description
+|NAME|Name of the service broker. Clicking on the name displays a window that allows you to check the detailed information of the service broker. +
+To delete or update the information about the service broker, click
+image:../images/figure_action_icon.png[] (Config) beside the name.
+
+* Edit Labels: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Service Brokers: Update the configuration information of service brokers using the YAML editor.
+* Delete Service Brokers: Delete service brokers. 
+|NAMESPACE|Name of the namespace that the service broker was created in. 
+|URL|Service URL information of the service broker server. 
+|STATUS|Current status of service brokers.
+
+* Running: Can receive services normally from the service URL. 
+* Error: Cannot receive services normally from the service URL.
+|CREATED|Time when a service broker was created. 
+|====================
+
+== Service Classes
+
+Selecting *[Service Catalog]* -> *[Service Classes]* from the console menus displays the main screen of *Service Classes*. +
+In the main screen of *Service Classes*, you can create and view the `Service Classes` that define templates for using services instances in service brokers. 
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-service-class-main]
+image::../images/figure_admin_service_class_ns_main.png[]
+
+
+The following is the description of each area.
+
+<1> *Select Namespace* +
+Select a namespace to view the list of service classes. 
+<2> *Filter by Name* +
+Enter the name of the service class you want to search from the list of service classes. 
+<3> *Service Class List* +
+View the list of service classes created in the namespace. +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description
+|NAME|Name of a service class. Clicking on the name displays a window that allows you to check the detailed information of the service class.
+|NAMESPACE|Name of the namespace that the service class was created in. 
+|BINDABLE|Create or not service bindings. 
+
+* True: Create
+* False: Not create
+|EXTERNAL NAME|Name of the class to be referenced when creating a service instance. 
+|SERVICE BROKER|Name of the service broker that manages the service class.
+|CREATED|Time when a service class was created. 
+|====================
+
+== Service Plans
+
+Selecting *[Service Catalog]* -> *[Service Plans]* from the console menus displays the main screen of *Service Plans*. +
+In the main screen of *Service Plans*, you can create and view the `Service Plan` resources that provide service information such as cost, capacity, and quality of services. At this time, service plans are scoped to a particular namespace. 
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-service-plan-main]
+image::../images/figure_admin_service_plan_ns_main.png[]
+
+
+The following is the description of each area.
+
+<1> *Select Namespace* +
+Select a namespace to view the list of service plans.  
+<2> *Filter by Name* +
+Enter the name of the service plan you want to search from the list of service plans.
+<3> *Service Plan List* +
+View the list of service plans created in the namespace. +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description
+|NAME|UUID of a service plan. Clicking on the UUID displays a window that allows you to check the detailed information of the service plan. 
+|NAMESPACE|Name of the namespace that the service plan was created in. 
+|BINDABLE|Create or not service bindings.
+
+* True: Create
+* False: Not create
+|EXTERNAL NAME|Name of the class to be referenced when creating a service instance. 
+|SERVICE BROKER|Name of the service broker that manages service plan.
+|SERVICE CLASS|Name of the service class that includes the service plan. 
+|CREATED|Time when a service plan was created. 
+|====================
+
+== Cluster Service Brokers
+
+Selecting *[Service Catalog]* -> *[Cluster Service Brokers]* from the console menus displays the main screen of *Cluster Service Brokers*. +
+In the main screen of *Cluster Service Brokers*, you can create and view the `Cluster Service Broker` resources that provide all the information necessary to connect to service instances. At this time, service brokers are scoped to the entire cluster. 
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-cluster-service-broker-main]
+image::../images/figure_admin_service_broker_main.png[]
+
+
+The following is the description of each area.
+
+<1> *Create Cluster Service Broker* +
+Creat new cluster service brokers using the YAML editor.
+<2> *Filter by Name* +
+Enter the name of the cluster service broker you want to search from the list of cluster service brokers. 
+<3> *Cluster Service Broker List* +
+View the list of cluster service brokers created in the cluster. +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description  
+|NAME|Name of the cluster service broker. Clicking on the name displays a window that allows you to check the detailed information of the cluster service broker. +
+To delete or update the information about the cluster service broker, click
+image:../images/figure_action_icon.png[] (Config) beside the name.
+
+* Edit Labels: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Cluster Service Brokers: Update the configuration information of cluster service brokers using the YAML editor.
+* Delete Cluster Service Brokers: Delete cluster service brokers. 
+|URL|Service URL information of the cluster service broker server. 
+|STATUS|Current status of cluster service brokers.
+
+* Running: Can receive services normally from the service URL. 
+* Error: Cannot receive services normally from the service URL.
+|CREATED|Time when a cluster service broker was created. 
+|====================
+
+== Cluster Service Classes
+
+Selecting *[Service Catalog]* -> *[Cluster Service Classes]* from the console menus displays the main screen of *Cluster Service Classes*. +
+In the main screen of *Cluster Service Classes*, you can create and view the `Cluster Service Class` resources that define templates for using service instances in cluster service brokers.
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-cluster-service-class-main]
+image::../images/figure_admin_service_class_main.png[]
+
+
+The following is the description of each area.
+
+<1> *Filter by Name* +
+Enter the name of the cluster service class you want to search from the list of cluster service classes. 
+<2> *Cluster Service Class List* +
+View the list of cluster service classes created in the cluster. +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description
+|NAME|Name of the cluster service class. Clicking on the name displays a window that allows you to check the detailed information of the cluster service class.
+|BINDABLE|Create or not service bindings.
+
+* True: Create
+* False: Not create
+|EXTERNAL NAME|Name of the class to be referenced when creating a service instance. 
+|CLUSTER SERVICE BROKER|Name of the cluster service broker that manages the cluster service class.
+|CREATED|Time when a cluster service class was created. 
+|====================
+
+== Cluster Service Plans
+
+Selecting *[Service Catalog]* -> *[Cluster Service Plans]* from the console menus displays the main screen of *Cluster Service Plans*. +
+In the main screen of *Cluster Service Plans*, you can create and view the `Cluster Service Plan` resources that provide service information such as cost, capacity, and quality of services. 
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-cluster-service-plan-main]
+image::../images/figure_admin_service_plan_main.png[]
+
+
+The following is the description of each area.
+
+<1> *Filter by Name* +
+Enter the name of the cluster service plan you want to search from the list of cluster service plans. 
+<2> *Cluster Service Class List* +
+View the list of cluster service plans created in the cluster. +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|Item|Description
+|NAME|UUID of a cluster service plan. Clicking on the UUID displays a window that allows you to check the detailed information of the cluster service plan. 
+|NAMESPACE|Name of the namespace that the service plan was created in. 
+|BINDABLE|Create or not service bindings.
+
+* True: Create
+* False: Not create
+|EXTERNAL NAME|Name of the class to be referenced when creating a service instance. 
+|CLUSTER SERVICE BROKER|Name of the cluster service broker that manages the cluster service class.
+|CREATED|Time when a cluster service plan was created. 
+|====================
+
+== Service Instances
+
+Clicking *[Service Catalog]* -> *[Service Instances]* from the console menus displays the main screen of *Service Instances*. +
+In the main screen of *Service Instances*, you can create and view the `Service Instance` resources that provide service information such as cost, capacity, and quality of services. 
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-service-instance-main]
+image::../images/figure_admin_service_instance_main.png[]
+
+The following is the description of each area.
+
+<1> *Select Namespace* +
+Select a namespace to create service instances or view the list of service instances. 
+<2> *Create Service Instance* +
+Create new service instances using the form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the service instance you want to search from the list of service instances. 
+<4> *Service Instance List* +
+View the list of service instances created in the namespace.  +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description  
+|NAME|Name of the cluster service instance. Clicking on the name displays a window that allows you to check the detailed information of the service instance. +
+To delete or update the information about the service instance, click
+image:../images/figure_action_icon.png[](Config) beside the name.
+
+* Edit Labels: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Service Instances: Update the configuration information of the service instance using the YAML editor.
+* Delete Service Instances: Delete service instances.  
+|NAMESPACE|Name of the namespace that the service instance was created in. Clicking on the name opens a window that allows you to check the detailed information of the namespace.
+|SERVICE CLASS|Name of the service class referenced by the service instance.  
+|SERVICE PLAN|UUID of the service plan referenced by the service instance. 
+|CREATED|Time when a service instance was created. 
+|====================
+
+== Service Bindings
+
+Clicking *[Service Catalog]* -> *[Service Bindings]* from the console menus displays the main screen of *Service Bindings*. +
+In the main screen of *Service Bindings*, you can create and view the `Service Binding` resources that provide connection and authentication information of service instances. 
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-service-binding-main]
+image::../images/figure_admin_service_bind_main.png[]
+
+
+The following is the description of each area.
+
+<1> *Select Namespace* +
+Select a namespace to create service bindings or view the list of service bindings. 
+<2> *Create Service Bindings* +
+Create new service bindings using the form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the service binding you want to search from the list of service bindings. 
+<4> *Service Binding List* +
+View the list of service bindings created in the namespace.  +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3a"]3a"]
+|====================
+|Item|Description 
+|NAME|Name of the cluster service binding. Clicking on the name displays a screen that allows you to check the detailed information of the service binding. +
+To delete or update the information about the service binding, click
+image:../images/figure_action_icon.png[](Config) beside the name.
+
+* Edit Labels: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Service Bindings: Update the configuration information of the service binding using the YAML editor.
+* Delete Service Bindings: Delete service bindings
+|NAMESPACE|Name of the namespace that the service binding was created in. Clicking on the name opens a window that allows you to check the detailed information of the namespace.
+|SERVICE INSTANCE|Name of the service instance referenced by the service binding.  
+|SECRET|Name of the secret resource referenced by the service binding.
+|CREATED|Time when a service binding was created. 
+
+|====================
+
+== Catalog Service Claims
+
+Selecting *[Service Catalog]* -> *[Catalog Service Claims]* from the console menus displays the main screen of *Catalog Service Claims*. +
+In the main screen of *Catalog Service Claims*, you can create and view the `Catalog Service Claim` resources that define the requirements for creating templates.
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-catalog-claim-main]
+image::../images/figure_admin_catalog_claim_main.png[]
+
+
+The following is the description of each area.
+
+<1> *Select Namespace* +
+Select a namespace to create catalog service claims or view the list of catalog service claims. 
+<2> *Create Catalog Service Claims* +
+Create new catalog service claims using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the catalog service claim you want to search from the list of catalog service claims. 
+<4> *Catalog Service Claim List* +
+View the list of catalog service claims created in the namespace.  +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3a"]3a"]
+|====================
+|Item|Description 
+|NAME|Name of the catalog service claim. Clicking on the name displays a window that allows you to check the detailed information of the catalog service claim. +
+To delete or update the information about the catalog service claimg, click
+image:../images/figure_action_icon.png[](Config) beside the name.
+
+* Edit Labels: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Catalog Service Claims: Update the configuration information of the catalog service claim using the YAML editor.
+* Delete Catalog Service Claims: Delete catalog service claims.
+* Edit Status: Approve or not catalog service claims in the Awaiting status (Success, Reject)
+|NAMESPACE|Name of the namespace that is created through the namespace claim.
+|STATUS|Current approval status of catalog service claims.
+
+* Awaiting: Waiting for the claim to be approved 
+* Success: Claim approved
+* Reject: Claim rejected
+* Error: Catalog service creation failed
+|USER NAME|Name of the user who created the namespace claim.
+|CREATED|Time when a catalog service claim was created.
+
+|====================
+
+== Templates
+
+Selecting *[Service Catalog]* -> *[Templates]* from the console menus displays the main screen of *Templates*. +
+In the main screen of *Templates*, you can create and view the `Template` resources that define information on objects, plans, and parameters to be created as service instances and template instances.
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-template-main]
+image::../images/figure_admin_template_main.png[]
+
+
+The following is the description of each area.
+
+<1> *Select Namespace* +
+Select a namespace to create templates or view the list of templates. 
+<2> *Create Templates* +
+Create new templates using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the template you want to search from the list of templates.
+<4> *Template List* +
+View the list of templates created in the namespace.  +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description 
+|NAME|Name of the template. Clicking on the name displays a screen that allows you to check the detailed information of the template. +
+To delete or update the information about the template, click
+image:../images/figure_action_icon.png[](Config) beside the name.
+
+* Edit Labels: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Templates: Update the configuration information of the template using the YAML editor.
+* Delete Template: Delete templates.
+|NAMESPACE|Name of the namespace that the template was created in. Clicking on the name opens a window that allows you to check the detailed information of the namespace.
+|OBJECT COUNT|The number of objects defined in the template.
+|CREATED|Time when a template was created. 
+|====================
+
+== Template Instances
+
+Selecting *[Service Catalog]* -> *[Template Instances]* from the console menus displays the main screen of *Template Instances*. +
+In the main screen of *Template Instances*, you can use the define templates to create and view the ``Instances`` of available services. 
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-template-instance-main]
+image::../images/figure_admin_template_instance_main.png[]
+
+The following is the description of each area.
+
+<1> *Select Namespace* +
+Select a namespace to create template instances or view the list of template instances. 
+<2> *Create Template Instances* +
+Create new template instances using the form or YAML editor.
+<3> *Filter by Name* +
+Enter the name of the template instance you want to search from the list of template instances.
+<4> *Template Instance List* +
+View the list of template instances created in the namespace.  +
+The following is the description of each item.
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description 
+|NAME|Name of the template instance. Clicking on the name displays a screen that allows you to check the detailed information of the template. +
+To delete or update the information about the template instance, click
+image:../images/figure_action_icon.png[](Config) beside the name.
+
+* Edit Label: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Template Instances: Update the configuration information of the template using the YAML editor.
+* Delete Template Instances: Delete template instances.
+|NAMESPACE|Name of the namespace that the template instance was created in. Clicking on the name opens a window that allows you to check the detailed information of the namespace.
+|PARAMETER COUNT|The number of parameters defined in the template instance.
+|STATUS|Status of an object defined in the template. 
+
+* Running: Object created successfully.
+* Error: Object creation failed.
+|CREATED|Time when a template instance was created. 
+|====================
