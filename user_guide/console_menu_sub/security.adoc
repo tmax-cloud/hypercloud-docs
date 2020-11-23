@@ -14,7 +14,7 @@ This chapter describes the layout and functions of the submenus.
 
 == Pod Security Policies
 
-Clicking *[Security]* -> *[Pod Security Policies]* from the console menus displays the main screen of *Pod Security Policies*. +
+Selecting *[Security]* -> *[Pod Security Policies]* from the console menus displays the main screen of *Pod Security Policies*. +
 In the main screen of *Pod Security Policies*, you can create and view the `Pod Security Policies` that grant granular permission to create and update Pods. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -75,9 +75,9 @@ If you enable the policy without approving it, no pod is generated in the cluste
 After that, you can create a cluster role in the pod security policy created using Role-Based Access Control (RBAC), assign the generated cluster role to the service account, and apply the policy.
 
 
-== Network Policy
+== Network Policies
 
-Clicking *[Security]* -> *[Network Policies]* from the console menus displays the main screen of *Network Policies*. +
+Selecting *[Security]* -> *[Network Policies]* from the console menus displays the main screen of *Network Policies*. +
 In the main screen of *Network Policies*, you can create and view the `Network Policies` that control traffic to or from pods.  
 
 //[caption="그림. "] //캡션 제목 변경
