@@ -1,0 +1,67 @@
+= Push Images to a Registry
+
+You can push an image to the registry you created and use that image to create a pod.
+
+NOTE: Image registration is explained based on Docker installed on Linux. 
+
+. Select *[Image]* -> *[Registries]* from the console menus and then click a registry from the registry list. 
++
+image::../images/figure_image_push_01.png[]
+
+. In the Registry Overview window, check that the **'STATUS'** is **'Running'** and then click configuration information of the **'ANNOTATIONS'**. 
++
+image::../images/figure_image_push_02.png[]
+
+. In the *[Edit Annotations]* dialog box, check the value of the *'tmax.io/registry-login-url'* key.
++
+image::../images/figure_image_push_03.png[]
+
+. Select *[Workload]* -> *[Secrets]* from the console menus and then click the secret created as **'hcpd-{registry name}'** from the list of secrets. 
++
+image::../images/figure_image_push_04.png[]
+
+. In the Secret Overview, double-click  image:../images/figure_copy_icon.png[] (Copy to Clipboard) to copy the *'LOCALHUB.CRT'* value from the *'Data'* section in order to copy the credential file. 
++
+image::../images/figure_image_push_05.png[]
+
+. In the environment where Docker is installed, create a directory under the path */etc/docker/certs.d*. +
+The name of the directory contains the information from the *'tmax.io/registry-login-url'* key value checked in Step 3, except for the protocol (\https://).
+
++
+----
+mkdir 172.21.4.213:443
+----
+
+. Go to the created directory. 
++
+----
+cd 172.21.4.213:443
+----
+
+. Create the credentials copied in Step 5 as a .crt file.
++
+----
+cat << EOF > {Name of the file to be created}.crt \
+> {Paste the copied credentials}
+> EOF
+----
+
+. Login to the registry.
++
+----
+docker login 172.21.4.213:443
+----
+
+. Push the image to the registry.
++
+----
+docker push 172.21.4.213:443/{Image Name}:{Tag}
+----
+
+. Create a pod by using the image added to the registry. +
+Set **'hpcd-registry-{Registry Name}'** to the name of the imagePullSecrets item in the YAML file of the pod to be created.
++
+----
+imagePullSecrets: 
+  - name: hpcd-registry-example
+----
