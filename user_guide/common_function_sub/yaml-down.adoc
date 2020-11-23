@@ -1,9 +1,9 @@
 = Download YAML Files
 
-You can create resources in the form of .yaml files by downloading YAML content created in the YAML editor.
+You can create resources in the form of .yaml files by downloading the YAML contents created in the YAML editor.
 
-. Go to the home screen of the console menu that allows you to access the resource to be dowloaded as YAML. Click the resource name to be downloaded. 
+. Go to the main view of the console menu that allows you to access the resource to be downloaded as YAML. Click the resource name to be downloaded. 
 
 . In the Resource Information that opens, click *[YAML]*. 
-. In the YAML editor that opens, click *[Download]* in the lower-left corner of the editor. 
-. The YAML contents are automatically saved in a .yaml file. You can check the saved files from the Downloads foler that is saved in the browser. 
+. In the YAML editor that opens, click *[Download]* in the lower-right corner of the editor. 
+. The YAML contents are automatically saved in a .yaml file. You can check the saved files from the Downloads folder that is saved in the browser. 
