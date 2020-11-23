@@ -1,381 +1,372 @@
-= [서비스 메시] 메뉴
+= [Service Mesh] Menu
 :toc:
 :toc-title:
 
-*[서비스 메시]* 메뉴는 네트워크 트래픽을 관리할 수 있는 메뉴이다.
+*[Service Mesh]* menu allows you to manage network traffic.
 [width="100%",options="header", cols="1,3"]
 |====================
-|하위 메뉴|기능
-|가상 서비스|지정한 호스트의 트래픽 동작을 확인할 수 있는 "가상 서비스"의 생성 및 조회
-|목적지 룰|호스트에 발생하는 트래픽에 대한 작업을 설정하는 "목적지 룰"의 생성 및 조회
-|엔보이 필터|특정 라우팅 규칙, 프로토콜, 특정 메시지 형식만 허용하도록 필터링을 설정하는 "엔보이 필터"의 생성 및 조회
-|게이트웨이|인바운드 및 아웃바운드 트래픽을 관리하는 "게이트웨이"의 생성 및 조회
-|사이드카|연결된 워크로드 인스턴스에 대한 인바운드 및 아웃바운드 통신을 중재하기 위해 프록시 구성을 설정할 수 있는 "사이드카"의 생성 및 조회
-|서비스 엔트리|서비스 속성(DNS 이름, VIP, 포트, 프로토콜, 엔드포인트)을 정의하는 "서비스 엔트리"의 생성 및 조회
-|요청 인증|워크로드 인스턴스에 지원되는 요청 인증 방식을 지정할 수 있는 "요청 인증"의 생성 및 조회
-|피어 인증|트래픽이 사이드카로 터널링되거나 터널링되지 않는 방식을 정의하는 "피어 인증"의 생성 및 조회
-|인가 정책|메시의 워크로드에 대한 접근 제어를 관리하는 "인가 정책"의 생성 및 조회
-|키알리|메시의 서비스 그래프 및 Istio 설정 정보를 확인
+|Submenu|Function
+|Virtual Services|Create and view the "Virtual Services" that display the traffic handling on a specified host. 
+|Destination Rules|Create and view the "Destination Rules" that specify the management of traffic that occurs on the host. 
+|Envoy Filters|Create and view the "Envoy Filters" that specify filtering to allow only specific routing rules, protocols, and message types. 
+|Gateways|Create and view the "Gateways" that manage inbound and outbound traffic. 
+|SideCars|Create and view the "SideCars" that specify proxy settings to manage inbound and outbound communication for the instances of connected workloads. 
+|Service Entries|Create and view the "Service Entries" that specify service properties (DNS name, VIP, port, protocol, and endpoint). 
+|Request Authentications|Create and view the "Request Authentications" that specify the request authentication methods supported by workload instances.  
+|Peer Authentications|Create and view the "Peer Authentications" that define how traffic is tunneled or not tunneled to the sidecar. 
+|Authorization Policies|Create and view the "Authorization Policies" that manage access control to mesh workloads. 
+|Kiali|View the service graph and Istio configuration information of mesh.
 |====================
 
-본 장에서는 하위 메뉴의 화면 구성과 기능에 대해서 설명한다.
+This chapter describes the layout and functions of the submenus. 
 
-== 가상 서비스
+== Virtual Services
 
-콘솔 메뉴에서 *[서비스 메시]* -> *[가상 서비스]* 메뉴를 선택하면 *가상 서비스* 메인 화면으로 이동한다. +
-*가상 서비스* 메인 화면에서는 지정한 호스트의 트래픽 동작을 확인할 수 있는 `가상 서비스` 리소스를 생성 및 조회할 수 있다.
+Selecting *[Service Mesh]* -> *[Virtual Services]* from the console menus displays the main screen of *Virtual Services*. +
+In the main screen of *Virtual Services*, you can create and view the `Virtual Service` resources that display the traffic handling on a specified host. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-virtual-service-main]
 image::../images/figure_admin_virtual_service_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *네임스페이스 선택* +
-가상 서비스를 생성하거나 가상 서비스 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 가상 서비스를 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 가상 서비스 목록에서 조회할 가상 서비스의 이름을 입력한다.
-<4> *가상 서비스 목록* +
-네임스페이스에 생성된 가상 서비스 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create virtual services or view the list of virtual services. 
+<2> *Create Virtual Service* +
+Create virtual services using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the virtual service you want to search from the list of virtual services. 
+<4> *Virtual Service List* +
+View the list of virtual services created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|가상 서비스의 이름이다. 이때 이름을 클릭하면 해당 가상 서비스의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 가상 서비스를 삭제하거나 정보를 수정할 수 있다.
+|Item|Description   
+|NAME|Name of a virtual service. Clicking on the name displays a window that allows you to check the detailed information of the virtual service. +
+To delete or update the information about the virtual service, click 
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 가상 서비스 수정 : YAML 에디터를 사용해 가상 서비스의 구성 정보를 수정
-* 가상 서비스 삭제 : 가상 서비스를 삭제
-|네임스페이스|가상 서비스가 생성된 네임스페이스의 이름이다.
-|호스트|트래픽이 전달되는 대상이다.
-|GATEWAY|라우팅 규칙을 적용할 게이트웨이의 이름이다.
-|생성 시간|가상 서비스가 생성된 시간이다.
+* Edit Labels: Add or delete the labels to identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resource
+* Edit Virtual Services: Update the configuration information of the virtual service using the YAML editor
+* Delete Virtual Services: Delete virtual services
+|NAMESPACE|Name of the namespace that the virtual service was created in
+|HOST|Destination to which the traffic is sent
+|GATEWAY|The name of the gateway to which the routing rule is applied.
+|CREATED|Time when a virtual service was created
 |====================
 
-= 목적지 룰
+= Destination Rules
 
-콘솔 메뉴에서 *[서비스 메시]* -> *[목적지 룰]* 메뉴를 선택하면 *목적지 룰* 메인 화면으로 이동한다. +
-*목적지 룰* 메인 화면에서는 호스트에 발생하는 트래픽에 대한 작업을 설정하는 `목적지 룰` 리소스를 생성 및 조회할 수 있다.
+Selecting *[Service Mesh]* -> *[Destination Rules]* from the console menus displays the main screen of *Destination Rules*. +
+In the main screen of *Destination Rules*, you can create and view the `Destination Rule` resources that configure the the management of traffic that occurs on the host. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-destination-rule-main]
 image::../images/figure_admin_destination_rule_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *네임스페이스 선택* +
-목적지 룰을 생성하거나 목적지 룰 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 목적지 룰을 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 목적지 룰 목록에서 조회할 목적지 룰의 이름을 입력한다.
-<4> *목적지 룰 목록* +
-네임스페이스에 생성된 목적지 룰 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create destination rules or view the list of destination rules. 
+<2> *Create Destination Rule* +
+Create new destination rules using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the destination rules you want to search from the list of destination rules. 
+<4> *Destination Rule List* +
+View the list of destination rules created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|목적지 룰의 이름이다. 이때 이름을 클릭하면 해당 목적지 룰의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 목적지 룰을 삭제하거나 정보를 수정할 수 있다.
+|Item|Description   
+|NAME|Name of a destination rule. Clicking on the name displays a window that allows you to check the detailed information of the destination rule. +
+To delete or update the information about the destination rule, click 
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 목적지 룰 수정 : YAML 에디터를 사용해 목적지 룰의 구성 정보를 수정
-* 목적지 룰 삭제 : 목적지 룰을 삭제
-|네임스페이스|목적지 룰이 생성된 네임스페이스의 이름이다.
-|호스트|트래픽 정책이 적용될 대상이다.
-|생성 시간|목적지 룰이 생성된 시간이다.
+* Edit Labels: Add or delete the labels to identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resource
+* Edit Destination Rules: Update the configuration information of destination rules using the YAML editor
+* Delete Destination Rules: Delete destination rules
+|NAMESPACE|Name of the namespace that the destination rule was created in.
+|HOST|Destination to which the traffic is sent
+|CREATED|Time when a destination rule was created
 |====================
 
-= 엔보이 필터
+= Envoy Filters
 
-콘솔 메뉴에서 *[서비스 메시]* -> *[엔보이 필터]* 메뉴를 선택하면 *엔보이 필터* 메인 화면으로 이동한다. +
-*엔보이 필터* 메인 화면에서는 트래픽에 대한 라우팅 규칙을 정의하는 `엔포이 필터` 리소스를 생성 및 조회할 수 있다.
+Selecting *[Service Mesh]* -> *[Envoy Filters]* from the console menus displays the main screen of *Envoy Filters*. +
+In the main screen of *Envoy Filters*, you can create and view the `Envoy Filter` resources that define routing rules for traffic. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-envoy-filter-main]
 image::../images/figure_admin_envoy_filter_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *네임스페이스 선택* +
-엔보이 필터를 생성하거나 엔보이 필터 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 엔보이 필터를 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 엔보이 필터 목록에서 조회할 엔보이 필터의 이름을 입력한다.
-<4> *엔보이 필터 목록* +
-네임스페이스에 생성된 엔보이 필터 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create envoy filters or view the list of envoy filters. 
+<2> *Create Envoy Filter* +
+Create new envoy filters using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the envoy filter you want to search from the list of envoy filters.
+<4> *Envoy Filter List* +
+View the list of envoy filters created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|엔보이 필터의 이름이다. 이때 이름을 클릭하면 해당 엔보이 필터의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 엔보이 필터를 삭제하거나 정보를 수정할 수 있다.
+|Item|Description  
+|NAME|Name of an envoy filter. Clicking on the name displays a screen that allows you to check the detailed information of the envoy filter. +
+To delete or update the information about the envoy filter, click  
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 엔보이 필터 수정 : YAML 에디터를 사용해 엔보이 필터의 구성 정보를 수정
-* 엔보이 필터 삭제 : 엔보이 필터를 삭제
-|네임스페이스|엔보이 필터가 생성된 네임스페이스의 이름이다.
-|생성 시간|엔보이 필터가 생성된 시간이다.
+* Edit Labels: Add or delete the labels to identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resource.
+* Edit Envoy Filters: Update the configuration information of envoy filters using the YAML editor.
+* Delete Envoy Filters: Delete envoy filters. 
+|NAMESPACE|Name of the namespace that the envoy filter was created in.
+|CREATED|Time when an envoy filter was created.
 |====================
 
-= 게이트웨이
+= Gateways
 
-콘솔 메뉴에서 *[서비스 메시]* -> *[게이트웨이]* 메뉴를 선택하면 *게이트웨이* 메인 화면으로 이동한다. +
-*게이트웨이* 메인 화면에서는 인바운드 및 아웃바운드 트래픽을 관리하는 `게이트웨이` 리소스를 생성 및 조회할 수 있다.
+Selecting *[Service Mesh]* -> *[Gateways]* from the console menus displays the main screen of *Gateways*. +
+In the main screen of *Gateways*, you can create and view the `Gateway` resources that manage inbound and outbound traffic.  
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-gateway-main]
 image::../images/figure_admin_gateway_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *네임스페이스 선택* +
-게이트웨이를 생성하거나 게이트웨이 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 게이트웨이를 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 게이트웨이 목록에서 조회할 게이트웨이의 이름을 입력한다.
-<4> *게이트웨이 목록* +
-네임스페이스에 생성된 게이트웨이 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create gateways or view the list of gateways. 
+<2> *Create Gateway* +
+Create new gateways using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the gateway you want to search from the list of gateways.
+<4> *Gateway List* +
+View the list of gateways created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|게이트웨이의 이름이다. 이때 이름을 클릭하면 해당 게이트웨이의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 게이트웨이를 삭제하거나 정보를 수정할 수 있다.
+|Item|Description 
+|NAME|Name of a gateway. Clicking on the name displays a screen that allows you to check the detailed information of the gateway. +
+To delete or update the information about the gateway, click  
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 게이트웨이 수정 : YAML 에디터를 사용해 게이트웨이의 구성 정보를 수정
-* 게이트웨이 삭제 : 게이트웨이를 삭제
-|네임스페이스|게이트웨이가 생성된 네임스페이스의 이름이다.
-|생성 시간|게이트웨이가 생성된 시간이다.
+* Edit Labels: Add or delete the labels to identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resource.
+* Edit Gateways: Update the configuration information of gateways using the YAML editor.
+* Delete Gateways: Delete gateways.
+|NAMESPACE|Name of the namespace that the gateway was created in.
+|CREATED|Time when a gateway was created.
 |====================
 
-= 사이드카
+= SideCars
 
-콘솔 메뉴에서 *[서비스 메시]* -> *[사이드카]* 메뉴를 선택하면 *사이드카* 메인 화면으로 이동한다. +
-*사이드카* 메인 화면에서는 연결된 워크로드 인스턴스에 대한 인바운드 및 아웃바운드 통신을 중재하기 위해 프록시 구성을 설정할 수 있는 `사이드카` 리소스를 생성 및 조회할 수 있다.
+Selecting *[Service Mesh]* -> *[SideCars]* from the console menus displays the main screen of *SideCars*. +
+In the main screen of *SideCars*, you can create and view the `SideCar` resources that allow you to set up proxy settings to manage inbound and outbound communication for the instances of connected workloads.   
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-sidecar-main]
 image::../images/figure_admin_sidecar_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *네임스페이스 선택* +
-사이드카를 생성하거나 사이드카 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 사이드카를 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 사이드카 목록에서 조회할 사이드카의 이름을 입력한다.
-<4> *사이드카 목록* +
-네임스페이스에 생성된 사이드카 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create SideCars or view the list of SideCars.
+<2> *Create SideCar* +
+Create new sidecars using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the SideCar you want to search from the list of SideCars.
+<4> *SideCar List* +
+View the list of SideCars created in the namespace.  +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|사이드카의 이름이다. 이때 이름을 클릭하면 해당 사이드카의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 사이드카를 삭제하거나 정보를 수정할 수 있다.
+|Item|Description   
+|NAME|Name of a SideCar. Clicking on the name displays a window that allows you to check the detailed information of the SideCar. +
+To delete or update the information about the sidecar, click   
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 사이드카 수정 : YAML 에디터를 사용해 사이드카의 구성 정보를 수정
-* 사이드카 삭제 : 사이드카를 삭제
-|네임스페이스|사이드카가 생성된 네임스페이스의 이름이다.
-|생성 시간|사이드카가 생성된 시간이다.
+* Edit Labels: Add or delete the labels to identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resource.
+* Edit SideCars: Update the configuration information of SideCars using the YAML editor.
+* Delete SideCars: Delete SideCars.
+|NAMESPACE|Name of the namespace that the SideCar was created in.
+|CREATED|Time when the SideCar was created.
 |====================
 
-= 서비스 엔트리
+= Service Entries
 
-콘솔 메뉴에서 *[서비스 메시]* -> *[서비스 엔트리]* 메뉴를 선택하면 *서비스 엔트리* 메인 화면으로 이동한다. +
-*서비스 엔트리* 메인 화면에서는 서비스 속성(DNS 이름, VIP, 포트, 프로토콜, 엔드포인트)을 정의하는 `서비스 엔트리` 리소스를 생성 및 조회할 수 있다.
+Selecting *[Service Mesh]* -> *[Service Entries]* from the console menus displays the main screen of *Service Entries*. +
+In the main screen of *Service Entries*, you can create and view the `Service Entry` resources that define service properties (DNS name, VIP, port, protocol, and endpoint). 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-service-entry-main]
 image::../images/figure_admin_service_entry_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *네임스페이스 선택* +
-서비스 엔트리를 생성하거나 서비스 엔트리 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 서비스 엔트리를 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 서비스 엔트리 목록에서 조회할 서비스 엔트리의 이름을 입력한다.
-<4> *서비스 엔트리 목록* +
-네임스페이스에 생성된 서비스 엔트리 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create service entries or view the list of service entries. 
+<2> *Create Service Entry* +
+Create new service entries using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the service entry you want to search from the list of service entries.
+<4> *Service Entry List* +
+View the list of service entries created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|서비스 엔트리의 이름이다. 이때 이름을 클릭하면 해당 서비스 엔트리의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 서비스 엔트리를 삭제하거나 정보를 수정할 수 있다.
+|Item|Description
+|NAME|Name of a service entry. Clicking on the name displays a window that allows you to check the detailed information of the service entry.  +
+To delete or update the information about the service entry, click  
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 서비스 엔트리 수정 : YAML 에디터를 사용해 서비스 엔트리의 구성 정보를 수정
-* 서비스 엔트리 삭제 : 서비스 엔트리를 삭제
-|네임스페이스|서비스 엔트리가 생성된 네임스페이스의 이름이다.
-|생성 시간|서비스 엔트리가 생성된 시간이다.
+* Edit Labels: Add or delete the labels to identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resource.
+* Edit Service Entries: Update the configuration information of the service entry using the YAML editor.
+* Delete Service Entries: Delete service entries.
+|NAMESPACE|Name of the namespace that the service entry was created in.
+|CREATED|Time when a service entry was created.
 |====================
 
-= 요청 인증
+= Request Authentications
 
-콘솔 메뉴에서 *[서비스 메시]* -> *[요청 인증]* 메뉴를 선택하면 *요청 인증* 메인 화면으로 이동한다. +
-*요청 인증* 메인 화면에서는 워크로드 인스턴스에 지원되는 요청 인증 방식을 지정할 수 있는 `요청 인증` 리소스를 생성 및 조회할 수 있다.
+Selecting *[Service Mesh]* -> *[Request Authentications]* from the console menus displays the main screen of *Request Authentications*. +
+In the main screen of *Request Authentications*, you can create and view the `Request Authentication` resources that allow you to specify the request authentication methods supported by workload instances.  
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-request-auth-main]
 image::../images/figure_admin_request_auth_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *네임스페이스 선택* +
-요청 인증을 생성하거나 요청 인증 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 요청 인증을 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 요청 인증 목록에서 조회할 요청 인증의 이름을 입력한다.
-<4> *요청 인증 목록* +
-네임스페이스에 생성된 요청 인증 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create request authentications or view the list of request authentications. 
+<2> *Create Request Authentication* +
+Create new request authentications using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the request authentication you want to search from the list of request authentications.
+<4> *Request Authentication List* +
+View the list of request authentications created in the namespace.  +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|요청 인증의 이름이다. 이때 이름을 클릭하면 해당 요청 인증의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 요청 인증을 삭제하거나 정보를 수정할 수 있다.
-
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 요청 인증 수정 : YAML 에디터를 사용해 요청 인증의 구성 정보를 수정
-* 요청 인증 삭제 : 요청 인증을 삭제
-|네임스페이스|요청 인증이 생성된 네임스페이스의 이름이다.
-|생성 시간|요청 인증이 생성된 시간이다.
+|Item|Description 
+|NAME|Name of a request authentication. Clicking on the name displays a screen that allows you to check the detailed information of the request authentication. +
+To delete or update the information about the request authentication, click   
+image:../images/figure_action_icon.png[] (Config) beside the name.
+* Edit Labels: Add or delete the labels to identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resource.
+* Edit Request Authentications: Update the configuration information of request authentications using the YAML editor.
+* Delete Request Authentications: Delete request authentications.
+|NAMESPACE|Name of the namespace that the request authentication was created in.
+|CREATED|Time when a request authentication was created.
 |====================
 
-= 피어 인증
+= Peer Authentications
 
-콘솔 메뉴에서 *[서비스 메시]* -> *[피어 인증]* 메뉴를 선택하면 *피어 인증* 메인 화면으로 이동한다. +
-*피어 인증* 메인 화면에서는 트래픽이 사이드카로 터널링되거나 터널링되지 않는 방식을 정의하는 `피어 인증` 리소스를 생성 및 조회할 수 있다.
+Selecting *[Service Mesh]* -> *[Peer Authentications]* from the console menus displays the main screen of *Peer Authentications*. +
+In the main screen of *Peer Authentications*, you can create and view the `Peer Authentication` resources that allow you to specify how traffic is tunneled or not tunneled to the sidecar. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-peer-auth-main]
 image::../images/figure_admin_peer_auth_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *네임스페이스 선택* +
-피어 인증을 생성하거나 피어 인증 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 피어 인증을 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 피어 인증 목록에서 조회할 피어 인증의 이름을 입력한다.
-<4> *요청 인증 목록* +
-네임스페이스에 생성된 피어 인증 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create peer authentications or view the list of peer authentications. 
+<2> *Create Peer Authentication* +
+Create new peer authentications using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the peer authentication you want to search from the list of peer authentications. 
+<4> *Peer Authentication List* +
+View the list of peer authentications created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|피어 인증의 이름이다. 이때 이름을 클릭하면 해당 피어 인증의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 피어 인증을 삭제하거나 정보를 수정할 수 있다.
+|Item|Description   
+|NAME|Name of a peer authentication. Clicking on the name displays a window that allows you to check the detailed information of the peer authentication. +
+To delete or update the information about the peer authentication, click
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 피어 인증 수정 : YAML 에디터를 사용해 피어 인증의 구성 정보를 수정
-* 피어 인증 삭제 : 피어 인증을 삭제
-|네임스페이스|피어 인증이 생성된 네임스페이스의 이름이다.
-|생성 시간|피어 인증이 생성된 시간이다.
+* Edit Labels: Add or delete the labels to identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resource.
+* Edit Peer Authentications: Update the configuration information of peer authentications using the YAML editor.
+* Delete Peer Authentications: Delete peer authentications.
+|NAMESPACE|Name of the namespace that the peer authentication was created in.
+|CREATED|Time when a peer authentication was created.
 |====================
 
-= 인가 정책
+= Authorization Policies
 
-콘솔 메뉴에서 *[서비스 메시]* -> *[인가 정책]* 메뉴를 선택하면 *인가 정책* 메인 화면으로 이동한다. +
-*인가 정책* 메인 화면에서는 메시의 워크로드에 대한 접근 제어를 관리하는 `인가 정책` 리소스를 생성 및 조회할 수 있다.
+Selecting *[Service Mesh]* -> *[Authorization Policies]* from the console menus displays the main screen of *Authorization Policies*. +
+In the main screen of *Authorization Policies*, you can create and view the `Authorization Policy` resources that allow you to manage access control to mesh workloads. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-auth-policy-main]
 image::../images/figure_admin_auth_policy_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *네임스페이스 선택* +
-인가 정책을 생성하거나 인가 정책 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 인가 정책을 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 인가 정책 목록에서 조회할 인가 정책의 이름을 입력한다.
-<4> *인가 정책 목록* +
-네임스페이스에 생성된 인가 정책 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create authorization policies or view the list of authorization policies. 
+<2> *Create Authorization Policy* +
+Create new authorization policies using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the authorization policy you want to search from the list of authorization policies. 
+<4> *Authorization Policy List* +
+View the list of authorization policies created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|인가 정책의 이름이다. 이때 이름을 클릭하면 해당 인가 정책의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 인가 정책을 삭제하거나 정보를 수정할 수 있다.
+|Item|Description 
+|NAME|Name of an authorization policy. Clicking on the name displays a screen that allows you to check the detailed information of the authorization policy. +
+To delete or update the information about the authorization policy, click
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 인가 정책 수정 : YAML 에디터를 사용해 인가 정책의 구성 정보를 수정
-* 인가 정책 삭제 : 인가 정책을 삭제
-|네임스페이스|인가 정책이 생성된 네임스페이스의 이름이다.
-|생성 시간|인가 정책이 생성된 시간이다.
+* Edit Labels: Add or delete the labels to identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resource.
+* Edit Authorization Policies: Update the configuration information of authorization policies using the YAML editor.
+* Delete Authorization Policies: Delete authorization policies. 
+|NAMESPACE|Name of the namespace that the authorization policy was created in.
+|CREATED|Time when an authorization policy was created.
 |====================
 
-= 키알리
+= Kiali
 
-콘솔 메뉴에서 *[서비스 메시]* -> *[키알리]* 메뉴를 선택하면 *키알리* 메인 화면으로 이동한다. +
-*키알리* 메인 화면에서는 메시의 서비스 그래프 및 Istio 설정 정보를 확인할 수 있다. 키알리 툴의 사용 방법에 대한 자세한 설명은 link:https://kiali.io/documentation/latest/features/[키알리 설명서]를 참고한다.
+Selecting *[Service Mesh]* -> *[Kiali]* from the console menus displays the main screen of *Kiali*.
+In the main screen of *Kiali*, you can create and view the service graph and Istio configuration information of mesh. +
+For more information about the Kiali tool, refer to link:https://kiali.io/documentation/latest/features/[kiali documentation].
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-kiali-main]
 image::../images/figure_admin_kiali_main.png[]
 
-키알리에서 제공하는 주요 메뉴에 대한 설명은 다음과 같다.
+The following is the description of key features.
 
 * *Overview* +
-네임스페이스 목록 조회
+View the list of namespaces. 
 * *Graph* +
-istio-proxy가 추가된 컨테이너의 트래픽 이동 그래프 조회
+View the traffic movement graph for containers with istio-proxy added. 
 * *Applications* +
-네임스페이스 내 istio-proxy가 추가된 애플리케이션 목록 조회
+View the traffic movement graph for applications with istio-proxy added. 
 * *Workloads* +
-애플리케이션의 워크로드 조회
+View application workloads. 
 * *Services* +
-애플리케이션의 서비스 조회
+View application services. 
 * *Istio Config* +
-Istio의 구성 정보(가상 서비스, 목적지 룰, 엔보이 필터, 게이트웨이, 사이드카, 서비스 엔트리, 요청 인증, 피어 인증, 인가 정책) 조회
+View Istio configuration information (virtual services, destination rules, envoy filters, gateways, SideCars, service entries, request authentications, peer authentications, authorization policies). 
