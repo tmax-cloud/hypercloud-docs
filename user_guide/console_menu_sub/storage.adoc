@@ -1,172 +1,167 @@
-= [스토리지] 메뉴
+= [Storage] Menu
 :toc:
 :toc-title:
 
-*[스토리지]* 메뉴는 데이터를 저장하기 위해 사용하는 리소스들을 관리할 수 있는 메뉴이다.
+*[Storage]* menu allows you to manage the resources used to store data. 
 [width="100%",options="header", cols="1,3"]
 |====================
-|하위 메뉴|기능
-|스토리지 클래스|스토리지에 대한 정책 및 타입을 정의하는 "스토리지 클래스"의 생성 및 조회
-|데이터 볼륨|데이터를 다른 컨테이너와 공유하거나 호스트에서 접근하기 위한 "데이터 볼륨"의 생성 및 조회
-|영구 볼륨 클레임|영구 볼륨의 사용을 위한 요청 명세를 관리하는 "영구 볼륨 클레임"의 생성 및 조회
-|영구 볼륨|클러스터의 내구성 있는 저장소인 "영구 볼륨"의 생성 및 조회
+|Submenu|Function
+|Storage Classes|Create and view the "Storage Classes" that define storage policies and types. 
+|Data Volumes|Create and view "Data Volumes" for sharing data with another container or accessing it from the host.
+|Persistent Volume Claims|Create and view the "Persistent Volume Claims" that manage the requests for using persistent volumes. 
+|Persistent Volumes|Create and view the "Persistent Volumes" which are durable storage of the cluster.  
 |====================
 
-본 장에서는 하위 메뉴의 화면 구성과 기능에 대해서 설명한다.
+This chapter describes the layout and functions of the submenus.
 
-== 스토리지 클래스
+== Storage Classes
 
-콘솔 메뉴에서 *[스토리지]* -> *[스토리지 클래스]* 메뉴를 선택하면 *스토리지 클래스* 메인 화면으로 이동한다. +
-*스토리지 클래스* 메인 화면에서는 스토리지에 대한 정책 및 타입을 정의하는 ``스토리지 클래스``를 생성 및 조회할 수 있다.
+Selecting *[Storage]* -> *[Storage Classes]* from the console menus displays the main screen of *Storage Classes*. +
+In the main screen of *Storage Classes*, you can create and view the `Storage Classes` that define the policies and types of storages. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-storage-class-main]
 image::../images/figure_admin_storage_class_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *생성 버튼* +
-새로운 스토리지 클래스를 YAML 에디터를 사용해 생성한다.
-<2> *이름 검색* +
-전체 스토리지 클래스 목록에서 조회할 스토리지 클래스의 이름을 입력한다.
-<4> *스토리지 클래스 목록* +
-클러스터에 생성된 스토리지 클래스 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Create Storage Class* +
+Create new storage classes using the form or YAML editor. 
+<2> *Filter by Name* +
+Enter the name of the storage class you want to search from the list of storage classes.
+<4> *Storage Class List* +
+View the list of storage classes created in the cluster. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|스토리지 클래스의 이름이다. 이때 이름을 클릭하면 해당 스토리지 클래스의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 스토리지 클래스를 삭제하거나 정보를 수정할 수 있다.
+|Item|Description 
+|NAME|Name of a storage class. Clicking on the name displays a window that allows you to check the detailed information of the storage class. +
+To delete or update the information about the storage class, click 
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 스토리지 클래스 수정 : YAML 에디터를 사용해 스토리지 클래스의 구성 정보를 수정
-* 스토리지 클래스 삭제 : 스토리지 클래스를 삭제
-|임시의|영구 볼륨의 프로비저닝에 사용되는 볼륨 플러그인의 정보이다.
-|반환 정책|사용이 끝난 영구 볼륨의 처리 방식에 대한 정보이다.
+* Edit Labels: Add or delete the labels that identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources
+* Edit Storage Classes: Update the configuration information of storage classes using the YAML editor
+* Delete Storage Classes: Delete storage classes 
+|PROVISIONER|Information on the volume plug-in used to provision persistent volumes.
+|RECLAIM POLICY|Information on the processing method of used permanent volumes.
 
-* Retain : 볼륨을 삭제하지 않고, 데이터를 보존
-* Delete : 볼륨을 삭제
-|기본 클래스|영구 볼륨의 프로비저닝에 기본적으로 사용되는 스토리지 클래스인지를 표시한다.
+* Retain: Not delete volumes but save data. 
+* Delete: Delete volumes
+|DEFAULT CLASS|Wwhether the storage class is used for provisioning persistent volumes by default. 
 
-* true : 사용
-* false : 사용 안 함
+* true : Used
+* false : Not used
 |====================
 
-== 데이터 볼륨
+== Data Volumes
 
-콘솔 메뉴에서 *[스토리지]* -> *[데이터 볼륨]* 메뉴를 선택하면 *데이터 볼륨* 메인 화면으로 이동한다. +
-*데이터 볼륨* 메인 화면에서는 데이터를 다른 컨테이너와 공유하거나 호스트에서 접근하기 위한 ``데이터 볼륨``을 생성 및 조회할 수 있다.
+Selecting *[Storage]* -> *[Data Volumes]* from the console menus displays the main screen of *Data Volumes*. +
+In the main screen of *Data Volumes*, you can create and view the `Data Volumes` that allow you to share data with another container or access it from the host.
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-data-volume-main]
 image::../images/figure_admin_data_volume_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *네임스페이스 선택* +
-데이터 볼륨을 생성하거나 데이터 볼륨 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 데이터 볼륨을 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 데이터 볼륨 목록에서 조회할 데이터 볼륨의 이름을 입력한다.
-<4> *데이터 볼륨 목록* +
-네임스페이스에 생성된 데이터 볼륨 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create data volumes or view the list of data volumes. 
+<2> *Create Data Volume* +
+Create new data volumes using the YAML editor. 
+<3> *Filter by Name* +
+Enter the name of the data volume you want to search from the data volume list. <4> *Data Volume List* +
+View the list of data volumes created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|데이터 볼륨의 이름이다. 이때 이름을 클릭하면 해당 데이터 볼륨의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 데이터 볼륨을 삭제하거나 정보를 수정할 수 있다.
+|Item|Description 
+|NAME|Name of the data volume. Clicking on the name displays a window that allows you to check the detailed information of the data volume. +
+To delete or update the information about the data volume, click
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 데이터 볼륨 수정 : YAML 에디터를 사용해 데이터 볼륨의 구성 정보를 수정
-* 데이터 볼륨 삭제 : 데이터 볼륨을 삭제
-|네임스페이스|데이터 볼륨이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
-|생성 시간|데이터 볼륨이 생성된 시간이다.
+* Edit Labels: Add or delete the labels that identify resources
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources
+* Edit Data Volumes: Update the configuration information of data volumes using the YAML editor
+* Delete Data Volumes: Delete data volumes
+|NAMESPACE|Name of the namespace that the data volume was created in. Clicking on the name displays a window that allows you to view the detailed information of the namespace. 
+|CREATED|Time when a data volume was created. 
 |====================
 
-== 영구 볼륨 클레임
+== Persistent Volume Claims
 
-콘솔 메뉴에서 *[스토리지]* -> *[영구 볼륨 클레임]* 메뉴를 선택하면 *영구 볼륨 클레임* 메인 화면으로 이동한다. +
-*영구 볼륨 클레임* 메인 화면에서는 영구 볼륨의 사용을 위한 요청 명세를 관리하는 ``영구 볼륨 클레임``을 생성 및 조회할 수 있다.
+Selecting *[Storage]* -> *[Persistent Volume Claims]* from the console menus displays the main screen of *Persistent Volume Claims*. +
+In the main screen of *Persistent Volume Claims*, you can create and view the `Persistent Volume Claims` that allow you to manage the requests for using persistent volumes. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-pvc-main]
 image::../images/figure_admin_pvc_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *네임스페이스 선택* +
-영구 볼륨 클레임을 생성하거나 영구 볼륨 클레임 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 영구 볼륨 클레임을 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 영구 볼륨 클레임 목록에서 조회할 영구 볼륨 클레임의 이름을 입력한다.
-<4> *상태 검색*
-전체 영구 볼륨 클레임 목록에서 조회할 영구 볼륨 클레임의 상태를 선택한다. 이때 다중 선택이 가능하며, 선택된 상태를 다시 클릭하면 선택이 해제된다.
-<5> *영구 볼륨 클레임 목록* +
-네임스페이스에 생성된 영구 볼륨 클레임 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create persistent volume claims or view the list of persistent volume claims.
+<2> *Create Persistent Volume Claim* +
+Create new persistent volume claims using the YAML editor. 
+<3> *Filter by Name* +
+Enter the name of the persistent volume claim you want to search from the persistent volume claim list. 
+<4> *Filter by Status*
+Select the status of the permanent volume claim to search from the list of all persistent volume claims. At this time, multiple selections are possible, and clicking the selected status again cancels the selection.
+<5> *Persistent Volume Claim List* +
+View the list of persisten volume claims created in the namespace. +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|영구 볼륨 클레임의 이름이다. 이때 이름을 클릭하면 해당 영구 볼륨 클레임의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 영구 볼륨 클레임을 삭제하거나 정보를 수정할 수 있다.
+|Item|Description  
+|NAME|Name of the persistent volume claim. Clicking on the name displays a screen that allows you to check the detailed information of the persistent volume claim. +
+To delete or update the information about the persistent volume claim, click
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 영구 볼륨 클레임 수정 : YAML 에디터를 사용해 영구 볼륨 클레임의 구성 정보를 수정
-* 영구 볼륨 클레임 삭제 : 영구 볼륨 클레임을 삭제
-|네임스페이스|영구 볼륨 클레임이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
-|상태|영구 볼륨 클레임의 현재 상태 정보이다.
+* Edit Labels: Add or delete the labels that identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Persistent Volume Claims: Update the configuration information of persistent volume claims using the YAML editor.
+* Delete Persistent Volumes: Delete persistent volume claims. 
+|NAMESPACE|Name of the namespace that the persistent volume claim was created in. Clicking on the name displays a window that allows you to view the detailed information of the namespace. 
+|CREATED|Time when a persistent volume claim was created.
 
-* Pending : 영구 볼륨이 바인딩 되지 않은 상태
-* Bound : 영구 볼륨이 바인딩 된 상태
-* Lost : 영구 볼륨이 바인딩 되었으나, 볼륨이 더 이상 존재하지 않고, 데이터가 손실된 상태
+* Pending: Persistent volume is not bound. 
+* Bound: Persistent volume is bound
+* Lost: Persistent volume is bound, but the volume no longer exists and data is lost. 
 |====================
 
-== 영구 볼륨
+== Persistent Volumes
 
-콘솔 메뉴에서 *[스토리지]* -> *[영구 볼륨]* 메뉴를 선택하면 *영구 볼륨* 메인 화면으로 이동한다. +
-*영구 볼륨* 메인 화면에서는 클러스터의 내구성 있는 저장소인 ``영구 볼륨``을 생성 및 조회할 수 있다.
+Selecting *[Storage]* -> *[Persistent Volumes]* from the console menus displays the main screen of *Persistent Volumes*. +
+In the main screen of *Persistent Volumes*, you can create and view the `Persistent Volumes`, which are durable storage of the cluster.  
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-pv-main]
 image::../images/figure_admin_pv_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *생성 버튼* +
-새로운 영구 볼륨을 YAML 에디터를 사용해 생성한다.
-<2> *이름 검색* +
-전체 영구 볼륨 목록에서 조회할 영구 볼륨 클레임의 이름을 입력한다.
-<3> *영구 볼륨 목록* +
-클러스터에 생성된 영구 볼륨 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Create Persistent Volume* +
+Create new persistent volumes using the YAML editor. 
+<2> *Filter by Name* +
+Enter the name of the persistent volume you want to search from the persistent volume list. 
+<3> *Persistent Volume List* +
+You can check the list of persistent volumes created in the cluster.  +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|영구 볼륨의 이름이다. 이때 이름을 클릭하면 해당 영구 볼륨의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 영구 볼륨을 삭제하거나 정보를 수정할 수 있다.
+|Item|Description   
+|NAME|Name of the persistent volume. Clicking on the name displays a window that allows you to check the detailed information of the persistent volume. +
+To delete or update the information about the resource volume, click
+image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 영구 볼륨 수정 : YAML 에디터를 사용해 영구 볼륨의 구성 정보를 수정
-* 영구 볼륨 삭제 : 영구 볼륨을 삭제
-|레이블|영구 볼륨에 추가된 레이블 정보이다.
-|생성 시간|영구 볼륨이 생성된 날짜 및 시간 정보이다.
+* Edit Labels: Add or delete the labels that identify resources.
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Persistent Volumes: Update the configuration information of resource volumes using the YAML editor.
+* Delete Persistent Volumes: Delete persistent volumes.
+|LABEL|Label information added to the permanent volume. 
+|CREATED|Date and time when a persistent volume was created. 
 |====================
