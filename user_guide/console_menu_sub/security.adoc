@@ -35,7 +35,7 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]
 |====================
 |ITEM|Description
-|NAME|Name of the pod security policy. Clicking on the name displays a screen that allows you to check the detailed information of the pod security policy. +
+|NAME|Name of the pod security policy. Clicking on the name displays a window that allows you to check the detailed information of the pod security policy. +
 To delete or update the information about the pod security policy, click
 image:../images/figure_action_icon.png[] (Config) beside the name. 
 
@@ -75,7 +75,7 @@ If you enable the policy without approving it, no pod is generated in the cluste
 After that, you can create a cluster role in the pod security policy created using Role-Based Access Control (RBAC), assign the generated cluster role to the service account, and apply the policy.
 
 
-== Network Policies
+== Network Policiesinclude::Desktop\HyperCloud\hypercloud-docs-4.1-ko _현재\hypercloud-docs-4.1-ko\user_guide\console_menu_sub\permission.adoc[]include::Desktop\HyperCloud\hypercloud-docs-4.1-ko _현재\hypercloud-docs-4.1-ko\user_guide\console_menu_sub\permission.adoc[]
 
 Selecting *[Security]* -> *[Network Policies]* from the console menus displays the main screen of *Network Policies*. +
 In the main screen of *Network Policies*, you can create and view the `Network Policies` that control traffic to or from pods.  
@@ -99,7 +99,7 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]
 |====================
 |Item|Description  
-|NAME|Name of the network policy. Clicking on the name displays a screen that allows you to check the detailed information of the network policy. +
+|NAME|Name of the network policy. Clicking on the name displays a window that allows you to check the detailed information of the network policy. +
 To delete or update the information about the network policy, click
 image:../images/figure_action_icon.png[](Config) beside the name.
 
@@ -108,7 +108,7 @@ image:../images/figure_action_icon.png[](Config) beside the name.
 * Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
 * Edit Network Security Policy: Update the configuration information of  network security policies using the YAML editor.
 * Delete Network Security Policy: Delete network security policies. 
-|NAMESPACE|Name of the namespace that the network policy was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace. 
+|NAMESPACE|Name of the namespace that the network policy was created in. Clicking on the name displays a window that allows you to view the detailed information of the namespace. 
 |POD SELECTOR|Pod range or label information to be managed through network policy.
 |====================
 
