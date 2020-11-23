@@ -1,65 +1,64 @@
-= Push Images to a Registry
+= 레지스트리에 이미지 등록
 
-You can push an image to the registry you created and use that image to create a Pod.
+사용자가 생성한 레지스트리에 이미지를 푸시(Push)하고, 해당 이미지를 사용해 파드를 생성할 수 있다.
 
-NOTE: Image registration is explained based on Docker installed on Linux. 
+NOTE: 이미지 등록 과정 중 도커(Docker)가 설치되어 있는 환경은 Linux를 기준으로 설명한다.
 
-. Select *[Images]* -> *[Registries]* from the console menus and then click a registry from the Registry list. 
+. 콘솔의 *[이미지]* -> *[레지스트리]* 메뉴를 선택한 후 레지스트리 목록에서 생성한 레지스트리의 이름을 클릭한다. 
 +
 image::../images/figure_image_push_01.png[]
 
-. In the Registry Information window, check that the **'Status'** is **'Running'** and then click configuration information of the **'Annotation'**. 
+. 해당 레지스트리의 상세 정보 화면이 열리면 **'상태'**가 **'Running'**인 것을 확인한 후 **'주석'**의 설정 정보를 클릭한다.
 +
 image::../images/figure_image_push_02.png[]
 
-. In the *[Update Annotation]* dialog box, check the value of the *'tmax.io/registry-login-url'* key.
+. *[주석 수정]* 팝업이 열리면 *'tmax.io/registry-login-url'* 키의 값을 확인한다.
 +
 image::../images/figure_image_push_03.png[]
 
-. Select *[Workloads]* -> *[Secrets]* from the console menus and then click the secret created as **'hcpd-{registry name}'** from the Secret list. 
+. 콘솔의 *[워크로드]* -> *[시크릿]* 메뉴를 선택한 후 시크릿 목록에서 **'hcpd-{레지스트리 이름}'**으로 생성된 시크릿의 이름을 클릭한다.
 +
 image::../images/figure_image_push_04.png[]
 
-. In the Secret information window, double-click image:../images/figure_copy_icon.png[](Copy to Clipboard) to copy the *'LOCALHUB.CRT'* value from the *'Data'* section in order to copy the credential file. 
+. 해당 시크릿의 상세 정보 화면이 열리면 인증서 파일의 복사를 위해 *'데이터'* 영역에서 *'LOCALHUB.CRT'* 값을 image:../images/figure_copy_icon.png[](Copy to Clipboard) 아이콘을 클릭하여 복사한다.
 +
 image::../images/figure_image_push_05.png[]
 
-. In the environment where Docker is installed, create a directory under the path */etc/docker/certs.d*. +
-The name of the directory contains the information except for the protocol (\https://) from the *'tmax.io/registry-login-url'* key value checked in Step 3.
-
+. 도커(Docker)가 설치되어 있는 환경에서 */etc/docker/certs.d* 경로 아래에 디렉터리를 생성한다. +
+이때 생성할 디렉터리의 이름은 3번 과정에서 확인한 *'tmax.io/registry-login-url'* 키의 값에서 프로토콜(\https://)을 제외한 정보이다.
 +
 ----
 mkdir 172.21.4.213:443
 ----
 
-. Go to the created directory. 
+. 생성한 디렉터리로 이동한다.
 +
 ----
 cd 172.21.4.213:443
 ----
 
-. Create the credentials copied in Step 5 as a .crt file.
+. 5번 과정에서 복사한 인증서 내용을 .crt 파일로 생성한다.
 +
 ----
-cat << EOF > {Name of the file to be created}.crt \
-> {Paste the copied credentials}
+cat << EOF > {생성할 파일 이름}.crt \
+> {복사한 인증서 내용 붙여넣기}
 > EOF
 ----
 
-. Login to the registry.
+. 레지스트리에 로그인한다.
 +
 ----
 docker login 172.21.4.213:443
 ----
 
-. Push the image to the registry.
+. 레지스트리에 준비한 이미지를 푸시(Push)한다.
 +
 ----
-docker push 172.21.4.213:443/{Image Name}:{Tag}
+docker push 172.21.4.213:443/{이미지 이름}:{태그}
 ----
 
-. Create a pod by using the image added to the registry. +
-Set **'hpcd-registry-{Registry Name}'** to the name of the imagePullSecrets item in the YAML file of the Pod to be created.
+. 레지스트리에 등록된 이미지를 사용하여 파드를 생성한다. +
+이때 생성할 파드의 YAML 파일 내용에서 imagePullSecrets 항목의 name 값으로 **'hpcd-registry-{레지스트리 이름}'**을 설정한다.
 +
 ----
 imagePullSecrets: 
