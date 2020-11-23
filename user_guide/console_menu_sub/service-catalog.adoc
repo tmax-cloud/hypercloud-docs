@@ -23,7 +23,7 @@ This chapter describes the layout and functions of the submenus.
 
 == Service Brokers
 
-Clicking *[Service Catalog]* -> *[Service Brokers]* from the console menus displays the main screen of *Service Brokers*. +
+Selecting *[Service Catalog]* -> *[Service Brokers]* from the console menus displays the main screen of *Service Brokers*. +
 In the main screen of *Service Brokers*, you can create and view the `Service Brokers` that provide all the information necessary to connect to service instances. At this time, service brokers are scoped to a particular namespace. 
 
 
@@ -39,7 +39,7 @@ Select a namespace to create service brokers or view the list of service brokers
 <2> *Create Service Broker* +
 Create new service brokers using the YAML editor.
 <3> *Filter by Name* +
-Enter the name of the service broker you want to search from the list of network policies. 
+Enter the name of the service broker you want to search from the list of service brokers. 
 <4> *Service Broker List* +
 View the list of service brokers created in the namespace. +
 The following is the description of each item.
@@ -47,14 +47,14 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]
 |====================
 |Item|Description
-|NAME|Name of the service broker. Clicking on the name displays a screen that allows you to check the detailed information of the service broker. +
+|NAME|Name of the service broker. Clicking on the name displays a window that allows you to check the detailed information of the service broker. +
 To delete or update the information about the service broker, click
 image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* Update Label: Add or delete the labels to identify resources. 
-* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
-* Update Service Broker: Update the configuration information of the service broker using the YAML editor.
-* Delete Service Broker: Delete service brokers. 
+* Edit Labels: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Service Brokers: Update the configuration information of service brokers using the YAML editor.
+* Delete Service Brokers: Delete service brokers. 
 |NAMESPACE|Name of the namespace that the service broker was created in. 
 |URL|Service URL information of the service broker server. 
 |STATUS|Current status of service brokers.
@@ -66,7 +66,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 
 == Service Classes
 
-Clicking *[Service Catalog]* -> *[Service Classes]* from the console menus displays the main screen of *Service Classes*. +
+Selecting *[Service Catalog]* -> *[Service Classes]* from the console menus displays the main screen of *Service Classes*. +
 In the main screen of *Service Classes*, you can create and view the `Service Classes` that define templates for using services instances in service brokers. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -87,7 +87,7 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]
 |====================
 |Item|Description
-|NAME|Name of a service class. Clicking on the name displays a screen that allows you to check the detailed information of the service class.
+|NAME|Name of a service class. Clicking on the name displays a window that allows you to check the detailed information of the service class.
 |NAMESPACE|Name of the namespace that the service class was created in. 
 |BINDABLE|Create or not service bindings. 
 
@@ -100,7 +100,7 @@ The following is the description of each item.
 
 == Service Plans
 
-Clicking *[Service Catalog]* -> *[Service Plans]* from the console menus displays the main screen of *Service Plans*. +
+Selecting *[Service Catalog]* -> *[Service Plans]* from the console menus displays the main screen of *Service Plans*. +
 In the main screen of *Service Plans*, you can create and view the `Service Plan` resources that provide service information such as cost, capacity, and quality of services. At this time, service plans are scoped to a particular namespace. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -121,7 +121,7 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]
 |====================
 |Item|Description
-|NAME|UUID of a service plan. Clicking on the UUID displays a screen that allows you to check the detailed information of the service plan. 
+|NAME|UUID of a service plan. Clicking on the UUID displays a window that allows you to check the detailed information of the service plan. 
 |NAMESPACE|Name of the namespace that the service plan was created in. 
 |BINDABLE|Create or not service bindings.
 
@@ -135,7 +135,7 @@ The following is the description of each item.
 
 == Cluster Service Brokers
 
-Clicking *[Service Catalog]* -> *[Cluster Service Brokers]* from the console menus displays the main screen of *Cluster Service Brokers*. +
+Selecting *[Service Catalog]* -> *[Cluster Service Brokers]* from the console menus displays the main screen of *Cluster Service Brokers*. +
 In the main screen of *Cluster Service Brokers*, you can create and view the `Cluster Service Broker` resources that provide all the information necessary to connect to service instances. At this time, service brokers are scoped to the entire cluster. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -156,25 +156,25 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]
 |====================
 |Item|Description  
-|NAME|Name of the cluster service broker. Clicking on the name displays a screen that allows you to check the detailed information of the cluster service broker. +
+|NAME|Name of the cluster service broker. Clicking on the name displays a window that allows you to check the detailed information of the cluster service broker. +
 To delete or update the information about the cluster service broker, click
 image:../images/figure_action_icon.png[] (Config) beside the name.
 
-* Update Label: Add or delete the labels to identify resources. 
-* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
-* Update Cluster Service Broker: Update the configuration information of the cluster service broker using the YAML editor.
-* Delete Cluster Service Broker: Delete cluster service brokers. 
+* Edit Labels: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Cluster Service Brokers: Update the configuration information of cluster service brokers using the YAML editor.
+* Delete Cluster Service Brokers: Delete cluster service brokers. 
 |URL|Service URL information of the cluster service broker server. 
 |STATUS|Current status of cluster service brokers.
 
 * Running: Can receive services normally from the service URL. 
 * Error: Cannot receive services normally from the service URL.
-|CREATED|Time when a service broker was created. 
+|CREATED|Time when a cluster service broker was created. 
 |====================
 
 == Cluster Service Classes
 
-Clicking *[Service Catalog]* -> *[Cluster Service Classes]* from the console menus displays the main screen of *Cluster Service Classes*. +
+Selecting *[Service Catalog]* -> *[Cluster Service Classes]* from the console menus displays the main screen of *Cluster Service Classes*. +
 In the main screen of *Cluster Service Classes*, you can create and view the `Cluster Service Class` resources that define templates for using service instances in cluster service brokers.
 
 //[caption="그림. "] //캡션 제목 변경
@@ -193,7 +193,7 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]
 |====================
 |Item|Description
-|NAME|Name of the cluster service class. Clicking on the name displays a screen that allows you to check the detailed information of the cluster service class.
+|NAME|Name of the cluster service class. Clicking on the name displays a window that allows you to check the detailed information of the cluster service class.
 |BINDABLE|Create or not service bindings.
 
 * True: Create
@@ -205,7 +205,7 @@ The following is the description of each item.
 
 == Cluster Service Plans
 
-Clicking *[Service Catalog]* -> *[Cluster Service Plans]* from the console menus displays the main screen of *Cluster Service Plans*. +
+Selecting *[Service Catalog]* -> *[Cluster Service Plans]* from the console menus displays the main screen of *Cluster Service Plans*. +
 In the main screen of *Cluster Service Plans*, you can create and view the `Cluster Service Plan` resources that provide service information such as cost, capacity, and quality of services. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -224,7 +224,7 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3"]
 |====================
 |Item|Description
-|NAME|UUID of a cluster service plan. Clicking on the UUID displays a screen that allows you to check the detailed information of the cluster service plan. 
+|NAME|UUID of a cluster service plan. Clicking on the UUID displays a window that allows you to check the detailed information of the cluster service plan. 
 |NAMESPACE|Name of the namespace that the service plan was created in. 
 |BINDABLE|Create or not service bindings.
 
@@ -259,14 +259,14 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]
 |====================
 |Item|Description  
-|NAME|Name of the cluster service instance. Clicking on the name displays a screen that allows you to check the detailed information of the service instance. +
+|NAME|Name of the cluster service instance. Clicking on the name displays a window that allows you to check the detailed information of the service instance. +
 To delete or update the information about the service instance, click
 image:../images/figure_action_icon.png[](Config) beside the name.
 
-* Update Label: Add or delete the labels to identify resources. 
-* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
-* Update Service Instance: Update the configuration information of the service instance using the YAML editor.
-* Delete Service Instance: Delete service instances.  
+* Edit Labels: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Service Instances: Update the configuration information of the service instance using the YAML editor.
+* Delete Service Instances: Delete service instances.  
 |NAMESPACE|Name of the namespace that the service instance was created in. Clicking on the name opens a window that allows you to check the detailed information of the namespace.
 |SERVICE CLASS|Name of the service class referenced by the service instance.  
 |SERVICE PLAN|UUID of the service plan referenced by the service instance. 
@@ -302,10 +302,10 @@ The following is the description of each item.
 To delete or update the information about the service binding, click
 image:../images/figure_action_icon.png[](Config) beside the name.
 
-* Update Label: Add or delete the labels to identify resources. 
-* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
-* Update Service Binding: Update the configuration information of the service binding using the YAML editor.
-* Delete Service Binding: Delete service bindings
+* Edit Labels: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Service Bindings: Update the configuration information of the service binding using the YAML editor.
+* Delete Service Bindings: Delete service bindings
 |NAMESPACE|Name of the namespace that the service binding was created in. Clicking on the name opens a window that allows you to check the detailed information of the namespace.
 |SERVICE INSTANCE|Name of the service instance referenced by the service binding.  
 |SECRET|Name of the secret resource referenced by the service binding.
@@ -315,7 +315,7 @@ image:../images/figure_action_icon.png[](Config) beside the name.
 
 == Catalog Service Claims
 
-Clicking *[Service Catalog]* -> *[Catalog Service Claims]* from the console menus displays the main screen of *Catalog Service Claims*. +
+Selecting *[Service Catalog]* -> *[Catalog Service Claims]* from the console menus displays the main screen of *Catalog Service Claims*. +
 In the main screen of *Catalog Service Claims*, you can create and view the `Catalog Service Claim` resources that define the requirements for creating templates.
 
 //[caption="그림. "] //캡션 제목 변경
@@ -338,15 +338,15 @@ The following is the description of each item.
 [width="100%",options="header", cols="1,3a"]3a"]
 |====================
 |Item|Description 
-|NAME|Name of the catalog service claim. Clicking on the name displays a screen that allows you to check the detailed information of the catalog service claim. +
+|NAME|Name of the catalog service claim. Clicking on the name displays a window that allows you to check the detailed information of the catalog service claim. +
 To delete or update the information about the catalog service claimg, click
 image:../images/figure_action_icon.png[](Config) beside the name.
 
-* Update Label: Add or delete the labels to identify resources. 
-* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
-* Update Catalog Service Claim: Update the configuration information of the catalog service claim using the YAML editor.
-* Delete Catalog Service Claim: Delete catalog service claims.
-* Update Status: Select whether to approve catalog service claims in the Awaiting status (Success, Reject)
+* Edit Labels: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Catalog Service Claims: Update the configuration information of the catalog service claim using the YAML editor.
+* Delete Catalog Service Claims: Delete catalog service claims.
+* Edit Status: Approve or not catalog service claims in the Awaiting status (Success, Reject)
 |NAMESPACE|Name of the namespace that is created through the namespace claim.
 |STATUS|Current approval status of catalog service claims.
 
@@ -355,13 +355,13 @@ image:../images/figure_action_icon.png[](Config) beside the name.
 * Reject: Claim rejected
 * Error: Catalog service creation failed
 |USER NAME|Name of the user who created the namespace claim.
-|CREATED|Time when the catalog service claim was created.
+|CREATED|Time when a catalog service claim was created.
 
 |====================
 
 == Templates
 
-Clicking *[Service Catalog]* -> *[Templates]* from the console menus displays the main screen of *Templates*. +
+Selecting *[Service Catalog]* -> *[Templates]* from the console menus displays the main screen of *Templates*. +
 In the main screen of *Templates*, you can create and view the `Template` resources that define information on objects, plans, and parameters to be created as service instances and template instances.
 
 //[caption="그림. "] //캡션 제목 변경
@@ -388,9 +388,9 @@ The following is the description of each item.
 To delete or update the information about the template, click
 image:../images/figure_action_icon.png[](Config) beside the name.
 
-* Update Label: Add or delete the labels to identify resources. 
-* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
-* Update Template: Update the configuration information of the template using the YAML editor.
+* Edit Labels: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Templates: Update the configuration information of the template using the YAML editor.
 * Delete Template: Delete templates.
 |NAMESPACE|Name of the namespace that the template was created in. Clicking on the name opens a window that allows you to check the detailed information of the namespace.
 |OBJECT COUNT|The number of objects defined in the template.
@@ -399,8 +399,8 @@ image:../images/figure_action_icon.png[](Config) beside the name.
 
 == Template Instances
 
-Clicking *[Service Catalog]* -> *[Template Instances]* from the console menus displays the main screen of *Template Instances*. +
-In the main screen of *Template Instances*, you can use the define templates to create and view ``Instances`` of available services. 
+Selecting *[Service Catalog]* -> *[Template Instances]* from the console menus displays the main screen of *Template Instances*. +
+In the main screen of *Template Instances*, you can use the define templates to create and view the ``Instances`` of available services. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-template-instance-main]
@@ -425,10 +425,10 @@ The following is the description of each item.
 To delete or update the information about the template instance, click
 image:../images/figure_action_icon.png[](Config) beside the name.
 
-* Update Label: Add or delete the labels to identify resources. 
-* Update Annotation: Add, update, or delete the annotations that allow external reference to the resources.
-* Update Template Instance: Update the configuration information of the template using the YAML editor.
-* Delete Template Instance: Delete template instances.
+* Edit Label: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Template Instances: Update the configuration information of the template using the YAML editor.
+* Delete Template Instances: Delete template instances.
 |NAMESPACE|Name of the namespace that the template instance was created in. Clicking on the name opens a window that allows you to check the detailed information of the namespace.
 |PARAMETER COUNT|The number of parameters defined in the template instance.
 |STATUS|Status of an object defined in the template. 
