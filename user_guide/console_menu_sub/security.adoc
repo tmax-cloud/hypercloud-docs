@@ -1,115 +1,119 @@
-= [보안] 메뉴
+= [Security] Menu
 :toc:
 :toc-title:
 
-*[보안]* 메뉴는 워크로드를 보호하기 위한 정책들을 관리할 수 있는 메뉴이다.
+*[Security]* menu allows you to manage policies to protect workloads. 
 [width="100%",options="header", cols="1,3"]
 |====================
-|하위 메뉴|기능
-|파드 보안 정책|파드의 생성 및 업데이트에 대한 세분화된 권한을 부여하는 "파드 보안 정책"의 생성 및 조회
-|네트워크 정책|파드로부터 들어오거나 나가는 트래픽을 통제하는 "네트워크 정책"의 생성 및 조회
+|Submenu|Function
+|Pod Security Policy|Create and view the "Pod Security Policies" that authorizes fine-grained roles to create and update pods. 
+|Network Policy|Create and view the "Network Policies" that control traffic to or from pods. 
 |====================
 
-본 장에서는 하위 메뉴의 화면 구성과 기능에 대해서 설명한다.
+This chapter describes the layout and functions of the submenus. 
 
-== 파드 보안 정책
+== Pod Security Policies
 
-콘솔 메뉴에서 *[보안]* -> *[파드 보안 정책]* 메뉴를 선택하면 *파드 보안 정책* 메인 화면으로 이동한다. +
-*파드 보안 정책* 메인 화면에서는 파드의 생성 및 업데이트에 대한 세분화된 권한을 부여하는 ``파드 보안 정책``을 생성 및 조회할 수 있다.
+Clicking *[Security]* -> *[Pod Security Policies]* from the console menus displays the main screen of *Pod Security Policies*. +
+In the main screen of *Pod Security Policies*, you can create and view the `Pod Security Policies` that grant granular permission to create and update Pods. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-pod-security-main]
 image::../images/figure_admin_pod_security_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *생성 버튼* +
-새로운 파드 보안 정책을 YAML 에디터를 사용해 생성한다.
-<2> *이름 검색* +
-전체 파드 보안 정책 목록에서 조회할 파드 보안 정책의 이름을 입력한다.
-<3> *파드 보안 정책 목록* +
-클러스터에 생성된 파드 보안 정책 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+
+<1> *Create Pod* +
+Create a new Pod server using the YAML editor. 
+<2> *Filter by Name* +
+Enter the name of the pod security policy you want to search from the list of pod security policies.
+<3> *Pod Security Policy List* +
+View the list of pod security policies created in the cluster.  +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|파드 보안 정책의 이름이다. 이때 이름을 클릭하면 해당 파드 보안 정책의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 파드 보안 정책을 삭제하거나 정보를 수정할 수 있다.
+|ITEM|Description
+|NAME|Name of the pod security policy. Clicking on the name displays a screen that allows you to check the detailed information of the pod security policy. +
+To delete or update the information about the pod security policy, click
+image:../images/figure_action_icon.png[] (Config) beside the name. 
 
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 파드 보안 정책 수정 : YAML 에디터를 사용해 파드 보안 정책의 구성 정보를 수정
-* 파드 보안 정책 삭제 : 파드 보안 정책을 삭제
-|특권|특권 모드의 사용 여부를 표시한다.
+* Edit Labels: Add or delete the labels to identify resources 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources
+* Edit Pod Security Policies: Update the configuration information of the pod security policy using the YAML editor
+* Delete Pod Security Policies: Delete pod security policies 
+|PRIVILEGED|Enable or not the privileged mode. 
 
-* True : 사용
-* False : 사용 안 함
-|보안 강화 리눅스|SELinux의 제어 범위를 표시한다.
+* True: Enable
+* False: Not enable
+|SECURITY-ENHANCED LINUX|Set the range to enable SELinux. 
 
-* MustRunAs : 지정된 범위만 허용 (범위 지정 필수)
-* RunAsAny : 모두 허용
-|사용자로 실행|컨테이너를 실행할 사용자 ID의 제어 범위를 표시한다.
+* MustRunAs: Only the specified range (Range setting required) 
+* RunAsAny: All
+|RUN AS USER|Range of user IDs allowed to execute containers 
 
-* MustRunAs : 지정된 범위만 허용 (범위 지정 필수)
-* MustRunAsNonRoot : Root가 아닌 사용자만 허용
-* RunAsAny : 모두 허용
-|파일스토리지 그룹|일부 볼륨에 적용되는 보충 그룹(Supplemental Group)의 제어 범위를 표시한다.
+* MustRunAs: Only the specified range (Range setting required)
+* MustRunAsNonRoot: Only the users other than Root
+* RunAsAny: All
+|FILE STORAGE GROUP|Set the range to control supplemental groups applied to some volumes.
 
-* MustRunAs : 지정된 범위만 허용 (범위 지정 필수)
-* MayRunAs : 범위를 지정한 경우 지정된 범위만 허용하고, 범위를 지정하지 않은 경우 모두 허용
-* RunAsAny : 모두 허용
-|보충 그룹|컨테이너가 추가할 그룹 ID의 제어 범위를 표시한다.
+* MustRunAs: Only the specified range (Range setting required)
+* MayRunAs: Only the specified range if set. All if a range is not set 
+* RunAsAny: All
+|SUPPLEMENTAL GROUP|Set the range to control the group ID that the container will add.   
 
-* MustRunAs : 지정된 범위만 허용 (범위 지정 필수)
-* MayRunAs : 범위를 지정한 경우 지정된 범위만 허용하고, 범위를 지정하지 않은 경우 모두 허용
-* RunAsAny : 모두 허용
-|생성 시간|파드 보안 정책이 생성된 시간이다.
+* MustRunAs: Only the specified range (Range setting required)
+* MayRunAs: Only the specified range if set. All if a range is not set 
+* RunAsAny: All
+|CREATED|Time when a pod security policy was created.
 |====================
 
-NOTE: 파드 보안 정책 제어는 어드미션 컨트롤러로 구현한다. (권장) +
-어드미션 컨트롤러를 활성화하면 파드 보안 정책이 적용된다. 만약 정책을 승인하지 않고 활성화하면 클러스터에 파드가 생성되지 않는다. 따라서 기존 클러스터의 경우에는 어드미션 컨트롤러를 활성화하기 전에 정책을 추가하고 권한을 부여하는 것이 좋다. +
-우선 kube-apiserver의 enable-adminssion-plugins 옵션에 PodSecurityPolicy를 추가하여 어드미션 컨트롤러를 활성화한다. 이후 RBAC(Role-Based Access Control)를 이용하여 생성된 파드 보안 정책으로 클러스터 롤을 생성하고, 생성된 클러스터 롤을 서비스 어카운트에 부여해서 정책을 적용할 수 있다.
+NOTE: Pod security policy control is implemented with an admission controller (recommended). +
+When the admission controller is enabled, the pod security policy is applied. 
+If you enable the policy without approving it, no pod is generated in the cluster. Therefore, for an existing cluster, it is recommended to add policies and grant permissions before enabling the admission controller. +
+After that, you can create a cluster role in the pod security policy created using Role-Based Access Control (RBAC), assign the generated cluster role to the service account, and apply the policy.
 
-== 네트워크 정책
 
-콘솔 메뉴에서 *[보안]* -> *[네트워크 정책]* 메뉴를 선택하면 *네트워크 정책* 메인 화면으로 이동한다. +
-*네트워크 정책* 메인 화면에서는 파드로부터 들어오거나 나가는 트래픽을 통제하는 ``네트워크 정책``을 생성 및 조회할 수 있다.
+== Network Policy
+
+Clicking *[Security]* -> *[Network Policies]* from the console menus displays the main screen of *Network Policies*. +
+In the main screen of *Network Policies*, you can create and view the `Network Policies` that control traffic to or from pods.  
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-network-main]
 image::../images/figure_admin_network_main.png[]
 
-각 영역에 대한 설명은 다음과 같다.
+The following is the description of each area.
 
-<1> *네임스페이스 선택* +
-네트워크 정책을 생성하거나 네트워크 정책 목록을 조회할 네임스페이스를 선택한다.
-<2> *생성 버튼* +
-새로운 네트워크 정책을 YAML 에디터를 사용해 생성한다.
-<3> *이름 검색* +
-전체 네트워크 정책 목록에서 조회할 네트워크 정책의 이름을 입력한다.
-<4> *네트워크 정책 목록* +
-네임스페이스에 생성된 네트워크 정책 목록을 확인할 수 있다. +
-다음은 각 항목에 대한 설명이다.
+<1> *Select Namespace* +
+Select a namespace to create network policies or view the list of network policies.
+<2> *Create Network Policy* +
+Create new network policies using the YAML editor.
+<3> *Filter by Name* +
+Enter the name of the network policy you want to search from the list of network policies. 
+<4> *Network Policy List* +
+View the list of network policies created in the namespace.  +
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|네트워크 정책의 이름이다. 이때 이름을 클릭하면 해당 네트워크 정책의 상세 정보를 확인할 수 있는 화면이 열린다. +
-또한 이름 왼쪽의 
-image:../images/figure_action_icon.png[]
-(설정) 아이콘을 클릭하면 해당 네트워크 정책을 삭제하거나 정보를 수정할 수 있다.
+|Item|Description  
+|NAME|Name of the network policy. Clicking on the name displays a screen that allows you to check the detailed information of the network policy. +
+To delete or update the information about the network policy, click
+image:../images/figure_action_icon.png[](Config) beside the name.
 
-* 파드 선택기 수정 : 관리할 파드의 레이블을 추가, 삭제
-* 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
-* 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
-* 네트워크 정책 수정 : YAML 에디터를 사용해 네트워크 정책의 구성 정보를 수정
-* 네트워크 정책 삭제 : 네트워크 정책을 삭제
-|네임스페이스|네트워크 정책이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
-|파드 선택기|네트워크 정책을 통해 관리할 파드의 범위 또는 레이블 정보이다.
+* Edit Pod Selector: Add or delete the labels of the pods to be managed. 
+* Edit Labels: Add or delete the labels to identify resources. 
+* Edit Annotations: Add, update, or delete the annotations that allow external reference to the resources.
+* Edit Network Security Policy: Update the configuration information of  network security policies using the YAML editor.
+* Delete Network Security Policy: Delete network security policies. 
+|NAMESPACE|Name of the namespace that the network policy was created in. Clicking on the name displays a screen that allows you to view the detailed information of the namespace. 
+|POD SELECTOR|Pod range or label information to be managed through network policy.
 |====================
 
-NOTE: 기본적으로 네트워크 정책이 없으면 해당 네임스페이스의 파드에 대한 모든 인그레스(수신)와 이그레스(송신) 트래픽이 허용되며, 네임스페이스에 특정 파드를 선택하는 네트워크 정책이 있으면 해당 파드는 네트워크 정책에서 허용하지 않는 모든 연결을 거부한다. +
-만약 여러 개의 네트워크 정책에 하나의 파드가 선택된 경우에는 해당 정책들의 인그레스/이그레스 규칙을 통합하여 허용되는 범위로 파드가 제한된다.
+NOTE: If there is no network policy, all ingress (inbound) and egress (outbound) traffic to pods in the namespace are allowed. If the namespace has a network policy to select a particular pod, the pod rejects all connections not allowed in that network policy. + 
+If one pod is selected for multiple network policies, the ingress and egress rules of the policies are integrated to limit traffic to that pod. 
+
+
+.include::Desktop\HyperCloud\hypercloud-docs-4.1-ko _현재\hypercloud-docs-4.1-ko\user_guide\console_menu_sub\service-catalog.adoc[]
