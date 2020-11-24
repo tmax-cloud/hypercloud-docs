@@ -9,6 +9,6 @@ The following is the description of each section.
 <1> *Task Bar* +
 View the currently logged-in user accounts and session timeout value.
 <2> *Main Menu* +
-The main menus of the console are *[Home]*, *[Service Catalogs]*, *[Workloads]*, *[Service Meshes]*, *[Network]*, *[Storages]*, *[CI/CD]*, *[AI DevOps]*, *[Security]*, *[Images]*, *[Management]*, *[Hosts]*, and **[Authentication]**.
+The main menus of the console are *[Home]*, *[Service Catalog]*, *[Workload]*, *[Service Mesh]*, *[Network]*, *[Storage]*, *[CI/CD]*, *[AI DevOps]*, *[Security]*, *[Image]*, *[Management]*, *[Host]*, and **[Authentication]**.
 <3> *Status Panel* +
 View and configure the information about the resources contained in the selected menu. 
