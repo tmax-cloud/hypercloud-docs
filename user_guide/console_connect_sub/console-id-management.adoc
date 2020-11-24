@@ -7,44 +7,45 @@ This chapter describes how to create a new HyperCloud console account and find t
 == Create a New Account
 Follow the steps below to create a new HyperCloud console account. 
 
-. Click **[Create]** in <<../console_connect_sub/img-admin-login-main,HyperCloud Console Login Screen>>.  
+. Click **[Register]** in <<../console_connect_sub/img-admin-login-main,HyperCloud Console Login Screen>>.  
 +
 image::../images/figure_admin_user_create_01.png[]
 
-. In the *Create New Account* window that opens, enter the information of the account to be created and click *[Create]*. 
+. In the *Register* window that opens, enter the information of the account to be created and click *[Register]*. 
++
+The following is the description of each item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|Item|Description   
-|First Name|First name of the user.
-|Last Name|Last name of the user.
-|Email|Email address of the user. The specified email address is used to receive the information for Find Password or Authenticate OTP. 
-|User Name|Login ID of the HyperCloud console.
+|Item|Description 
+|First name|First name of the user.
+|Last name|Last name of the user.
+|Email|Email address of the user. The specified email address is used to receive the information for Forgot Password or Authenticate OTP. 
 |Password|Password of the account.
 
 The password rules are as follows.
 
 * Must contain at least one upper or lower case letter, numeric character, and special character. 
-
 * At least nine characters in length
-|Password Confirm|Enter the same password again for confirmation. 
+|Confirm Password|Enter the same *'Password'* again for confirmation. 
+|Phone number|Phone number of the account.
 |====================
-. You can log in to the HyperCloud console when the account is created successfully.  
+. You can log in to the HyperCloud console when the account is created successfully.
 
 == Find a Password
 Follow the stpes below to reset a forgotten password. 
 
-. Click **[Forgot Password]** in the  <<../console_connect_sub/img-admin-login-main,HyperCloud Console Login>> window. 
+. Click **[Forgot Password]** in the <<../console_connect_sub/img-admin-login-main,HyperCloud Console Login>> window.
 +
 image::../images/figure_admin_password_change_01.png[]
 
-. In the *ForPassword* window that opens, enter the user name and click *[Submit]*  
+. In the *Forgot Your Password* window that opens, enter your username or email address and click *[Submit]*. 
 
-. When the *'Reset Password'* email is sent to the user, click **'Change Credentials'**. You must click the link within 5 minutes after reception of this email.  
+. When the *'Reset Password'* email is sent to the user, click **'Link to reset credentials'**. You must click the link within 5 minutes after reception of this email. 
 +
 image::../images/figure_admin_password_change_02.png[]
 
-. In the *Update Password* window that opens, set the password to change and then click *[Submit]*. 
+. In the *Update Password* window that opens, set the password to change and then click *[Submit]*.
 +
 The following is the description of each item. 
 +
@@ -59,4 +60,4 @@ The password rules are as follows.
 * At least nine characters in length
 |Confirm Password|Enter the same password again for confirmation.
 |====================
-. You can log in to the HyperCloud console when the password is created successfully.  include::Desktop\HyperCloud\hypercloud-docs-4.1-ko _현재\hypercloud-docs-4.1-ko\user_guide\console_connect_sub\console-id-management.adoc[]
+. You can log in to the HyperCloud console when the password is created successfully.
