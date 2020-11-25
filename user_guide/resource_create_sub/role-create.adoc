@@ -1,18 +1,18 @@
-= 롤 생성
+= Creating Roles
 :toc:
 :toc-title:
 
-본 장에서는 롤 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create role resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 롤을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new role by using the YAML editor.
 
-. <<../console_menu_sub/permission#img-role-main,롤 메인 화면>>에서 *[롤 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[Yaml 에디터]**를 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 롤의 구성 정보를 작성한다.
+. Click *[Create Roles]* in the <<../console_menu_sub/permission#img-role-main,Roles>> main screen.
+. Select **[Yaml Editor]** from the drop down menu.
+. Enter configuration data about a role to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: rbac.authorization.k8s.io/v1
@@ -31,32 +31,32 @@ rules:
       - list
 ----
 +
-<1> 롤의 이름
-<2> 롤이 생성될 네임스페이스의 이름 (단, 클러스터 롤을 생성할 경우 작성 금지)
-<3> 제어할 리소스가 속한 API 그룹의 종류
-<4> 제어할 리소스의 이름
-<5> 리소스를 제어할 수 있는 동작의 종류
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Role name
+<2> Name of a namespace where the role is created (Do not set for a cluster role.)
+<3> Type of an API group including a resource to control
+<4> Name of a resource to control
+<5> Actions available for a resource to control
+. To create the resource with the data you entered, click *[Create]*.
 
-== 폼 에디터
+== Form Editor
 
-새로운 롤을 폼 에디터를 사용해서 생성할 수 있다.
+Create a new role by using the Form editor.
 
-. <<../console_menu_sub/permission#img-role-main,롤 메인 화면>>에서 *[롤 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[폼 에디터]**를 클릭한다.
-. *롤 생성* 화면이 열리면 생성할 롤의 구성 정보를 설정한다. +
-각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
+. Click *[Create Roles]* in the <<../console_menu_sub/permission#img-role-main,Roles>> main screen.
+. Select **[Form Editor]** from the drop down menu.
+. In the *Create Roles* screen opened, enter configuration data about a role to create. +
+The following describes each configuration item. (*: Required)
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|롤 유형|롤의 적용 범위를 선택한다.
+|Item|Description  
+|Role Type|Range to apply the role.
 
-* Namespace Role : 해당 네임스페이스에만 적용
-* Cluster Role : 모든 네임스페이스에 적용
-|이름 *|롤의 이름을 입력한다.
-|네임스페이스 *|롤이 생성될 네임스페이스의 이름을 입력한다.
-|리소스 부여 *|제어할 리소스의 이름 및 해당 리소스를 제어할 수 있는 동작의 종류를 선택한다. +
-이때 **[+ 추가]**를 클릭하면 설정 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 설정 항목을 삭제할 수 있다.
+* Namespace Role: Apply the role to the namespace.
+* Cluster Role: Apply the role to all namespaces.
+|Name*|Role name.
+|Namespace*|Name of a namespace where the role is created.
+|Grant Resources*|Name of a resource to control and actions available for the resource. +
+Clicking **[+ Add More]** adds a new input field, and clicking *[-]* deletes the input field.
 |====================
-. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
+. To create the resource with the data you entered, click *[Create]*.

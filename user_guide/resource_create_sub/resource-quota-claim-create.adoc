@@ -1,18 +1,18 @@
-= 리소스 쿼타 클레임 생성
+= Creating Resource Quota Claims
 :toc:
 :toc-title:
 
-본 장에서는 리소스 쿼타 클레임 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create resource quota claim resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 리소스 쿼타 클레임을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new resource quota claim by using the YAML editor.
 
-. <<../console_menu_sub/management#img-resource-quota-claim-main,리소스 쿼타 클레임 메인 화면>>에서 *[리소스 쿼타 클레임 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[Yaml 에디터]**를 클릭한다. 
-. YAML 에디터 화면이 열리면 생성할 리소스 쿼타 클레임의 구성 정보를 작성한다.
+. Click *[Create Resource Quota Claims]* in the <<../console_menu_sub/management#img-resource-quota-claim-main,Resource Quota Claims>> main screen.
+. Select **[Yaml Editor]** from the drop down menu.
+. Enter configuration data about a resource quota claim to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: tmax.io/v1
@@ -29,34 +29,34 @@ spec:
     limits.memory: 1Gi <6>
 ----
 +
-<1> 리소스 쿼타 클레임의 이름
-<2> 리소스 쿼타 클레임이 생성될 네임스페이스의 이름
-<3> HyperCloud Operator에서 클레임의 생성, 변경, 삭제를 감지하기 위한 레이블 정보 *(반드시 포함해야 함)*
-<4> 리소스 쿼타 클레임이 허가되면 생성될 리소스 쿼타의 이름
-<5> 할당할 리소스의 종류 및 양
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Resource quota claim name
+<2> Name of a namespace where the resource quota claim is created
+<3> Label used to detect creation, modification, and deletion of the claim in HyperCloud Operator *(Required)*
+<4> Name of a resource quota to be created when the resource quota claim is approved
+<5> Type and volume of resources to allocate
+. To create the resource with the data you entered, click *[Create]*.
 
-== 폼 에디터
+== Form Editor
 
-새로운 리소스 쿼타 클레임을 폼 에디터를 사용해서 생성할 수 있다.
+Create a new resource quota claim by using the Form editor.
 
-. <<../console_menu_sub/management#img-resource-quota-claim-main,리소스 쿼타 클레임 메인 화면>>에서 *[리소스 쿼타 클레임 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[폼 에디터]**를 클릭한다.
-. *리소스 쿼타 클레임 생성* 화면이 열리면 생성할 리소스 쿼타 클레임의 구성 정보를 설정한다. +
-각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
+. Click *[Create Resource Quota Claims]* in the <<../console_menu_sub/management#img-resource-quota-claim-main,Resource Quota Claims>> main screen.
+. Select **[Form Editor]** from the drop down menu.
+. In the *Create Resource Quota Claim* screen opened, enter configuration data about a resource quota claim to create. +
+The following describes each configuration item. (*: Required)
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름 *|리소스 쿼타 클레임의 이름을 입력한다.
-|네임스페이스 *|리소스 쿼타 클레임이 생성될 네임스페이스의 이름을 선택한다.
-|레이블|리소스 쿼타 클레임에 추가할 레이블 정보를 입력한다.
-|리소스 이름 *|리소스 쿼타 클레임이 허가되면 생성될 리소스 쿼타의 이름을 입력한다.
-|네임스페이스 리소스 쿼타 *|네임스페이스에서 사용할 자원의 양을 설정한다. 리소스 쿼타 클레임이 승인되면 설정한 리소스 이름으로 리소스 쿼타가 생성된다.
+|Item|Description 
+|Name*|Resource quota claim name.
+|Namespace*|Name of a namespace where the resource quota claim is created.
+|Labels|Labels to add to the resource quota claim.
+|Resource Name*|Name of the namespace to be created when the resource quota claim is approved.
+|Namespace Resource Quota*|Type and volume of resources used in the namespace. When the resource quota claim is approved, a resource quota is created with the resource name.
 
-* CPU Limits : 사용할 CPU 자원의 제한값
-* Memory Limits : 사용할 메모리 자원의 제한값
+* CPU Limits: Limit of CPU resource to use
+* Memory Limits: Limit of memory resource to use
 
-만약 CPU Limits, Memory Limits 타입 외 자원의 할당량을 추가하려면 **[+ 추가]**를 클릭한다. 이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
+To add other types of resources besides CPU Limits and Memory Limits, click **[+ Add More]**. Clicking **[+ Add More]** adds a new input field, and clicking *[-]* deletes the input field.
 |====================
-. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
+. To create the resource with the data you entered, click *[Create]*.

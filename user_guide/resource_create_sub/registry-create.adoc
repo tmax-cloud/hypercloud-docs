@@ -1,18 +1,18 @@
-= 레지스트리 생성
+= Creating Registries
 :toc:
 :toc-title:
 
-본 장에서는 레지스트리 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create registry resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 레지스트리를 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new registry by using the YAML editor.
 
-. <<../console_menu_sub/image#img-registry-main,레지스트리 메인 화면>>에서 *[레지스트리 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[Yaml 에디터]**를 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 레지스트리의 구성 정보를 작성한다.
+. Click *[Create Registries]* in the <<../console_menu_sub/image#img-registry-main,Registries>> main screen.
+. Select **[Yaml Editor]** from the drop down menu.
+. Enter configuration data about a registry to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: tmax.io/v1
@@ -38,43 +38,43 @@ spec:
       deleteWithPvc: false
 ----
 +
-<1> 레지스트리의 이름
-<2> 레지스트리가 생성될 네임스페이스의 이름
-<3> 레지스트리 파드 생성에 사용될 이미지 *(현재 'registry:2.6.2' 만 가능)*
-<4> 레지스트리에 로그인할 ID
-<5> 레지스트리에 로그인할 ID의 비밀번호
-<6> 레지스트리의 서비스 유형을 정의한다. 우선 서비스의 유형으로 Ingress, LoadBalancer 중 하나를 선택한 후 각 유형에 따른 설정 항목을 정의한다. +
-이때 LoadBalancer를 선택한 경우에는 서비스에 접속하기 위한 포트 번호를 설정해야 한다.
-<7> 레지스트리의 영구 볼륨 클레임을 정의한다. 우선 영구 볼륨 클레임의 유형으로 exist, create 중 하나를 선택한 후 각 유형에 따른 설정 항목을 정의한다.
-* pvcName : 영구 볼륨 클레임의 이름 (exist 유형만 해당)
-* accessMode : 영구 볼륨 클레임의 접근 모드 (create 유형만 해당)
-* storageSize : 영구 볼륨 클레임의 스토리지 용량 (create 유형만 해당)
-* storageClassName : 영구 볼륨 클레임의 스토리지 클레스 이름 (create 유형만 해당)
-* volumeMode : 볼륨의 사용 모드 (create 유형만 해당)
-* deleteWithPvc : 레지스트리 삭제 시 영구 볼륨 클레임의 자동 삭제 여부 (create 유형만 해당)
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Registry name
+<2> Name of a namespace where the registry is created
+<3> Image to use to create a registry pod *(Currently, only 'registry:2.6.2' is available.)*
+<4> Registry login ID
+<5> Registry login password
+<6> Registry's service type. Select either Ingress or LoadBalancer, and then define configuration data for each type. +
+Selecting LoadBalancer must set a port number used to access a service.
+<7> Registry's persistent volume claim. Select either exist or create, and then define configuration data for each type.
+* pvcName: Persistent volume claim name (only for exist)
+* accessMode: Persistent volume claim's access mode (only for create)
+* storageSize: Persistent volume claim's storage volume (only for create)
+* storageClassName: Persistent volume claim's storage class name (only for create)
+* volumeMode: Volume usage mode (only for create)
+* deleteWithPvc: Option to automatically delete a persistent volume claim when deleting the registry (only for create)
+. To create the resource with the data you entered, click *[Create]*.
 
-== 폼 에디터
+== Form Editor
 
-새로운 레지스트리를 폼 에디터를 사용해서 생성할 수 있다.
+Create a new registry by using the Form editor.
 
-. <<../console_menu_sub/image#img-registry-main,레지스트리 메인 화면>>에서 *[레지스트리 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[폼 에디터]**를 클릭한다.
-. *레지스트리 생성* 화면이 열리면 생성할 레지스트리의 구성 정보를 설정한다. +
-각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
+. Click *[Create Registries]* in the <<../console_menu_sub/image#img-registry-main,Registries>> main screen.
+. Select **[Form Editor]** from the drop down menu.
+. In the *Create Registry* screen opened, enter configuration data about a registry to create. +
+The following describes each configuration item. (*: Required)
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름 *|레지스트리의 이름을 입력한다.
-|네임스페이스 *|레지스트리가 생성될 네임스페이스의 이름을 선택한다.
-|레지스트리 생성 이미지 *|레지스트리 파드 생성에 사용될 이미지의 주소를 입력한다. *(현재 'registry:2.6.2' 만 가능)*
-|로그인 정보 *|레지스트리에 접근하기 위해 필요한 계정 정보(ID, 비밀번호)를 입력한다.
-|서비스 *|레지스트리의 서비스 타입에 따른 네트워크 정책을 설정한다.
+|Item|Description  
+|Name*|Registry name.
+|Namespace*|Name of a namespace where the registry is created.
+|Registry Creation Image*|Image to use to create a registry pod. *(Currently, only 'registry:2.6.2' is available.)*
+|Login Info*|Registry login ID and password.
+|Service*|Registry's service type.
 
-* 인그레스
-* 로드밸런서 : 서비스에 접속하기 위한 포트 번호를 설정
-|영구 볼륨 클레임 *|레지스트리에 사용할 영구 볼륨 클레임을 선택한다. 이때 기존에 생성된 영구 볼륨 클레임을 선택하거나 새로운 영구 볼륨 클레임을 직접 생성해서 선택할 수 있다.
-|레이블|레지스트리에 추가할 레이블 정보를 입력한다.
+* Ingress
+* Load Balancer: Set a port number used to access a service.
+|Persistent Volume Claim*|Registry's persistent volume claim. You can select an existing one or create one.
+|Labels|Labels to add to the registry.
 |====================
-. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
+. To create the resource with the data you entered, click *[Create]*.

@@ -1,17 +1,17 @@
-= 서비스 엔트리 생성
+= Creating Service Entries
 :toc:
 :toc-title:
 
-본 장에서는 서비스 엔트리 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create service entry resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 서비스 엔트리를 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new service entry by using the YAML editor.
 
-. <<../console_menu_sub/service-mesh#img-service-entry-main,서비스 엔트리 메인 화면>>에서 *[서비스 엔트리 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 서비스 엔트리의 구성 정보를 작성한다.
+. Click *[Create Service Entries]* in the <<../console_menu_sub/service-mesh#img-service-entry-main,Service Entries>> main screen.
+. Enter configuration data about a service entry to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: networking.istio.io/v1alpha3
@@ -32,9 +32,10 @@ spec:
   resolution: DNS <5>
 ----
 +
-<1> 서비스 엔트리의 이름
-<2> 서비스 엔트리와 연결된 호스트
-<3> 메시 내부 및 외부 서비스의 위치
-<4> 메시 내부 및 외부 서비스의 포트 정보 (서비스 요청 시 해당 포트로만 요청이 가능)
-<5> 호스트에 대한 서비스 검색 모드
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Service entry name
+<2> Host connected to the service entry
+<3> Whether the service is in the mesh or outside the mesh
+<4> Information about a port which is in the mesh or outside the mesh (Service request can be possible only through this port)
+<5> Service discovery mode for the host
+
+. To create the resource with the data you entered, click *[Create]*.

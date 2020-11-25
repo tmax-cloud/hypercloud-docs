@@ -1,17 +1,17 @@
-= 레플리카 셋 생성
+= Creating Replica Sets
 :toc:
 :toc-title:
 
-본 장에서는 레플리카 셋 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create replica set resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 레플리카 셋을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new replica set by using the YAML editor.
 
-. <<../console_menu_sub/work-load#img-replicaset-main,레플리카 셋 메인 화면>>에서 *[레플리카 셋 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 레플리카 셋의 구성 정보를 작성한다.
+. Click *[Create Replica Sets]* in the <<../console_menu_sub/work-load#img-replicaset-main,Replica Sets>> main screen.
+. Enter configuration data about a replica set to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: apps/v1
@@ -37,16 +37,16 @@ spec:
             - containerPort: 8080 <11>
 ----
 +
-<1> 레플리카 셋의 이름
-<2> 레플리카 셋이 생성될 네임스페이스의 이름
-<3> 파드 복제본의 개수
-<4> 레플리카 셋이 관리할 파드의 레이블 정보
-<5> 생성할 파드에 대한 상세 명세
-<6> 파드를 분류할 때 사용할 레이블 정보 (키-값 형식)
-<7> 파드를 구성할 컨테이너의 상세 내역
-<8> 컨테이너의 이름
-<9> 컨테이너의 이미지
-<10> 컨테이너에서 노출할 포트 목록
-<11> 파드의 IP 주소에서 노출할 포트 번호
+<1> Replica set name
+<2> Name of a namespace where the replica set is created
+<3> Number of pod replicas
+<4> Label of a pod to be managed by the replica set
+<5> Information about a pod to create
+<6> Information about labels to use when classifying pods (Key-value format)
+<7> Information about containers included in a pod
+<8> Container name
+<9> Container image
+<10> Ports to expose to the container
+<11> Port number to expose on the pod's IP address
 
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+. To create the resource with the data you entered, click *[Create]*.
