@@ -1,46 +1,57 @@
-= 기본 리소스 제한 생성
+= Creating Limit Ranges
 :toc:
 :toc-title:
 
-본 장에서는 기본 리소스 제한 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create limit range resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 기본 리소스 제한을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new limit range by using the YAML editor.
 
-. <<../console_menu_sub/management#img-basic-resource-main,기본 리소스 제한 메인 화면>>에서 *[기본 리소스 제한 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 기본 리소스 제한의 구성 정보를 작성한다.
+. Click *[Create Limit Ranges]* in the <<../console_menu_sub/management#img-basic-resource-main,Limit Ranges>> main screen.
+. Select **[Yaml Editor]** from the drop down menu.
+. Enter configuration data about a limit range to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: v1
 kind: LimitRange
 metadata:
-  name: example-limit-range <1>
+  name: example <1>
   namespace: default <2>
-spec: 
+spec:
   limits:
-    - max: <3>
-        cpu: 800m
-        memory: 1Gi
-      min: <4>
-        cpu: 100m
-        memory: 99Mi
-      default: <5>
-        cpu: 700m
-        memory: 900Mi
-      defaultRequest: <6>
-        cpu: 110m
-        memory: 111Mi
-      type: Container <7>
+    - default: <3>
+        memory: 512Mi
+      defaultRequest: <4>
+        memory: 256Mi
+      type: Container <5>
 ----
 +
-<1> 기본 리소스 제한의 이름
-<2> 기본 리소스 제한이 생성될 네임스페이스의 이름
-<3> 최대 리소스 쿼타 제한 정보
-<4> 최소 리소스 쿼타 제한 정보
-<5> 기본 리소스 쿼타 제한 정보
-<6> 기본 리소스 쿼타 요청 정보
-<7> 적용될 리소스 종류
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Limit range name
+<2> Name of a namespace where the limit range is created
+<3> Limit of a default resource quota
+<4> Request of a default resource quota
+<5> Resource type to apply
+. To create the resource with the data you entered, click *[Create]*.
+
+== Form Editor
+
+Create a new limit range by using the Form editor.
+
+. Click *[Create Limit Ranges]* in the <<../console_menu_sub/management#img-basic-resource-main,Limit Ranges>> main screen.
+. Select **[Form Editor]** from the drop down menu.
+. In the *Create Limit Range* screen opened, enter configuration data about a limit range to create. +
+The following describes each configuration item. (*: Required)
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|Item|Description 
+|Name*|Limit range name.
+|Namespace*|Name of a namespace where the limit range is created.
+|Labels|Labels to add to the limit range
+|RESOURCELIMITSRANGE|Resource quota by resource type (such as a pod, container, and persistent volume claim) of a pod to create in a namespace. +
+Select a checkbox for a resource type to set limit range, and then click **[+ Add More]** to set its limit type and value. Clicking **[+ Add More]** adds a new input field, and clicking *[-]* deletes the input field.
+|====================
+. To create the resource with the data you entered, click *[Create]*.
