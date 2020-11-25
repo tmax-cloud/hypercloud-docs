@@ -1,17 +1,17 @@
-= 인가 정책 생성
+= Creating Authorization Policies
 :toc:
 :toc-title:
 
-본 장에서는 인가 정책 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create authorization policy resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 인가 정책을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new authorization policy by using the YAML editor.
 
-. <<../console_menu_sub/service-mesh#img-auth-policy-main,인가 정책 메인 화면>>에서 *[인가 정책 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 인가 정책의 구성 정보를 작성한다.
+. Click *[Create Authorization Policies]* in the <<../console_menu_sub/service-mesh#img-auth-policy-main,Authorization Policies>> main screen.
+. Enter configuration data about an authorization policy to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: security.istio.io/v1beta1
@@ -29,7 +29,8 @@ spec:
         requestPrincipals: ["*"]
 ----
 +
-<1> 인가 정책의 이름
-<2> 인가 정책이 적용될 워크로드의 레이블 정보
-<3> 선택된 워크로드를 허용할 수 있는 정책
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Authorization policy name
+<2> Information about a workload label to apply the authorization policy to
+<3> Policy that can allow selected workloads
+
+. To create the resource with the data you entered, click *[Create]*.
