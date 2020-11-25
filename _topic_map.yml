@@ -22,17 +22,17 @@
 # topic groups and topics on the main page.
 
 ---
-Name: 환영합니다
+Name: Welcome
 Dir: welcome
 Topics:
-  - Name: 제품 소개
+  - Name: Introduction
     Dir: overview_sub
     Topics:
-      - Name: 개요
+      - Name: Overview
         File: index
-      - Name: 특장점
+      - Name: Key Features
         File: advantage
-      - Name: 가치 제안
+      - Name: Benefits
         File: value-proposition
 #  - Name: 법적공지
 #    File: legal-notice
