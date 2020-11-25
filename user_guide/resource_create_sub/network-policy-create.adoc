@@ -1,17 +1,17 @@
-= 네트워크 정책 생성
+= Creating Network Policies
 :toc:
 :toc-title:
 
-본 장에서는 네트워크 정책 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create network policy resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 네트워크 정책을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new network policy by using the YAML editor.
 
-. <<../console_menu_sub/security#img-network-main,네트워크 정책 메인 화면>>에서 *[네트워크 정책 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 네트워크 정책의 구성 정보를 작성한다.
+. Click *[Create Network Policies]* in the <<../console_menu_sub/security#img-network-main,Network Policies>> main screen.
+. Enter configuration data about a network policy to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: networking.k8s.io/v1
@@ -55,14 +55,15 @@ spec:
       protocol: TCP
 ----
 +
-<1> 네트워크 정책의 이름
-<2> 네트워크 정책이 생성될 네임스페이스의 이름
-<3> 네트워크 정책을 적용할 대상 파드 셀렉터
-<4> 적용할 정책 유형 (기본값: Ingress)
-<5> 적용할 정책 유형(예: ingress)에 대한 상세 명세
-<6> 트래픽을 허용할 특정 IP 대역
-<7> 트래픽을 허용할 네임스페이스 셀렉터
-<8> 트래픽을 허용할 파드 셀렉터
-<9> 트래픽을 허용할 포트 및 프로토콜
-<10> 적용할 정책 유형(예: egress)에 대한 상세 명세
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Network policy name
+<2> Name of a namespace where the network policy is created
+<3> Pod selector to apply the network policy to
+<4> Policy type (Default value: Ingress)
+<5> Information about the policy type (Example: ingress)
+<6> IP band that allows traffic
+<7> Namespace selector that allows traffic
+<8> Pod selector that allows traffic
+<9> Port and protocol that allow traffic
+<10> Information about the policy type (Example: egress)
+
+. To create the resource with the data you entered, click *[Create]*.

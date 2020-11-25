@@ -1,17 +1,17 @@
-= 영구 볼륨 생성
+= Creating Persistent Volumes
 :toc:
 :toc-title:
 
-본 장에서는 영구 볼륨 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create persistent volume resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 영구 볼륨을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new persistent volume by using the YAML editor.
 
-. <<../console_menu_sub/storage#img-pv-main,영구 볼륨 메인 화면>>에서 *[영구 볼륨 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 영구 볼륨의 구성 정보를 작성한다.
+. Click *[Create Persistent Volumes]* in the <<../console_menu_sub/storage#img-pv-main,Persistent Volumes>> main screen.
+. Enter configuration data about a persistent volume to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: v1
@@ -33,18 +33,19 @@ spec:
     server: 172.17.0.2
 ----
 +
-<1> 영구 볼륨의 이름
-<2> 영구 볼륨의 크기
-<3> 영구 볼륨의 접근 모드 +
-만약 블록 스토리지 클래스를 사용하는 경우 volumeMode가 Block인 경우에만 ReadWriteMany 적용이 가능
-* ReadWriteOnce : 하나의 노드에서 볼륨을 읽기, 쓰기로 마운트
-* ReadOnlyMany : 여러 노드에서 볼륨을 읽기 전용으로 마운트
-* ReadWriteMany : 여러 노드에서 볼륨을 읽기, 쓰기로 마운트
-<4> 사용이 끝난 영구 볼륨의 처리 방식 (기본값: Delete)
-* Retain : 볼륨을 삭제하지 않고, 데이터를 보존
-* Recycle : 데이터를 삭제하고, 새로운 영구 볼륨 클레임에서 재사용 (플러그인 유형이 nfs, hostpath인 경우에만 가능)
-* Delete : 볼륨을 삭제
-<5> 영구 볼륨의 스토리지 클래스 이름
-<6> 플러그인의 특성에 따른 마운트 옵션
-<7> 스토리지를 프로비저닝할 때 사용할 플러그인 유형의 상세 명세
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Persistent volume name
+<2> Persistent volume size
+<3> Access mode of a persistent volume +
+If a block storage class is sued, ReadWriteMany can be set only when the volume usage mode is set to Block.
+* ReadWriteOnce: One node mounts a volume in read-write mode.
+* ReadOnlyMany: Multiple nodes mount a volume in read-only mode.
+* ReadWriteMany: Multiple nodes mount a volume in read-write mode.
+<4> Policy of handling persistent volumes used (Default value: Delete)
+* Retain: Retain the volume and its data.
+* Recycle: Delete the volume data and reuse the data in a new persistent volume claim (Available only when the plugin type is nfs or hostpath)
+* Delete: Delete the volume.
+<5> Storage class name of the persistent volume
+<6> Mount option depending on plugin
+<7> Information about the plugin type to use when provisioning a storage
+
+. To create the resource with the data you entered, click *[Create]*.

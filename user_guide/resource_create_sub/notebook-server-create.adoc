@@ -1,17 +1,17 @@
-= 노트북 서버 생성
+= Creating Notebook Server
 :toc:
 :toc-title:
 
-본 장에서는 노트북 서버 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create notebook server resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 노트북 서버를 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new notebook server by using the YAML editor.
 
-. <<../console_menu_sub/ai-dev#img-notebook-server-main,노트북 서버 메인 화면>>에서 *[노트북 서버 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 노트북 서버의 구성 정보를 작성한다.
+. Click *[Create Notebook Server]* in the <<../console_menu_sub/ai-dev#img-notebook-server-main,Notebook Server>> main screen.
+. Enter configuration data about a notebook server to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: hyperflow.tmax.io/v1
@@ -51,34 +51,35 @@ spec: <5>
     size: 10Gi <30>
 ----
 +
-<1> 노트북의 메타데이터
-<2> 노트북을 분류할 때 사용할 레이블 정보 (키-값 형식)
-<3> 노트북의 이름
-<4> 노트북이 생성될 네임스페이스의 이름
-<5> 노트북의 스펙
-<6> 노트북 파드에 대한 상세 내역
-<7> 노트북 파드의 스펙
-<8> 노트북 파드를 구성할 컨테이너의 목록
-<9> 컨테이너에 추가할 환경 변수
-<10> 컨테이너의 이미지
-<11> 컨테이너의 이름
-<12> 컨테이너에 필요한 리소스 양
-<13> 리소스 요청
-<14> 요청할 CPU 개수
-<15> 요청할 메모리 크기
-<16> 컨테이너에 마운트할 볼륨 정보
-<17> 볼륨을 마운트할 경로
-<18> 마운트할 볼륨의 이름
-<19> 노트북 파드에 할당할 서비스 어카운트의 이름
-<20> 잡 완료 후 자동 삭제까지의 소요 시간 (단위: 초)
-<21> 노트북 파드에서 사용할 볼륨을 지정
-<22> 볼륨의 이름
-<23> 볼륨의 타입 (PVC 타입)
-<24> PVC의 이름
-<25> 볼륨의 타입 (emptyDir 타입)
-<26> 볼륨의 저장 매체
-<27> 볼륨의 이름
-<28> 노트북에 마운트할 PVC 생성
-<29> 생성할 PVC의 이름
-<30> 생성할 PVC의 크기
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Notebook metadata
+<2> Information about labels to use when classifying notebooks (Key-value format)
+<3> Notebook name
+<4> Name of a namespace where the notebook is created
+<5> Notebook specification
+<6> Information about the notebook pod
+<7> Notebook pod specification
+<8> Containers included in the notebook pod
+<9> Environment variable to add to a container
+<10> Container image
+<11> Container name
+<12> Resource amount required for a container
+<13> Resource requests
+<14> Number of CPUs to request
+<15> Memory size to request
+<16> Information about a volume to mount to a container
+<17> Path to mount a volume to
+<18> Name of a volume to mount
+<19> Name of a service account allocated to the notebook pod
+<20> Time period from job completion to automatic deletion (Unit: seconds)
+<21> Volume used by the notebook pod
+<22> Volume name
+<23> Volume type (PVC type)
+<24> PVC name
+<25> Volume type (emptyDir type)
+<26> Volume's storage device
+<27> Volume name
+<28> Information about PVC to mount to the notebook
+<29> Name of PVC to create
+<30> Size of PVC to create
+
+. To create the resource with the data you entered, click *[Create]*.

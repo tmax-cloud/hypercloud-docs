@@ -1,17 +1,17 @@
-= 영구 볼륨 클레임 생성
+= Creating Persistent Volume Claims
 :toc:
 :toc-title:
 
-본 장에서는 영구 볼륨 클레임 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create persistent volume claim resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 영구 볼륨 클레임을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new persistent volume claim by using the YAML editor.
 
-. <<../console_menu_sub/storage#img-pvc-main,영구 볼륨 클레임 메인 화면>>에서 *[영구 볼륨 클레임 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 영구 볼륨 클레임의 구성 정보를 작성한다.
+. Click *[Create Persistent Volume Claims]* in the <<../console_menu_sub/storage#img-pvc-main,Persistent Volume Claims>> main screen.
+. Enter configuration data about a persistent volume claim to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: v1
@@ -37,18 +37,19 @@ spec:
           - dev
 ----
 +
-<1> 영구 볼륨 클레임의 이름
-<2> 영구 볼륨 클레임이 생성될 네이스페이스의 이름 (기본값: default)
-<3> 영구 볼륨 클레임의 접근 모드 +
-만약 블록 스토리지 클래스를 사용하는 경우 volumeMode가 Block인 경우에만 ReadWriteMany 적용이 가능
-* ReadWriteOnce : 하나의 노드에서 볼륨을 읽기, 쓰기로 마운트
-* ReadOnlyMany : 여러 노드에서 볼륨을 읽기 전용으로 마운트
-* ReadWriteMany : 여러 노드에서 볼륨을 읽기, 쓰기로 마운트
-<4> 볼륨의 사용 모드 (기본값: Filesystem)
+<1> Persistent volume claim name
+<2> Name of a namespace where the persistent volume claim is created (Default value: default)
+<3> Access mode of a persistent volume claim +
+If a block storage class is sued, ReadWriteMany can be set only when the volume usage mode is set to Block.
+* ReadWriteOnce: One node mounts a volume in read-write mode.
+* ReadOnlyMany: Multiple nodes mount a volume in read-only mode.
+* ReadWriteMany: Multiple nodes mount a volume in read-write mode.
+<4> Volume usage mode (Default value: Filesystem)
 * Filesystem
 * Block
-<5> 영구 볼륨 클레임의 크기
-<6> 영구 볼륨 클레임의 스토리지 클래스 이름
-<7> 영구 볼륨 클레임과 바인딩할 볼륨 정보 +
-이때 'matchLabels'와 'matchExpressions'에 작성된 조건을 모두 충족하는 볼륨만 바인딩이 가능
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<5> Persistent volume claim size
+<6> Storage class name of the persistent volume claim
+<7> Information about the persistent volume claim and a volume to bind +
+Only volumes that meet both 'matchLabels' and 'matchExpressions' can be bound.
+
+. To create the resource with the data you entered, click *[Create]*.
