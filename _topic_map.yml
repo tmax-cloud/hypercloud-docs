@@ -151,7 +151,7 @@ Topics:
 #   - Name: 개요
 #     File: index
 # ---
-Name: 웹 콘솔 사용자 안내서
+Name: Web Console User Guide
 Dir: user_guide
 Topics:
   - Name: 콘솔 접속
@@ -199,24 +199,24 @@ Topics:
         File: host
       - Name: 인증/인가
         File: permission
-  - Name: Create Service Catalogs
+  - Name: Creating Service Catalogs
     Dir: resource_create_sub
     Topics:
-      - Name: 서비스 바인딩 생성
+      - Name: Service Bindings
         File: service-binding-create
-      - Name: 서비스 브로커 생성
+      - Name: Service Brokers
         File: service-broker-create
-      - Name: 서비스 인스턴스 생성
+      - Name: Service Instances
         File: service-instance-create
-      - Name: 카탈로그 서비스 클레임 생성
+      - Name: Catalog Service Claims
         File: catalog-service-claim-create
-      - Name: 클러스터 서비스 브로커 생성
+      - Name: Cluster Service Brokers
         File: cluster-service-broker-create
-      - Name: 템플릿 생성
+      - Name: Templates
         File: template-create
-      - Name: 템플릿 인스턴스 생성
+      - Name: Template Instances
         File: template-instance-create
-  - Name: 리소스 생성 (워크로드)
+  - Name: Creating Workloads
     Dir: resource_create_sub
     Topics:
       - Name: HPA 생성
