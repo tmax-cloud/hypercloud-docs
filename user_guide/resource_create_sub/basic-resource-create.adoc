@@ -1,18 +1,18 @@
-= 제한 범위 생성
+= Creating Limit Ranges
 :toc:
 :toc-title:
 
-본 장에서는 제한 범위 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create limit range resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 제한 범위를 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new limit range by using the YAML editor.
 
-. <<../console_menu_sub/management#img-basic-resource-main,제한 범위 메인 화면>>에서 *[제한 범위 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[Yaml 에디터]**를 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 제한 범위의 구성 정보를 작성한다.
+. Click *[Create Limit Ranges]* in the <<../console_menu_sub/management#img-basic-resource-main,Limit Ranges>> main screen.
+. Select **[Yaml Editor]** from the drop down menu.
+. Enter configuration data about a limit range to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: v1
@@ -29,29 +29,29 @@ spec:
       type: Container <5>
 ----
 +
-<1> 제한 범위의 이름
-<2> 제한 범위가 생성될 네임스페이스의 이름
-<3> 기본 리소스 쿼타 제한 정보
-<4> 기본 리소스 쿼타 요청 정보
-<5> 적용될 리소스 종류
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Limit range name
+<2> Name of a namespace where the limit range is created
+<3> Limit of a default resource quota
+<4> Request of a default resource quota
+<5> Resource type to apply
+. To create the resource with the data you entered, click *[Create]*.
 
-== 폼 에디터
+== Form Editor
 
-새로운 제한 범위를 폼 에디터를 사용해서 생성할 수 있다.
+Create a new limit range by using the Form editor.
 
-. <<../console_menu_sub/management#img-basic-resource-main,제한 범위 메인 화면>>에서 *[제한 범위 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[폼 에디터]**를 클릭한다.
-. *제한 범위 생성* 화면이 열리면 생성할 제한 범위의 구성 정보를 설정한다. +
-각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
+. Click *[Create Limit Ranges]* in the <<../console_menu_sub/management#img-basic-resource-main,Limit Ranges>> main screen.
+. Select **[Form Editor]** from the drop down menu.
+. In the *Create Limit Range* screen opened, enter configuration data about a limit range to create. +
+The following describes each configuration item. (*: Required)
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름 *|제한 범위의 이름을 입력한다.
-|네임스페이스 *|제한 범위가 생성될 네임스페이스의 이름을 선택한다.
-|레이블|제한 범위에 추가할 레이블 정보를 입력한다.
-|리소스 제한 범위|네임스페이스 내에서 생성할 파드의 리소스 타입(파드, 컨테이너, 영구 볼륨 클레임) 별 제한 범위를 설정한다. +
-우선 제한 범위를 설정할 리소스 타입의 체크박스를 선택한 후 **[+ 추가]**를 클릭해서 제한 타입과 제한값을 설정한다. 이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
+|Item|Description 
+|Name*|Limit range name.
+|Namespace*|Name of a namespace where the limit range is created.
+|Labels|Labels to add to the limit range
+|RESOURCELIMITSRANGE|Resource quota by resource type (such as a pod, container, and persistent volume claim) of a pod to create in a namespace. +
+Select a checkbox for a resource type to set limit range, and then click **[+ Add More]** to set its limit type and value. Clicking **[+ Add More]** adds a new input field, and clicking *[-]* deletes the input field.
 |====================
-. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
+. To create the resource with the data you entered, click *[Create]*.
