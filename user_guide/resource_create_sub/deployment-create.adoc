@@ -1,18 +1,18 @@
-= 디플로이먼트 생성
+= Creating Deployments
 :toc:
 :toc-title:
 
-본 장에서는 디플로이먼트 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create deployment resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 디플로이먼트를 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new deployment by using the YAML editor.
 
-. <<../console_menu_sub/work-load#img-deployment-main,디플로이먼트 메인 화면>>에서 *[디플로이먼트 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[Yaml 에디터]**를 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 디플로이먼트의 구성 정보를 작성한다.
+. Click *[Create Deployments]* in the <<../console_menu_sub/work-load#img-deployment-main,Deployments>> main screen.
+. Select **[Yaml Editor]** from the drop down menu.
+. Enter configuration data about a deployment to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: apps/v1
@@ -37,81 +37,83 @@ spec:
             - containerPort: 8080 <11>
 ----
 +
-<1> 디플로이먼트의 이름
-<2> 디플로이먼트가 생성될 네임스페이스의 이름
-<3> 디플로이먼트가 관리할 파드의 레이블 정보
-<4> 파드 복제본의 개수
-<5> 생성할 파드에 대한 상세 명세
-<6> 파드를 분류할 때 사용할 레이블 정보 (키-값 형식)
-<7> 파드를 구성할 컨테이너의 상세 내역
-<8> 컨테이너의 이름
-<9> 컨테이너의 이미지
-<10> 컨테이너에서 노출할 포트 목록
-<11> 파드의 IP 주소에서 노출할 포트 번호
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Deployment name
+<2> Name of a namespace where the deployment is created
+<3> Label of a pod to be managed by the deployment
+<4> Number of pod replicas
+<5> Information about a pod to create
+<6> Information about labels to use when classifying pods (Key-value format)
+<7> Information about containers included in a pod
+<8> Container name
+<9> Container image
+<10> Ports to expose to the container
+<11> Port number to expose on the pod's IP address
 
-== 폼 에디터
+. To create the resource with the data you entered, click *[Create]*.
 
-새로운 디플로이먼트를 폼 에디터를 사용해서 생성할 수 있다.
+== Form Editor
 
-. <<../console_menu_sub/work-load#img-deployment-main,디플로이먼트 메인 화면>>에서 *[디플로이먼트 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[폼 에디터]**를 클릭한다.
-. *디플로이먼트 생성* 화면이 열리면 생성할 디플로이먼트의 구성 정보를 설정한다. +
-각 설정 항목에 대한 설명은 다음과 같다.
+Create a new deployment by using the Form editor.
+
+. Click *[Create Deployments]* in the <<../console_menu_sub/work-load#img-deployment-main,Deployments>> main screen.
+. Select **[Form Editor]** from the drop down menu.
+. In the *Create Deployments* screen opened, enter configuration data about a deployment to create. +
+The following describes each configuration item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|디플로이먼트의 이름을 입력한다.
-|컨테이너 이미지|애플리케이션을 구동하기 위한 컨테이너 이미지의 이름을 입력한다.
-|이미지 풀 폴리시|컨테이너에 대해 사용할 이미지를 가져오는 방식을 선택한다.
+|Item|Description   
+|Name|Deployment name.
+|Container Image|Container image name for running an application.
+|Image pull policy|Image pull policy to use for containers.
 
-* If Not Present : 이미지가 로컬에 없는 경우에만 이미지를 가져온다.
-* 항상 : 컨테이너가 시작할 때마다 이미지를 가져온다.
-* 절대 안 함 : 이미지를 가져오지 않는다.
-|레플리카|파드 복제본의 생성 개수를 입력한다.
-|레이블|디플로이먼트에 추가할 레이블 정보를 입력한다.
-|커맨드 실행|파드 안에서 컨테이너가 동작할 때 실행할 커맨드(Command 필드)를 정의한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
-|커맨드 인수 실행|커맨드의 인자(Args 필드)를 정의한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
-|환경 변수|디플로이먼트의 환경 변수를 설정한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
+* If Not Present: Pull images only when the image does not exist in local.
+* Always: Pull images whenever the container starts.
+* Never: Do not pull images.
+|Replicas|Number of pod replicas.
+|Labels|Information about labels to add to the deployment.
+|Run command|Command to run when a container runs in a pod (Command field). +
+Clicking **[+ Add More]** adds a new input field, and clicking *[-]* deletes the input field.
+|Run command arguments|Command arguments (Args field). +
+Clicking **[+ Add More]** adds a new input field, and clicking *[-]* deletes the input field.
+|Environment variables|Environment variables for the deployment. +
+Clicking **[+ Add More]** adds a new input field, and clicking *[-]* deletes the input field.
 
-* 키 : 환경 변수의 이름을 입력
-* 값 : 환경 변수의 기본값을 입력
-|포트|컨테이너에서 노출할 포트 정보를 설정한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
+* Key: Environment variable name.
+* Value: Default value of the environment variable.
+|Port|Ports to expose to the container. +
+Clicking **[+ Add More]** adds a new input field, and clicking *[-]* deletes the input field.
 
-* 포트 이름 : 포트 정보의 이름을 입력
-* 포트 : 포트 번호를 입력
-* 프로토콜 : 네트워크 프로토콜을 선택 (TCP, UDP, SCDP)
-|볼륨|파드에 추가할 볼륨의 정보를 설정한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
+* Port Name: Port name.
+* Port: Port number.
+* Protocol: One of the following network protocols: TCP, UDP, and SCDP.
+|Volumes|Volumes to add to a pod. +
+Clicking **[+ Add More]** adds a new input field, and clicking *[-]* deletes the input field.
 
-* 볼륨 이름 : 볼륨의 이름을 입력
-* 마운트 경로 : 마운트할 볼륨의 경로 입력
-* 영구 볼륨 클레임 : 적용할 영구 볼륨 클레임의 이름을 선택
-* Read Only : 읽기/쓰기 모드 선택
-|리소스(요청)|파드가 스케줄되기 위해 필요한 최소 자원의 양을 설정한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
+* Volume Name: Volume name.
+* Mount Path: Path of the volume to mount.
+* Persistent Volume Claim: Persistent volume claim name.
+* Read Only: Read/write mode.
+|Resource(Request)|Minimum resources required to schedule a pod. +
+Clicking **[+ Add More]** adds a new input field, and clicking *[-]* deletes the input field.
 
-* 리소스 : 자원의 종류 입력
-* 수량 : 필요한 최소의 양 입력
-|리소스(제한)|파드의 컨테이너 생성 후 실행 시 사용 가능한 최대 자원의 양을 설정한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
+* Resource: Resource type.
+* Quantity: Minimum quantity.
+|Resource(Limits)|Maximum resources allowed when creating and running pod's container. +
+Clicking **[+ Add More]** adds a new input field, and clicking *[-]* deletes the input field.
 
-* 리소스 : 자원의 종류 입력
-* 수량 : 필요한 최대의 양 입력
-|재시작 정책|종료된 컨테이너의 재시작 방식을 선택한다.
+* Resource: Resource type.
+* Quantity: Maximum quantity.
+|Restart Policy|Restart policy for a terminated container.
 
-* 항상 : 항상 재시작한다.
-* 실패시 : 정상적으로 종료되지 않은 경우에만 재시작한다.
-* 절대 안 함 : 재시작 하지 않는다.
+* Always: Always restart it.
+* OnFailure: Restarts it only when it is terminated abnormally.
+* Never: Do not restart it.
 |====================
-. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
-NOTE: 커맨드(Command 필드) 및 커맨드 인자(Args 필드)에 적용되는 규칙은 다음과 같다. +
-- 커맨드(Command 필드)와 커맨드 인자(Args 필드)를 모두 정의한 경우 이미지에 정의된 Entrypoint 필드 값은 커맨드(Command 필드) 값으로, Cmd 필드 값은 커맨드 인자(Args 필드) 값으로 덮여 쓰인다. +
-- 커맨드(Command 필드)만 정의한 경우 이미지에 정의된 Entrypoint 필드 값은 커맨드(Command 필드) 값으로, Cmd 필드 값은 정의되지 않는 상태로 덮여 쓰인다. + 
-- 커맨드 인자(Args 필드)만 정의한 경우 이미지의 Cmd 필드 값만 덮여 쓰인다.
+. To create the resource with the data you entered, click *[Create]*.
+
+NOTE: The following are rules for commands (Command field) and command arguments (Args field). +
+- If both command (Command field) and command arguments (Args field) are defined, the Entrypoint field value defined in an image is overwritten by the command (Command field) value and the Cmd field value is overwritten by the command argument (Args field) value. +
+- If only command (Command field) is defined, the Entrypoint field value defined in an image is overwritten by the command (Command field) value and the Cmd field value is overwritten as undefined. + 
+- If only command argument (Args field) is defined, only image's Cmd field value is overwritten.

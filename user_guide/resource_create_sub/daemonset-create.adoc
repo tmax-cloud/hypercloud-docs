@@ -1,17 +1,17 @@
-= 데몬셋 생성
+= Creating Daemon Sets
 :toc:
 :toc-title:
 
-본 장에서는 데몬셋 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create daemon set resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 데몬셋을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new daemon set by using the YAML editor.
 
-. <<../console_menu_sub/work-load#img-daemonset-main,데몬셋 메인 화면>>에서 *[데몬셋 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 데몬셋의 구성 정보를 작성한다.
+. Click *[Create Daemon Sets]* in the <<../console_menu_sub/work-load#img-daemonset-main,Daemon Sets>> main screen.
+. Enter configuration data about a daemon set to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: apps/v1
@@ -35,15 +35,15 @@ spec:
             - containerPort: 8080 <10>
 ----
 +
-<1> 데몬셋의 이름
-<2> 데몬셋이 생성될 네임스페이스의 이름
-<3> 데몬셋이 관리할 파드의 레이블 정보
-<4> 생성할 파드에 대한 상세 명세
-<5> 파드를 분류할 때 사용할 레이블 정보 (키-값 형식)
-<6> 파드를 구성할 컨테이너의 상세 내역
-<7> 컨테이너의 이름
-<8> 컨테이너의 이미지
-<9> 컨테이너에서 노출할 포트 목록
-<10> 파드의 IP 주소에서 노출할 포트 번호
+<1> Daemon set name
+<2> Name of a namespace where the daemon set is created
+<3> Label of a pod to be managed by the daemon set
+<4> Information about a pod to create
+<5> Information about labels to use when classifying pods (Key-value format)
+<6> Information about containers included in a pod
+<7> Container name
+<8> Container image
+<9> Ports to expose to the container
+<10> Port number to expose on the pod's IP address
 
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+. To create the resource with the data you entered, click *[Create]*.

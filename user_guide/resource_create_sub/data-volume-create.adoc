@@ -1,17 +1,17 @@
-= 데이터 볼륨 생성
+= Creating Data Volumes
 :toc:
 :toc-title:
 
-본 장에서는 데이터 볼륨 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create data volume resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 데이터 볼륨을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new data volume by using the YAML editor.
 
-. <<../console_menu_sub/storage#img-data-volume-main,데이터 볼륨 메인 화면>>에서 *[데이터 볼륨 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 데이터 볼륨의 구성 정보를 작성한다.
+. Click *[Create Data Volumes]* in the <<../console_menu_sub/storage#img-data-volume-main,Data Volumes>> main screen.
+. Enter configuration data about a data volume to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: cdi.kubevirt.io/v1alpha1
@@ -37,26 +37,27 @@ spec:
     # volumeMode: Block <11>
 ----
 +
-<1> 데이터 볼륨의 이름
-<2> 데이터 볼륨이 생성될 네이스페이스의 이름 (기본값: default)
-<3> 가상 머신 이미지를 가져올 외부 경로 종류
+<1> Data volume name
+<2> Name of a namespace where the data volume is created (Default value: default)
+<3> Type of an external path to get a virtual machine image to
 * http
 * s3
 * registry
-<4> 가상 머신 이미지를 가져올 실제 경로
-<5> url에 접근할 때 인증이 필요한 경우 사용할 K8s Secret 리소스
-<6> url에 접근할 때 TLS 인증서가 필요한 경우 사용할 K8s ConfigMap 리소스
-<7> 가상 머신 이미지 소스의 유형 (기본값: kubevirt)
-* kubevirt : 가상 머신 이미지 소스가 가상 디스크 이미지인 경우
-* archive : 외부 경로가 http이고, 가상 머신 이미지 소스가 tar 파일인 경우
-<8> 가상 머신을 생성할 때 사용될 영구 볼륨 클레임의 접근 모드 +
-만약 블록 스토리지 클래스를 사용하는 경우 volumeMode가 Block인 경우에만 ReadWriteMany 적용이 가능
-* ReadWriteOnce : 하나의 노드에서 볼륨을 읽기, 쓰기로 마운트
-* ReadOnlyMany : 여러 노드에서 볼륨을 읽기 전용으로 마운트
-* ReadWriteMany : 여러 노드에서 볼륨을 읽기, 쓰기로 마운트
-<9> 가상 머신을 생성할 때 사용될 영구 볼륨 클레임의 크기
-<10> 가상 머신을 생성할 때 사용될 영구 볼륨 클레임의 스토리지 클래스 이름
-<11> 볼륨의 사용 모드 (기본값: Filesystem)
+<4> Actual path to get a virtual machine image to
+<5> K8s Secret resource used when authentication is required to access the url
+<6> K8s ConfigMap resource used when TLS certificate is required to access the url
+<7> Type of virtual machine image source (Default value: kubevirt)
+* kubevirt: When the image source is virtual disk image.
+* archive: When an external path type is http and virtual machine image source is a tar file.
+<8> Access mode of a persistent volume claim to use when creating a virtual machine +
+If a block storage class is sued, ReadWriteMany can be set only when the volume usage mode is set to Block.
+* ReadWriteOnce: One node mounts a volume in read-write mode.
+* ReadOnlyMany: Multiple nodes mount a volume in read-only mode.
+* ReadWriteMany: Multiple nodes mount a volume in read-write mode.
+<9> Size of a persistent volume claim to use when creating a virtual machine
+<10> Storage class name of a persistent volume claim to use when creating a virtual machine
+<11> Volume usage mode (Default value: Filesystem)
 * Filesystem
 * Block
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+
+. To create the resource with the data you entered, click *[Create]*.

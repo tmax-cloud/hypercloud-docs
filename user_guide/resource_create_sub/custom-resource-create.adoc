@@ -1,17 +1,17 @@
-= 커스텀 리소스 정의(CRD) 생성
+= Creating Custom Resource Definitions (CRD)
 :toc:
 :toc-title:
 
-본 장에서는 커스텀 리소스 정의(CRD) 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create custom resource definitions (CRD) resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 커스텀 리소스 정의(CRD)를 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new CRD by using the YAML editor.
 
-. <<../console_menu_sub/management#img-custom-resource-main,커스텀 리소스 메인 화면>>에서 *[사용자 리소스 정의 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 CRD의 구성 정보를 작성한다.
+. Click *[Create Custom Resource Definitions]* in the <<../console_menu_sub/management#img-custom-resource-main,Custom Resource Definitions>> main screen.
+. Enter configuration data about a CRD to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -30,14 +30,14 @@ spec:
       - ct
 ----
 +
-<1> CRD의 이름
-<2> REST API 사용을 위한 그룹 이름
-<3> API의 버전 정보
-<4> 사용자 리소스의 적용 범위
+<1> CRD name
+<2> Group name used for REST API
+<3> API version
+<4> Scope of custom resources
 * Cluster
 * Namespaced
-<5> API URL에서 사용할 복수형 이름
-<6> CLI에서 사용할 단수형 이름
-<7> kind에 사용할 단수형 단어
-<8> CLI에서 사용할 단축어 목록
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<5> Plural name to use in API URL
+<6> Singular name to use in CLI
+<7> Singular word to use in kind
+<8> Shortcut names to use in CLI
+. To create the resource with the data you entered, click *[Create]*.
