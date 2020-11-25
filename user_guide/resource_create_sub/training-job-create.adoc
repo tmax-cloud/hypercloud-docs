@@ -106,7 +106,7 @@ spec: <4>
       replicas: 1
       restartPolicy: OnFailure
       template:
-        spec
+        spec:
           containers:
             - name: pytorch
               image: 'gcr.io/kubeflow-ci/pytorch-dist-mnist_test:1.0'
