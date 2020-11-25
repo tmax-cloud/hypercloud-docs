@@ -1,18 +1,18 @@
-= 컨피그 맵 생성
+= Creating Config Maps
 :toc:
 :toc-title:
 
-본 장에서는 컨피그 맵 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create config map resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 컨피그 맵을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new config map by using the YAML editor.
 
-. <<../console_menu_sub/work-load#img-config-map-main,컨피그 맵 메인 화면>>에서 *[컨피그 맵 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[Yaml 에디터]**를 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 컨피그 맵의 구성 정보를 작성한다.
+. Click *[Create Config Maps]* in the <<../console_menu_sub/work-load#img-config-map-main,Config Maps>> main screen.
+. Select **[Yaml Editor]** from the drop down menu.
+. Enter configuration data about a config map to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: v1
@@ -26,28 +26,31 @@ data: <3>
   password: admin-pw
 ----
 +
-<1> 컨피그 맵의 이름
-<2> 컨피그 맵이 생성될 네임스페이스의 이름
-<3> 정의할 설정 정보 (Key-Value 형식)
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Config map name
+<2> Name of a namespace where the config map is created
+<3> Data to define in the config map (Key-value format)
 
-== 폼 에디터
+. To create the resource with the data you entered, click *[Create]*.
 
-새로운 컨피그 맵을 폼 에디터를 사용해서 생성할 수 있다.
+== Form Editor
 
-. <<../console_menu_sub/work-load#img-config-map-main,컨피그 맵 메인 화면>>에서 *[컨피그 맵 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[폼 에디터]**를 클릭한다.
-. *컨피그 맵 생성* 화면이 열리면 생성할 컨피그 맵의 구성 정보를 설정한다. +
-각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
+Create a new config map by using the Form editor.
+
+. Click *[Create Config Maps]* in the <<../console_menu_sub/work-load#img-config-map-main,Config Maps>> main screen.
+. Select **[Form Editor]** from the drop down menu.
+. In the *Create Config Maps* screen opened, enter configuration data about a config map to create. +
+The following describes each configuration item. (*: Required)
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름 *|컨피그 맵의 이름을 입력한다.
-|네임스페이스 *|컨피그 맵이 생성될 네임스페이스의 이름을 입력한다.
-|컨피그 맵 값|컨피그 맵에 정의할 데이터를 입력한다. (키-값 형식)
+|Item|Description  
+|Name*|Config map name.
+|Namespace*|Name of a namespace where the config map is created.
+|Config Map Value|Data to define in the config map (Key-value format) +
+Clicking **[+ Add More]** adds a new input field, and clicking *[-]* deletes the input field.
 
-* 키 : 데이터의 항목을 입력
-* 값 : 해당 항목의 값을 입력
+* Key: Data item
+* Value: Item value
+|====================
 
-. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
+. To create the resource with the data you entered, click *[Create]*.

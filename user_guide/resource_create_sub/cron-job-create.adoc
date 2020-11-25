@@ -1,17 +1,17 @@
-= 크론 잡 생성
+= Creating Cron Jobs
 :toc:
 :toc-title:
 
-본 장에서는 크론 잡 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create cron Job resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 크론 잡을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new cron Job by using the YAML editor.
 
-. <<../console_menu_sub/work-load#img-cron-job-main,크론 잡 메인 화면>>에서 *[크론 잡 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 크론 잡의 구성 정보를 작성한다.
+. Click *[Create Cron Jobs]* in the <<../console_menu_sub/work-load#img-cron-job-main,Cron Jobs>> main screen.
+. Enter configuration data about a cron Job to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: batch/v1beta1
@@ -32,8 +32,9 @@ spec:
           restartPolicy: OnFailure
 ----
 +
-<1> 크론 잡의 이름
-<2> 크론 잡이 생성될 네임스페이스의 이름
-<3> 잡이 실행될 주기 (Cron 문법으로 작성)
-<4> 주기적으로 실행될 잡의 상세 내역
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Cron Job name
+<2> Name of a namespace where the cron Job is created
+<3> Cycle that the Job runs (in cron syntax)
+<4> Information about the Job to run periodically
+
+. To create the resource with the data you entered, click *[Create]*.
