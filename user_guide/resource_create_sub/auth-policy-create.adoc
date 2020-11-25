@@ -1,0 +1,36 @@
+= Creating Authorization Policies
+:toc:
+:toc-title:
+
+The following describes how to create authorization policy resources.
+
+== YAML Editor
+
+Create a new authorization policy by using the YAML editor.
+
+. Click *[Create Authorization Policies]* in the <<../console_menu_sub/service-mesh#img-auth-policy-main,Authorization Policies>> main screen.
+. Enter configuration data about an authorization policy to create in the YAML editor opened.
++
+.Sample
+[source,yaml]
+----
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: httpbin <1>
+  namespace: foo
+spec:
+  selector: <2>
+    matchLabels:
+      app: httpbin
+  rules: <3>
+  - from:
+    - source:
+        requestPrincipals: ["*"]
+----
++
+<1> Authorization policy name
+<2> Information about a workload label to apply the authorization policy to
+<3> Policy that can allow selected workloads
+
+. To create the resource with the data you entered, click *[Create]*.
