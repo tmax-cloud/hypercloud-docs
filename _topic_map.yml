@@ -199,7 +199,7 @@ Topics:
         File: host
       - Name: 인증/인가
         File: permission
-  - Name: 리소스 생성 (서비스 카탈로그)
+  - Name: Create Service Catalogs
     Dir: resource_create_sub
     Topics:
       - Name: 서비스 바인딩 생성
