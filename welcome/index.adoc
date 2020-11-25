@@ -21,6 +21,6 @@ Based on the standard open source of Kubernetes, Tmax has solved the lock-in iss
 
 In addition, Tmax provides open sources for each category such as middleware, framework, and DBMS by self-verification and optimization. These open sources are provided in service catalogs, allowing users to easily execute services without a complicated provisioning process. Tmax ensures reliable use of open sources through technical support. 
 
-.{product-title} {product-version} 아키텍처
-[caption="그림. "]
+.{product-title} {product-version} Architecture
+[caption="Figure. "]
 image::../images/figure_architecture.png[]
