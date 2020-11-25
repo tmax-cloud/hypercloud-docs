@@ -1,22 +1,90 @@
-= 카탈로그 서비스 클레임 생성
+= Creating Catalog Service Claims
 :toc:
 :toc-title:
 
-본 장에서는 카탈로그 서비스 클레임 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create catalog service claim resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 카탈로그 서비스 클레임을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new catalog service claim by using the YAML editor.
 
-. <<../console_menu_sub/service-catalog#img-catalog-claim-main,카탈로그 서비스 클레임 메인 화면>>에서 *[카탈로그 서비스 클레임 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 카탈로그 서비스 클레임의 구성 정보를 작성한다.
+. Click *[Create Catalog Service Claim]* in the <<../console_menu_sub/service-catalog#img-catalog-claim-main,Catalog Service Claim>> main screen.
+. Enter configuration data about a catalog service claim to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
-
+apiVersion: tmax.io/v1
+kind: CatalogServiceClaim
+metadata:
+  name: nginx-catalog-service-claim <1>
+  namespace: default <2>
+spec:
+  apiVersion: tmax.io/v1
+  kind: Template
+  metadata:
+    name: example-template
+    namespace: default
+  imageUrl: example.com/example.gif <3>
+  urlDescription: https://www.nginx.com/ <4>
+  provider: tmax <5>
+  recommend: true <6>
+  objects: <7>
+    - apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: '${NAME}'
+        labels:
+          app: '${NAME}'
+      spec:
+        selector:
+          matchLabels:
+            app: '${NAME}'
+        template:
+          metadata:
+            labels:
+              app: '${NAME}'
+          spec:
+            containers:
+              - name: '${NAME}'
+                image: 'example/image:version'
+                ports:
+                  - name: example
+                    containerPort: 80
+  plans: <8>
+    - name: example-plan
+      metadata:
+        bullets:
+          - feat 1
+          - feat 2
+        costs:
+          amount: 100
+          unit: $
+        bindable: true
+        schemas:
+          service_instance:
+            create:
+              parameters:
+                EXAMPLE_PARAM: value
+  parameters: <9>
+    - name: NAME
+      description: Application name
+      valueType: string <10>
+      value: example <11>
 ----
 +
+<1> Name of a catalog service claim
+<2> Name of a namespace where the catalog service claim is created
+<3> Template image URL
+<4> Template description page URL
+<5> Template provider
+<6> Whether to recommend the template
+<7> Actual objects to create based on the template (The ``${PARAMETER}`` format is used for variables.)
+<8> Plans to use to integrate a service broker
+<9> Details about variables specified in the template
+<10> Variable's data type
+* string
+* number
+<11> Variable's default value
 
-
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+. To create the resource with the data you entered, click *[Create]*.
