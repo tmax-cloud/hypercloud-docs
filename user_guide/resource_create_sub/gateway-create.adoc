@@ -1,17 +1,17 @@
-= 게이트웨이 생성
+= Creating Gateways
 :toc:
 :toc-title:
 
-본 장에서는 게이트웨이 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create gateway resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 게이트웨이를 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new gateway by using the YAML editor.
 
-. <<../console_menu_sub/service-mesh#img-gateway-main,게이트웨이 메인 화면>>에서 *[게이트웨이 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 게이트웨이의 구성 정보를 작성한다.
+. Click *[Create Gateways]* in the <<../console_menu_sub/service-mesh#img-gateway-main,Gateways>> main screen.
+. Enter configuration data about a gateway to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: networking.istio.io/v1alpha3
@@ -31,8 +31,9 @@ spec:
         protocol: HTTP
 ----
 +
-<1> 게이트웨이의 이름
-<2> 게이트웨이를 구성하는 특정 파드 또는 VM 집합의 레이블 정보
-<3> 게이트웨이에 의해 노출되는 대상
-<4> 프록시에서 들어오는 연결을 수신할 포트 정보
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Gateway name
+<2> Information about a specific pod for the gateway or VM set's label
+<3> Target to be exposed by the gateway
+<4> Information about a port used to receive a connection from proxy
+
+. To create the resource with the data you entered, click *[Create]*.
