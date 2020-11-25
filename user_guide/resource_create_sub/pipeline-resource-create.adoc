@@ -1,18 +1,18 @@
-= 파이프라인 리소스 생성
+= Creating Pipeline Resources
 :toc:
 :toc-title:
 
-본 장에서는 파이프라인 리소스 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create pipeline resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 파이프라인 리소스를 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new pipeline resource by using the YAML editor.
 
-. <<../console_menu_sub/ci-cd#img-pipeline-resource-main,파이프라인 리소스 메인 화면>>에서 *[파이프라인 리소스 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[Yaml 에디터]**를 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 파이프라인 리소스의 구성 정보를 작성한다.
+. Click *[Create Pipeline Resources]* in the <<../console_menu_sub/ci-cd#img-pipeline-resource-main,Pipeline Resources>> main screen.
+. Select **[Yaml Editor]** from the drop down menu.
+. Enter configuration data about a pipeline resource to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: tekton.dev/v1alpha1
@@ -29,32 +29,34 @@ spec:
       value: 'https://github.com/sample/git/url'
 ----
 +
-<1> 파이프라인 리소스의 이름
-<2> 파이프라인 리소스 유형
-<3> 형상관리 저장소 및 레지스트리의 상세 명세
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Pipeline resource name
+<2> Pipeline resource type
+<3> Information about configuration storage and the registry
 
-== 폼 에디터
+. To create the resource with the data you entered, click *[Create]*.
 
-새로운 파이프라인 리소스를 폼 에디터를 사용해서 생성할 수 있다.
+== Form Editor
 
-. <<../console_menu_sub/ci-cd#img-pipeline-resource-main,파이프라인 리소스 메인 화면>>에서 *[파이프라인 리소스 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[폼 에디터]**를 클릭한다.
-. *파이프라인 리소스 생성* 화면이 열리면 생성할 파이프라인 리소스의 구성 정보를 설정한다. +
-각 설정 항목에 대한 설명은 다음과 같다.
+Create a new pipeline resource by using the Form editor.
+
+. Click *[Create Pipeline Resources]* in the <<../console_menu_sub/ci-cd#img-pipeline-resource-main,Pipeline Resources>> main screen.
+. Select **[From Editor]** from the drop down menu.
+. In the *Create Pipeline Resources* screen opened, enter configuration data about a pipeline resource to create. +
+The following describes each configuration item.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명  
-|이름|파이프라인 리소스의 이름을 입력한다.
-|타입|파이프라인 리소스 유형을 선택한다.
+|Item|Description
+|Name|Pipeline resource name.
+|Type|Pipeline resource type.
 
-* git : Git 저장소에 있는 소스 코드
-* Image : 원격 저장소에 있는 이미지
-|파라미터|형상관리 저장소 및 레지스트리의 정보를 입력한다.
+* git: Source code in Git storage.
+* Image: Image located in remote storage.
+|Parameters|Information about configuration storage and the registry.
 
-* 리비전 : 형상관리 저장소의 브렌치 이름 (단, 타입이 **"git"**일 경우에만 활성화)
-* Url : 형상관리 저장소 및 레지스트리의 URL
-|레이블|파이프라인 리소스에 추가할 레이블 정보를 입력한다.
+* Revision: branch name of the configuration storage. (Only available when the type is **"git"**)
+* Url: configuration storage and the registry URL
+|Labels|Labels to add to the pipeline resource.
 |====================
-. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
+
+. To create the resource with the data you entered, click *[Create]*.

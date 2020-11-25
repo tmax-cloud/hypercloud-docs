@@ -1,17 +1,17 @@
-= 파이프라인 컨디션 생성
+= Creating Pipeline Conditions
 :toc:
 :toc-title:
 
-본 장에서는 파이프라인 컨디션 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create pipeline condition resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 파이프라인 컨디션을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new pipeline condition by using the YAML editor.
 
-. <<../console_menu_sub/ci-cd#img-pipeline-condition-main,파이프라인 컨디션 메인 화면>>에서 *[파이프라인 컨디션 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 파이프라인 컨디션의 구성 정보를 작성한다.
+. Click *[Create Pipeline Conditions]* in the <<../console_menu_sub/ci-cd#img-pipeline-condition-main,Pipeline Conditions>> main screen.
+. Enter configuration data about a pipeline condition to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: tekton.dev/v1alpha1
@@ -31,9 +31,10 @@ spec:
     script: test ! -f $(resources.sample-resource.path)/$(params.path)
 ----
 +
-<1> 파이프라인 컨디션의 이름
-<2> 파이프라인 컨디션이 생성될 네임스페이스의 이름
-<3> 태스크를 확인할 때 사용되는 변수를 정의
-<4> 태스크를 확인할 때 사용되는 리소스를 정의
-<5> 태스크를 확인하기 위해 수행할 스크립트 및 스크립트가 수행될 이미지를 정의
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Pipeline condition name
+<2> Name of a namespace where the pipeline condition is created
+<3> Variables used when checking a task
+<4> Resources used when checking a task
+<5> Script to run to check a task and an image including the script to run
+
+. To create the resource with the data you entered, click *[Create]*.

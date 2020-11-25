@@ -1,17 +1,17 @@
-= 파드 생성
+= Creating Pods
 :toc:
 :toc-title:
 
-본 장에서는 파드 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create pod resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 파드를 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new pod by using the YAML editor.
 
-. <<../console_menu_sub/work-load#img-pod-main,파드 메인 화면>>에서 *[파드 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 파드의 구성 정보를 작성한다.
+. Click *[Create Pods]* in the <<../console_menu_sub/work-load#img-pod-main,Pods>> main screen.
+. Enter configuration data about a pod to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: v1
@@ -29,13 +29,13 @@ spec:
         - containerPort: 8080 <8>
 ----
 +
-<1> 파드의 이름
-<2> 파드를 분류할 때 사용할 레이블 정보 (키-값 형식)
-<3> 파드가 생성될 네임스페이스의 이름
-<4> 파드를 구성할 컨테이너의 상세 내역
-<5> 컨테이너의 이름
-<6> 컨테이너의 이미지
-<7> 컨테이너에서 노출할 포트 목록
-<8> 파드의 IP 주소에서 노출할 포트 번호
+<1> Pod name
+<2> Information about labels to use when classifying pods (Key-value format)
+<3> Name of a namespace where the pod is created
+<4> Information about containers included in a pod
+<5> Container name
+<6> Container image
+<7> Ports to expose to the container
+<8> Port number to expose on the pod's IP address
 
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+. To create the resource with the data you entered, click *[Create]*.
