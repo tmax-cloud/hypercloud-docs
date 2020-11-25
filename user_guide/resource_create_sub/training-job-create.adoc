@@ -72,7 +72,7 @@ spec: <4>
 
 === 파이토치(PyTorch) 잡
 
-새로운 텐서플로(TensorFlow) 잡을 YAML 에디터를 사용해서 생성할 수 있다.
+새로운 파이토치(PyTorch) 잡을 YAML 에디터를 사용해서 생성할 수 있다.
 
 . <<../console_menu_sub/ai-dev#img-training-job-main,트레이닝 잡 메인 화면>>에서 *[트레이닝 잡 생성]* 버튼을 클릭한다.
 . 드롭다운 메뉴가 열리면 **[Yaml 에디터(PyTorch Job)]**을 클릭한다.
@@ -106,7 +106,7 @@ spec: <4>
       replicas: 1
       restartPolicy: OnFailure
       template:
-        spec:
+        spec
           containers:
             - name: pytorch
               image: 'gcr.io/kubeflow-ci/pytorch-dist-mnist_test:1.0'
