@@ -23,14 +23,14 @@ spec:
     labels:
       version: v1
   configPatches:
-  - applyTo: NETWORK_FILTER (3)
+  - applyTo: NETWORK_FILTER <3>
     match:
       context: ANY
       listener:
-        filterChain: (4)
+        filterChain: <4>
           filter:
             name: "envoy.http_connection_manager"
-    patch: (5)
+    patch: <5>
       operation: MERGE
       value:
         typed_config:
