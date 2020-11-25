@@ -219,27 +219,27 @@ Topics:
   - Name: Creating Workloads
     Dir: resource_create_sub
     Topics:
-      - Name: HPA 생성
+      - Name: HPAs
         File: hpa-create
-      - Name: 가상머신 생성
+      - Name: Virtual Machines
         File: virtual-machine-create
-      - Name: 데몬셋 생성
+      - Name: Daemon Sets
         File: daemonset-create
-      - Name: 디플로이먼트 생성
+      - Name: Deployments
         File: deployment-create
-      - Name: 레플리카 셋 생성
+      - Name: Replica Sets
         File: replicaset-create
-      - Name: 스테이트 풀셋 생성
+      - Name: Stateful Sets
         File: statefulset-create
-      - Name: 시크릿 생성
+      - Name: Secrets
         File: secret-create
-      - Name: 잡 생성
+      - Name: Jobs
         File: job-create
-      - Name: 컨피그 맵 생성
+      - Name: Config Maps
         File: config-map-create
-      - Name: 크론 잡 생성
+      - Name: Cron Jobs
         File: cron-job-create
-      - Name: 파드 생성
+      - Name: Pods
         File: pod-create
   - Name: 리소스 생성 (서비스 메시)
     Dir: resource_create_sub
