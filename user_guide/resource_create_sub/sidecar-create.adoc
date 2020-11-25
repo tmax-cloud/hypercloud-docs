@@ -1,17 +1,17 @@
-= 사이드카 생성
+= Creating Sidecars
 :toc:
 :toc-title:
 
-본 장에서는 사이드카 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create sidecar resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 사이드카를 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new sidecar by using the YAML editor.
 
-. <<../console_menu_sub/service-mesh#img-sidecar-main,사이드카 메인 화면>>에서 *[사이드카 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 사이드카의 구성 정보를 작성한다.
+. Click *[Create SideCars]* in the <<../console_menu_sub/service-mesh#img-sidecar-main,SideCars>> main screen.
+. Enter configuration data about a sidecar to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: networking.istio.io/v1alpha3
@@ -41,8 +41,9 @@ spec:
     - "*/mysql.foo.com"
 ----
 +
-<1> 사이드카의 이름
-<2> 사이드카 구성을 적용할 특정 파드 집합의 선택 기준 (만약 생략할 경우 동일 네임스페이스의 모든 워크로드 인스턴스에 구성이 적용)
-<3> 연결된 워크로드 인스턴스에 대해 인바운드 트래픽을 처리하기 위한 사이드카의 구성 정보
-<4> 연결된 워크로드 인스턴스에서 메시 내 다른 서비스로의 아웃바운드 트래픽을 처리하기 위한 사이드카의 구성 정보
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Sidecar name
+<2> Conditions for selecting a specific pod set to which sidecar configuration applies (If not set, the configuration applies to all workload instances in the same namespace.)
+<3> Sidecar configuration used to handle inbound traffic for connected workload instances
+<4> Sidecar configuration used to handle outbound traffic from a connected workload instance to another service in the mesh
+
+. To create the resource with the data you entered, click *[Create]*.

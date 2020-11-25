@@ -1,17 +1,17 @@
-= 스테이트 풀셋 생성
+= Creating Stateful Sets
 :toc:
 :toc-title:
 
-본 장에서는 스테이트 풀셋 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create stateful set resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 스테이트 풀셋을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new stateful set by using the YAML editor.
 
-. <<../console_menu_sub/work-load#img-statefulset-main,스테이트 풀셋 메인 화면>>에서 *[스테이트 풀셋 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 스테이트 풀셋의 구성 정보를 작성한다.
+. Click *[Create Stateful Sets]* in the <<../console_menu_sub/work-load#img-statefulset-main,Stateful Sets>> main screen.
+. Enter configuration data about a stateful set to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: apps/v1
@@ -52,28 +52,28 @@ spec:
             storage: 1Gi <23>
 ----
 +
-<1> 스테이트 풀셋의 이름
-<2> 스테이트 풀셋이 생성될 네임스페이스의 이름
-<3> 스테이트 풀셋을 관리하는 서비스의 이름
-<4> 파드 복제본의 개수
-<5> 스테이트 풀셋이 관리할 파드의 레이블 정보
-<6> 생성할 파드에 대한 상세 명세
-<7> 파드를 분류할 때 사용할 레이블 정보 (키-값 형식)
-<8> 파드가 Gracefully 종료되기 위해 필요한 시간 (단위: 초)
-<9> 파드를 구성할 컨테이너의 상세 내역
-<10> 컨테이너의 이름
-<11> 컨테이너의 이미지
-<12> 컨테이너에서 노출할 포트 목록
-<13> 파드의 IP 주소에서 노출할 포트 번호
-<14> 포트의 이름
-<15> 컨테이너의 파일 시스템에 마운트할 볼륨 목록
-<16> 볼륨의 이름
-<17> 볼륨이 마운트될 컨테이너 내부 경로
-<18> 생성할 영구 볼륨 클레임의 상세 내역
-<19> 영구 볼륨 클레임의 이름
-<20> 볼륨의 접근 모드
-<21> 스토리지 클래스의 이름
-<22> 볼륨에 필요한 최소 자원에 대한 상세 내역
-<23> 볼륨에 필요한 스토리지 자원의 양
+<1> Stateful set name
+<2> Name of a namespace where the stateful set is created
+<3> Name of a service managing the stateful set
+<4> Number of pod replicas
+<5> Label of a pod to be managed by the stateful set
+<6> Information about a pod to create
+<7> Information about labels to use when classifying pods (Key-value format)
+<8> Grace period to terminate a pod (Unit: seconds)
+<9> Information about containers included in a pod
+<10> Container name
+<11> Container image
+<12> Ports to expose to the container
+<13> Port number to expose on the pod's IP address
+<14> Port name
+<15> Volumes to mount to a container's file system
+<16> Volume name
+<17> Path of a container where a volume is mounted
+<18> Information about a persistent volume claim to create
+<19> Persistent volume claim name
+<20> Volume's access mode
+<21> Storage class name
+<22> Minimum resources required for volumes
+<23> Storage resources required for volumes
 
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+. To create the resource with the data you entered, click *[Create]*.

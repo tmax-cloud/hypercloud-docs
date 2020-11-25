@@ -1,20 +1,20 @@
-= 트레이닝 잡 생성
+= Creating Training Jobs
 :toc:
 :toc-title:
 
-본 장에서는 트레이닝 잡 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create training Job resources.
 
-== YAML 에디터
+== YAML Editor
 
-=== 텐서플로(TensorFlow) 잡
+=== TensorFlow Jobs
 
-새로운 텐서플로(TensorFlow) 잡을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new TensorFlow Job by using the YAML editor.
 
-. <<../console_menu_sub/ai-dev#img-training-job-main,트레이닝 잡 메인 화면>>에서 *[트레이닝 잡 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[Yaml 에디터(TF Job)]**을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 텐서플로 잡의 구성 정보를 작성한다.
+. Click *[Create Training Jobs]* in the <<../console_menu_sub/ai-dev#img-training-job-main,Training Jobs>> main screen.
+. Select **[Yaml Editor(TF Job)]** from the drop down menu.
+. Enter configuration data about a TensorFlow Job to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: kubeflow.org/v1
@@ -60,25 +60,26 @@ spec: <4>
               claimName: demo-pvc
 ----
 +
-<1> 텐서플로 잡의 메타데이터
-<2> 텐서플로 잡이 생성될 네임스페이스의 이름
-<3> 텐서플로 잡의 이름
-<4> 텐서플로 잡의 스펙
-<5> 텐서플로 잡이 생성할 레플리카의 스펙
-<6> Worker의 스펙
-<7> 레플리카의 개수
-<8> Worker 파드의 템플릿
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> TensorFlow Job metadata
+<2> Name of a namespace where the TensorFlow Job is created
+<3> TensorFlow Job name
+<4> TensorFlow Job specification
+<5> Specification of a replica created by the TensorFlow Job
+<6> Worker specification
+<7> Number of replicas
+<8> Worker pod template
 
-=== 파이토치(PyTorch) 잡
+. To create the resource with the data you entered, click *[Create]*.
 
-새로운 텐서플로(TensorFlow) 잡을 YAML 에디터를 사용해서 생성할 수 있다.
+=== PyTorch Jobs
 
-. <<../console_menu_sub/ai-dev#img-training-job-main,트레이닝 잡 메인 화면>>에서 *[트레이닝 잡 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[Yaml 에디터(PyTorch Job)]**을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 파이토치 잡의 구성 정보를 작성한다.
+Create a new PyTorch Job by using the YAML editor.
+
+. Click *[Create Training Jobs]* in the <<../console_menu_sub/ai-dev#img-training-job-main,Training Jobs>> main screen.
+. Select **[Yaml Editor(PyTorch Job)]** from the drop down menu.
+. Enter configuration data about a PyTorch Job to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: kubeflow.org/v1
@@ -118,14 +119,15 @@ spec: <4>
                   nvidia.com/gpu: 1
 ----
 +
-<1> 파이토치 잡의 메타데이터
-<2> 파이토치 잡의 이름
-<3> 파이토치 잡이 생성될 네임스페이스의 이름
-<4> 파이토치 잡의 스펙
-<5> 파이토치 잡이 생성할 레플리카의 스펙
-<6> Master의 스펙
-<7> 레플리카의 개수
-<8> Master 파드의 템플릿
-<9> 실패 시 재시작 정책
-<10> 실제 학습을 수행하는 Worker의 스펙
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> PyTorch Job metadata
+<2> PyTorch Job name
+<3> Name of a namespace where the PyTorch Job is created
+<4> PyTorch Job specification
+<5> Specification of a replica created by the PyTorch Job
+<6> Master specification
+<7> Number of replicas
+<8> Master pod template
+<9> Restarting policy when a failure occurs
+<10> Specification of a worker for actual learning
+
+. To create the resource with the data you entered, click *[Create]*.

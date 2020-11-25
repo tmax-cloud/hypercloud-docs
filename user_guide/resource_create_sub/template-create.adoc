@@ -1,17 +1,17 @@
-= 템플릿 생성
+= Creating Templates
 :toc:
 :toc-title:
 
-본 장에서는 템플릿 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create template resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 템플릿을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new template by using the YAML editor.
 
-. <<../console_menu_sub/service-catalog#img-template-main,템플릿 메인 화면>>에서 *[템플릿 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 템플릿의 구성 정보를 작성한다.
+. Click *[Create Templates]* in the <<../console_menu_sub/service-catalog#img-template-main,Templates>> main screen.
+. Enter configuration data about a template to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: tmax.io/v1
@@ -125,19 +125,19 @@ plans: <12>
   
 ----
 +
-<1> 템플릿의 이름
-<2> 템플릿이 생성될 네임스페이스의 이름
-<3> 템플릿의 이미지 URL
-<4> 템플릿 제공자
-<5> 템플릿 추천 유무
-<6> 템플릿 설명 페이지 URL
-<7> 템플릿을 표현할 태그 목록
-<8> 템플릿을 기반으로 생성할 실제 오브젝트의 목록 (변수의 경우 ``${PARAMETER}`` 형식으로 명시)
-<9> 템플릿에 명시된 변수의 상세 내역
-<10> 변수의 데이터 타입
+<1> Template name
+<2> Name of a namespace where the template is created
+<3> Template image URL
+<4> Template provider
+<5> Whether to recommend the template
+<6> Template description page URL
+<7> Tags expressing the template
+<8> Actual objects to create based on the template (The ``${PARAMETER}`` format is used for variables.)
+<9> Details about variables specified in the template
+<10> Variable's data type
 * string
 * number
-<11> 변수의 기본값
-<12> 서비스 브로커와 연동 시 사용될 플랜 목록
+<11> Variable's default value
+<12> Plans to use to integrate a service broker
 
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+. To create the resource with the data you entered, click *[Create]*.

@@ -1,17 +1,17 @@
-= 워크플로우 생성
+= Creating Workflows
 :toc:
 :toc-title:
 
-본 장에서는 워크플로우 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create workflow resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 워크플로우를 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new workflow by using the YAML editor.
 
-. <<../console_menu_sub/ai-dev#img-workflow-main,워크플로우 메인 화면>>에서 *[워크플로우 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 워크플로우의 구성 정보를 작성한다.
+. Click *[Create Workflows]* in the <<../console_menu_sub/ai-dev#img-workflow-main,Workflows>> main screen.
+. Enter configuration data about a workflow to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: argoproj.io/v1alpha1
@@ -128,23 +128,24 @@ spec: <4>
     outputs: {}
 ----
 +
-<1> 워크플로우의 메타데이터
-<2> 워크플로우의 이름
-<3> 워크플로우가 생성될 네임스페이스의 이름
-<4> 워크플로우의 스펙
-<5> 워크플로우에서 사용할 아규먼트(argument)
-<6> 워크플로우에서 사용할 파라미터의 목록
-<7> 파라미터의 이름
-<8> 파라미터의 값
-<9> 시작 태스크의 이름
-<10> 마지막 태스크의 이름
-<11> 워크플로우 관리 파드에 할당할 서비스 어카운트의 이름
-<12> 워크플로우 내 태스크의 템플릿
-<13> 태스크의 컨테이너 스펙
-<14> 태스크에서 사용할 Input 데이터
-<15> Input으로 사용할 파라미터의 목록
-<16> 태스크의 메타데이터
-<17> 태스크의 이름
-<18> 태스크의 Output
-<19> 태스크 파드에 마운트할 볼륨 정보
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Workflow metadata
+<2> Workflow name
+<3> Name of a namespace where the workflow is created
+<4> Workflow specification
+<5> Argument used in the workflow
+<6> Parameters used in the workflow
+<7> Parameter name
+<8> Parameter value
+<9> Start task name
+<10> Last task name
+<11> Name of a service account allocated to workflow management pod
+<12> Task template in the workflow
+<13> Task's container specification
+<14> Input data used in a task
+<15> Parameters used as input
+<16> Task metadata
+<17> Task name
+<18> Task output
+<19> Information about a volume to mount to a task pod
+
+. To create the resource with the data you entered, click *[Create]*.

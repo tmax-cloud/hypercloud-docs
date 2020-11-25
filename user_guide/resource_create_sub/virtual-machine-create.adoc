@@ -1,17 +1,17 @@
-= 가상머신 생성
+= Creating Virtual Machines
 :toc:
 :toc-title:
 
-본 장에서는 가상머신 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create virtual machine resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 가상머신을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new virtual machine by using the YAML editor.
 
-. <<../console_menu_sub/work-load#img-vm-main,가상머신 메인 화면>>에서 *[가상머신 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 가상머신의 구성 정보를 작성한다.
+. Click *[Create Virtual Machines]* in the <<../console_menu_sub/work-load#img-vm-main,Virtual Machines>> main screen.
+. Enter configuration data about a virtual machine to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: kubevirt.io/v1alpha3
@@ -88,63 +88,64 @@ spec:
             claimName: empty-pvc <44>
 ----
 +
-<1> 가상머신의 이름
-<2> 가상머신이 생성될 네임스페이스의 이름
-<3> 가상머신의 실행 여부
-* true : 가상머신 생성 및 실행
-* false : 가상머신 생성
-<4> 게스트 OS의 호스트 이름
-<5> 선호하는 노드에 대한 설정
-<6> 노드 선택 시 노드 레이블에 대한 키
-<7> 키-값에 대한 판단 연산자
-<8> 노드 레이블에 대한 키의 실제 값
-<9> Qemu 머신 유형 (기본값: q35)
-<10> 인스턴스에 연결할 디스크 정보
-<11> 에뮬레이션할 디스크 장치 유형
+<1> Virtual machine name
+<2> Name of a namespace where the virtual machine is created
+<3> Whether to run the virtual machine
+* true: Create and run the virtual machine.
+* false: Only create the virtual machine.
+<4> Hostname of a guest OS
+<5> Configuration about node affinity
+<6> Key for a node label when selecting a node
+<7> Decision operator for key-value
+<8> Actual key value for a node label
+<9> Qemu machine type (Default value: q35)
+<10> Disk to connect to an instance
+<11> Type of a disk device to emulate
 * virtio
 * sata
 * scsi
-<12> 디스크 장치 이름 (사용될 볼륨과 일치)
-<13> 디스크 장치의 부팅 순서
-<14> 연결할 CD-ROM 정보
-<15> 읽기/쓰기 권한 (기본값: true)
-<16> 네트워크 인터페이스 정보
-<17> 네트워크 장치 이름
-<18> 인터페이스 모델 (기본값: virtio)
+<12> Name of the disk device (identical to that of a volume to use)
+<13> Booting order of the disk device
+<14> CD-ROM to connect
+<15> Read/write permission (Default value: true)
+<16> Network interface information
+<17> Network device name
+<18> Interface model (Default value: virtio)
 * e1000
 * e1000e
 * ne2k_pci
 * pcnet
 * rtl8139
 * virtio
-<19> 네트워크 구성 방식
+<19> Network configuration method
 * bridge
 * masquerade
 * slirp
 * sriov
-<20> MAC 주소 정보
-<21> 연결할 GPU 장치 정보
-<22> GPU 장치 이름
-<23> 장치 플러그인에 의해 노출될 GPU 장치 이름
-<24> 가상머신 프로세스에서 할당받을 CPU 코어 개수
-<25> 가상머신 프로세스에서 할당받을 메모리
-<26> 가상머신을 실행하기 위한 오버헤드의 허용 여부 (기본값: false)
-<27> 스케줄링하기 위한 최소 CPU 값
-<28> 스케줄링하기 위한 최소 메모리 값
-<29> 가상머신 프로세스의 CPU 한계 값
-<30> 가상머신 프로세스의 메모리 한계 값
-<31> 가상머신 정지 후 강제 종료 시키기까지의 유예 시간
-<32> 가상머신의 가상 인터페이스에 연결할 네트워크 정보
-<33> 네트워크 인터페이스에서 사용되도록 노출될 이름
-<34> 파드 네트워크 사용
-<35> 가상머신에 마운트할 볼륨 정보
-<36> Docker 이미지를 참조해서 VMI와 생명 주기를 같이하는 일회성 디스크
-<37> Docker 레지스트리에 등록된 이미지 이름
-<38> 장치에 노출될 볼륨의 이름
-<39> 장치에 노출될 볼륨의 이름
-<40> cloud-init 또는 cloudbaseinit에서 사용할 데이터 소스
-<41> 사용자 데이터에 대한 설정 정보
-<42> 장치에 노출될 볼륨의 이름
-<43> 영구 볼륨 클레임 정보
-<44> 영구 볼륨 클레임의 이름
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<20> MAC address
+<21> Information about a GPU device to connect
+<22> Name of the GPU device
+<23> Name of the GPU device to be exposed by device plugin
+<24> Number of CPU cores to be allocated by the virtual machine process
+<25> Memory to be allocated by the virtual machine process
+<26> Whether to allow overhead for running the virtual machine (Default value: false)
+<27> Minimum CPU for scheduling
+<28> Minimum memory for scheduling
+<29> CPU limit value of the virtual machine process
+<30> Memory limit value of the virtual machine process
+<31> Grace period to forcibly terminate the virtual machine after it stopped
+<32> Information about a network to connect to a virtual interface of the virtual machine
+<33> Name exposed to be used in a network interface
+<34> Using a pod network
+<35> Information about a volume to mount to the virtual machine
+<36> One-time disk with the same lifecycle with VMI by referring to Docker image
+<37> Image name registered in the Docker registry
+<38> Volume name to be exposed to a device
+<39> Volume name to be exposed to a device
+<40> Datasource to be used in cloud-init or cloudbaseinit
+<41> Configuration about user data
+<42> Name of a volume exposed to a device
+<43> Information about a persistent volume claim
+<44> Name of a persistent volume claim
+
+. To create the resource with the data you entered, click *[Create]*.
