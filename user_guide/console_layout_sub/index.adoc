@@ -1,0 +1,26 @@
+= Introduction to {product-title} {product-version} 
+:toc:
+:toc-title:
+
+Introduction of cloud is a must, not an option, to be competitive in terms of cost and flexibility. +
+Infrastructure-centric cloud services have grown in popularity since Amazon to meet cloud needs, and now the cloud market is shifting its focus to the platform layer. Container-based architectures have seen a lot of attention because they maximize cloud benefits such as efficiency and performance, and Kubernetes has become the market standard for container engines.
+
+{product-title} {product-version} is an enterprise PaaS platform packaged based on Kubernetes reflecting the latest technology trends. This chapter describes the direction and architecture of {product-title} {product-version}.
+
+== Product Direction
+
+Companies are facing high barriers to adopt cloud platforms due to issues such as a wide range of cloud technology layers and difficulties in internalizing cloud technologies. +
+
+In order to reflect the needs of the market and to solve these customer difficulties, Tmax provides services in {product-title} {product-version} to ensure customers' free service selection and an easy and stable operating environment. +
+
+Based on the standard open source of Kubernetes, Tmax has solved the lock-in issues that companies are concerned about. To solve the difficulties of using open source, Tmax provides self-verified open source and professional technical support. In addition, Tmax maximizes synergy effects with its differentiated services such as its own platform software.
+
+== Architecture
+
+{product-title} {product-version} is a platform that can be installed on any infrastructure regardless of bare metal or VM, and supports all Linux-like OSs. The engine is configured based on Kubernetes, which provides standard interfaces for container runtime, network, and storage to apply various plugins. +
+
+In addition, Tmax provides open sources for each category such as middleware, framework, and DBMS by self-verification and optimization. These open sources are provided in service catalogs, allowing users to easily execute services without a complicated provisioning process. Tmax ensures reliable use of open sources through technical support. 
+
+.{product-title} {product-version} Architecture
+[caption="Figure. "]
+image::../images/figure_architecture.png[]
