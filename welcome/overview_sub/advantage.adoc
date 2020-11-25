@@ -1,38 +1,40 @@
-= 특장점
+= Key Features
 :toc:
 :toc-title:
 
-본 장에서는 {product-title} {product-version}의 여러가지 특징 중에서 주요 특장점에 대해 설명한다.
+This chapter describes the main features of {product-title} and {product-version}.
 
-== 쿠버네티스 기반의 No Lock-in 컨테이너 플랫폼
+== Kubernetes-based container platform with no vendor lock-in
 
-{product-title} {product-version}은 시장의 디펙토 표준인 쿠버네티스를 기반으로 벤더 및 플랫폼 종속성을 완전히 제거한 No Lock-in PaaS 플랫폼을 지향한다. 물리, 가상 환경과 CentOS, Ubuntu, RHEL 등 Linux 계열의 모든 OS를 지원하여 기반 인프라에 대한 제약이 없다. +
-쿠버네티스에 대한 엔진 레벨을 컨트롤할 수 있는 풍부한 전문 인력을 기반으로 쿠버네티스 버전은 항상 최신 버전을 유지하며, 쿠버네티스를 베이스로 하는 모든 {product-title} {product-version} 솔루션은 CNCF의 CK인증을 취득하는 것을 기본으로 한다.
+{product-title} {product-version} aims for vendor-neutral PaaS platform that completely eliminates vendor and platform dependencies based on Kubernetes, the de facto standard in the market. There are no restrictions on the underlying infrastructure as it supports physical and virtual environments and all Linux-like OSs such as CentOS, Ubuntu, and RHEL. +
 
-== 표준 기반의 멀티/하이브리드 클라우드 지원
+The Kubernetes version is always up-to-date, with a wealth of professionals who can control the engine level for Kubernetes, and all Kubernetes-based {product-title} {product-version} solutions are based on obtaining CK certification of CNCF.
 
-쿠버네티스 표준 기반인 {product-title} {product-version}은 AWS, Azure, GCP 등 쿠버네티스를 기반으로 하는 모든 클라우드 환경과 호한이 가능하여 최적의 클러스터 확장성을 보장한다. +
-따라서 Cloud-Native 멀티 및 하이브리드 클라우드 구축에 용이하며, 관련하여 다음과 같은 기능을 제공한다.
+== Standards-based hybrid-multicloud infrastructure support 
 
-* Cluster API를 통한 클러스터 프로비저닝 및 모니터링
-* Federation으로 멀티클러스터 통합 배포
-* 단일창 콘솔을 통한 멀티클러스터 통합 운영 및 관리
-* {product-title} {product-version}의 CI/CD 파이프라인으로 Source-to-Multicloud DevOps 제공
+{Product-title} {product-version}, which is based on Kubernetes standards, is compatible with all cloud environments based on Kubernetes such as AWS, Azure, and GCP, and ensures optimal cluster scalability. +
 
-이러한 기능을 통해 멀티/하이브리드 환경에서도 개발 생산성과 지속성을 높이고 단일 제어부를 통한 운영관리의 편의성을 보장한다.
+Therefore, it is easy to build a cloud-native hybrid-multicloud infrastructure, and provides the following functions. 
 
-.{product-title} {product-version} 멀티/하이브리드 클라우드 아키텍처
-[caption="그림. "]
+* Cluster provisioning and monitoring through cluster APIs
+* Multi-cluster integration and deployment with federation
+* Multi-cluster integration and management through a unified console
+* Source-to-Multicloud DevOps provided through CI/CD pipelines of {product-title} {product-version}
+
+These features improve development productivity and sustainability even in a hybrid-multicloud environment, and ensure the convenience of operational management via a single control unit. 
+
+.Hybrid-multicloud architecture of {product-title} {product-version} 
+[caption="Figure. "]
 image::../images/figure_multi_architecture.png[]
 
-== 검증된 오픈소스 내재화 및 최적화 제공
+== Proven open source internalization and optimization
 
-{product-title} {product-version}은 쿠버네티스를 기반으로 엔진을 구성했을 뿐만 아니라, 모니터링, 로깅, 서비스 매시 등의 기능에 대해 쿠버네티스에 최적화된 오픈소스를 내재화하여 패키징한 플랫폼이다.
+{product-title} {product-version} is a platform that not only configures the Kubernetes-based engine, but also internalizes the packages open sources optimized for Kubernetes for functions such as monitoring, logging, and service mesh. 
 
-내재화된 오픈소스 리스트는 다음과 같다.
+The following is the list of internalized open sources. 
 [width="100%",options="header", cols="1,2"]
 |====================
-|구분|소프트웨어
+|Category |Software
 |Kubernetes|Kubernetes
 |Container Runtime Interface|Cri-o
 |Container Storage Interface
@@ -43,10 +45,12 @@ image::../images/figure_multi_architecture.png[]
 |Logging|Elasticsearch, Fluentd, Kibana
 |====================
 
-쿠버네티스 베이스 프레임워크인 Tekton을 내재화하여 CI/CD 환경 구성과 배포 편의성을 향상시켰고, Istio 내재화를 통해 서비스 매쉬 기능을 지원하며 분산트레이싱과 토폴로지 뷰를 통한 서비스간 트래픽 모니터링을 지원한다. +
-이 외에도 오픈소스에 대한 시장의 니즈를 반영하여 Middleware/Framework, DBMS, BigData/AI, CI/CD의 4개 카테고리에 대하여 다양한 오픈소스를 자체적으로 검증하여 서비스 카탈로그 형태로 제공한다. 사용자는 템플릿 기반으로 쉽게 등록하고 프로비저닝할 수 있으며, 한 번 등록한 서비스는 재사용이 가능하다. {product-title} {product-version}에서는 다음의 18가지 오픈소스 서비스 카탈로그를 제공하며, 추가적으로 Tmax의 Advanced 솔루션을 최적화하여 서비스 카탈로그로 제공한다.
+{Product-title} {product-version} provides CI/CD environment configuration and deployment environment with improved convenience by internalizing Tekton, the Kubernetes-native open-source framework. It enables service mesh function through Istio internalization, and supports traffic monitoring between services through distributed tracing and topology view.  +
 
-== 사용이 편리한 웹 콘솔
+In addition, {product-title} {product-version} provides various self-verified open sources for four categories of middleware/framework, DBMS, big data/AI, and CI/CD by reflecting the market needs for open sources and provides them as the form of service catalogs. Users can easily register and provision based on a template, and registered services can be reused. {product-title} {product-version} not only provides the following 18 types of open source service catalogs, but also optimizes Tmax's advanced solution and provides them as service catalogs. 
 
-{product-title} {product-version}은 사용자의 편의성을 높인 웹 콘솔을 제공한다. 기본적으로 숙련된 사용자를 위한 YAML Editor를 제공할 뿐만 아니라, 클라우드 환경을 처음 사용해보는 초보 사용자도 쉽게 사용할 수 있도록 UI 기반의 Form Editor를 함께 제공한다. YAML Editor의 경우 샘플 가이드를 함께 제공하여 편리하게 YAML을 작성할 수 있다. +
-또한 {product-title} {product-version}은 다국어 UI를 지원한다. 기본적으로 영어를 지원하고, 추가적으로 국내 사용자를 위한 한국어 UI를 지원하여 선택하여 사용할 수 있다.
+== Easy-to use web console
+
+{product-title} {product-version} provides a web console with enhanced user convenience. Basically, it not only provides YAML editor for experienced users, but also provides UI-based form editor so that even beginners who are new to cloud environment can easily use it. In the case of YAML editor, a sample guide is provided so that you can conveniently create YAML. +
+
+Also, {product-title} {product-version} supports multilingual UI. Basically, it supports English, and optionally supports Korean UI for domestic users. 
