@@ -1,17 +1,17 @@
-= KF 서빙 생성
+= Creating KFServing
 :toc:
 :toc-title:
 
-본 장에서는 KF 서빙 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create KFServing resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 KF 서빙을 YAML 에디터를 사용해서 생성할 수 있다.
+Create new KFServing by using the YAML editor.
 
-. <<../console_menu_sub/ai-dev#img-kf-serving-main,KF 서빙 메인 화면>>에서 *[KF 서빙 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 KF 서빙의 구성 정보를 작성한다.
+. Click *[KFServing]* in the <<../console_menu_sub/ai-dev#img-kf-serving-main,KFServing>> main screen.
+. Enter configuration data about KFServing to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: serving.kubeflow.org/v1alpha2
@@ -34,16 +34,17 @@ spec: <4>
         storageUri: pvc://demo-pvc/saved_model <12>
 ----
 +
-<1> InferenceService의 메타데이터
-<2> InferenceService의 이름
-<3> InferenceService가 생성될 네임스페이스의 이름
-<4> InferenceService의 스펙
-<5> 기본 Inference Server의 스펙
-<6> ML predictor에 대한 스펙
-<7> 사용하는 ML framework을 명시
-<8> InferenceService의 자원량
-<9> 자원 제한량
-<10> 자원 요청량
-<11> 텐서플로의 버전
-<12> Inference Server에서 사용할 ML 모델의 경로
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> InferenceService metadata
+<2> InferenceService name
+<3> Name of namespace where the InferenceService is created
+<4> InferenceService specification
+<5> Basic Inference Server specification
+<6> ML predictor specification
+<7> ML framework used
+<8> InferenceService resource amount
+<9> Amount of resource limits
+<10> Amount of resource requests
+<11> TensorFlow version
+<12> Path to a ML model used in Inference Server
+
+. To create the resource with the data you entered, click *[Create]*.

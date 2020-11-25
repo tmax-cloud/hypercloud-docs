@@ -1,17 +1,17 @@
-= 카티브 생성
+= Creating Katib
 :toc:
 :toc-title:
 
-본 장에서는 카티브 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create Katib resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 카티브를 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new Katib by using the YAML editor.
 
-. <<../console_menu_sub/ai-dev#img-katib-main,카티브 메인 화면>>에서 *[카티브 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 카티브의 구성 정보를 작성한다.
+. Click *[Create Katib]* in the <<../console_menu_sub/ai-dev#img-katib-main,Katib>> main screen.
+. Enter configuration data about a Katib to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: "kubeflow.org/v1alpha3"
@@ -81,35 +81,36 @@ spec: <5>
                 restartPolicy: Never
 ----
 +
-<1> Experiment의 메타데이터
-<2> Experiment가 생성될 네임스페이스의 이름
-<3> Experiment를 분류할 때 사용할 레이블 정보 (키-값 형식)
-<4> Experiment의 이름
-<5> Experiment의 스펙
-<6> Experiment의 Objective
-<7> Objective의 종류
-<8> Objective의 목표 수치
-<9> Objective로 정할 메트릭의 이름
-<10> Objective 외에 추가적으로 확인할 메트릭들의 목록
-<11> 메트릭을 수집할 Collector의 스펙
-<12> 메트릭을 수집할 Source
-<13> 파일 시스템 내 메트릭을 수집할 Source의 정보
-<14> 메트릭을 수집할 경로
-<15> 경로 내의 유형 (파일 또는 디렉터리)
-<16> Collector의 정보
-<17> Collector의 유형
-<18> 최적의 파라미터 조합을 찾기 위한 알고리즘
-<19> 알고리즘의 이름
-<20> 병렬적으로 수행할 트라이얼의 최대 개수
-<21> 최대 트라이얼 횟수
-<22> 허용할 최대 실패 횟수
-<23> Experiment를 통해 최적화할 파라미터의 목록
-<24> 파라미터의 이름
-<25> 파라미터의 유형
-<26> 파라미터의 범위 지정
-<27> 파라미터의 범위 (최솟값)
-<28> 파라미터의 범위 (최댓값)
-<29> 트라이얼의 템플릿
-<30> Go 언어의 템플릿 정의
-<31> 파라미터를 넣을 형식
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Experiment metadata
+<2> Name of a namespace where an experiment is created
+<3> Information about labels to use when classifying experiments (Key-value format)
+<4> Experiment name
+<5> Experiment specification
+<6> Experiment's objective
+<7> Objective type
+<8> Objective goal
+<9> Objective metric name
+<10> Metrics to check besides objectives
+<11> Specification of a collector that collects metrics
+<12> Source to collect metrics from
+<13> Information about the source in a file system
+<14> Path to collect metrics to
+<15> Either a file or directory in the path
+<16> Collector information
+<17> Collector kind
+<18> Algorithm to find an optimal parameter combination
+<19> Algorithm name
+<20> Maximum number of trials that run in parallel
+<21> Maximum trial count
+<22> Maximum number of allowed failures
+<23> Parameters to optimize with an experiment
+<24> Parameter name
+<25> Parameter type
+<26> Parameter value range
+<27> Minimum value of a parameter
+<28> Maximum value of a parameter
+<29> Trial template
+<30> Go language's template
+<31> Parameter format
+
+. To create the resource with the data you entered, click *[Create]*.

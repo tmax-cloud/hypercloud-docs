@@ -1,17 +1,17 @@
-= 잡 생성
+= Creating Jobs
 :toc:
 :toc-title:
 
-본 장에서는 잡 리소스의 생성 방법에 대해서 설명한다.
+The following describes how to create Job resources.
 
-== YAML 에디터
+== YAML Editor
 
-새로운 잡을 YAML 에디터를 사용해서 생성할 수 있다.
+Create a new Job by using the YAML editor.
 
-. <<../console_menu_sub/work-load#img-job-main,잡 메인 화면>>에서 *[잡 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 잡의 구성 정보를 작성한다.
+. Click *[Create Jobs]* in the <<../console_menu_sub/work-load#img-job-main,Jobs>> main screen.
+. Enter configuration data about a Job to create in the YAML editor opened.
 +
-.기본 작성 예
+.Sample
 [source,yaml]
 ----
 apiVersion: batch/v1
@@ -33,11 +33,12 @@ spec:
       restartPolicy: Never
 ----
 +
-<1> 잡의 이름
-<2> 잡이 생성될 네임스페이스의 이름
-<3> 최종적으로 완료되어야 할 파드의 개수
-<4> 한 번에 생성될 파드의 개수
-<5> 잡을 실패로 간주하기 이전에 재시도할 횟수
-<6> 잡 전체의 데드라인 (단위: 초)
-<7> 생성될 파드 템플릿의 상세 내역
-. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
+<1> Job name
+<2> Name of a namespace where the Job is created
+<3> Number of pods to finally complete
+<4> Number of pods to create at once
+<5> Number of retries before considering a Job as failed
+<6> Job's deadline (Unit: seconds)
+<7> Information about a pod to create
+
+. To create the resource with the data you entered, click *[Create]*.
