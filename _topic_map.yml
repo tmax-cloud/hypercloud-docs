@@ -199,7 +199,7 @@ Topics:
         File: host
       - Name: 인증/인가
         File: permission
-  - Name: Creating Service Catalogs
+  - Name: Creating Service Catalog Resources
     Dir: resource_create_sub
     Topics:
       - Name: Service Bindings
@@ -216,7 +216,7 @@ Topics:
         File: template-create
       - Name: Template Instances
         File: template-instance-create
-  - Name: Creating Workloads
+  - Name: Creating Workload Resources
     Dir: resource_create_sub
     Topics:
       - Name: HPAs
@@ -241,116 +241,116 @@ Topics:
         File: cron-job-create
       - Name: Pods
         File: pod-create
-  - Name: 리소스 생성 (서비스 메시)
+  - Name: Creating Service Mesh Resources
     Dir: resource_create_sub
     Topics:
-      - Name: 가상 서비스 생성
+      - Name: Virtual Services
         File: virtual-service-create
-      - Name: 게이트웨이 생성
+      - Name: Gateways
         File: gateway-create
-      - Name: 목적지 룰 생성
+      - Name: Destination Rules
         File: destination-rule-create
-      - Name: 사이드카 생성
+      - Name: SideCars
         File: sidecar-create
-      - Name: 서비스 엔트리 생성
+      - Name: Service Entries
         File: service-entry-create
-      - Name: 앤보이 필터 생성
+      - Name: Envoy Filters
         File: envoy-filter-create
-      - Name: 요청 인증 생성
+      - Name: Request Authentications
         File: request-auth-create
-      - Name: 인가 정책 생성
+      - Name: Authorization Policies
         File: auth-policy-create
-      - Name: 피어 인증 생성
+      - Name: Peer Authentications
         File: peer-auth-create
-  - Name: 리소스 생성 (네트워크)
+  - Name: Creating Network Resources
     Dir: resource_create_sub
     Topics:
-      - Name: 서비스 생성
+      - Name: Services
         File: service-create
-      - Name: 인그레스 생성
+      - Name: Ingresses
         File: ingress-create
-  - Name: 리소스 생성 (스토리지)
+  - Name: Creating Storage Resources
     Dir: resource_create_sub
     Topics:
-      - Name: 데이터 볼륨 생성
+      - Name: Data Volumes
         File: data-volume-create
-      - Name: 스토리지 클래스 생성
+      - Name: Storage Classes
         File: storage-class-create
-      - Name: 영구 볼륨 생성
+      - Name: Persistent Volumes
         File: persistent-volume-create
-      - Name: 영구 볼륨 클레임 생성
+      - Name: Persistent Volume Claims
         File: persistent-volume-claim-create
-  - Name: 리소스 생성 (CI/CD)
+  - Name: Creating CI/CD Resources
     Dir: resource_create_sub
     Topics:
-      - Name: 태스크 생성
+      - Name: Tasks
         File: task-create
-      - Name: 태스크 런 생성
+      - Name: Task Runs
         File: task-run-create
-      - Name: 파이프라인 생성
+      - Name: Pipelines
         File: pipeline-create
-      - Name: 파이프라인 런 생성
+      - Name: Pipeline Runs
         File: pipeline-run-create
-      - Name: 파이프라인 리소스 생성
+      - Name: Pipleline Resources
         File: pipeline-resource-create
-      - Name: 파이프라인 컨디션 생성
+      - Name: Pipeline Conditions
         File: pipeline-condition-create
-  - Name: 리소스 생성 (AI DevOps)
+  - Name: Creating AI DevOps Resources
     Dir: resource_create_sub
     Topics:
-      - Name: KF 서빙 생성
+      - Name: KFServing
         File: kf-serving-create
-      - Name: 노트북 서버 생성
+      - Name: Notebook Servers
         File: notebook-server-create
-      - Name: 워크플로우 생성
+      - Name: Workflows
         File: workflow-create
-      - Name: 워크플로우 템플릿 생성
+      - Name: Workflow Templates
         File: work-temp-create
-      - Name: 카티브 생성
+      - Name: Katibs
         File: katib-create
-      - Name: 트레이닝 잡 생성
+      - Name: Training Jobs
         File: training-job-create
-  - Name: 리소스 생성 (보안)
+  - Name: Creating Security Resources
     Dir: resource_create_sub
     Topics:
-      - Name: 네트워크 정책 생성
+      - Name: Network Policy
         File: network-policy-create
-      - Name: 파드 보안 정책 생성
+      - Name: Pod Security Policy
         File: pod-security-policy-create
-  - Name: 리소스 생성 (이미지)
+  - Name: Creating Image Resources
     Dir: resource_create_sub
     Topics:
-      - Name: 레지스트리 생성
+      - Name: Registries
         File: registry-create
-  - Name: 리소스 생성 (매니지먼트)
+  - Name: Creating Management Resources
     Dir: resource_create_sub
     Topics:
-      - Name: 네임스페이스 생성
+      - Name: Namespaces
         File: namespace-create
-      - Name: 네임스페이스 클레임 생성
+      - Name: Namespace Claims
         File: namespace-claim-create
-      - Name: 리소스 쿼타 생성
+      - Name: Resource Quotas
         File: resource-quota-create
-      - Name: 리소스 쿼타 클레임 생성
+      - Name: Resource Quota Claims
         File: resource-quota-claim-create
-      - Name: 사용자 리소스 정의 생성
+      - Name: Custom Resource Definitions
         File: custom-resource-create
-      - Name: 제한 범위 생성
+      - Name: Limit Ranges
         File: basic-resource-create
-  - Name: 리소스 생성 (인증/인가)
+  - Name: Creating Auth Resources
     Dir: resource_create_sub
     Topics:
-      - Name: 롤 생성
+      - Name: Roles
         File: role-create
-      - Name: 롤 바인딩 생성
+      - Name: Role Bindings
         File: role-binding-create
-      - Name: 롤 바인딩 클레임 생성
+      - Name: Role Binding Claims
         File: role-binding-claim-create
-      - Name: 사용자 생성
+      - Name: Users
         File: user-create
-      - Name: 사용자 그룹 생성
+      - Name: User Groups
         File: user-group-create
-      - Name: 서비스 계정 생성
+      - Name: Service Accounts
         File: service-account-create
   - Name: 기본 기능
     Dir: common_function_sub
