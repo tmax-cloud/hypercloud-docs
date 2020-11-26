@@ -135,7 +135,7 @@ image:../images/figure_action_icon.png[]
 
 == Pipeline Runs
 
-Clicking *[CI/CD]* -> *[Pipeline Runs]* from the console menus displays the main screen of *Pipeline Runs*. +
+Selecting *[CI/CD]* -> *[Pipeline Runs]* from the console menus displays the main screen of *Pipeline Runs*. +
 In the main screen of *Pipeline Runs*, you can create and view the ``Pipeline Runs`` that define the execution of Pipelines. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -172,7 +172,7 @@ image:../images/figure_action_icon.png[]
 
 == Pipeline Approval
 
-Clicking *[CI/CD]* -> *[Pipeline Approval]* from the console menus displays the main screen of *Pipeline Approval*. +
+Selecting *[CI/CD]* -> *[Pipeline Approval]* from the console menus displays the main screen of *Pipeline Approval*. +
 In the main screen of *Pipeline Approval*, you can view the approval status for each step of the tasks that consist of the pipeline and determine whether to approve waiting steps in the pipeline. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -218,7 +218,7 @@ image:../images/figure_action_icon.png[]
 == Pipeline Resources
 
 
-Clicking *[CI/CD]* -> *[Pipeline Resources]* from the console menus displays the main screen of *Pipeline Resources*. +
+Selecting *[CI/CD]* -> *[Pipeline Resources]* from the console menus displays the main screen of *Pipeline Resources*. +
 In the main screen of *Pipeline Resources*, you can create and view ``Pipeline Resources`` that define the inputs (e.g. Git Storage) or outputs (e.g. Docker Image) of the pipeline. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -254,7 +254,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 
 == Pipeline Conditions 
 
-Clicking *[CI/CD]* -> *[Pipeline Conditions]* from the console menus displays the main screen of *Pipeline Conditions*. +
+Selecting *[CI/CD]* -> *[Pipeline Conditions]* from the console menus displays the main screen of *Pipeline Conditions*. +
 In the main screen of *Pipeline Conditions*, you can create and view ``Pipeline Conditions`` that determine whether to execute the task. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -401,7 +401,7 @@ image:../images/figure_action_icon.png[]
 
 == Pipeline Runs
 
-Clicking *[CI/CD]* -> *[Pipeline Runs]* from the console menus displays the main screen of *Pipeline Runs*. +
+Selecting *[CI/CD]* -> *[Pipeline Runs]* from the console menus displays the main screen of *Pipeline Runs*. +
 In the main screen of *Pipeline Runs*, you can create and view the ``Pipeline Runs`` that define the execution of Pipelines. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -438,7 +438,7 @@ image:../images/figure_action_icon.png[]
 
 == Pipeline Approval
 
-Clicking *[CI/CD]* -> *[Pipeline Approval]* from the console menus displays the main screen of *Pipeline Approval*. +
+Selecting *[CI/CD]* -> *[Pipeline Approval]* from the console menus displays the main screen of *Pipeline Approval*. +
 In the main screen of *Pipeline Approval*, you can view the approval status for each step of the tasks that consist of the pipeline and determine whether to approve waiting steps in the pipeline. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -484,7 +484,7 @@ image:../images/figure_action_icon.png[]
 == Pipeline Resources
 
 
-Clicking *[CI/CD]* -> *[Pipeline Resources]* from the console menus displays the main screen of *Pipeline Resources*. +
+Selecting *[CI/CD]* -> *[Pipeline Resources]* from the console menus displays the main screen of *Pipeline Resources*. +
 In the main screen of *Pipeline Resources*, you can create and view ``Pipeline Resources`` that define the inputs (e.g. Git Storage) or outputs (e.g. Docker Image) of the pipeline. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -520,7 +520,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 
 == Pipeline Conditions 
 
-Clicking *[CI/CD]* -> *[Pipeline Conditions]* from the console menus displays the main screen of *Pipeline Conditions*. +
+Selecting *[CI/CD]* -> *[Pipeline Conditions]* from the console menus displays the main screen of *Pipeline Conditions*. +
 In the main screen of *Pipeline Conditions*, you can create and view ``Pipeline Conditions`` that determine whether to execute the task. 
 
 //[caption="그림. "] //캡션 제목 변경
