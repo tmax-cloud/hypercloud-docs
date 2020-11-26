@@ -552,26 +552,3 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 * Delete Pipeline Conditions: Delete the pipeline conditions. 
 |NAMESPACE|Name of the namespace that the pipeline condition was created in.
 |CREATED|Time when the pipeline condition was created.
-|==================== or view the list of pipeline conditions. 
-<2> *Create Pipeline Condition* +
-Create new pipeline conditions using the YAML editor.
-<3> *Filter by Name* +
-Enter the name of the pipeline condition you want to search from the pipeline condition list.
-<4> *Pipeline Condition List* +
-View the list of the pipeline conditions created in the namespace. +
-The following is the description of each item. 
-+
-[width="100%",options="header", cols="1,3a"]
-|====================
-|Item|Description  
-|NAME|Name of the Pipeline condition. Clicking on the name displays a screen that allows you to check the detailed information of the pipeline condition. +
-To delete or update the information about the pipeline, click 
-image:../images/figure_action_icon.png[] (Config) beside the name.
-
-* Edit Labels: Add or delete labels that identify resources.
-* Edit Annotations: Add, update, or delete annotations that allow external reference to the resources.
-* Edit Pipeline Conditions: Update the configuration information of pipeline conditions using the YAML editor.
-* Delete Pipeline Conditions: Delete the pipeline conditions. 
-|NAMESPACE|Name of the namespace that the pipeline condition was created in.
-|CREATED|Time when the pipeline condition was created.
-|====================
