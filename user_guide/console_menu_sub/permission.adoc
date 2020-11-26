@@ -60,7 +60,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 
 == Role Bindings
 
-Clicking *[Auth]* -> *[Role Bindings]* from the console menus displays the main screen of *Role Bindings*. +
+Selecting *[Auth]* -> *[Role Bindings]* from the console menus displays the main screen of *Role Bindings*. +
 In the main screen of *Role Bindings*, you can view the ``Role Bindings`` that connect users and roles. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -110,7 +110,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 
 == Role Binding Claims
 
-Clicking *[Auth]* -> *[Role Binding Claims]* from the console menus displays the main screen of *Role Binding Claims*. +
+Selecting *[Auth]* -> *[Role Binding Claims]* from the console menus displays the main screen of *Role Binding Claims*. +
 In the main screen of *Role Binding Claims*, you can view the ``Role Binding Claims`` that define the requirements for role bindings.
 
 //[caption="그림. "] //캡션 제목 변경
@@ -155,7 +155,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 == Service Accounts
 
 
-Clicking *[Auth]* -> *[Service Accounts]* from the console menus displays the main screen of *Service Accounts*. +
+Selecting *[Auth]* -> *[Service Accounts]* from the console menus displays the main screen of *Service Accounts*. +
 In the main screen of *Service Accounts*, you can create and view the ``Service Accounts`` that are directly managed by Kubernetes.
 
 //[caption="그림. "] //캡션 제목 변경
@@ -189,7 +189,7 @@ To delete the information about the service account or download the kubeconfig f
 
 == Users
 
-Clicking *[Auth]* -> *[Users]* from the console menus displays the main screen of *Users* of HyperAuth. +
+Selecting *[Auth]* -> *[Users]* from the console menus displays the main screen of *Users* of HyperAuth. +
 In the main screen of *Users*, you can create and view the ``Users`` that can access the HyperCloud console. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -228,7 +228,7 @@ The following is the description of each item.
 
 == User Groups
 
-Clicking *[Auth]* -> *[User Groups]* from the console menus displays the main screen of *User Groups* of HyperAuth. +
+Selecting *[Auth]* -> *[User Groups]* from the console menus displays the main screen of *User Groups* of HyperAuth. +
 In the main screen of *User Groups*, you can create and view ``User Groups`` of HyperCloud console. 
 
 //[caption="그림. "] //캡션 제목 변경

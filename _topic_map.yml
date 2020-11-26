@@ -154,52 +154,52 @@ Topics:
 Name: Web Console User Guide
 Dir: user_guide
 Topics:
-  - Name: 콘솔 접속
+  - Name: Accessing the Console
     Dir: console_connect_sub
     Topics:
-      - Name: 실행 환경
+      - Name: Execution Environment
         File: execution-environment
-      - Name: 로그인
+      - Name: Login
         File: console-login
-      - Name: 콘솔 계정 관리
+      - Name: Account Management
         File: console-id-management
-  - Name: 콘솔 화면
+  - Name: Console Screen
     Dir: console_layout_sub
     Topics:
-      - Name: 메인 화면 구성
+      - Name: Main Screen Layout
         File: console-layout-main
-      - Name: 작업표시줄 영역
+      - Name: Task Bar
         File: task-bar
-  - Name: 콘솔 메뉴
+  - Name: Console Menus
     Dir: console_menu_sub
     Topics:
-      - Name: 홈
+      - Name: Home
         File: home
-      - Name: 서비스 카탈로그
+      - Name: Service Catalogs
         File: service-catalog
-      - Name: 워크로드
+      - Name: Worload
         File: work-load
-      - Name: 서비스 메시
+      - Name: Service Mesh
         File: service-mesh
-      - Name: 네트워크
+      - Name: Network
         File: network
-      - Name: 스토리지
+      - Name: Storage
         File: storage
       - Name: CI/CD
         File: ci-cd
       - Name: AI DevOps
         File: ai-dev
-      - Name: 보안
+      - Name: Security
         File: security
-      - Name: 이미지
+      - Name: Image
         File: image
-      - Name: 매니지먼트
+      - Name: Management
         File: management
-      - Name: 호스트
+      - Name: Host
         File: host
-      - Name: 인증/인가
+      - Name: Auth
         File: permission
-  - Name: Creating Service Catalog Resources
+  - Name: Creating Service Catalogs
     Dir: resource_create_sub
     Topics:
       - Name: Service Bindings
@@ -216,7 +216,7 @@ Topics:
         File: template-create
       - Name: Template Instances
         File: template-instance-create
-  - Name: Creating Workload Resources
+  - Name: Creating Workload
     Dir: resource_create_sub
     Topics:
       - Name: HPAs
@@ -241,7 +241,7 @@ Topics:
         File: cron-job-create
       - Name: Pods
         File: pod-create
-  - Name: Creating Service Mesh Resources
+  - Name: Creating Service Mesh
     Dir: resource_create_sub
     Topics:
       - Name: Virtual Services
@@ -262,14 +262,14 @@ Topics:
         File: auth-policy-create
       - Name: Peer Authentications
         File: peer-auth-create
-  - Name: Creating Network Resources
+  - Name: Creating Network 
     Dir: resource_create_sub
     Topics:
       - Name: Services
         File: service-create
       - Name: Ingresses
         File: ingress-create
-  - Name: Creating Storage Resources
+  - Name: Creating Storage 
     Dir: resource_create_sub
     Topics:
       - Name: Data Volumes
@@ -280,7 +280,7 @@ Topics:
         File: persistent-volume-create
       - Name: Persistent Volume Claims
         File: persistent-volume-claim-create
-  - Name: Creating CI/CD Resources
+  - Name: Creating CI/CD 
     Dir: resource_create_sub
     Topics:
       - Name: Tasks
@@ -295,7 +295,7 @@ Topics:
         File: pipeline-resource-create
       - Name: Pipeline Conditions
         File: pipeline-condition-create
-  - Name: Creating AI DevOps Resources
+  - Name: Creating AI DevOps 
     Dir: resource_create_sub
     Topics:
       - Name: KFServing
@@ -310,7 +310,7 @@ Topics:
         File: katib-create
       - Name: Training Jobs
         File: training-job-create
-  - Name: Creating Security Resources
+  - Name: Creating Security
     Dir: resource_create_sub
     Topics:
       - Name: Network Policy
@@ -322,7 +322,7 @@ Topics:
     Topics:
       - Name: Registries
         File: registry-create
-  - Name: Creating Management Resources
+  - Name: Creating Management 
     Dir: resource_create_sub
     Topics:
       - Name: Namespaces
@@ -337,7 +337,7 @@ Topics:
         File: custom-resource-create
       - Name: Limit Ranges
         File: basic-resource-create
-  - Name: Creating Auth Resources
+  - Name: Creating Auth 
     Dir: resource_create_sub
     Topics:
       - Name: Roles
@@ -352,22 +352,22 @@ Topics:
         File: user-group-create
       - Name: Service Accounts
         File: service-account-create
-  - Name: 기본 기능
+  - Name: Common Functions
     Dir: common_function_sub
     Topics:
-      - Name: 레이블 관리
+      - Name: Managing Labels
         File: label-edit
-      - Name: 주석 관리
+      - Name: Managing Annotations
         File: annotation-edit
-      - Name: 리소스 정보 수정
+      - Name: Updating Resources
         File: resource-info-edit
-      - Name: 리소스 삭제
+      - Name: Deleting Resources
         File: resource-delete
-      - Name: YAML 샘플 확인
+      - Name: Checking YAML Samples
         File: yaml-sample
-      - Name: YAML 파일 다운로드
+      - Name: Downloading YAML Files
         File: yaml-down
-      - Name: 레지스트리에 이미지 등록
+      - Name: Registering Images
         File: image-push
 # ---
 # Name: API Reference

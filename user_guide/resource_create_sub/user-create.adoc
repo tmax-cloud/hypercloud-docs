@@ -84,7 +84,7 @@ To remove an assigned role, select the role and click *[Remove selected]*. The r
 * *Effective Roles* +
 Displays roles dependent on assigned roles.
 * *Client Roles* +
-Displays roles dependent on clients.
+Assigns roles dependent on clients.
 
 == Adding Users to a Group
 

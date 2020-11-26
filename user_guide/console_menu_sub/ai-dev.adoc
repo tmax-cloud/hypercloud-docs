@@ -57,7 +57,7 @@ image:../images/figure_action_icon.png[]
 
 == Katib
 
-Clicking *[AI DevOps]* -> *[Katib]* from the console menus displays the main screen of *Katib*. +
+Selecting *[AI DevOps]* -> *[Katib]* from the console menus displays the main screen of *Katib*. +
 In th main screen of *Katib*, you can create and view the `Katib` resources used to tune the hyperparameters of AI models. 
 
 //[caption="그림. "] //캡션 제목 변경

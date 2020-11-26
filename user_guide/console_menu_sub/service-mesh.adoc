@@ -98,7 +98,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 = Envoy Filters
 
 Selecting *[Service Mesh]* -> *[Envoy Filters]* from the console menus displays the main screen of *Envoy Filters*. +
-In the main screen of *Envoy Filters*, you can create and view the `Envoy Filter` resources that define routing rules for traffic. 
+In the main screen of *Envoy Filters*, you can create and view the `Envoy Filter` resources that define the filtering to allow only specific routing rules, protocols, and message types.
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-envoy-filter-main]
@@ -266,6 +266,7 @@ The following is the description of each item.
 |NAME|Name of a request authentication. Clicking on the name displays a screen that allows you to check the detailed information of the request authentication. +
 To delete or update the information about the request authentication, click   
 image:../images/figure_action_icon.png[] (Config) beside the name.
+
 * Edit Labels: Add or delete the labels to identify resources.
 * Edit Annotations: Add, update, or delete the annotations that allow external reference to the resource.
 * Edit Request Authentications: Update the configuration information of request authentications using the YAML editor.
