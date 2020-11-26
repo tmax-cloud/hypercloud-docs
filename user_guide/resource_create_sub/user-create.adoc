@@ -1,102 +1,104 @@
-= Creating Users
+= 사용자 생성
 :toc:
 :toc-title:
 
-The following describes how to create users and assign roles to them.
+본 장에서는 사용자의 생성 및 권한 할당 방법에 대해서 설명한다.
 
-== Creating Users
+== 사용자 생성
 
-Create a new user.
+새로운 사용자를 생성할 수 있다.
 
-. Click *[Add user]* in the <<../console_menu_sub/permission#img-user-main,Users>> main screen.
-. In the *Add user* screen opened, enter configuration data about a user to create.
+. <<../console_menu_sub/permission#img-user-main,Users 메인 화면>>에서 *[Add user]* 버튼을 클릭한다.
+. *Add user* 화면이 열리면 생성할 사용자의 구성 정보를 설정한다.
 +
-The following describes each configuration item. (*: Required)
-+
-[width="100%",options="header", cols="1,3a"]
-|====================
-|Item|Description
-|Username*|User ID to use when logging in to HyperCloud console.
-|Email|Email address of the user. This is used to find a password and receive information such as OTP authentication data.
-|First Name|First name of the user.
-|Last Name|Last name of the user.
-|User Enabled|Option to enable the user.
-
-* ON: Enable the user (can log in to HyperCloud console)
-* OFF: Disable the user (cannot log in to HyperCloud console)
-|Email Verified|Whether the email address is verified.
-
-* ON: The email address has been verified.
-* OFF: The email address has not been verified.
-|Required User Actions|Action that the user needs to take to activate the account after the first login.
-
-* Update Password: Changing the password
-* Update Profile: Changing the user information
-* Verify Email: Verifying the email address
-|Locale|Default language to use in the console.
-|====================
-. To save the configuration data, click *[Save]*.
-. In the opened screen for user details, click the *[Credentials]* tab and set the user's password in *'Set Password'*.
-+
-The following describes each configuration item.
+각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|Item|Description
-|Password|User password with the following conditions.
+|항목|설명
+|Username *|HyperCloud 콘솔에 로그인 시 사용할 ID를 입력한다.
+|Email|사용자의 이메일 주소를 입력한다. 이때 입력한 이메일 주소는 비밀번호 찾기, OTP 인증 등의 정보를 수신할 때 사용된다.
+|First Name|사용자의 이름을 입력한다.
+|Last Name|사용자의 성씨를 입력한다.
+|User Enabled|사용자의 활성화 여부를 설정한다.
 
-* Must include one or more uppercase letters, lowercase letters, digits, and special characters.
-* Must be 9 or more characters in length.
-|Password Confirmation|Password entered in *'Password'*.
-|Temporary|Option to use the set password temporarily.
+* ON : 활성화 (HyperCloud 콘솔에 로그인 가능)
+* OFF : 비활성화 (HyperCloud 콘솔에 로그인 불가능)
+|Email Verified|이메일 인증 여부를 확인한다.
 
-* ON: Change the password after the first login.
-* OFF: Continue to use the set password.
+* ON : 이메일 인증이 완료된 상태
+* OFF : 이메일 인증이 완료되지 않은 상태
+|Required User Actions|최초 로그인 시 계정의 활성화를 위해 사용자가 수행해야 할 작업을 선택한다.
+
+* Update Password : 비밀번호 변경
+* Update Profile : 사용자 정보 변경
+* Verify Email : 이메일 인증
+|Locale|사용자로 로그인 후 콘솔에 기본으로 표시될 언어를 선택한다.
 |====================
-. To save the configuration data, click *[Set Password]*.
-
-== Assigning Roles to Users
-
-Assign a role to a user.
-
-. Click the ID of a user to whom a role is assigned from the user list in the <<../console_menu_sub/permission#img-user-main,Users>> main screen.
-. In the opened screen for the use details, click the *[Role Mappings]* tab and add a role to assign to the user.
+. 설정이 완료되면 *[Save]* 버튼을 클릭해서 설정 내용을 저장한다.
+. 생성한 사용자의 상세 정보 화면이 열리면 *[Credentials]* 탭을 선택한 후 *'Set Password'* 영역에서 사용자의 비밀번호를 설정한다.
 +
-The following describes each area.
+각 설정 항목에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|항목|설명
+|Password|사용자의 비밀번호를 입력한다.
+
+이때 입력 조건은 다음과 같다.
+
+* 영문 대/소문자, 숫자, 특수문자를 모두 포함
+* 9자 이상
+|Password Confirmation|확인을 위해 *'Password'* 항목에 입력한 내용을 동일하게 입력한다.
+|Temporary|설정한 비밀번호의 임시 여부를 설정한다.
+
+* ON : 설정한 비밀번호로 처음 로그인 후 비밀번호를 변경
+* OFF : 설정한 비밀번호를 계속 사용
+|====================
+. 설정이 완료되면 *[Set Password]* 버튼을 클릭해서 설정 내용을 저장한다.
+
+== 사용자 권한 할당
+
+사용자에게 권한을 할당할 수 있다.
+
+. <<../console_menu_sub/permission#img-user-main,Users 메인 화면>>의 사용자 목록 영역에서 권한을 할당할 사용자의 ID를 클릭한다.
+. 해당 사용자의 상세 정보 화면이 열리면 *[Role Mappings]* 탭을 선택한 후 사용자에게 할당할 권한을 추가한다.
++
+각 영역에 대한 설명은 다음과 같다.
 
 * *Available Roles* +
-Displays roles that can be assigned to a user. Selecting a role to assign and clicking *[Add selected]* moves the role to the *'Assigned Roles'* area.
+사용자에게 할당 가능한 권한의 목록이 표시된다. 이때 할당할 권한을 선택한 후 *[Add selected]* 버튼을 클릭하면 해당 권한이 *'Assigned Roles'* 영역으로 이동한다.
 +
-The following describes each role.
+각 권한에 대한 설명은 다음과 같다.
 +
 [width="100%",options="header", cols="1,3"]
 |====================
-|Item|Description
-|hyperauth tmax realm all role|All roles for tmax realm.
-|offline_access|Role to issue and use an offline token so that a user can work offline.
-|tmax realm user, group all role|All roles for users and groups of tmax realm.
-|tmax realm user, group list|List role for users and groups of tmax realm.
-|uma_authorization|Roles provided by HyperAuth by default for user and application integration.
+|항목|설명
+|hyperauth tmax realm all role|tmax realm에 대한 모든 권한
+|offline_access|오프라인 상태에서도 작업할 수 있도록 오프라인 토큰을 발급하여 사용할 수 있는 권한
+|tmax realm user, group all role|tmax realm의 user, group에 대한 모든 권한
+|tmax realm user, group list|tmax realm의 user, group에 대한 list 권한
+|uma_authorization|사용자와 애플리케이션 연동을 위해 HyperAuth에서 기본으로 제공되는 권한
 |====================
 * *Assigned Roles* +
-Displays roles assigned to a user. +
-To remove an assigned role, select the role and click *[Remove selected]*. The role is moved to the *'Available Roles'* area.
+사용자에게 할당된 권한의 목록이 표시된다. +
+만약 할당된 권한을 제거하려면 제거할 권한을 선택한 후 *[Remove selected]* 버튼을 클릭한다. 이때 제거된 권한은 *'Available Roles'* 영역으로 이동한다.
 * *Effective Roles* +
-Displays roles dependent on assigned roles.
+할당된 권한에 종속되어 있는 모든 권한의 목록이 표시된다.
 * *Client Roles* +
-Assigns roles dependent on clients.
+클라이언트에 종속되어 있는 권한을 할당한다.
 
-== Adding Users to a Group
+== 그룹에 사용자 추가
 
-Add a user to a group.
+생성된 사용자 그룹에 사용자를 추가할 수 있다.
 
-. Click the ID of a user to join a group from the user list in the <<../console_menu_sub/permission#img-user-main,Users>> main screen.
-. In the opened screen for the use details, click the *[Groups]* tab and select a user group.
+. <<../console_menu_sub/permission#img-user-main,Users 메인 화면>>의 사용자 목록 영역에서 그룹에 가입할 사용자의 ID를 클릭한다.
+. 해당 사용자의 상세 정보 화면이 열리면 *[Groups]* 탭을 선택한 후 가입할 사용자 그룹을 선택한다.
 +
-The following describes each area.
+각 영역에 대한 설명은 다음과 같다.
 
 * *Group Membership* +
-Displays user groups the user joined. +
-To leave the group, select the group and click *[Leave]*.
+사용자가 가입한 사용자 그룹의 목록이 표시된다. +
+만약 가입된 사용자 그룹에서 탈퇴하려면 탈퇴할 사용자 그룹을 선택한 후 *[Leave]* 버튼을 클릭한다.
 * *Available Groups* +
-Displays user groups the user can join. Selecting a user group to join and clicking *[Join]* moves the user group to the *'Group Membership'* area.
+사용자가 가입할 수 있는 사용자 그룹의 목록이 표시된다. 이때 가입할 사용자 그룹을 선택한 후 *[Join]* 버튼을 클릭하면 해당 사용자 그룹이 *'Group Membership'* 영역으로 이동한다.
