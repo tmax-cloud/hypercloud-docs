@@ -53,6 +53,7 @@ The following describes each configuration item.
 |Item|Description  
 |Name|Pipeline run name.
 |Pipeline|Name of a pipeline to run.
+|Parameters|Values of parameters to which a container image that runs in a task included in a pipeline refers.
 |Service Account Name|Name of a service account that has privilege to create a resource in a namespace.
 |Labels|Labels to add to the pipeline run.
 |====================
