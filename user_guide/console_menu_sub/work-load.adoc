@@ -519,6 +519,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 |NAMESPACE|Name of the namespace that the cron job was created in. Clicking on the name displays a window that allows you to view the detailed information of the namespace. 
 |SCHEDULEE|Pod's execution schedule information defined in cron syntax.
 |CONCURRENCY POLICY|Allow or not simultaneous execution of jobs to be executed by cron jobs.
+
 * Allow: Allow simultaneous execution
 * Forbid: Not allow simultaneous execution
 |STARTING DEADLINE SECONDS|The number of seconds to retry if the job fails to execute on the specified schedule
