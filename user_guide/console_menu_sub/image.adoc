@@ -55,4 +55,5 @@ image:../images/figure_action_icon.png[]
 |CREATED|Time when the registry was created.
 |====================
 
-NOTE: HyperCloud registries are implemented with Docker private registries. Docker private registries are created as pod.  + Also, HyperCloud service automatically issues the certificate files and secrets so that users can use the registries directly. 
+NOTE: HyperCloud registries are implemented with Docker private registries. Docker private registries are created as pod.  
++ Also, HyperCloud service automatically issues the certificate files and secrets so that users can use the registries directly. 
