@@ -39,7 +39,7 @@ Follow the stpes below to reset a forgotten password.
 +
 image::../images/figure_admin_password_change_01.png[]
 
-. In the *Forgot Your Password* window that opens, enter your username or email address and click *[Submit]*. 
+. In the *Forgot Your Password* window that opens, enter your username and click *[Submit]*. 
 
 . When the *'Reset Password'* email is sent to the user, click **'Link to reset credentials'**. You must click the link within 5 minutes after reception of this email. 
 +
