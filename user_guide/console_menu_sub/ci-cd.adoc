@@ -6,7 +6,7 @@
 [width="100%",options="header", cols="1,3"]
 |====================
 |Submenu|Function
-|Tasks|Create and view the ``Tasks`` that define a set of build steps such as code compilation, testing, and image build and deployment. 
+|Tasks|Create and view the "Tasks" that define a set of build steps such as code compilation, testing, and image build and deployment. 
 |Task Runs|Create and view the ``Task Runs`` that define the execution of tasks. 
 |Pipelines|Create and view the ``Pipelines`` that define a set of tasks.  
 |Pipeline Runs|Create and view the ``Pipeline Runs`` that define the execution of Pipelines. 
