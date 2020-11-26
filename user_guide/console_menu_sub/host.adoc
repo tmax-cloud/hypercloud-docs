@@ -13,7 +13,7 @@ This chapter describes the layout and functions of the submenus.
 
 == Nodes
 
-Clicking *[Host]* -> *[Nodes]* from the console menus displays the main screen of *Nodes*. + 
+Selecting *[Host]* -> *[Nodes]* from the console menus displays the main screen of *Nodes*. + 
 In the main screen of *Nodes*, you can view the ``Nodes`` where containers are deployed. 
 
 //[caption="그림. "] //캡션 제목 변경
