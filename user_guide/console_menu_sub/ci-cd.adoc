@@ -7,12 +7,12 @@
 |====================
 |Submenu|Function
 |Tasks|Create and view the "Tasks" that define a set of build steps such as code compilation, testing, and image build and deployment. 
-|Task Runs|Create and view the ``Task Runs`` that define the execution of tasks. 
-|Pipelines|Create and view the ``Pipelines`` that define a set of tasks.  
-|Pipeline Runs|Create and view the ``Pipeline Runs`` that define the execution of Pipelines. 
+|Task Runs|Create and view the "Task Runs" that define the execution of tasks. 
+|Pipelines|Create and view the "Pipelines" that define a set of tasks.  
+|Pipeline Runs|Create and view the "Pipeline Runs" that define the execution of Pipelines. 
 |Pipeline Approval|View the approval status for each step of the tasks that consist of the pipeline and determine whether to approve waiting steps in the Pipeline. 
-|Pipeline Resources|Create and view ``Pipeline Resources`` that define the inputs (e.g. Git Storage) or outputs (e.g. Docker Image) of the pipeline. 
-|Pipeline Conditions|Create and view ``Pipeline Conditions`` that determine whether to execute tasks. 
+|Pipeline Resources|Create and view "Pipeline Resources" that define the inputs (e.g. Git Storage) or outputs (e.g. Docker Image) of the pipeline. 
+|Pipeline Conditions|Create and view "Pipeline Conditions" that determine whether to execute tasks. 
 |====================
 
 This chapter describes the layout and functions of the submenus.
