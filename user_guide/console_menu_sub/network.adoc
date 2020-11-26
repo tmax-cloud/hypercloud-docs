@@ -51,7 +51,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 
 == Services
 
-Selecting *[Network]* -> *[Services]* from the console menus displays the main screen of *Services*.+
+Selecting *[Network]* -> *[Services]* from the console menus displays the main screen of *Services*. +
 In the main screen of *Services*, you can create and view the ``Services`` that define how to access pods. 
 
 //[caption="그림. "] //캡션 제목 변경
