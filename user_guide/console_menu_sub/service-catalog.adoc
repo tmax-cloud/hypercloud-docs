@@ -238,7 +238,7 @@ The following is the description of each item.
 == Service Instances
 
 Clicking *[Service Catalog]* -> *[Service Instances]* from the console menus displays the main screen of *Service Instances*. +
-In the main screen of *Service Instances*, you can create and view the `Service Instance` resources that provide service information such as cost, capacity, and quality of services. 
+In the main screen of *Service Instances*, you can create and view the `Service Instance` resources available within the cluster. 
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-service-instance-main]
