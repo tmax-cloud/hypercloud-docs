@@ -21,6 +21,7 @@ The following is the description of each item.
 |First name|First name of the user.
 |Last name|Last name of the user.
 |Email|Email address of the user. The specified email address is used to receive the information for Forgot Password or Authenticate OTP. 
+|User name|HyperCloud console login ID.
 |Password|Password of the account.
 
 The password rules are as follows.
@@ -28,7 +29,6 @@ The password rules are as follows.
 * Must contain at least one upper or lower case letter, numeric character, and special character. 
 * At least nine characters in length
 |Confirm Password|Enter the same *'Password'* again for confirmation. 
-|Phone number|Phone number of the account.
 |====================
 . You can log in to the HyperCloud console when the account is created successfully.
 
