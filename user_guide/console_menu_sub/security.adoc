@@ -72,10 +72,9 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 NOTE: Pod security policy control is implemented with an admission controller (recommended). +
 When the admission controller is enabled, the pod security policy is applied. 
 If you enable the policy without approving it, no pod is generated in the cluster. Therefore, for an existing cluster, it is recommended to add policies and grant permissions before enabling the admission controller. +
-After that, you can create a cluster role in the pod security policy created using Role-Based Access Control (RBAC), assign the generated cluster role to the service account, and apply the policy.
+First, to enable an admission controller, add PodSecurityPolicy to the enable-adminssion-plugins option of kube-apiserver. After that, you can create a cluster role in the pod security policy created using Role-Based Access Control (RBAC), assign the generated cluster role to the service account, and apply the policy.
 
-
-== Network Policiesinclude::Desktop\HyperCloud\hypercloud-docs-4.1-ko _현재\hypercloud-docs-4.1-ko\user_guide\console_menu_sub\permission.adoc[]include::Desktop\HyperCloud\hypercloud-docs-4.1-ko _현재\hypercloud-docs-4.1-ko\user_guide\console_menu_sub\permission.adoc[]
+== Network Policies
 
 Selecting *[Security]* -> *[Network Policies]* from the console menus displays the main screen of *Network Policies*. +
 In the main screen of *Network Policies*, you can create and view the `Network Policies` that control traffic to or from pods.  
@@ -114,6 +113,3 @@ image:../images/figure_action_icon.png[](Config) beside the name.
 
 NOTE: If there is no network policy, all ingress (inbound) and egress (outbound) traffic to pods in the namespace are allowed. If the namespace has a network policy to select a particular pod, the pod rejects all connections not allowed in that network policy. + 
 If one pod is selected for multiple network policies, the ingress and egress rules of the policies are integrated to limit traffic to that pod. 
-
-
-.include::Desktop\HyperCloud\hypercloud-docs-4.1-ko _현재\hypercloud-docs-4.1-ko\user_guide\console_menu_sub\service-catalog.adoc[]
