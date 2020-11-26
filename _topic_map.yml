@@ -199,7 +199,7 @@ Topics:
         File: host
       - Name: Auth
         File: permission
-  - Name: Creating Service Catalog Resources
+  - Name: Creating Service Catalogs
     Dir: resource_create_sub
     Topics:
       - Name: Service Bindings
@@ -216,7 +216,7 @@ Topics:
         File: template-create
       - Name: Template Instances
         File: template-instance-create
-  - Name: Creating Workload Resources
+  - Name: Creating Workload
     Dir: resource_create_sub
     Topics:
       - Name: HPAs
@@ -241,7 +241,7 @@ Topics:
         File: cron-job-create
       - Name: Pods
         File: pod-create
-  - Name: Creating Service Mesh Resources
+  - Name: Creating Service Mesh
     Dir: resource_create_sub
     Topics:
       - Name: Virtual Services
@@ -262,14 +262,14 @@ Topics:
         File: auth-policy-create
       - Name: Peer Authentications
         File: peer-auth-create
-  - Name: Creating Network Resources
+  - Name: Creating Network 
     Dir: resource_create_sub
     Topics:
       - Name: Services
         File: service-create
       - Name: Ingresses
         File: ingress-create
-  - Name: Creating Storage Resources
+  - Name: Creating Storage 
     Dir: resource_create_sub
     Topics:
       - Name: Data Volumes
@@ -280,7 +280,7 @@ Topics:
         File: persistent-volume-create
       - Name: Persistent Volume Claims
         File: persistent-volume-claim-create
-  - Name: Creating CI/CD Resources
+  - Name: Creating CI/CD 
     Dir: resource_create_sub
     Topics:
       - Name: Tasks
@@ -295,7 +295,7 @@ Topics:
         File: pipeline-resource-create
       - Name: Pipeline Conditions
         File: pipeline-condition-create
-  - Name: Creating AI DevOps Resources
+  - Name: Creating AI DevOps 
     Dir: resource_create_sub
     Topics:
       - Name: KFServing
@@ -310,7 +310,7 @@ Topics:
         File: katib-create
       - Name: Training Jobs
         File: training-job-create
-  - Name: Creating Security Resources
+  - Name: Creating Security
     Dir: resource_create_sub
     Topics:
       - Name: Network Policy
@@ -322,7 +322,7 @@ Topics:
     Topics:
       - Name: Registries
         File: registry-create
-  - Name: Creating Management Resources
+  - Name: Creating Management 
     Dir: resource_create_sub
     Topics:
       - Name: Namespaces
@@ -337,7 +337,7 @@ Topics:
         File: custom-resource-create
       - Name: Limit Ranges
         File: basic-resource-create
-  - Name: Creating Auth Resources
+  - Name: Creating Auth 
     Dir: resource_create_sub
     Topics:
       - Name: Roles
@@ -361,7 +361,7 @@ Topics:
         File: annotation-edit
       - Name: Updating Resources
         File: resource-info-edit
-      - Name: Deleting Resourcs
+      - Name: Deleting Resources
         File: resource-delete
       - Name: Checking YAML Samples
         File: yaml-sample
