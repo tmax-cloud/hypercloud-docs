@@ -98,7 +98,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 = Envoy Filters
 
 Selecting *[Service Mesh]* -> *[Envoy Filters]* from the console menus displays the main screen of *Envoy Filters*. +
-In the main screen of *Envoy Filters*, you can create and view the `Envoy Filter` resources that define routing rules for traffic. 
+In the main screen of *Envoy Filters*, you can create and view the `Envoy Filter` resources that define the filtering to allow only specific routing rules, protocols, and message types.
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-envoy-filter-main]
