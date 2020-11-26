@@ -237,7 +237,7 @@ The following is the description of each item.
 
 == Service Instances
 
-Clicking *[Service Catalog]* -> *[Service Instances]* from the console menus displays the main screen of *Service Instances*. +
+Selecting *[Service Catalog]* -> *[Service Instances]* from the console menus displays the main screen of *Service Instances*. +
 In the main screen of *Service Instances*, you can create and view the `Service Instance` resources available within the cluster. 
 
 //[caption="그림. "] //캡션 제목 변경
@@ -275,7 +275,7 @@ image:../images/figure_action_icon.png[](Config) beside the name.
 
 == Service Bindings
 
-Clicking *[Service Catalog]* -> *[Service Bindings]* from the console menus displays the main screen of *Service Bindings*. +
+Selecting *[Service Catalog]* -> *[Service Bindings]* from the console menus displays the main screen of *Service Bindings*. +
 In the main screen of *Service Bindings*, you can create and view the `Service Binding` resources that provide connection and authentication information of service instances. 
 
 //[caption="그림. "] //캡션 제목 변경
