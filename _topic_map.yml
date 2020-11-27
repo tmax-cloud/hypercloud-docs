@@ -367,7 +367,7 @@ Topics:
         File: yaml-sample
       - Name: Downloading YAML Files
         File: yaml-down
-      - Name: Registering Images
+      - Name: Pushing Images 
         File: image-push
 # ---
 # Name: API Reference
