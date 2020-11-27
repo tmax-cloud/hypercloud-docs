@@ -1,4 +1,4 @@
-= Delete Resources
+= Deleting Resources
 
 You can delete the created resources. 
 
