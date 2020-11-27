@@ -1,4 +1,4 @@
-= Check YAML Sample
+= Checking YAML Sample
 
 You can use an YAML sample to create resources easily. 
 
