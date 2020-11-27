@@ -1,4 +1,4 @@
-= Add and Delete Labels
+= Managing Labels
 
 You can add or delete labels on each resource. 
 
