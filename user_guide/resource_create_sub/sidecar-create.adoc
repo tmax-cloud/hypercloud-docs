@@ -1,4 +1,4 @@
-= Creating Sidecars
+= Creating SideCars
 :toc:
 :toc-title:
 
