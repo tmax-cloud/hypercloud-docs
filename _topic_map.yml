@@ -317,7 +317,7 @@ Topics:
         File: network-policy-create
       - Name: Pod Security Policy
         File: pod-security-policy-create
-  - Name: Creating Image Resources
+  - Name: Creating Image 
     Dir: resource_create_sub
     Topics:
       - Name: Registries
