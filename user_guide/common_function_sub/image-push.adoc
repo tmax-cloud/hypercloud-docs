@@ -1,4 +1,4 @@
-= Push Images to a Registry
+= Pushing Images to Registry
 
 You can push an image to the registry you created and use that image to create a pod.
 
