@@ -166,7 +166,7 @@ Topics:
   - Name: Console Screen
     Dir: console_layout_sub
     Topics:
-      - Name: Main Screen Layout
+      - Name: Home Screen Layout
         File: console-layout-main
       - Name: Task Bar
         File: task-bar
