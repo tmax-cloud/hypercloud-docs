@@ -29,7 +29,7 @@ The following is the description of each area.
 Create new storage classes using the form or YAML editor. 
 <2> *Filter by Name* +
 Enter the name of the storage class you want to search from the list of storage classes.
-<4> *Storage Class List* +
+<3> *Storage Class List* +
 View the list of storage classes created in the cluster. +
 The following is the description of each item.
 +

@@ -58,7 +58,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 |CREATED|Time when a virtual service was created
 |====================
 
-= Destination Rules
+== Destination Rules
 
 Selecting *[Service Mesh]* -> *[Destination Rules]* from the console menus displays the main screen of *Destination Rules*. +
 In the main screen of *Destination Rules*, you can create and view the `Destination Rule` resources that configure the the management of traffic that occurs on the host. 
@@ -95,7 +95,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 |CREATED|Time when a destination rule was created
 |====================
 
-= Envoy Filters
+== Envoy Filters
 
 Selecting *[Service Mesh]* -> *[Envoy Filters]* from the console menus displays the main screen of *Envoy Filters*. +
 In the main screen of *Envoy Filters*, you can create and view the `Envoy Filter` resources that define the filtering to allow only specific routing rules, protocols, and message types.
@@ -131,7 +131,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 |CREATED|Time when an envoy filter was created.
 |====================
 
-= Gateways
+== Gateways
 
 Selecting *[Service Mesh]* -> *[Gateways]* from the console menus displays the main screen of *Gateways*. +
 In the main screen of *Gateways*, you can create and view the `Gateway` resources that manage inbound and outbound traffic.  
@@ -167,7 +167,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 |CREATED|Time when a gateway was created.
 |====================
 
-= SideCars
+== SideCars
 
 Selecting *[Service Mesh]* -> *[SideCars]* from the console menus displays the main screen of *SideCars*. +
 In the main screen of *SideCars*, you can create and view the `SideCar` resources that allow you to set up proxy settings to manage inbound and outbound communication for the instances of connected workloads.   
@@ -203,7 +203,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 |CREATED|Time when the SideCar was created.
 |====================
 
-= Service Entries
+== Service Entries
 
 Selecting *[Service Mesh]* -> *[Service Entries]* from the console menus displays the main screen of *Service Entries*. +
 In the main screen of *Service Entries*, you can create and view the `Service Entry` resources that define service properties (DNS name, VIP, port, protocol, and endpoint). 
@@ -239,7 +239,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 |CREATED|Time when a service entry was created.
 |====================
 
-= Request Authentications
+== Request Authentications
 
 Selecting *[Service Mesh]* -> *[Request Authentications]* from the console menus displays the main screen of *Request Authentications*. +
 In the main screen of *Request Authentications*, you can create and view the `Request Authentication` resources that allow you to specify the request authentication methods supported by workload instances.  
@@ -275,7 +275,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 |CREATED|Time when a request authentication was created.
 |====================
 
-= Peer Authentications
+== Peer Authentications
 
 Selecting *[Service Mesh]* -> *[Peer Authentications]* from the console menus displays the main screen of *Peer Authentications*. +
 In the main screen of *Peer Authentications*, you can create and view the `Peer Authentication` resources that allow you to specify how traffic is tunneled or not tunneled to the sidecar. 
@@ -311,7 +311,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 |CREATED|Time when a peer authentication was created.
 |====================
 
-= Authorization Policies
+== Authorization Policies
 
 Selecting *[Service Mesh]* -> *[Authorization Policies]* from the console menus displays the main screen of *Authorization Policies*. +
 In the main screen of *Authorization Policies*, you can create and view the `Authorization Policy` resources that allow you to manage access control to mesh workloads. 
@@ -347,7 +347,7 @@ image:../images/figure_action_icon.png[] (Config) beside the name.
 |CREATED|Time when an authorization policy was created.
 |====================
 
-= Kiali
+== Kiali
 
 Selecting *[Service Mesh]* -> *[Kiali]* from the console menus displays the main screen of *Kiali*.
 In the main screen of *Kiali*, you can create and view the service graph and Istio configuration information of mesh. +
