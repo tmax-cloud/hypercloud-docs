@@ -1,4 +1,4 @@
-= Add/Update/Delete Annotations
+= Managing Annotations
 
 You can add, update, or delete annotations on each resource. 
 
