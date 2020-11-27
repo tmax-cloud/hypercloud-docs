@@ -1,4 +1,4 @@
-= Update Resource Information
+= Editing Resource Information
 
 You can update the configuration information of each resource. 
 
