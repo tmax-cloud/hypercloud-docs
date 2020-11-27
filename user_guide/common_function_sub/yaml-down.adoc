@@ -1,4 +1,4 @@
-= Download YAML Files
+= Downloading YAML Files
 
 You can create resources in the form of .yaml files by downloading the YAML contents created in the YAML editor.
 
