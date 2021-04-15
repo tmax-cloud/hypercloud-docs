@@ -41,10 +41,10 @@ image::../images/figure_admin_node_main.png[]
 
 * Ready : 파드를 수용할 수 있는 상태
 * Not Ready : 파드를 수용할 수 없는 상태
-* Maintenance : // (TD: 설명 필요)
-|Role| // (TD: 올바른 국문화 필요. 항목 설명 필요)
-|머신| // (TD: 항목 설명 필요)
-|매니지먼트 주소| // (TD: 항목 설명 필요)
+* Maintenance : // (TD: 설명 필요) (QA: 없애야 할 것 같음)
+|Role| // (TD: 올바른 국문화 필요. 항목 설명 필요) (QA: okd 에서도 role이라는 용어로 사용중, worker노드인지 master노드인지 역할 구분)
+|머신| // (TD: 항목 설명 필요) (QA: 기능확인 필요)
+|매니지먼트 주소| // (TD: 항목 설명 필요) (QA: 기능확인 필요)
 |image:../images/figure_action_icon.png[]|노드의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
