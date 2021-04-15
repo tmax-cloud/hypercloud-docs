@@ -30,7 +30,7 @@ image::../images/figure_admin_role_main.png[]
 롤을 생성하거나 롤 목록을 조회할 네임스페이스를 선택한다.
 
 <2> *생성 버튼* +
-새로운 롤을 폼 에디터 또는 YAML 에디터를 사용해 생성한다.
+새로운 롤을 폼 에디터 또는 YAML 에디터를 사용해 생성한다.//(QA: Create Role -> 롤 생성 수정필요)
 
 <3> *검색 조건 (종류)* +
 롤의 종류를 선택해서 검색한다. 이때 다중선택도 가능하다.
@@ -55,7 +55,7 @@ image::../images/figure_admin_role_main.png[]
 |image:../images/figure_action_icon.png[]|롤의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
-* 롤 바인딩 추가 // (TD: 띄어쓰기 통일 필요): 롤 바인딩 생성
+* 롤 바인딩 추가 // (TD: 띄어쓰기 통일 필요)//(QA: 제품에는 add Role binding이라 적혀있음('롤 바인딩 추가'로 수정 요청): 롤 바인딩 생성
 * 롤(또는 클러스터 롤) 수정 : YAML 에디터를 사용해 롤의 구성 정보를 수정
 * 롤(또는 클러스터 롤) 삭제 : 롤을 삭제
 |====================
@@ -75,7 +75,7 @@ image::../images/figure_admin_role_binding_main.png[]
 롤 바인딩을 생성하거나 롤 바인딩 목록을 조회할 네임스페이스를 선택한다.
 
 <2> *생성 버튼* +
-새로운 롤 바인딩을 폼 에디터를 사용해 생성한다. // (TD: 제픔의 버튼 이름 변경 필요 > 롤 바인딩 생성)
+새로운 롤 바인딩을 폼 에디터를 사용해 생성한다. // (TD: 제픔의 버튼 이름 변경 필요 > 롤 바인딩 생성)//(QA: 바인딩 -> 롤 바인딩 생성)
 
 <3> *검색 조건 (종류)* +
 롤 바인딩의 종류를 선택해서 검색한다. 이때 다중선택도 가능하다.
@@ -107,7 +107,7 @@ image::../images/figure_admin_role_binding_main.png[]
 |image:../images/figure_action_icon.png[]|롤 바인딩의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
-* Duplicate Role(또는 Cluster Role) Binding : // (TD: 메뉴 국문화 및 메뉴 설명 필요)
+* Duplicate Role(또는 Cluster Role) Binding : // (TD: 메뉴 국문화 및 메뉴 설명 필요)(QA:정확한 명칭 필요 / 설명:롤(또는 클러스터 롤)에 대한 롤 바인딩 생성)
 * 롤(또는 클러스터 롤) 바인딩 수정 : YAML 에디터를 사용해 롤 바인딩의 구성 정보를 수정
 * 롤(또는 클러스터 롤) 바인딩 삭제 : 롤 바인딩을 삭제
 |====================
@@ -197,7 +197,7 @@ image::../images/figure_admin_service_account_main.png[]
 |image:../images/figure_action_icon.png[]|서비스 계정의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
-* Kubeconfig file 다운로드 : 클러스터에 대한 접근을 구성하는데 사용되는 kubeconfig 파일을 다운로드
+* Kubeconfig file 다운로드//(QA: 제품에는 Download kubeconfig file로 되어있으므로 국문화 필요) : 클러스터에 대한 접근을 구성하는데 사용되는 kubeconfig 파일을 다운로드
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
 * 어노테이션 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
 * 서비스 계정 수정 : YAML 에디터를 사용해 서비스 계정의 구성 정보를 수정
@@ -234,7 +234,7 @@ image::../images/figure_admin_pod_security_main.png[]
 
 * True : 사용
 * False : 사용 안 함
-|보안 강화 리눅스 // (TD: 제품에는 '리녹스'로 표기)|SELinux의 제어 범위를 표시한다.
+|보안 강화 리눅스 // (TD: 제품에는 '리녹스'로 표기)//(QA: 제품 표기 '리눅스'로 수정 요청)|SELinux의 제어 범위를 표시한다.
 
 * MustRunAs : 지정된 범위만 허용 (범위 지정 필수)
 * RunAsAny : 모두 허용
@@ -248,7 +248,7 @@ image::../images/figure_admin_pod_security_main.png[]
 * MustRunAs : 지정된 범위만 허용 (범위 지정 필수)
 * MayRunAs : 범위를 지정한 경우 지정된 범위만 허용하고, 범위를 지정하지 않은 경우 모두 허용
 * RunAsAny : 모두 허용
-|보충 그룹 // (TD: 제품에는 '보총'으로 표기)|컨테이너가 추가할 그룹 ID의 제어 범위를 표시한다.
+|보충 그룹 // (TD: 제품에는 '보총'으로 표기)//(QA: 제품 표기 '보충'으로 수정 요청)|컨테이너가 추가할 그룹 ID의 제어 범위를 표시한다.
 
 * MustRunAs : 지정된 범위만 허용 (범위 지정 필수)
 * MayRunAs : 범위를 지정한 경우 지정된 범위만 허용하고, 범위를 지정하지 않은 경우 모두 허용
