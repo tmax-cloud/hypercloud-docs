@@ -107,7 +107,8 @@ image::../images/figure_admin_role_binding_main.png[]
 |image:../images/figure_action_icon.png[]|롤 바인딩의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
-(QA: 위장 사용자 추가예정)
+(QA: 위장 사용자 추가예정) 
+*
 * Duplicate Role(또는 Cluster Role) Binding : // (TD: 메뉴 국문화 및 메뉴 설명 필요)(QA: 국문화 요청드렸습니다/ 설명:롤(또는 클러스터 롤)에 대한 롤 바인딩 복제)
 * 롤(또는 클러스터 롤) 바인딩 수정 : YAML 에디터를 사용해 롤 바인딩의 구성 정보를 수정
 * 롤(또는 클러스터 롤) 바인딩 삭제 : 롤 바인딩을 삭제
