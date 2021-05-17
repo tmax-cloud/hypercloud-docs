@@ -27,14 +27,14 @@ systemctl restart docker
 . 레지스트리에 로그인한다.
 +
 ----
-docker login https://{ip}
+docker login https://172.21.4.172
 ----
 
 
 . 레지스트리에 준비한 이미지를 푸시(Push)한다.
 +
 ----
-docker push {ip}/{이미지 이름}:{태그}
+docker push 172.21.4.172/{이미지 이름}:{태그}
 ----
 
 . 레지스트리에 등록된 이미지를 사용하여 파드를 생성한다. +
@@ -42,5 +42,5 @@ docker push {ip}/{이미지 이름}:{태그}
 +
 ----
 imagePullSecrets: 
-  - name: hpcd-registry-example
+  - name: hpcd-registry-example-registry1
 ----
