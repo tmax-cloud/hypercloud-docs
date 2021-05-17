@@ -38,7 +38,7 @@ docker push 10.0.0.23/{이미지 이름}:{태그}
 ----
 
 . 레지스트리에 등록된 이미지를 사용하여 파드를 생성한다. +
-이때 생성할 파드의 YAML 파일 내용에서 imagePullSecrets 항목의 name 값으로 **'hpcd-registry-{레지스트리 이름}'**을 설정한다.
+이때 생성할 파드의 YAML 파일 내용에서 imagePullSecrets 항목의 name 값으로 'hpcd-registry-{레지스트리 이름}'을 설정한다.
 +
 ----
 imagePullSecrets: 
