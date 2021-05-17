@@ -30,11 +30,6 @@ systemctl restart docker
 docker login https://10.0.0.23
 ----
 
-. 생성한 디렉터리로 이동한다.
-+
-----
-cd 172.21.4.213:443
-----
 
 . 레지스트리에 준비한 이미지를 푸시(Push)한다.
 +
