@@ -4,12 +4,1246 @@
 
 본 장에서는 레플리카 셋 리소스의 생성 방법에 대해서 설명한다.
 
+== 폼 에디터
+
+새로운 레플리카 셋을 폼 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/work-load#img-replicaset-main,레플리카 셋 메인 화면>>의 네임스페이스 선택 영역에서 새로운 레플리카 셋을 생성할 네임스페이스를 선택한 후 *[레플리카 셋 생성]* 버튼을 클릭한다.
+. *Create Replica Set* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
+. 폼 에디터가 열리면 생성할 레플리카 셋의 구성 정보를 설정한다. +
+각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
+
+* Name *
++
+레플리카 셋의 이름을 입력한다.
+* Labels
++
+레플리카 셋에 추가할 레이블 정보를 입력한다.
+* minReadySeconds
+* replicas
+* Selector *
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Match Expressions|
+* key *
+* operator *
+* Values
+** Value *
+|matchLabels|
+|====================
+* Template *
+** Metadata
+*** annotations
+*** Finalizers
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Value *|
+|====================
+*** generateName
+*** labels
+*** Managed Fields
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|apiVersion|
+|fieldsType|
+|manager|
+|operation|
+|time|
+|====================
+*** name
+*** namespace
+*** Owner References 
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|apiVersion *|
+|blockOwnerDeletion|
+|controller|
+|kind *|
+|name *|
+|uid *|
+|====================
+** Spec
+*** activeDeadlineSeconds
+*** Affinity
+**** Node Affinity
+***** Preferred During Scheduling Ignored During Execution
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Preference *|
+* Match Expressions
+** key *
+** operator *
+** Values
+*** Value *
+* Match Fields
+** key *
+** operator *
+** Values
+*** Value *
+|weight *|
+|====================
+***** Required During Scheduling Ignored During Execution
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Node Selector Terms *|
+* Match Expressions
+** key *
+** operator *
+** Values
+*** Value *
+* Match Fields
+** key *
+** operator *
+** Values
+*** Value *
+|====================
+**** Pod Affinity
+***** Preferred During Scheduling Ignored During Execution
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Pod Affinity Term *|
+* Label Selector
+** Match Expressions
+*** key *
+*** operator *
+*** Values
+**** Value *    
+** matchLabels
+* Namespaces
+** Value *
+* topologyKey *
+|weight *|
+|====================
+***** Required During Scheduling Ignored During Execution
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Label Selector|
+* Match Expressions
+** key *
+** operator *
+** Values
+*** Value *    
+* matchLabels
+|Namespaces|
+* Value *
+|topologyKey *|
+|====================
+**** Pod Anti Affinity
+***** Preferred During Scheduling Ignored During Execution
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Pod Affinity Term *|
+* Label Selector
+** Match Expressions
+*** key *
+*** operator *
+*** Values
+**** Value *    
+** matchLabels
+* Namespaces
+** Value *
+* topologyKey *
+|weight *|
+|====================
+***** Required During Scheduling Ignored During Execution
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Label Selector|
+* Match Expressions
+** key *
+** operator *
+** Values
+*** Value *    
+* matchLabels
+|Namespaces|
+* Value *
+|topologyKey *|
+|====================
+*** automountServiceAccountToken
+*** Containers *
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Args|
+* Value *
+|Command|
+* Value *
+|Env|
+* name *
+* value
+* Value From
+** Config Map Key Ref
+*** key *
+*** name
+*** optional
+** Field Ref
+*** apiVersion
+*** fieldPath *
+** Resource Field Ref
+*** containerName
+*** divisor
+*** resource *
+** Secret Key Ref
+*** key *
+*** name
+*** optional
+|Env From|
+* Config Map Ref
+** name
+** optional
+* prefix
+* Secret Ref
+** name
+** optional
+|image *|
+|imagePullPolicy|
+|Lifecycle > Post Start|
+* Exec > Command
+** Value *
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* Tcp Socket
+** host
+** port *
+|Lifecycle > Pre Stop|
+* Exec > Command
+** Value *
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* Tcp Socket
+** host
+** port *
+|Liveness Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|name *|
+|Ports|
+* containerPort *
+* hostIP
+* hostPort
+* name
+* protocol
+|Readiness Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|Resources|
+* Limits
+** KEY
+** VALUE
+* Requests
+** KEY
+** VALUE
+|Security Context|
+* allowPrivilegeEscalation
+* Capabilities
+** Add
+*** Value *
+** Drop
+*** Value *
+* privileged
+* procMount
+* readOnlyRootFilesystem
+* runAsGroup
+* runAsNonRoot
+* runAsUser
+* Se Linux Options
+** level
+** role
+** type
+** user
+* Seccomp Profile
+** localhostProfile
+** type *
+* Windows Options
+** gmsaCredentialSpec
+** gmsaCredentialSpecName
+** runAsUserName
+|Startup Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|stdin|
+|stdinOnce|
+|terminationMessagePath|
+|terminationMessagePolicy|
+|tty|
+|Volume Devices|
+* devicePath *
+* name *
+|Volume Mounts|
+* mountPath *
+* mountPropagation
+* name *
+* readOnly
+* subPath
+* subPathExpr
+|workingDir|
+|====================
+*** Dns Config
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Nameservers|
+* Value *
+|Options|
+* name
+* value
+|Searches|
+* Value *
+|====================
+*** dnsPolicy
+*** enableServiceLinks
+*** Ephemeral Containers
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Args|
+* Value *
+|Command|
+* Value *
+|Env|
+* name *
+* value
+* Value From
+** Config Map Key Ref
+*** key *
+*** name
+*** optional
+** Field Ref
+*** apiVersion
+*** fieldPath *
+** Resource Field Ref
+*** containerName
+*** divisor
+*** resource *
+** Secret Key Ref
+*** key *
+*** name
+*** optional
+|Env From|
+* Config Map Ref
+** name
+** optional
+* prefix
+* Secret Ref
+** name
+** optional
+|image *|
+|imagePullPolicy|
+|Lifecycle > Post Start|
+* Exec > Command
+** Value *
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* Tcp Socket
+** host
+** port *
+|Lifecycle > Pre Stop|
+* Exec > Command
+** Value *
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* Tcp Socket
+** host
+** port *
+|Liveness Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|name *|
+|Ports|
+* containerPort *
+* hostIP
+* hostPort
+* name
+* protocol
+|Readiness Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|Resources|
+* Limits
+** KEY
+** VALUE
+* Requests
+** KEY
+** VALUE
+|Security Context|
+* allowPrivilegeEscalation
+* Capabilities
+** Add
+*** Value *
+** Drop
+*** Value *
+* privileged
+* procMount
+* readOnlyRootFilesystem
+* runAsGroup
+* runAsNonRoot
+* runAsUser
+* Se Linux Options
+** level
+** role
+** type
+** user
+* Seccomp Profile
+** localhostProfile
+** type *
+* Windows Options
+** gmsaCredentialSpec
+** gmsaCredentialSpecName
+** runAsUserName
+|Startup Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|stdin|
+|stdinOnce|
+|terminationMessagePath|
+|terminationMessagePolicy|
+|tty|
+|Volume Devices|
+* devicePath *
+* name *
+|Volume Mounts|
+* mountPath *
+* mountPropagation
+* name *
+* readOnly
+* subPath
+* subPathExpr
+|workingDir|
+|====================
+*** Host Aliases
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Hostnames|
+* Value *
+|ip|
+|====================
+*** hostIPC
+*** hostNetwork
+*** hostPID
+*** hostname
+*** Image Pull Secrets
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|name|
+|====================
+*** Init Containers
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Args|
+* Value *
+|Command|
+* Value *
+|Env|
+* name *
+* value
+* Value From
+** Config Map Key Ref
+*** key *
+*** name
+*** optional
+** Field Ref
+*** apiVersion
+*** fieldPath *
+** Resource Field Ref
+*** containerName
+*** divisor
+*** resource *
+** Secret Key Ref
+*** key *
+*** name
+*** optional
+|Env From|
+* Config Map Ref
+** name
+** optional
+* prefix
+* Secret Ref
+** name
+** optional
+|image *|
+|imagePullPolicy|
+|Lifecycle > Post Start|
+* Exec > Command
+** Value *
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* Tcp Socket
+** host
+** port *
+|Lifecycle > Pre Stop|
+* Exec > Command
+** Value *
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* Tcp Socket
+** host
+** port *
+|Liveness Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|name *|
+|Ports|
+* containerPort *
+* hostIP
+* hostPort
+* name
+* protocol
+|Readiness Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|Resources|
+* Limits
+** KEY
+** VALUE
+* Requests
+** KEY
+** VALUE
+|Security Context|
+* allowPrivilegeEscalation
+* Capabilities
+** Add
+*** Value *
+** Drop
+*** Value *
+* privileged
+* procMount
+* readOnlyRootFilesystem
+* runAsGroup
+* runAsNonRoot
+* runAsUser
+* Se Linux Options
+** level
+** role
+** type
+** user
+* Seccomp Profile
+** localhostProfile
+** type *
+* Windows Options
+** gmsaCredentialSpec
+** gmsaCredentialSpecName
+** runAsUserName
+|Startup Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|stdin|
+|stdinOnce|
+|terminationMessagePath|
+|terminationMessagePolicy|
+|tty|
+|Volume Devices|
+* devicePath *
+* name *
+|Volume Mounts|
+* mountPath *
+* mountPropagation
+* name *
+* readOnly
+* subPath
+* subPathExpr
+|workingDir|
+|====================
+*** nodeName
+*** nodeSelector
+*** Overhead
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|KEY|
+|VALUE|
+|====================
+*** preemptionPolicy
+*** priority
+*** priorityClassName
+*** Readiness Gates
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|conditionType *|
+|====================
+*** restartPolicy
+*** runtimeClassName
+*** schedulerName
+*** Security Context
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsGroup|
+|fsGroupChangePolicy|
+|runAsGroup|
+|runAsNonRoot|
+|runAsUser|
+|Se Linux Options|
+* level
+* role
+* type
+* user
+|Seccomp Profile|
+* localhostProfile
+* type *
+|Supplemental Groups|
+* Value *
+|Sysctls|
+* name *
+* value *
+|Windows Options|
+* gmsaCredentialSpec
+* gmsaCredentialSpecName
+* runAsUserName
+|====================
+*** serviceAccountName
+*** setHostnameAsFQDN
+*** shareProcessNamespace
+*** subdomain
+*** terminationGracePeriodSeconds
+*** Tolerations
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|effect|
+|key|
+|operator|
+|tolerationSeconds|
+|value|
+|====================
+*** Topology Spread Constraints
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Label Selector|
+* Match Expressions
+** key *
+** operator *
+** Values
+*** Value *
+* matchLabels
+|maxSkew *|
+|topologyKey *|
+|whenUnsatisfiable *|
+|====================
+*** Volumes
+**** Aws Elastic Block Store
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|partition|
+|readOnly|
+|volumeID *|
+|====================
+**** Azure Disk
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|cachingMode|
+|diskName *|
+|diskURI *|
+|fsType|
+|kind|
+|readOnly|
+|====================
+**** Azure File
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|readOnly|
+|secretName *|
+|shareName *|
+|====================
+**** Cephfs
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Monitors *|
+* Value *
+|path|
+|readOnly|
+|secretFile|
+|Secret Ref|
+* name
+|user|
+|====================
+**** Cinder
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|readOnly|
+|Secret Ref|
+* name
+|volumeID *|
+|====================
+**** Config Map
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|defaultMode|
+|Items|
+* key *
+* mode
+* path *
+|name|
+|optional|
+|====================
+**** Csi
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|driver *|
+|fsType|
+|Node Publish Secret Ref|
+* name
+|readOnly|
+|Volume Attributes|
+* KEY
+* VALUE
+|====================
+**** Downward API
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|defaultMode|
+|Items|
+* Field Ref
+** apiVersion
+** fieldPath *
+* mode
+* path
+* Resource Field Ref
+** containerName
+** divisor
+** resource *
+|====================
+**** Empty Dir
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|medium|
+|sizeLimit|
+|====================
+**** Ephemeral
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|readOnly|
+|Volume Claim Template > Metadata|
+* annotations
+* Finalizers
+** Value *
+* generateName
+* labels
+* Managed Fields
+** apiVersion
+** fieldsType
+** manager
+** operation
+** time
+* name
+* namespace
+* Owner References
+** apiVersion *
+** blockOwnerDeletion
+** controller
+** kind *
+** name *
+** uid *
+|Volume Claim Template > Spec *|
+* Access Modes
+** Value *
+* Data Source
+** apiGroup
+** kind *
+** name *
+* Resources > Limits
+** KEY
+** VALUE
+* Resources > Requests
+** KEY
+** VALUE
+* Selector
+** Match Expressions
+*** key *
+*** operator *
+*** Values
+**** Value *
+** matchLabels
+* storageClassName
+* volumeMode
+* volumeName
+|====================
+**** Fc
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|lun|
+|readOnly|
+|Target WW Ns|
+* Value *
+|Wwids|
+* Value *
+|====================
+**** Flex Volume
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|driver *|
+|fsType|
+|Options|
+* KEY
+* VALUE
+|readOnly|
+|Secret Ref|
+* name
+|====================
+**** Flocker
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|datasetName|
+|datasetUUID|
+|====================
+**** Gce Persistent Disk
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|partition|
+|pdName *|
+|readOnly|
+|====================
+**** Git Repo
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|directory|
+|repository *|
+|revision|
+|====================
+**** Glusterfs
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|endpoints *|
+|path *|
+|readOnly|
+|====================
+**** Host Path
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|path *|
+|type|
+|====================
+**** Iscsi
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|chapAuthDiscovery|
+|chapAuthSession|
+|fsType|
+|initiatorName|
+|iqn *|
+|iscsiInterface|
+|lun *|
+|Portals|
+* Value *
+|readOnly|
+|Secret Ref|
+* name
+targetPortal *|
+|====================
+**** name *
+**** Nfs
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|path *|
+|readOnly|
+|server *|
+|====================
+**** Persistent Volume Claim
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|claimName *|
+|readOnly|
+|====================
+**** Photon Persistent Disk
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|pdID *|
+|====================
+**** Portworx Volume
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|readOnly|
+|volumeID *|
+|====================
+**** Projected
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|defaultMode|
+|Sources * > Config Map|
+* Items
+** key *
+** mode
+** path *
+* name
+* optional
+|Sources * > Downward API > Items|
+* Field Ref
+** apiVersion
+** fieldPath *
+* mode
+* path *
+* Resource Field Ref
+** containerName
+** divisor
+** resource *
+|Sources * > Secret|
+* Items
+** key *
+** mode
+** path *
+* name
+* optional
+|Sources * > Service Account Token|
+* audience
+* expirationSeconds
+* path *
+|====================
+**** Quobyte
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|group|
+|readOnly|
+|registry *|
+|tenant|
+|user|
+|volume *|
+|====================
+**** Rbd
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|image *|
+|keyring|
+|Monitors *|
+* Value *
+|pool|
+|readOnly|
+|Secret Ref|
+* name
+|user|
+|====================
+**** Scale IO
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|gateway *|
+|protectionDomain| 
+|readOnly|
+|Secret Ref *|
+* name :
+|sslEnabled|
+|storageMode|
+|storagePool|
+|system *|
+|volumeName|
+|====================
+**** Secret
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|defaultMode|
+|Items|
+* key *
+* mode
+* path *
+|optional|
+|secretName|
+|====================
+**** Storageos
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|readOnly|
+|Secret Ref|
+* name
+|volumeName|
+|volumeNamespace|
+|====================
+**** Vsphere Volume
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|storagePolicyID|
+|storagePolicyName|
+|volumePath *|
+|====================
+. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
+
 == YAML 에디터
 
 새로운 레플리카 셋을 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/work-load#img-replicaset-main,레플리카 셋 메인 화면>>에서 *[레플리카 셋 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 레플리카 셋의 구성 정보를 작성한다.
+. <<../console_menu_sub/work-load#img-replicaset-main,레플리카 셋 메인 화면>>의 네임스페이스 선택 영역에서 새로운 레플리카 셋을 생성할 네임스페이스를 선택한 후 *[레플리카 셋 생성]* 버튼을 클릭한다.
+. *Create Replica Set* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
+. YAML 에디터가 열리면 생성할 레플리카 셋의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]

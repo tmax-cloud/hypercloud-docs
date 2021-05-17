@@ -8,8 +8,8 @@
 
 새로운 템플릿을 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/service-catalog#img-template-main,템플릿 메인 화면>>에서 *[템플릿 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 템플릿의 구성 정보를 작성한다.
+. <<../console_menu_sub/service-catalog#img-template-main,템플릿 메인 화면>>의 네임스페이스 선택 영역에서 새로운 템플릿을 생성할 네임스페이스를 선택한 후 *[템플릿 생성]* 버튼을 클릭한다.
+. Create Template 화면에서 YAML 에디터가 열리면 생성할 템플릿의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]

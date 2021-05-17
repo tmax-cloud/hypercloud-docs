@@ -4,13 +4,1259 @@
 
 본 장에서는 디플로이먼트 리소스의 생성 방법에 대해서 설명한다.
 
+== 폼 에디터
+
+새로운 디플로이먼트를 폼 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/work-load#img-deployment-main,디플로이먼트 메인 화면>>의 네임스페이스 선택 영역에서 새로운 디플로이먼트를 생성할 네임스페이스를 선택한 후 *[디플로이먼트 생성]* 버튼을 클릭한다.
+. *Create Deployment* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
+. 폼 에디터가 열리면 생성할 디플로이먼트의 구성 정보를 설정한다. +
+각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
+
+* Name *
++
+디플로이먼트의 이름을 입력한다.
+* Labels
++
+디플로이먼트에 추가할 레이블 정보를 입력한다.
+* minReadySeconds
+* paused
+* progressDeadlineSeconds
+* replicas
+* revisionHistoryLimit
+* Selector *
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Match Expressions|
+* key *
+* operator *
+* Values
+** Value *
+|matchLabels|
+|====================
+* Strategy
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Rolling Update|
+* maxSurge
+* maxUnavailable
+|type|
+|====================
+* Template *
+** Metadata
+*** annotations
+*** Finalizers
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Value *|
+|====================
+*** generateName
+*** labels
+*** Managed Fields
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|apiVersion|
+|fieldsType|
+|manager|
+|operation|
+|time|
+|====================
+*** name
+*** namespace
+*** Owner References 
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|apiVersion *|
+|blockOwnerDeletion|
+|controller|
+|kind *|
+|name *|
+|uid *|
+|====================
+** Spec
+*** activeDeadlineSeconds
+*** Affinity
+**** Node Affinity
+***** Preferred During Scheduling Ignored During Execution
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Preference *|
+* Match Expressions
+** key *
+** operator *
+** Values
+*** Value *
+* Match Fields
+** key *
+** operator *
+** Values
+*** Value *
+|weight *|
+|====================
+***** Required During Scheduling Ignored During Execution
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Node Selector Terms *|
+* Match Expressions
+** key *
+** operator *
+** Values
+*** Value *
+* Match Fields
+** key *
+** operator *
+** Values
+*** Value *
+|====================
+**** Pod Affinity
+***** Preferred During Scheduling Ignored During Execution
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Pod Affinity Term *|
+* Label Selector
+** Match Expressions
+*** key *
+*** operator *
+*** Values
+**** Value *    
+** matchLabels
+* Namespaces
+** Value *
+* topologyKey *
+|weight *|
+|====================
+***** Required During Scheduling Ignored During Execution
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Label Selector|
+* Match Expressions
+** key *
+** operator *
+** Values
+*** Value *    
+* matchLabels
+|Namespaces|
+* Value *
+|topologyKey *|
+|====================
+**** Pod Anti Affinity
+***** Preferred During Scheduling Ignored During Execution
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Pod Affinity Term *|
+* Label Selector
+** Match Expressions
+*** key *
+*** operator *
+*** Values
+**** Value *    
+** matchLabels
+* Namespaces
+** Value *
+* topologyKey *
+|weight *|
+|====================
+***** Required During Scheduling Ignored During Execution
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Label Selector|
+* Match Expressions
+** key *
+** operator *
+** Values
+*** Value *    
+* matchLabels
+|Namespaces|
+* Value *
+|topologyKey *|
+|====================
+*** automountServiceAccountToken
+*** Containers *
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Args|
+* Value *
+|Command|
+* Value *
+|Env|
+* name *
+* value
+* Value From
+** Config Map Key Ref
+*** key *
+*** name
+*** optional
+** Field Ref
+*** apiVersion
+*** fieldPath *
+** Resource Field Ref
+*** containerName
+*** divisor
+*** resource *
+** Secret Key Ref
+*** key *
+*** name
+*** optional
+|Env From|
+* Config Map Ref
+** name
+** optional
+* prefix
+* Secret Ref
+** name
+** optional
+|image *|
+|imagePullPolicy|
+|Lifecycle > Post Start|
+* Exec > Command
+** Value *
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* Tcp Socket
+** host
+** port *
+|Lifecycle > Pre Stop|
+* Exec > Command
+** Value *
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* Tcp Socket
+** host
+** port *
+|Liveness Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|name *|
+|Ports|
+* containerPort *
+* hostIP
+* hostPort
+* name
+* protocol
+|Readiness Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|Resources|
+* Limits
+** KEY
+** VALUE
+* Requests
+** KEY
+** VALUE
+|Security Context|
+* allowPrivilegeEscalation
+* Capabilities
+** Add
+*** Value *
+** Drop
+*** Value *
+* privileged
+* procMount
+* readOnlyRootFilesystem
+* runAsGroup
+* runAsNonRoot
+* runAsUser
+* Se Linux Options
+** level
+** role
+** type
+** user
+* Seccomp Profile
+** localhostProfile
+** type *
+* Windows Options
+** gmsaCredentialSpec
+** gmsaCredentialSpecName
+** runAsUserName
+|Startup Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|stdin|
+|stdinOnce|
+|terminationMessagePath|
+|terminationMessagePolicy|
+|tty|
+|Volume Devices|
+* devicePath *
+* name *
+|Volume Mounts|
+* mountPath *
+* mountPropagation
+* name *
+* readOnly
+* subPath
+* subPathExpr
+|workingDir|
+|====================
+*** Dns Config
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Nameservers|
+* Value *
+|Options|
+* name
+* value
+|Searches|
+* Value *
+|====================
+*** dnsPolicy
+*** enableServiceLinks
+*** Ephemeral Containers
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Args|
+* Value *
+|Command|
+* Value *
+|Env|
+* name *
+* value
+* Value From
+** Config Map Key Ref
+*** key *
+*** name
+*** optional
+** Field Ref
+*** apiVersion
+*** fieldPath *
+** Resource Field Ref
+*** containerName
+*** divisor
+*** resource *
+** Secret Key Ref
+*** key *
+*** name
+*** optional
+|Env From|
+* Config Map Ref
+** name
+** optional
+* prefix
+* Secret Ref
+** name
+** optional
+|image *|
+|imagePullPolicy|
+|Lifecycle > Post Start|
+* Exec > Command
+** Value *
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* Tcp Socket
+** host
+** port *
+|Lifecycle > Pre Stop|
+* Exec > Command
+** Value *
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* Tcp Socket
+** host
+** port *
+|Liveness Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|name *|
+|Ports|
+* containerPort *
+* hostIP
+* hostPort
+* name
+* protocol
+|Readiness Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|Resources|
+* Limits
+** KEY
+** VALUE
+* Requests
+** KEY
+** VALUE
+|Security Context|
+* allowPrivilegeEscalation
+* Capabilities
+** Add
+*** Value *
+** Drop
+*** Value *
+* privileged
+* procMount
+* readOnlyRootFilesystem
+* runAsGroup
+* runAsNonRoot
+* runAsUser
+* Se Linux Options
+** level
+** role
+** type
+** user
+* Seccomp Profile
+** localhostProfile
+** type *
+* Windows Options
+** gmsaCredentialSpec
+** gmsaCredentialSpecName
+** runAsUserName
+|Startup Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|stdin|
+|stdinOnce|
+|terminationMessagePath|
+|terminationMessagePolicy|
+|tty|
+|Volume Devices|
+* devicePath *
+* name *
+|Volume Mounts|
+* mountPath *
+* mountPropagation
+* name *
+* readOnly
+* subPath
+* subPathExpr
+|workingDir|
+|====================
+*** Host Aliases
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Hostnames|
+* Value *
+|ip|
+|====================
+*** hostIPC
+*** hostNetwork
+*** hostPID
+*** hostname
+*** Image Pull Secrets
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|name|
+|====================
+*** Init Containers
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Args|
+* Value *
+|Command|
+* Value *
+|Env|
+* name *
+* value
+* Value From
+** Config Map Key Ref
+*** key *
+*** name
+*** optional
+** Field Ref
+*** apiVersion
+*** fieldPath *
+** Resource Field Ref
+*** containerName
+*** divisor
+*** resource *
+** Secret Key Ref
+*** key *
+*** name
+*** optional
+|Env From|
+* Config Map Ref
+** name
+** optional
+* prefix
+* Secret Ref
+** name
+** optional
+|image *|
+|imagePullPolicy|
+|Lifecycle > Post Start|
+* Exec > Command
+** Value *
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* Tcp Socket
+** host
+** port *
+|Lifecycle > Pre Stop|
+* Exec > Command
+** Value *
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* Tcp Socket
+** host
+** port *
+|Liveness Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|name *|
+|Ports|
+* containerPort *
+* hostIP
+* hostPort
+* name
+* protocol
+|Readiness Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|Resources|
+* Limits
+** KEY
+** VALUE
+* Requests
+** KEY
+** VALUE
+|Security Context|
+* allowPrivilegeEscalation
+* Capabilities
+** Add
+*** Value *
+** Drop
+*** Value *
+* privileged
+* procMount
+* readOnlyRootFilesystem
+* runAsGroup
+* runAsNonRoot
+* runAsUser
+* Se Linux Options
+** level
+** role
+** type
+** user
+* Seccomp Profile
+** localhostProfile
+** type *
+* Windows Options
+** gmsaCredentialSpec
+** gmsaCredentialSpecName
+** runAsUserName
+|Startup Probe|
+* Exec > Command
+** Value *
+* failureThreshold
+* Http Get
+** host
+** Http Headers
+*** name *
+*** value *
+** path
+** port *
+** scheme
+* initialDelaySeconds
+* periodSeconds
+* successThreshold
+* Tcp Socket
+** host
+** port *
+* timeoutSeconds
+|stdin|
+|stdinOnce|
+|terminationMessagePath|
+|terminationMessagePolicy|
+|tty|
+|Volume Devices|
+* devicePath *
+* name *
+|Volume Mounts|
+* mountPath *
+* mountPropagation
+* name *
+* readOnly
+* subPath
+* subPathExpr
+|workingDir|
+|====================
+*** nodeName
+*** nodeSelector
+*** Overhead
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|KEY|
+|VALUE|
+|====================
+*** preemptionPolicy
+*** priority
+*** priorityClassName
+*** Readiness Gates
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|conditionType *|
+|====================
+*** restartPolicy
+*** runtimeClassName
+*** schedulerName
+*** Security Context
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsGroup|
+|fsGroupChangePolicy|
+|runAsGroup|
+|runAsNonRoot|
+|runAsUser|
+|Se Linux Options|
+* level
+* role
+* type
+* user
+|Seccomp Profile|
+* localhostProfile
+* type *
+|Supplemental Groups|
+* Value *
+|Sysctls|
+* name *
+* value *
+|Windows Options|
+* gmsaCredentialSpec
+* gmsaCredentialSpecName
+* runAsUserName
+|====================
+*** serviceAccountName
+*** setHostnameAsFQDN
+*** shareProcessNamespace
+*** subdomain
+*** terminationGracePeriodSeconds
+*** Tolerations
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|effect|
+|key|
+|operator|
+|tolerationSeconds|
+|value|
+|====================
+*** Topology Spread Constraints
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Label Selector|
+* Match Expressions
+** key *
+** operator *
+** Values
+*** Value *
+* matchLabels
+|maxSkew *|
+|topologyKey *|
+|whenUnsatisfiable *|
+|====================
+*** Volumes
+**** Aws Elastic Block Store
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|partition|
+|readOnly|
+|volumeID *|
+|====================
+**** Azure Disk
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|cachingMode|
+|diskName *|
+|diskURI *|
+|fsType|
+|kind|
+|readOnly|
+|====================
+**** Azure File
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|readOnly|
+|secretName *|
+|shareName *|
+|====================
+**** Cephfs
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|Monitors *|
+* Value *
+|path|
+|readOnly|
+|secretFile|
+|Secret Ref|
+* name
+|user|
+|====================
+**** Cinder
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|readOnly|
+|Secret Ref|
+* name
+|volumeID *|
+|====================
+**** Config Map
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|defaultMode|
+|Items|
+* key *
+* mode
+* path *
+|name|
+|optional|
+|====================
+**** Csi
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|driver *|
+|fsType|
+|Node Publish Secret Ref|
+* name
+|readOnly|
+|Volume Attributes|
+* KEY
+* VALUE
+|====================
+**** Downward API
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|defaultMode|
+|Items|
+* Field Ref
+** apiVersion
+** fieldPath *
+* mode
+* path
+* Resource Field Ref
+** containerName
+** divisor
+** resource *
+|====================
+**** Empty Dir
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|medium|
+|sizeLimit|
+|====================
+**** Ephemeral
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|readOnly|
+|Volume Claim Template > Metadata|
+* annotations
+* Finalizers
+** Value *
+* generateName
+* labels
+* Managed Fields
+** apiVersion
+** fieldsType
+** manager
+** operation
+** time
+* name
+* namespace
+* Owner References
+** apiVersion *
+** blockOwnerDeletion
+** controller
+** kind *
+** name *
+** uid *
+|Volume Claim Template > Spec *|
+* Access Modes
+** Value *
+* Data Source
+** apiGroup
+** kind *
+** name *
+* Resources > Limits
+** KEY
+** VALUE
+* Resources > Requests
+** KEY
+** VALUE
+* Selector
+** Match Expressions
+*** key *
+*** operator *
+*** Values
+**** Value *
+** matchLabels
+* storageClassName
+* volumeMode
+* volumeName
+|====================
+**** Fc
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|lun|
+|readOnly|
+|Target WW Ns|
+* Value *
+|Wwids|
+* Value *
+|====================
+**** Flex Volume
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|driver *|
+|fsType|
+|Options|
+* KEY
+* VALUE
+|readOnly|
+|Secret Ref|
+* name
+|====================
+**** Flocker
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|datasetName|
+|datasetUUID|
+|====================
+**** Gce Persistent Disk
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|partition|
+|pdName *|
+|readOnly|
+|====================
+**** Git Repo
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|directory|
+|repository *|
+|revision|
+|====================
+**** Glusterfs
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|endpoints *|
+|path *|
+|readOnly|
+|====================
+**** Host Path
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|path *|
+|type|
+|====================
+**** Iscsi
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|chapAuthDiscovery|
+|chapAuthSession|
+|fsType|
+|initiatorName|
+|iqn *|
+|iscsiInterface|
+|lun *|
+|Portals|
+* Value *
+|readOnly|
+|Secret Ref|
+* name
+targetPortal *|
+|====================
+**** name *
+**** Nfs
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|path *|
+|readOnly|
+|server *|
+|====================
+**** Persistent Volume Claim
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|claimName *|
+|readOnly|
+|====================
+**** Photon Persistent Disk
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|pdID *|
+|====================
+**** Portworx Volume
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|readOnly|
+|volumeID *|
+|====================
+**** Projected
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|defaultMode|
+|Sources * > Config Map|
+* Items
+** key *
+** mode
+** path *
+* name
+* optional
+|Sources * > Downward API > Items|
+* Field Ref
+** apiVersion
+** fieldPath *
+* mode
+* path *
+* Resource Field Ref
+** containerName
+** divisor
+** resource *
+|Sources * > Secret|
+* Items
+** key *
+** mode
+** path *
+* name
+* optional
+|Sources * > Service Account Token|
+* audience
+* expirationSeconds
+* path *
+|====================
+**** Quobyte
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|group|
+|readOnly|
+|registry *|
+|tenant|
+|user|
+|volume *|
+|====================
+**** Rbd
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|image *|
+|keyring|
+|Monitors *|
+* Value *
+|pool|
+|readOnly|
+|Secret Ref|
+* name
+|user|
+|====================
+**** Scale IO
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|gateway *|
+|protectionDomain| 
+|readOnly|
+|Secret Ref *|
+* name :
+|sslEnabled|
+|storageMode|
+|storagePool|
+|system *|
+|volumeName|
+|====================
+**** Secret
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|defaultMode|
+|Items|
+* key *
+* mode
+* path *
+|optional|
+|secretName|
+|====================
+**** Storageos
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|readOnly|
+|Secret Ref|
+* name
+|volumeName|
+|volumeNamespace|
+|====================
+**** Vsphere Volume
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|하위 항목|설명
+|fsType|
+|storagePolicyID|
+|storagePolicyName|
+|volumePath *|
+|====================
+. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
+
 == YAML 에디터
 
 새로운 디플로이먼트를 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/work-load#img-deployment-main,디플로이먼트 메인 화면>>에서 *[디플로이먼트 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[Yaml 에디터]**를 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 디플로이먼트의 구성 정보를 작성한다.
+. <<../console_menu_sub/work-load#img-deployment-main,디플로이먼트 메인 화면>>의 네임스페이스 선택 영역에서 새로운 디플로이먼트를 생성할 네임스페이스를 선택한 후 *[디플로이먼트 생성]* 버튼을 클릭한다.
+. *Create Deployment* 화면이 열리면 **Configure via**를 "YAML View"로 선택한다.
+. YAML 에디터가 열리면 생성할 디플로이먼트의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]
@@ -49,69 +1295,3 @@ spec:
 <10> 컨테이너에서 노출할 포트 목록
 <11> 파드의 IP 주소에서 노출할 포트 번호
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
-
-== 폼 에디터
-
-새로운 디플로이먼트를 폼 에디터를 사용해서 생성할 수 있다.
-
-. <<../console_menu_sub/work-load#img-deployment-main,디플로이먼트 메인 화면>>에서 *[디플로이먼트 생성]* 버튼을 클릭한다.
-. 드롭다운 메뉴가 열리면 **[폼 에디터]**를 클릭한다.
-. *디플로이먼트 생성* 화면이 열리면 생성할 디플로이먼트의 구성 정보를 설정한다. +
-각 설정 항목에 대한 설명은 다음과 같다.
-+
-[width="100%",options="header", cols="1,3a"]
-|====================
-|항목|설명  
-|이름|디플로이먼트의 이름을 입력한다.
-|컨테이너 이미지|애플리케이션을 구동하기 위한 컨테이너 이미지의 이름을 입력한다.
-|이미지 풀 폴리시|컨테이너에 대해 사용할 이미지를 가져오는 방식을 선택한다.
-
-* If Not Present : 이미지가 로컬에 없는 경우에만 이미지를 가져온다.
-* 항상 : 컨테이너가 시작할 때마다 이미지를 가져온다.
-* 절대 안 함 : 이미지를 가져오지 않는다.
-|레플리카|파드 복제본의 생성 개수를 입력한다.
-|레이블|디플로이먼트에 추가할 레이블 정보를 입력한다.
-|커맨드 실행|파드 안에서 컨테이너가 동작할 때 실행할 커맨드(Command 필드)를 정의한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
-|커맨드 인수 실행|커맨드의 인자(Args 필드)를 정의한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
-|환경 변수|디플로이먼트의 환경 변수를 설정한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
-
-* 키 : 환경 변수의 이름을 입력
-* 값 : 환경 변수의 기본값을 입력
-|포트|컨테이너에서 노출할 포트 정보를 설정한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
-
-* 포트 이름 : 포트 정보의 이름을 입력
-* 포트 : 포트 번호를 입력
-* 프로토콜 : 네트워크 프로토콜을 선택 (TCP, UDP, SCDP)
-|볼륨|파드에 추가할 볼륨의 정보를 설정한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
-
-* 볼륨 이름 : 볼륨의 이름을 입력
-* 마운트 경로 : 마운트할 볼륨의 경로 입력
-* 영구 볼륨 클레임 : 적용할 영구 볼륨 클레임의 이름을 선택
-* Read Only : 읽기/쓰기 모드 선택
-|리소스(요청)|파드가 스케줄되기 위해 필요한 최소 자원의 양을 설정한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
-
-* 리소스 : 자원의 종류 입력
-* 수량 : 필요한 최소의 양 입력
-|리소스(제한)|파드의 컨테이너 생성 후 실행 시 사용 가능한 최대 자원의 양을 설정한다. +
-이때 **[+ 추가]**를 클릭하면 입력 항목이 하나씩 추가되고, *[-]* 버튼을 클릭하면 입력 항목을 삭제할 수 있다.
-
-* 리소스 : 자원의 종류 입력
-* 수량 : 필요한 최대의 양 입력
-|재시작 정책|종료된 컨테이너의 재시작 방식을 선택한다.
-
-* 항상 : 항상 재시작한다.
-* 실패시 : 정상적으로 종료되지 않은 경우에만 재시작한다.
-* 절대 안 함 : 재시작 하지 않는다.
-|====================
-. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
-
-NOTE: 커맨드(Command 필드) 및 커맨드 인자(Args 필드)에 적용되는 규칙은 다음과 같다. +
-- 커맨드(Command 필드)와 커맨드 인자(Args 필드)를 모두 정의한 경우 이미지에 정의된 Entrypoint 필드 값은 커맨드(Command 필드) 값으로, Cmd 필드 값은 커맨드 인자(Args 필드) 값으로 덮여 쓰인다. +
-- 커맨드(Command 필드)만 정의한 경우 이미지에 정의된 Entrypoint 필드 값은 커맨드(Command 필드) 값으로, Cmd 필드 값은 정의되지 않는 상태로 덮여 쓰인다. + 
-- 커맨드 인자(Args 필드)만 정의한 경우 이미지의 Cmd 필드 값만 덮여 쓰인다.
