@@ -127,7 +127,7 @@ image::../images/figure_admin_role_binding_claim_main.png[]
 롤 바인딩 클레임을 생성하거나 롤 바인딩 클레임 목록을 조회할 네임스페이스를 선택한다.
 
 <2> *생성 버튼* +
-새로운 롤 바인딩 클레임을 폼 에디터 또는 YAML 에디터를 사용해 생성한다.
+새로운 롤 바인딩 클레임을 폼 에디터 또는 YAML 에디터를 사용해 생성한다. (QA: 폼 에디터만을 사용해 생성함)
 
 <3> *검색 조건 (레이블, 이름)* +
 롤 바인딩 클레임의 이름 및 레이블 정보를 입력해서 검색한다. +
@@ -145,8 +145,9 @@ image::../images/figure_admin_role_binding_claim_main.png[]
 |상태|롤 바인딩 클레임의 현재 승인 상태 정보이다.
 
 * Awaiting : 클레임에 대한 허가를 기다리는 상태
-* Success : 클레임이 허가된 상태
-* Reject : 클레임이 거절된 상태
+* Success : 클레임이 허가된 상태(QA: Approved)
+* Reject : 클레임이 거절된 상태(QA: Rejected)
+* (QA: Error 상태 추가, 클레임 승인 과정에서 오류가 발생한 상태)
 |리소스 이름|롤 바인딩 클레임을 통해 실제 생성될 롤 바인딩의 이름이다.
 |생성 시간|룰 바인딩 클레임이 생성된 시간이다.
 |image:../images/figure_action_icon.png[]|롤 바인딩의 관리를 위한 메뉴를 사용할 수 있다. +
