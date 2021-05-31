@@ -11,22 +11,24 @@
 . <<../console_menu_sub/work-load#img-statefulset-main,스테이트풀 셋 메인 화면>>의 네임스페이스 선택 영역에서 새로운 스테이트풀 셋을 생성할 네임스페이스를 선택한 후 *[스테이트풀 셋 생성]* 버튼을 클릭한다.
 . *Create Stateful Set* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
 . 폼 에디터가 열리면 생성할 스테이트풀 셋의 구성 정보를 설정한다. +
-각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
+이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
++
+NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한다.
 
 * Name *
-+
-스테이트풀 셋의 이름을 입력한다.
 * Labels
-+
-스테이트풀 셋에 추가할 레이블 정보를 입력한다.
 * podManagementPolicy
 * replicas
 * revisionHistoryLimit
-* Selector *
+* Selector * +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Selector>["폼 에디터 설정 항목 참조"의 "Selector"]를 참고한다.
 * serviceName *
-* Template *
-* Update Strategy
-* Volume Claim Templates
+* Template * +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Template>["폼 에디터 설정 항목 참조"의 "Template"]을 참고한다.
+* Update Strategy +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Update Strategy(StatefulSet)>["폼 에디터 설정 항목 참조"의 "Update Strategy(StatefulSet)"]을 참고한다.
+* Volume Claim Templates +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Volume Claim Templates>["폼 에디터 설정 항목 참조"의 "Volume Claim Templates"]를 참고한다.
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터
@@ -101,5 +103,4 @@ spec:
 <21> 스토리지 클래스의 이름
 <22> 볼륨에 필요한 최소 자원에 대한 상세 내역
 <23> 볼륨에 필요한 스토리지 자원의 양
-
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

@@ -14,3 +14,4 @@ image::../images/figure_admin_login_change.png[]
 image::../images/figure_admin_login_05.png[]
 
 //<<hc-summary-layout,HyperCloud 콘솔 화면 구성>>
+include::..\console_menu_sub\image.adoc[]

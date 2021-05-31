@@ -11,43 +11,17 @@
 . <<../console_menu_sub/service-catalog#img-cluster-service-broker-main,클러스터 서비스 브로커 메인 화면>>의 네임스페이스 선택 영역에서 새로운 클러스터 서비스 브로커를 생성할 네임스페이스를 선택한 후 *[클러스터 서비스 브로커 생성]* 버튼을 클릭한다.
 . *Create Cluster Service Broker* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
 . 폼 에디터가 열리면 생성할 클러스터 서비스 브로커의 구성 정보를 설정한다. +
-각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
+이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
++
+NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한다.
 
 * Name *
-+
-클러스터 서비스 브로커의 이름을 입력한다.
 * Labels
-+
-클러스터 서비스 브로커에 추가할 레이블 정보를 입력한다.
-* Auth Info
-+
-하위 설정 항목에 대한 설명은 다음과 같다.
-+
-[width="100%",options="header", cols="1,3a"]
-|====================
-|항목|설명
-|Basic|
-* Secret Ref : 
-** name :
-** namespace :
-|Bearer|
-* Secret Ref : 
-** name :
-** namespace :
-|====================
+* Auth Info +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Auth Info(Cluster Service Broker)>["폼 에디터 설정 항목 참조"의 "Auth Info(Cluster Service Broker)"]를 참고한다.
 * caBundle
-* Catalog Restrictions
-+
-하위 설정 항목에 대한 설명은 다음과 같다.
-+
-[width="100%",options="header", cols="1,3a"]
-|====================
-|항목|설명
-|Service Class|
-* Value * :
-|Service Plan|
-* Value * :
-|====================
+* Catalog Restrictions +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Catalog Restrictions>["폼 에디터 설정 항목 참조"의 "Catalog Restrictions"]를 참고한다.
 * insecureSkipTLSVerify
 * relistBehavior
 * relistDuration

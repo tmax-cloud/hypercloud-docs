@@ -4,12 +4,172 @@
 
 본 장에서는 영구 볼륨 리소스의 생성 방법에 대해서 설명한다.
 
+== 폼 에디터
+
+새로운 영구 볼륨을 폼 에디터를 사용해서 생성할 수 있다.
+
+. <<../console_menu_sub/storage#img-pv-main,영구 볼륨 메인 화면>>에서 *[영구 볼륨 생성]* 버튼을 클릭한다.
+. *Create Persistent Volume* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
+. 폼 에디터가 열리면 생성할 영구 볼륨의 구성 정보를 설정한다. +
+이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
++
+NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한다.
+
+* Name *
+* Labels
+* Access Modes
++
+----
+Value
+----
+* Aws Elastic Block Store
++
+----
+fsType
+partition
+readOnly
+volumeID *
+----
+* Azure Disk
++
+----
+cachingMode
+diskName *
+diskURI *
+fsType
+kind
+readOnly
+----
+* Azure File
++
+----
+readOnly
+secretName *
+secretNamespace
+shareName *
+----
+* Capacity
++
+----
+KEY
+VALUE
+----
+* Cephfs +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Cephfs>["폼 에디터 설정 항목 참조"의 "Cephfs"]를 참고한다.
+* Cinder +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Cinder>["폼 에디터 설정 항목 참조"의 "Cinder"]를 참고한다.
+* Claim Ref
++
+----
+apiVersion
+fieldPath
+kind
+name
+namespace
+resourceVersion
+uid
+----
+* Csi +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Csi>["폼 에디터 설정 항목 참조"의 "Csi"]를 참고한다.
+* Fc +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Fc>["폼 에디터 설정 항목 참조"의 "Fc"]를 참고한다.
+* Flex Volume +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Flex Volume>["폼 에디터 설정 항목 참조"의 "Flex Volume"]을 참고한다.
+* Flocker
++
+----
+datasetName
+datasetUUID
+----
+* Gce Persistent Disk
++
+----
+fsType
+partition
+pdName *
+readOnly
+----
+* Glusterfs
++
+----
+endpoints *
+path *
+readOnly
+----
+* Host Path
++
+----
+path
+type
+----
+* Iscsi +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Iscsi>["폼 에디터 설정 항목 참조"의 "Iscsi"]를 참고한다.
+* Local
++
+----
+path *
+----
+* Mount Options
++
+----
+Value
+----
+* Nfs
++
+----
+path *
+readOnly
+server *
+----
+* Node Affinity +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Node Affinity>["폼 에디터 설정 항목 참조"의 "Node Affinity"]를 참고한다.
+* persistentVolumeReclaimPolicy
+* Photon Persistent Disk
++
+----
+fsType
+pdID *
+----
+* Portworx Volume
++
+----
+fsType
+readOnly
+volumeID *
+----
+* Quobyte
++
+----
+group
+readOnly
+registry *
+user
+volume *
+----
+* Rbd +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Rbd>["폼 에디터 설정 항목 참조"의 "Rbd"]를 참고한다.
+* Scale IO +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Scale IO>["폼 에디터 설정 항목 참조"의 "Scale IO"]를 참고한다.
+* storageClassName
+* Storageos +
+하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Storageos>["폼 에디터 설정 항목 참조"의 "Storageos"]를 참고한다.
+* volumeMode
+* Vsphere Volume
++
+----
+fsType
+storagePolicyID
+storagePolicyName
+volumePath *
+----
+
 == YAML 에디터
 
 새로운 영구 볼륨을 YAML 에디터를 사용해서 생성할 수 있다.
 
 . <<../console_menu_sub/storage#img-pv-main,영구 볼륨 메인 화면>>에서 *[영구 볼륨 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 영구 볼륨의 구성 정보를 작성한다.
+. *Create Persistent Volume* 화면이 열리면 **Configure via**를 "YAML View"로 선택한다.
+. YAML 에디터가 열리면 생성할 영구 볼륨의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]

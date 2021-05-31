@@ -1,0 +1,155 @@
+= 폼 에디터 설정 항목 참조
+:toc:
+:toc-title:
+
+본 장에서는 폼 에디터의 설정 항목 구조를 나타낸다.
+
+== A
+=== Affinity
+----
+▼ Node Affinity
+│  ▼ Preferred During Scheduling Ignored During Execution
+│  │  ▼ Preference *
+│  │  │  ▼ Match Expressions
+│  │  │  │  key *
+│  │  │  │  operator *
+│  │  │  │  ▼ Values
+│  │  │  │  │  Value *
+│  │  │  ▼ Match Fields
+│  │  │  │  key *
+│  │  │  │  operator *
+│  │  │  │  ▼ Values
+│  │  │  │  │  Value *
+│  │  weight *
+│  ▼ Required During Scheduling Ignored During Execution
+│  │  ▼ Node Selector Terms *
+│  │  │  ▼ Match Expressions
+│  │  │  │  key *
+│  │  │  │  operator *
+│  │  │  │  ▼ Values
+│  │  │  │  │  Value *
+│  │  │  ▼ Match Fields
+│  │  │  │  key *
+│  │  │  │  operator *
+│  │  │  │  ▼ Values
+│  │  │  │  │  Value *
+▼ Pod Affinity
+│  ▼ Preferred During Scheduling Ignored During Execution
+│  │  ▼ Pod Affinity Term *
+│  │  │  ▼ Label Selector
+│  │  │  │  ▼ Match Expressions
+│  │  │  │  │  key *
+│  │  │  │  │  operator *
+│  │  │  │  │  ▼ Values
+│  │  │  │  │  │  Value *
+│  │  │  │  matchLabels
+│  │  │  ▼ Namespaces
+│  │  │  │  Value*
+│  │  │  topologyKey *
+│  │  weight *
+│  ▼ Required During Scheduling Ignored During Execution
+│  │  ▼ Label Selector
+│  │  │  ▼ Match Expressions
+│  │  │  │  key *
+│  │  │  │  operator *
+│  │  │  │  ▼ Values
+│  │  │  │  │  Value *
+│  │  │  matchLabels
+│  │  ▼ Namespaces
+│  │  │  Value*
+│  │  topologyKey *
+▼ Pod Anti Affinity
+│  ▼ Preferred During Scheduling Ignored During Execution
+│  │  ▼ Pod Affinity Term *
+│  │  │  ▼ Label Selector
+│  │  │  │  ▼ Match Expressions
+│  │  │  │  │  key *
+│  │  │  │  │  operator *
+│  │  │  │  │  ▼ Values
+│  │  │  │  │  │  Value *
+│  │  │  │  matchLabels
+│  │  │  ▼ Namespaces
+│  │  │  │  Value*
+│  │  │  topologyKey *
+│  │  weight *
+│  ▼ Required During Scheduling Ignored During Execution
+│  │  ▼ Label Selector
+│  │  │  ▼ Match Expressions
+│  │  │  │  key *
+│  │  │  │  operator *
+│  │  │  │  ▼ Values
+│  │  │  │  │  Value *
+│  │  │  matchLabels
+│  │  ▼ Namespaces
+│  │  │  Value*
+│  │  topologyKey *
+----
+
+
+== B
+
+== C
+
+== D
+
+== F
+
+== G
+
+== H
+
+== I
+
+== J
+
+== K
+
+== L
+
+=== Limits
+----
+▼ Default
+│  KEY
+│  VALUE
+▼ Default Request
+│  KEY
+│  VALUE
+▼ Max
+│  KEY
+│  VALUE
+▼ Max Limit Request Ratio
+│  KEY
+│  VALUE
+▼ Min
+│  KEY
+│  VALUE
+type
+----
+
+== M
+
+== N
+
+== O
+
+== P
+
+== Q
+
+== R
+
+== S
+
+== T
+
+== U
+
+== V
+
+== W
+
+== X
+
+== Y
+
+== Z

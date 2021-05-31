@@ -8,11 +8,9 @@
 
 HyperCloud 콘솔의 신규 계정을 생성하는 과정은 다음과 같다.
 
-. <<../console_connect_sub/img-admin-login-main,HyperCloud 콘솔 로그인 화면>>에서 **[회원 가입]**을 클릭한다.
+. <<../console_connect_sub/img-admin-login-main,HyperCloud 콘솔 로그인 화면>>에서 **[회원가입]**을 클릭한다.
 +
 image::../images/figure_admin_user_create_01.png[]
-
-. *회원가입 약관 동의* 화면이 열리면 각 약관의 내용을 확인하고, 체크박스를 선택한 후 *[동의]* 버튼을 클릭한다. 이때 모든 필수 약관의 체크박스를 선택해야 가입이 가능하다. (QA: private버전이기에 약관동의 화면이 삭제됨)
 
 . *사용자 정보 입력* 화면이 열리면 생성할 계정의 정보를 입력한 후 *[인증 메일 전송]* 버튼을 클릭한다.
 +

@@ -11,92 +11,14 @@
 . <<../console_menu_sub/service-catalog#img-catalog-claim-main,카탈로그 서비스 클레임 메인 화면>>의 네임스페이스 선택 영역에서 새로운 카탈로그 서비스 클레임을 생성할 네임스페이스를 선택한 후 *[카탈로그 서비스 클레임 생성]* 버튼을 클릭한다.
 . *Create CatalogServiceClaim* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
 . 폼 에디터가 열리면 생성할 카탈로그 서비스 클레임의 구성 정보를 설정한다. +
-각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
+이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
++
+NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한다.
 
 * Name *
-+
-카탈로그 서비스 클레임의 이름을 입력한다.
-* Labels 
-+
-카탈로그 서비스 클레임에 추가할 레이블 정보를 입력한다.
-* imageUrl
-* labels (TD: 위의 Labels 항목과 차이가 무엇이인가?)
-* longDescription
-* markdownDescription
-* message
-* Object Kinds
-+
-하위 설정 항목에 대한 설명은 다음과 같다.
-+
-[width="100%",options="header", cols="1,3a"]
-|====================
-|항목|설명
-|Value *|
-|====================
-* Parameters
-+
-하위 설정 항목에 대한 설명은 다음과 같다.
-+
-[width="100%",options="header", cols="1,3a"]
-|====================
-|항목|설명
-|description|
-|displayName|
-|from|
-|generate|
-|name *|
-|required|
-|value|
-|valueType|
-|====================
-* Plans
-+
-하위 설정 항목에 대한 설명은 다음과 같다.
-+
-[width="100%",options="header", cols="1,3a"]
-|====================
-|항목|설명
-|bindable|
-|description|
-|free|
-|id|
-|Maintenance Info|
-* description :
-* version * : 
-|maximum_polling_duration|
-|Metadata|
-* Bullets :
-** Value * :
-* Costs :
-** amount * : 
-** unit * :
-* displayName : 
-|name *|
-|plan_updateable|
-|Schemas|
-* Service Binding > Create > Parameters :
-** Key :
-** Value :
-* Service Instance > Create > Parameters : 
-** Key :
-** Value :
-* Service Instance > Update > Parameters : 
-** Key :
-** Value :
-|====================
-* provider
-* recommend
-* shortDescription
-* Tags
-+
-하위 설정 항목에 대한 설명은 다음과 같다.
-+
-[width="100%",options="header", cols="1,3a"]
-|====================
-|항목|설명
-|Value *|
-|====================
-* urlDescription *
+* Labels
+* resourceName *
+* template *
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터

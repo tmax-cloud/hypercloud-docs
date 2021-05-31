@@ -9,84 +9,25 @@
 새로운 템플릿 인스턴스를 폼 에디터를 사용해서 생성할 수 있다.
 
 . <<../console_menu_sub/service-catalog#img-template-instance-main,템플릿 인스턴스 메인 화면>>의 네임스페이스 선택 영역에서 새로운 템플릿 인스턴스를 생성할 네임스페이스를 선택한 후 *[템플릿 인스턴스 생성]* 버튼을 클릭한다.
-. *Create Template Instance* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
-. 폼 에디터가 열리면 생성할 템플릿 인스턴스의 구성 정보를 설정한다. +
+. *Create TemplateInstance* 화면이 열리면 생성할 템플릿 인스턴스의 구성 정보를 설정한다. +
 각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
-
-* Name *
-+
-템플릿 인스턴스의 이름을 입력한다.
-* Labels 
-+
-템플릿 인스턴스에 추가할 레이블 정보를 입력한다.
-* Clustertemplate
-+
-하위 설정 항목에 대한 설명은 다음과 같다.
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
-|항목|설명
-|Metadata|
-* name : 
-|Parameters|
-* description : 
-* displayName :
-* from : 
-* generate : 
-* name * :
-* required :
-* value :
-* valueType :
+|항목|설명  
+|이름 *|템플릿 인스턴스의 이름을 입력한다.
+|레이블|템플릿 인스턴스에 추가할 레이블 정보를 입력한다.
+|템플릿 인스턴스 유형 *|적용할 템플릿의 종류를 선택한다.
+|템플릿 *|실제 사용할 템플릿의 이름을 선택한다.
 |====================
-* Requester
-+
-하위 설정 항목에 대한 설명은 다음과 같다.
-+
-[width="100%",options="header", cols="1,3a"]
-|====================
-|항목|설명
-|Groups|
-* Value * :
-|uid|
-|username|
-|====================
-* Secret
-+
-하위 설정 항목에 대한 설명은 다음과 같다.
-+
-[width="100%",options="header", cols="1,3a"]
-|====================
-|항목|설명
-|name|
-|====================
-* Template
-+
-하위 설정 항목에 대한 설명은 다음과 같다.
-+
-[width="100%",options="header", cols="1,3a"]
-|====================
-|항목|설명
-|Metadata|
-* name :
-|Parameters|
-* description : 
-* displayName :
-* from : 
-* generate : 
-* name * :
-* required :
-* value :
-* valueType :
-|====================
-. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
+. 설정이 완료되면 *[Create]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터
 
 새로운 템플릿 인스턴스를 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/service-catalog#img-template-instance-main,템플릿 인스턴스 메인 화면>>의 네임스페이스 선택 영역에서 새로운 템플릿 인스턴스를 생성할 네임스페이스를 선택한 후 *[템플릿 인스턴스 생성]* 버튼을 클릭한다.
-. *Create Template Instance* 화면이 열리면 **Configure via**를 "YAML View"로 선택한다.
-. YAML 에디터가 열리면 생성할 템플릿 인스턴스의 구성 정보를 작성한다.
+. HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 image:../images/figure_import_yaml_icon.png[] 아이콘을 클릭한다.
+. *Import YAML* 화면이 열리면 빈 YAML 에디터에 생성할 템플릿 인스턴스의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]

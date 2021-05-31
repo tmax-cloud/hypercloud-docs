@@ -1,0 +1,1865 @@
+= 폼 에디터 설정 항목 참조
+:toc:
+:toc-title:
+
+== A
+
+=== Affinity
+****
+▼ Node Affinity +
+│  ▼ Preferred During Scheduling Ignored During Execution +
+│  │  ▼ Preference * +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  │  ▼ Match Fields +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  weight * +
+│  ▼ Required During Scheduling Ignored During Execution +
+│  │  ▼ Node Selector Terms * +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  │  ▼ Match Fields +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+▼ Pod Affinity +
+│  ▼ Preferred During Scheduling Ignored During Execution +
+│  │  ▼ Pod Affinity Term * +
+│  │  │  ▼ Label Selector +
+│  │  │  │  ▼ Match Expressions +
+│  │  │  │  │  key * +
+│  │  │  │  │  operator * +
+│  │  │  │  │  ▼ Values +
+│  │  │  │  │  │  Value * +
+│  │  │  │  matchLabels +
+│  │  │  ▼ Namespaces +
+│  │  │  │  Value * +
+│  │  │  topologyKey * +
+│  │  weight * +
+│  ▼ Required During Scheduling Ignored During Execution +
+│  │  ▼ Label Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  │  matchLabels +
+│  │  ▼ Namespaces +
+│  │  │  Value * +
+│  │  topologyKey * +
+▼ Pod Anti Affinity +
+│  ▼ Preferred During Scheduling Ignored During Execution +
+│  │  ▼ Pod Affinity Term * +
+│  │  │  ▼ Label Selector +
+│  │  │  │  ▼ Match Expressions +
+│  │  │  │  │  key * +
+│  │  │  │  │  operator * +
+│  │  │  │  │  ▼ Values +
+│  │  │  │  │  │  Value * +
+│  │  │  │  matchLabels +
+│  │  │  ▼ Namespaces +
+│  │  │  │  Value * +
+│  │  │  topologyKey * +
+│  │  weight * +
+│  ▼ Required During Scheduling Ignored During Execution +
+│  │  ▼ Label Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  │  matchLabels +
+│  │  ▼ Namespaces +
+│  │  │  Value * +
+│  │  topologyKey *
+****
+
+=== Allowed Topologies
+****
+▼ Match Label Expressions +
+│  key * +
+│  ▼ Values * +
+│  │  Value
+****
+
+=== Auth Info(Cluster Service Broker)
+****
+▼ Basic +
+│  ▼ Secret Ref +
+│  │  name +
+│  │  namespace +
+▼ Bearer +
+│  ▼ Secret Ref +
+│  │  name +
+│  │  namespace
+****
+
+=== Auth Info(Service Broker)
+****
+▼ Basic +
+│  ▼ Secret Ref +
+│  │  name +
+▼ Bearer +
+│  ▼ Secret Ref +
+│  │  name
+****
+
+== B
+
+=== Behavior
+****
+▼ Scale Down +
+│  ▼ Policies +
+│  │  periodSeconds * +
+│  │  type * +
+│  │  value * +
+│  selectPolicy +
+│  stabilizationWindowSeconds +
+▼ Scale Up +
+│  ▼ Policies +
+│  │  periodSeconds * +
+│  │  type * +
+│  │  value * +
+│  selectPolicy +
+│  stabilizationWindowSeconds
+****
+
+== C
+
+=== Catalog Restrictions
+****
+▼ Service Class +
+│  Value * +
+▼ Service Plan +
+│  Value *
+****
+
+=== Cephfs
+****
+▼ Monitors * +
+│  Value +
+path +
+readOnly +
+secretFile +
+▼ Secret Ref +
+│  name +
+│  namespace +
+user
+****
+
+=== Cinder
+****
+fsType +
+readOnly +
+▼ Secret Ref +
+│  name +
+│  namespace +
+volumeID *
+****
+
+=== Containers
+****
+▼ Args +
+│  Value * +
+▼ Command +
+│  Value * +
+▶ <<Env>> +
+▶ <<Env From>> +
+image * +
+imagePullPolicy +
+▶ <<Lifecycle>> +
+▶ <<Liveness Probe>> +
+name * +
+▼ Ports +
+│  containerPort * +
+│  hostIP +
+│  hostPort +
+│  name +
+│  protocol +
+▶ <<Readiness Probe>> +
+▼ Resources +
+│  ▼ Limits +
+│  │  KEY +
+│  │  VALUE +
+│  ▼ Requests +
+│  │  KEY +
+│  │  VALUE +
+▼ Security Context +
+│  allowPrivilegeEscalation +
+│  ▼ Capabilities +
+│  │  ▼ Add +
+│  │  │  Value * +
+│  │  ▼ Drop +
+│  │  │  Value * +
+│  privileged +
+│  procMount +
+│  readOnlyRootFilesystem +
+│  runAsGroup +
+│  runAsNonRoot +
+│  runAsUser +
+│  ▼ Se Linux Options +
+│  │  level +
+│  │  role +
+│  │  type +
+│  │  user +
+│  ▼ Seccomp Profile +
+│  │  localhostProfile +
+│  │  type * +
+│  ▼ Windows Options +
+│  │  gmsaCredentialSpec +
+│  │  gmsaCredentialSpecName +
+│  │  runAsUserName +
+▶ <<Startup Probe>> +
+stdin +
+stdinOnce +
+terminationMessagePath +
+terminationMessagePolicy +
+tty +
+▼ Volume Devices +
+│  devicePath * +
+│  name * +
+▼ Volume Mounts +
+│  mountPath * +
+│  mountPropagation +
+│  name * +
+│  readOnly +
+│  subPath +
+│  subPathExpr +
+workingDir
+****
+
+=== Csi
+****
+▼ Controller Publish Secret Ref +
+│  name +
+│  namespace +
+driver * +
+fsType +
+▼ Node Publish Secret Ref +
+│  name +
+│  namespace +
+▼ Node Stage Secret Ref +
+│  name +
+│  namespace +
+readOnly +
+▼ Volume Attributes +
+│  KEY +
+│  VALUE +
+volumeHandle *
+****
+
+=== Custom Resource Conversion
+****
+strategy * +
+▼ Webhook +
+│  ▼ Client Config +
+│  │  caBundle +
+│  │  ▼ Service +
+│  │  │  name * +
+│  │  │  namespace * +
+│  │  │  path +
+│  │  │  port +
+│  │  url +
+│  ▼ Conversion Review Versions * +
+│  │  Value
+****
+
+=== Custom Resource Definition Names
+****
+▼ Categories +
+│  Value +
+kind * +
+listKind +
+plural * +
+▼ Short Names +
+│  Value +
+singular
+****
+
+== D
+
+=== Dns Config
+****
+▼ Nameservers +
+│  Value * +
+▼ Options +
+│  name +
+│  value +
+▼ Searches +
+│  Value *
+****
+
+== E
+
+=== Egress
+****
+▼ Ports +
+│  port +
+│  protocol +
+▼ To +
+│  ▼ Ip Block +
+│  │  cidr * +
+│  │  ▼ Except +
+│  │  │  Value +
+│  ▼ Namespace Selector +
+│  │  ▼ Match Expressions +
+│  │  │  key * +
+│  │  │  operator * +
+│  │  │  ▼ Values +
+│  │  │  │  Value +
+│  │  matchLabels +
+│  ▼ Pod Selector +
+│  │  ▼ Match Expressions +
+│  │  │  key * +
+│  │  │  operator * +
+│  │  │  ▼ Values +
+│  │  │  │  Value +
+│  │  matchLabels
+****
+
+=== Env
+****
+name * +
+value +
+▼ Value From +
+│  ▼ Config Map Key Ref +
+│  │  key * +
+│  │  name +
+│  │  optional +
+│  ▼ Field Ref +
+│  │  apiVersion +
+│  │  fieldPath * +
+│  ▼ Resource Field Ref +
+│  │  containerName +
+│  │  divisor +
+│  │  resource * +
+│  ▼ Secret Key Ref +
+│  │  key * +
+│  │  name +
+│  │  optional
+****
+
+=== Env From
+****
+▼ Config Map Ref +
+│  name +
+│  optional +
+prefix +
+▼ Secret Ref +
+│  name +
+│  optional
+****
+
+=== Ephemeral Containers
+****
+▼ Args +
+│  Value * +
+▼ Command +
+│  Value * +
+▶ <<Env>> +
+▶ <<Env From>> +
+image +
+imagePullPolicy +
+▶ <<Lifecycle>> +
+▶ <<Liveness Probe>> +
+name * +
+▼ Ports +
+│  containerPort * +
+│  hostIP +
+│  hostPort +
+│  name +
+│  protocol +
+▶ <<Readiness Probe>> +
+▼ Resources +
+│  ▼ Limits +
+│  │  KEY +
+│  │  VALUE +
+│  ▼ Requests +
+│  │  KEY +
+│  │  VALUE +
+▼ Security Context +
+│  allowPrivilegeEscalation +
+│  ▼ Capabilities +
+│  │  ▼ Add +
+│  │  │  Value * +
+│  │  ▼ Drop +
+│  │  │  Value * +
+│  privileged +
+│  procMount +
+│  readOnlyRootFilesystem +
+│  runAsGroup +
+│  runAsNonRoot +
+│  runAsUser +
+│  ▼ Se Linux Options +
+│  │  level +
+│  │  role +
+│  │  type +
+│  │  user +
+│  ▼ Seccomp Profile +
+│  │  localhostProfile +
+│  │  type * +
+│  ▼ Windows Options +
+│  │  gmsaCredentialSpec +
+│  │  gmsaCredentialSpecName +
+│  │  runAsUserName +
+▶ <<Startup Probe>> +
+stdin +
+stdinOnce +
+targetContainerName +
+terminationMessagePath +
+terminationMessagePolicy +
+tty +
+▼ Volume Devices +
+│  devicePath * +
+│  name * +
+▼ Volume Mounts +
+│  mountPath * +
+│  mountPropagation +
+│  name * +
+│  readOnly +
+│  subPath +
+│  subPathExpr +
+workingDir
+****
+
+== F
+
+=== Fc
+****
+fsType +
+lun +
+readOnly +
+▼ Target WW Ns +
+│  Value +
+▼ Wwids +
+│  Value
+****
+
+=== Flex Volume
+****
+driver * +
+fsType +
+▼ Options +
+│  KEY +
+│  VALUE +
+readOnly +
+▼ Secret Ref +
+│  name +
+│  namespace
+****
+
+== G
+
+=== Git
+****
+apiUrl +
+repository * +
+▼ Token * +
+│  value +
+│  ▼ Value From +
+│  │  ▼ Secret Key Ref * +
+│  │  │  key * +
+│  │  │  name +
+│  │  │  optional +
+type *
+****
+
+== H
+
+=== Host Aliases
+****
+▼ Hostnames +
+│  Value * +
+ip
+****
+
+== I
+
+=== Ingress
+****
+▼ From +
+│  ▼ Ip Block +
+│  │  cidr * +
+│  │  ▼ Except +
+│  │  │  Value +
+│  ▼ Namespace Selector +
+│  │  ▼ Match Expressions +
+│  │  │  key * +
+│  │  │  operator * +
+│  │  │  ▼ Values +
+│  │  │  │  Value +
+│  │  matchLabels +
+│  ▼ Pod Selector +
+│  │  ▼ Match Expressions +
+│  │  │  key * +
+│  │  │  operator * +
+│  │  │  ▼ Values +
+│  │  │  │  Value +
+│  │  matchLabels +
+▼ Ports +
+│  port +
+│  protocol
+****
+
+=== Iscsi
+****
+chapAuthDiscovery +
+chapAuthSession +
+fsType +
+initiatorName +
+iqn * +
+iscsiInterface +
+lun * +
+▼ Portals +
+│  Value +
+readOnly +
+▼ Secret Ref +
+│  name +
+│  namespace +
+targetPortal *
+****
+
+== J
+
+=== Jobs
+****
+▶ <<Post Submit / Pre Submit,Post Submit>> +
+▶ <<Post Submit / Pre Submit,Pre Submit>> +
+****
+
+=== Job Template
+****
+▶ <<Metadata>> +
+▼ Spec +
+│  activeDeadlineSeconds +
+│  backoffLimit +
+│  completions +
+│  manualSelector +
+│  parallelism +
+│  ▶ <<Selector>> +
+│  ▼ Template * +
+│  │  ▶ <<Metadata>> +
+│  │  ▼ Spec +
+│  │  │  activeDeadlineSeconds +
+│  │  │  ▶ <<Affinity>> +
+│  │  │  automountServiceAccountToken +
+│  │  │  ▶ <<Containers>> * +
+│  │  │  ▶ <<Dns Config>> +
+│  │  │  dnsPolicy +
+│  │  │  enableServiceLinks +
+│  │  │  ▶ <<Ephemeral Containers>> +
+│  │  │  ▶ <<Host Aliases>> +
+│  │  │  hostIPC +
+│  │  │  hostNetwork +
+│  │  │  hostPID +
+│  │  │  hostname +
+│  │  │  ▼ Image Pull Secrets +
+│  │  │  │  name +
+│  │  │  ▶ <<Containers,Init Containers>> +
+│  │  │  nodeName +
+│  │  │  nodeSelector +
+│  │  │  ▼ Overhead +
+│  │  │  │  KEY +
+│  │  │  │  VALUE +
+│  │  │  preemptionPolicy +
+│  │  │  priority +
+│  │  │  priorityClassName +
+│  │  │  ▼ Readiness Gates +
+│  │  │  │  conditionType * +
+│  │  │  restartPolicy +
+│  │  │  runtimeClassName +
+│  │  │  schedulerName +
+│  │  │  ▶ <<Security Context>> +
+│  │  │  serviceAccountName +
+│  │  │  setHostnameAsFQDN +
+│  │  │  shareProcessNamespace +
+│  │  │  subdomain +
+│  │  │  terminationGracePeriodSeconds +
+│  │  │  ▼ Tolerations +
+│  │  │  │  effect +
+│  │  │  │  key +
+│  │  │  │  operator +
+│  │  │  │  tolerationSeconds +
+│  │  │  │  value +
+│  │  │  ▶ <<Topology Spread Constraints>> +
+│  │  │  ▶ <<Volumes>> +
+│  ttlSecondsAfterFinished
+****
+
+== L
+
+=== Lifecycle
+****
+▼ Post Start +
+│  ▼ Exec +
+│  │  ▼ Command +
+│  │  │  Value *  +
+│  ▼ Http Get +
+│  │  host +
+│  │  ▼ Http Headers +
+│  │  │  name * +
+│  │  │  value * +
+│  │  path +
+│  │  port * +
+│  │  scheme +
+│  ▼ Tcp Socket +
+│  │  host +
+│  │  port * +
+▼ Pre Stop +
+│  ▼ Exec +
+│  │  ▼ Command +
+│  │  │  Value *  +
+│  ▼ Http Get +
+│  │  host +
+│  │  ▼ Http Headers +
+│  │  │  name * +
+│  │  │  value * +
+│  │  path +
+│  │  port * +
+│  │  scheme +
+│  ▼ Tcp Socket +
+│  │  host +
+│  │  port *
+****
+
+=== Limits
+****
+▼ Default +
+│  KEY +
+│  VALUE +
+▼ Default Request +
+│  KEY +
+│  VALUE +
+▼ Max +
+│  KEY +
+│  VALUE +
+▼ Max Limit Request Ratio +
+│  KEY +
+│  VALUE +
+▼ Min +
+│  KEY +
+│  VALUE +
+type
+****
+
+=== Liveness Probe
+****
+▼ Exec +
+│  ▼ Command +
+│  │  Value * +
+failureThreshold +
+▼ Http Get +
+│  host +
+│  ▼ Http Headers +
+│  │  name * +
+│  │  value * +
+│  path +
+│  port * +
+│  scheme +
+initialDelaySeconds +
+periodSeconds +
+successThreshold +
+▼ Tcp Socket +
+│  host +
+│  port * +
+timeoutSeconds
+****
+
+== M
+
+=== Metadata
+****
+annotations +
+▼ Finalizers +
+│  Value * +
+generateName +
+labels +
+▼ Managed Fields +
+│  apiVersion +
+│  fieldsType +
+│  manager +
+│  operation +
+│  time +
+name +
+namespace +
+▼ Owner References +
+│  apiVersion * +
+│  blockOwnerDeletion +
+│  controller +
+│  kind * +
+│  name * +
+│  uid *
+****
+
+=== Metrics
+****
+▼ External +
+│  ▼ Metric * +
+│  │  name * +
+│  │  ▼ Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value +
+│  │  │  matchLabels +
+│  ▼ Target * +
+│  │  averageUtilization +
+│  │  averageValue +
+│  │  type * +
+│  │  value +
+▼ Object +
+│  ▼ Described Object * +
+│  │  apiVersion +
+│  │  kind * +
+│  │  name * +
+│  ▼ Metric * +
+│  │  name * +
+│  │  ▼ Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  │  matchLabels +
+│  ▼ Target * +
+▼ Pods +
+│  ▼ Metric * +
+│  │  name * +
+│  │  ▼ Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value +
+│  │  │  matchLabels +
+│  ▼ Target * +
+│  │  averageUtilization +
+│  │  averageValue +
+│  │  type * +
+│  │  value +
+▼ Resource +
+│  name * +
+│  ▼ Target * +
+│  │  averageUtilization +
+│  │  averageValue +
+│  │  type * +
+│  │  value +
+type *
+****
+
+== N
+
+=== Node Affinity
+****
+▼ Required +
+│  ▼ Node Selector Terms * +
+│  │  ▼ Match Expressions +
+│  │  │  key * +
+│  │  │  operator * +
+│  │  │  ▼ Values +
+│  │  │  │  Value +
+│  │  ▼ Match Fields +
+│  │  │  key * +
+│  │  │  operator * +
+│  │  │  ▼ Values +
+│  │  │  │  Value
+****
+
+=== Notary
+****
+▼ Db +
+│  ▼ Resources +
+│  │  ▼ Limits +
+│  │  │  KEY +
+│  │  │  VALUE +
+│  │  ▼ Requests +
+│  │  │  KEY +
+│  │  │  VALUE +
+enabled * +
+▼ Persistent Volume Claim +
+│  ▼ Create +
+│  │  ▼ Access Modes * +
+│  │  │  Value * +
+│  │  deleteWithPvc +
+│  │  storageClassName * +
+│  │  storageSize * +
+│  ▼ Exist +
+│  │  pvcName * +
+▼ Server +
+│  ▼ Resources +
+│  │  ▼ Limits +
+│  │  │  KEY +
+│  │  │  VALUE +
+│  │  ▼ Requests +
+│  │  │  KEY +
+│  │  │  VALUE +
+serviceType +
+▼ Signer +
+│  ▼ Resources +
+│  │  ▼ Limits +
+│  │  │  KEY +
+│  │  │  VALUE +
+│  │  ▼ Requests +
+│  │  │  KEY +
+│  │  │  VALUE
+****
+
+== P
+
+=== Parameters From
+****
+▼ Secret Key Ref +
+│  key * +
+│  name *
+****
+
+=== Persistent Volume Claim
+****
+▼ Create +
+│  ▼ Access Modes * +
+│  │  Value * +
+│  deleteWithPvc +
+│  storageClassName * +
+│  storageSize * +
+▼ Exist +
+│  pvcName * +
+mountPath
+****
+
+=== Pod Template 
+****
+▶ <<Affinity>> +
+automountServiceAccountToken +
+▶ <<Dns Config>> +
+dnsPolicy +
+enableServiceLinks +
+hostNetwork +
+▼ Image Pull Secrets +
+│  name +
+nodeSelector +
+priorityClassName +
+runtimeClassName +
+schedulerName +
+▼ Security Context +
+│  fsGroup +
+│  fsGroupChangePolicy +
+│  runAsGroup +
+│  runAsNonRoot +
+│  runAsUser +
+│  ▼ Se Linux Options +
+│  │  level +
+│  │  role +
+│  │  type +
+│  │  user +
+│  ▼ Supplemental Groups +
+│  │  Value * +
+│  ▼ Sysctls +
+│  │  name * +
+│  │  value * +
+│  ▼ Windows Options +
+│  │  gmsaCredentialSpec +
+│  │  gmsaCredentialSpecName +
+│  │  runAsUserName +
+▼ Tolerations +
+│  effect +
+│  key +
+│  operator +
+│  tolerationSeconds +
+│  value +
+▼ Volumes +
+│  ▼ Aws Elastic Block Store +
+│  │  fsType +
+│  │  partition +
+│  │  readOnly +
+│  │  volumeID * +
+│  ▼ Azure Disk +
+│  │  cachingMode +
+│  │  diskName * +
+│  │  diskURI * +
+│  │  fsType +
+│  │  kind +
+│  │  readOnly +
+│  ▼ Azure File +
+│  │  readOnly +
+│  │  secretName * +
+│  │  shareName * +
+│  ▼ Cephfs +
+│  │  ▼ Monitors * +
+│  │  │  Value * +
+│  │  path +
+│  │  readOnly +
+│  │  secretFile +
+│  │  ▼ Secret Ref +
+│  │  │  name +
+│  │  user +
+│  ▼ Cinder +
+│  │  fsType +
+│  │  readOnly +
+│  │  ▼ Secret Ref +
+│  │  │  name +
+│  │  volumeID * +
+│  ▼ Config Map +
+│  │  defaultMode +
+│  │  ▼ Items +
+│  │  │  key * +
+│  │  │  mode +
+│  │  │  path * +
+│  │  name +
+│  │  optional +
+│  ▼ Csi +
+│  │  driver * +
+│  │  fsType +
+│  │  ▼ Node Publish Secret Ref +
+│  │  │  name +
+│  │  readOnly +
+│  │  ▼ Volume Attributes +
+│  │  │  KEY +
+│  │  │  VALUE +
+│  ▼ Downward API +
+│  │  defaultMode +
+│  │  ▼ Items +
+│  │  │  ▼ Field Ref +
+│  │  │  │  apiVersion +
+│  │  │  │  fieldPath * +
+│  │  │  mode +
+│  │  │  path * +
+│  │  │  ▼ Resource Field Ref +
+│  │  │  │  containerName +
+│  │  │  │  divisor +
+│  │  │  │  resource * +
+│  ▼ Empty Dir +
+│  │  medium +
+│  │  sizeLimit +
+│  ▼ Fc +
+│  │  fsType +
+│  │  lun +
+│  │  readOnly +
+│  │  ▼ Target WW Ns +
+│  │  │  Value * +
+│  │  ▼ Wwids +
+│  │  │  Value * +
+│  ▼ Flex Volume +
+│  │  driver * +
+│  │  fsType +
+│  │  ▼ Options +
+│  │  │  KEY +
+│  │  │  VALUE +
+│  │  readOnly +
+│  │  ▼ Secret Ref +
+│  │  │  name +
+│  ▼ Flocker +
+│  │  datasetName +
+│  │  datasetUUID +
+│  ▼ Gce Persistent Disk +
+│  │  fsType +
+│  │  partition +
+│  │  pdName * +
+│  │  readOnly +
+│  ▼ Git Repo +
+│  │  directory +
+│  │  repository * +
+│  │  revision +
+│  ▼ Glusterfs +
+│  │  endpoints * +
+│  │  path * +
+│  │  readOnly +
+│  ▼ Host Path +
+│  │  path * +
+│  │  type +
+│  ▼ Iscsi +
+│  │  chapAuthDiscovery +
+│  │  chapAuthSession +
+│  │  fsType +
+│  │  initiatorName +
+│  │  iqn * +
+│  │  iscsiInterface +
+│  │  lun * +
+│  │  ▼ Portals +
+│  │  │  Value * +
+│  │  readOnly +
+│  │  ▼ Secret Ref +
+│  │  │  name +
+│  │  targetPortal * +
+│  name * +
+│  ▼ Nfs +
+│  │  path * +
+│  │  readOnly +
+│  │  server * +
+│  ▼ Persistent Volume Claim +
+│  │  claimName * +
+│  │  readOnly +
+│  ▼ Photon Persistent Disk +
+│  │  fsType +
+│  │  pdID * +
+│  ▼ Portworx Volume +
+│  │  fsType +
+│  │  readOnly +
+│  │  volumeID * +
+│  ▼ Projected +
+│  │  defaultMode +
+│  │  ▼ Sources * +
+│  │  │  ▼ Config Map +
+│  │  │  │  ▼ Items +
+│  │  │  │  │  key * +
+│  │  │  │  │  mode +
+│  │  │  │  │  path * +
+│  │  │  │  name +
+│  │  │  │  optional +
+│  │  │  ▼ Downward API +
+│  │  │  │  ▼ Items +
+│  │  │  │  │  ▼ Field Ref +
+│  │  │  │  │  │  apiVersion +
+│  │  │  │  │  │  fieldPath * +
+│  │  │  │  │  mode +
+│  │  │  │  │  path * +
+│  │  │  │  │  ▼ Resource Field Ref +
+│  │  │  │  │  │  containerName +
+│  │  │  │  │  │  divisor +
+│  │  │  │  │  │  resource * +
+│  │  │  ▼ Secret +
+│  │  │  │  ▼ Items +
+│  │  │  │  │  key * +
+│  │  │  │  │  mode +
+│  │  │  │  │  path * +
+│  │  │  │  name +
+│  │  │  │  optional +
+│  │  │  ▼ Service Account Token +
+│  │  │  │  audience +
+│  │  │  │  expirationSeconds +
+│  │  │  │  path * +
+│  ▼ Quobyte +
+│  │  group +
+│  │  readOnly +
+│  │  registry * +
+│  │  tenant +
+│  │  user +
+│  │  volume * +
+│  ▼ Rbd +
+│  │  fsType +
+│  │  image * +
+│  │  keyring +
+│  │  ▼ Monitors * +
+│  │  │  Value * +
+│  │  pool +
+│  │  readOnly +
+│  │  ▼ Secret Ref +
+│  │  │  name +
+│  │  user +
+│  ▼ Scale IO +
+│  │  fsType +
+│  │  gateway * +
+│  │  protectionDomain +
+│  │  readOnly +
+│  │  ▼ Secret Ref * +
+│  │  │  name +
+│  │  sslEnabled +
+│  │  storageMode +
+│  │  storagePool +
+│  │  system * +
+│  │  volumeName +
+│  ▼ Secret +
+│  │  defaultMode +
+│  │  ▼ Items +
+│  │  │  key * +
+│  │  │  mode +
+│  │  │  path * +
+│  │  optional +
+│  │  secretName +
+│  ▼ Storageos +
+│  │  fsType +
+│  │  readOnly +
+│  │  ▼ Secret Ref +
+│  │  │  name +
+│  │  volumeName +
+│  │  volumeNamespace +
+│  ▼ Vsphere Volume +
+│  │  fsType +
+│  │  storagePolicyID +
+│  │  storagePolicyName +
+│  │  volumePath *
+****
+
+=== Post Submit / Pre Submit
+****
+▼ After +
+│  Value * +
+▼ Approval +
+│  ▼ Approvers +
+│  │  Value * +
+│  ▼ Approvers Config Map +
+│  │  name +
+│  requestMessage * +
+▼ Args +
+│  Value * +
+▼ Command +
+│  Value * +
+▼ Email +
+│  content * +
+│  isHtml +
+│  ▼ Receivers +
+│  │  Value * +
+│  title * +
+▶ <<Env>> +
+▶ <<Env From>> +
+image +
+imagePullPolicy +
+▶ <<Lifecycle>> +
+▶ <<Liveness Probe>> +
+name * +
+▼ Notification +
+│  ▼ On Failure +
+│  │  ▼ Email +
+│  │  │  content * +
+│  │  │  isHtml +
+│  │  │  ▼ Receivers +
+│  │  │  │  Value * +
+│  │  │  title * +
+│  │  ▼ Slack +
+│  │  │  message * +
+│  │  │  url * +
+│  ▼ On Success +
+│  │  ▼ Email +
+│  │  │  content * +
+│  │  │  isHtml +
+│  │  │  ▼ Receivers +
+│  │  │  │  Value * +
+│  │  │  title * +
+│  │  ▼ Slack +
+│  │  │  message * +
+│  │  │  url * +
+▼ Ports +
+│  containerPort * +
+│  hostIP +
+│  hostPort +
+│  name +
+│  protocol +
+▶ <<Readiness Probe>> +
+▼ Resources +
+│  ▼ Limits +
+│  │  KEY +
+│  │  VALUE +
+│  ▼ Requests +
+│  │  KEY +
+│  │  VALUE +
+script +
+▼ Security Context +
+│  allowPrivilegeEscalation +
+│  ▼ Capabilities +
+│  │  ▼ Add +
+│  │  │  Value * +
+│  │  ▼ Drop +
+│  │  │  Value * +
+│  privileged +
+│  procMount +
+│  readOnlyRootFilesystem +
+│  runAsGroup +
+│  runAsNonRoot +
+│  runAsUser +
+│  ▼ Se Linux Options +
+│  │  level +
+│  │  role +
+│  │  type +
+│  │  user +
+│  ▼ Windows Options +
+│  │  gmsaCredentialSpec +
+│  │  gmsaCredentialSpecName +
+│  │  runAsUserName +
+skipCheckout +
+▼ Slack +
+│  message * +
+│  url * +
+▶ <<Startup Probe>> +
+stdin +
+stdinOnce +
+▼ Tekton Task +
+│  ▼ Params +
+│  │  ▼ Array Val +
+│  │  │  Value * +
+│  │  name * +
+│  │  stringVal +
+│  ▼ Resources +
+│  │  ▼ Inputs +
+│  │  │  name +
+│  │  │  ▼ Paths +
+│  │  │  │  Value * +
+│  │  │  ▼ Resource Ref +
+│  │  │  │  apiVersion +
+│  │  │  │  name +
+│  │  │  ▼ Resource Spec +
+│  │  │  │  description +
+│  │  │  │  ▼ Params * +
+│  │  │  │  │  name * +
+│  │  │  │  │  value * +
+│  │  │  │  ▼ Secrets +
+│  │  │  │  │  fieldName * +
+│  │  │  │  │  secretKey * +
+│  │  │  │  │  secretName * +
+│  │  │  │  type * +
+│  │  ▼ Outputs +
+│  │  │  name +
+│  │  │  ▼ Paths +
+│  │  │  │  Value * +
+│  │  │  ▼ Resource Ref +
+│  │  │  │  apiVersion +
+│  │  │  │  name +
+│  │  │  ▼ Resource Spec +
+│  │  │  │  description +
+│  │  │  │  ▼ Params * +
+│  │  │  │  │  name * +
+│  │  │  │  │  value * +
+│  │  │  │  ▼ Secrets +
+│  │  │  │  │  fieldName * +
+│  │  │  │  │  secretKey * +
+│  │  │  │  │  secretName * +
+│  │  │  │  type * +
+│  ▼ Task Ref * +
+│  │  catalog +
+│  │  ▼ Local +
+│  │  │  apiVersion +
+│  │  │  bundle +
+│  │  │  kind +
+│  │  │  name +
+│  ▼ Workspaces +
+│  │  name * +
+│  │  subPath +
+│  │  workspace * +
+terminationMessagePath +
+terminationMessagePolicy +
+tty +
+▼ Volume Devices +
+│  devicePath * +
+│  name * +
+▼ Volume Mounts +
+│  mountPath * +
+│  mountPropagation +
+│  name * +
+│  readOnly +
+│  subPath +
+│  subPathExpr +
+▼ When +
+│  ▼ Branch +
+│  │  Value * +
+│  ▼ Skip Branch +
+│  │  Value * +
+│  ▼ Skip Tag +
+│  │  Value * +
+│  ▼ Tag +
+│  │  Value * +
+workingDir
+****
+
+== R
+
+=== Rbd
+****
+fsType +
+image * +
+keyring +
+▼ Monitors * +
+│  Value +
+pool +
+readOnly +
+▼ Secret Ref +
+│  name +
+│  namespace +
+user
+****
+
+=== Readiness Probe
+****
+▼ Exec +
+│  ▼ Command +
+│  │  Value * +
+failureThreshold +
+▼ Http Get +
+│  host +
+│  ▼ Http Headers +
+│  │  name * +
+│  │  value * +
+│  path +
+│  port * +
+│  scheme +
+initialDelaySeconds +
+periodSeconds +
+successThreshold +
+▼ Tcp Socket +
+│  host +
+│  port * +
+timeoutSeconds
+****
+
+=== Registry Deployment
+****
+labels +
+nodeSelector +
+▼ Resources +
+│  ▼ Limits +
+│  │  KEY +
+│  │  VALUE +
+│  ▼ Requests +
+│  │  KEY +
+│  │  VALUE +
+▶ <<Selector>> +
+▼ Tolerations +
+│  effect +
+│  key +
+│  operator +
+│  tolerationSeconds +
+│  value
+****
+
+=== Resources
+****
+▼ Limits +
+│  storage +
+│  ephemeral-storage +
+▼ Requests +
+│  storage +
+│  ephemeral-storage
+****
+
+=== Rules
+****
+host +
+▼ Http +
+│  ▼ Paths * +
+│  │  ▼ Backend * +
+│  │  │  ▼ Resource +
+│  │  │  │  apiGroup +
+│  │  │  │  kind * +
+│  │  │  │  name * +
+│  │  │  serviceName +
+│  │  │  servicePort +
+│  │  path +
+│  │  pathType
+****
+
+== S
+
+=== Scale IO
+****
+fsType +
+gateway * +
+protectionDomain +
+readOnly +
+▼ Secret Ref * +
+│  name +
+│  namespace +
+sslEnabled +
+storageMode +
+storagePool +
+system * +
+volumeName
+****
+
+=== Secret Transforms
+****
+▼ Add Key +
+│  jsonPathExpression * +
+│  key * +
+│  stringValue * +
+│  value * +
+▼ Add Keys From +
+│  ▼ Secret Ref +
+│  │  name +
+│  │  namespace +
+▼ Remove Key +
+│  key * +
+▼ Rename Key +
+│  from * +
+│  to *
+****
+
+=== Security Context
+****
+fsGroup +
+fsGroupChangePolicy +
+runAsGroup +
+runAsNonRoot +
+runAsUser +
+▼ Se Linux Options +
+│  level +
+│  role +
+│  type +
+│  user +
+▼ Seccomp Profile +
+│  localhostProfile +
+│  type * +
+▼ Supplemental Groups +
+│  Value * +
+▼ Sysctls +
+│  name * +
+│  value * +
+▼ Windows Options +
+│  gmsaCredentialSpec +
+│  gmsaCredentialSpecName +
+│  runAsUserName
+****
+
+=== Selector
+****
+▼ Match Expressions +
+│  key * +
+│  operator * +
+│  ▼ Values +
+│  │  Value +
+matchLabels
+****
+
+=== Session Affinity Config
+****
+▼ Client IP +
+│  timeoutSeconds
+****
+
+=== Spec
+****
+▼ Access Modes +
+│  Value * +
+▼ Data Source +
+│  apiGroup +
+│  kind * +
+│  name * +
+▼ Resources +
+│  ▼ Limits +
+│  │  KEY +
+│  │  VALUE +
+│  ▼ Requests +
+│  │  KEY +
+│  │  VALUE +
+▼ Selector +
+│  ▼ Match Expressions +
+│  │  key * +
+│  │  operator * +
+│  │  ▼ Values +
+│  │  │  Value * +
+│  matchLabels +
+storageClassName +
+volumeMode +
+volumeName
+****
+
+=== Startup Probe
+****
+▼ Exec +
+│  ▼ Command +
+│  │  Value * +
+failureThreshold +
+▼ Http Get +
+│  host +
+│  ▼ Http Headers +
+│  │  name * +
+│  │  value * +
+│  path +
+│  port * +
+│  scheme +
+initialDelaySeconds +
+periodSeconds +
+successThreshold +
+▼ Tcp Socket +
+│  host +
+│  port * +
+timeoutSeconds
+****
+
+=== Storageos
+****
+fsType +
+readOnly +
+▼ Secret Ref +
+│  apiVersion +
+│  fieldPath +
+│  kind +
+│  name +
+│  namespace +
+│  resourceVersion +
+│  uid +
+volumeName +
+volumeNamespace
+****
+
+=== Strategy
+****
+▼ Rolling Update +
+│  maxSurge +
+│  maxUnavailable +
+type
+****
+
+== T
+
+=== Template
+****
+▶ <<Metadata>> +
+▼ Spec +
+│  activeDeadlineSeconds +
+│  ▶ <<Affinity>> +
+│  automountServiceAccountToken +
+│  ▶ <<Containers>> * +
+│  ▶ <<Dns Config>> +
+│  dnsPolicy +
+│  enableServiceLinks +
+│  ▶ <<Ephemeral Containers>> +
+│  ▶ <<Host Aliases>> +
+│  hostIPC +
+│  hostNetwork +
+│  hostPID +
+│  hostname +
+│  ▼ Image Pull Secrets +
+│  │  name +
+│  ▶ <<Containers,Init Containers>> +
+│  nodeName +
+│  nodeSelector +
+│  ▼ Overhead +
+│  │  KEY +
+│  │  VALUE +
+│  preemptionPolicy +
+│  priority +
+│  priorityClassName +
+│  ▼ Readiness Gates +
+│  │  conditionType * +
+│  restartPolicy +
+│  runtimeClassName +
+│  schedulerName +
+│  ▶ <<Security Context>> +
+│  serviceAccountName +
+│  setHostnameAsFQDN +
+│  shareProcessNamespace +
+│  subdomain +
+│  terminationGracePeriodSeconds +
+│  ▼ Tolerations +
+│  │  effect +
+│  │  key +
+│  │  operator +
+│  │  tolerationSeconds +
+│  │  value +
+│  ▶ <<Topology Spread Constraints>> +
+│  ▶ <<Volumes>>
+****
+
+=== Tls
+****
+▼ Hosts +
+│  Value +
+secretName
+****
+
+=== Topology Spread Constraints
+****
+▼ Label Selector +
+│  ▼ Match Expressions +
+│  │  key * +
+│  │  operator * +
+│  │  ▼ Values +
+│  │  │  Value * +
+│  matchLabels +
+maxSkew * +
+topologyKey * +
+whenUnsatisfiable *
+****
+
+== U
+
+=== Update Strategy(DaemonSet)
+****
+▼ Rolling Update +
+│  maxUnavailable +
+type
+****
+
+=== Update Strategy(StatefulSet)
+****
+▼ Rolling Update +
+│  partition +
+type
+****
+
+== V
+
+=== Volumes
+****
+▼ Aws Elastic Block Store +
+│  fsType +
+│  partition +
+│  readOnly +
+│  volumeID * +
+▼ Azure Disk +
+│  cachingMode +
+│  diskName * +
+│  diskURI * +
+│  fsType +
+│  kind +
+│  readOnly +
+▼ Azure File +
+│  readOnly +
+│  secretName * +
+│  shareName * +
+▼ Cephfs +
+│  ▼ Monitors * +
+│  │  Value * +
+│  path +
+│  readOnly +
+│  secretFile +
+│  ▼ Secret Ref +
+│  │  name +
+│  user +
+▼ Cinder +
+│  fsType +
+│  readOnly +
+│  ▼ Secret Ref +
+│  │  name +
+│  volumeID * +
+▼ Config Map +
+│  defaultMode +
+│  ▼ Items +
+│  │  key * +
+│  │  mode +
+│  │  path * +
+│  name +
+│  optional +
+▼ Csi +
+│  driver * +
+│  fsType +
+│  ▼ Node Publish Secret Ref +
+│  │  name +
+│  readOnly +
+│  ▼ Volume Attributes +
+│  │  KEY +
+│  │  VALUE +
+▼ Downward API +
+│  defaultMode +
+│  ▼ Items +
+│  │  ▼ Field Ref +
+│  │  │  apiVersion +
+│  │  │  fieldPath * +
+│  │  mode +
+│  │  path * +
+│  │  ▼ Resource Field Ref +
+│  │  │  containerName +
+│  │  │  divisor +
+│  │  │  resource * +
+▼ Empty Dir +
+│  medium +
+│  sizeLimit +
+▼ Ephemeral +
+│  readOnly +
+│  ▼ Volume Claim Template +
+│  │  ▶ <<Metadata>> +
+│  │  ▶ <<Spec>> * +
+▼ Fc +
+│  fsType +
+│  lun +
+│  readOnly +
+│  ▼ Target WW Ns +
+│  │  Value * +
+│  ▼ Wwids +
+│  │  Value * +
+▼ Flex Volume +
+│  driver * +
+│  fsType +
+│  ▼ Options +
+│  │  KEY +
+│  │  VALUE +
+│  readOnly +
+│  ▼ Secret Ref +
+│  │  name +
+▼ Flocker +
+│  datasetName +
+│  datasetUUID +
+▼ Gce Persistent Disk +
+│  fsType +
+│  partition +
+│  pdName * +
+│  readOnly +
+▼ Git Repo +
+│  directory +
+│  repository * +
+│  revision +
+▼ Glusterfs +
+│  endpoints * +
+│  path * +
+│  readOnly +
+▼ Host Path +
+│  path * +
+│  type +
+▼ Iscsi +
+│  chapAuthDiscovery +
+│  chapAuthSession +
+│  fsType +
+│  initiatorName +
+│  iqn * +
+│  iscsiInterface +
+│  lun * +
+│  ▼ Portals +
+│  │  Value * +
+│  readOnly +
+│  ▼ Secret Ref +
+│  │  name +
+│  targetPortal * +
+name * +
+▼ Nfs +
+│  path * +
+│  readOnly +
+│  server * +
+▼ Persistent Volume Claim +
+│  claimName * +
+│  readOnly +
+▼ Photon Persistent Disk +
+│  fsType +
+│  pdID * +
+▼ Portworx Volume +
+│  fsType +
+│  readOnly +
+│  volumeID * +
+▼ Projected +
+│  defaultMode +
+│  ▼ Sources * +
+│  │  ▼ Config Map +
+│  │  │  ▼ Items +
+│  │  │  │  key * +
+│  │  │  │  mode +
+│  │  │  │  path * +
+│  │  │  name +
+│  │  │  optional +
+│  │  ▼ Downward API +
+│  │  │  ▼ Items +
+│  │  │  │  ▼ Field Ref +
+│  │  │  │  │  apiVersion +
+│  │  │  │  │  fieldPath * +
+│  │  │  │  mode +
+│  │  │  │  path * +
+│  │  │  │  ▼ Resource Field Ref +
+│  │  │  │  │  containerName +
+│  │  │  │  │  divisor +
+│  │  │  │  │  resource * +
+│  │  ▼ Secret +
+│  │  │  ▼ Items +
+│  │  │  │  key * +
+│  │  │  │  mode +
+│  │  │  │  path * +
+│  │  │  name +
+│  │  │  optional +
+│  │  ▼ Service Account Token +
+│  │  │  audience +
+│  │  │  expirationSeconds +
+│  │  │  path * +
+▼ Quobyte +
+│  group +
+│  readOnly +
+│  registry * +
+│  tenant +
+│  user +
+│  volume * +
+▼ Rbd +
+│  fsType +
+│  image * +
+│  keyring +
+│  ▼ Monitors * +
+│  │  Value * +
+│  pool +
+│  readOnly +
+│  ▼ Secret Ref +
+│  │  name +
+│  user +
+▼ Scale IO +
+│  fsType +
+│  gateway * +
+│  protectionDomain +
+│  readOnly +
+│  ▼ Secret Ref * +
+│  │  name +
+│  sslEnabled +
+│  storageMode +
+│  storagePool +
+│  system * +
+│  volumeName +
+▼ Secret +
+│  defaultMode +
+│  ▼ Items +
+│  │  key * +
+│  │  mode +
+│  │  path * +
+│  optional +
+│  secretName +
+▼ Storageos +
+│  fsType +
+│  readOnly +
+│  ▼ Secret Ref +
+│  │  name +
+│  volumeName +
+│  volumeNamespace +
+▼ Vsphere Volume +
+│  fsType +
+│  storagePolicyID +
+│  storagePolicyName +
+│  volumePath *
+****
+
+=== Volume Claim Templates
+****
+apiVersion +
+kind +
+▶ <<Metadata>> +
+▶ <<Spec>>
+****
+
+== W
+
+=== Workspaces
+****
+▼ Config Map +
+│  defaultMode +
+│  ▼ Items +
+│  │  key * +
+│  │  mode +
+│  │  path * +
+│  name +
+│  optional +
+▼ Empty Dir
+│  medium +
+│  sizeLimit +
+name * +
+▼ Persistent Volume Claim +
+│  claimName * +
+│  readOnly +
+▼ Secret +
+│  defaultMode +
+│  ▼ Items +
+│  │  key * +
+│  │  mode +
+│  │  path * +
+│  optional +
+│  secretName +
+subPath +
+▼ Volume Claim Template +
+│  apiVersion +
+│  kind +
+│  ▶ <<Spec>> +
+│  ▼ Status +
+│  │  ▼ Access Modes +
+│  │  │  Value * +
+│  │  ▼ Capacity +
+│  │  │  KEY +
+│  │  │  VALUE +
+│  │  ▼ Conditions +
+│  │  │  lastProbeTime +
+│  │  │  lastTransitionTime +
+│  │  │  message +
+│  │  │  reason +
+│  │  │  status * +
+│  │  │  type * +
+│  │  phase
+****
+
+
