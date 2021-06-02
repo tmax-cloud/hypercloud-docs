@@ -8,7 +8,7 @@
 
 새로운 템플릿 인스턴스를 폼 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/service-catalog#img-template-instance-main,템플릿 인스턴스 메인 화면>>의 네임스페이스 선택 영역에서 새로운 템플릿 인스턴스를 생성할 네임스페이스를 선택한 후 *[템플릿 인스턴스 생성]* 버튼을 클릭한다.
+. <<../console_menu_sub/service-catalog#img-template-instance-main,템플릿 인스턴스 메인 화면>>의 네임스페이스 선택 영역에서 새로운 템플릿 인스턴스를 생성할 네임스페이스를 선택한 후 *[템플릿 인스턴스 생성]* 버튼을 클릭한다. (QA: 템플릿 인스턴스 생성 국문화 완료 맨 아래 Create도 생성)
 . *Create TemplateInstance* 화면이 열리면 생성할 템플릿 인스턴스의 구성 정보를 설정한다. +
 각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
 +
