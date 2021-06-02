@@ -8,7 +8,7 @@
 
 새로운 클러스터 서비스 브로커를 폼 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/service-catalog#img-cluster-service-broker-main,클러스터 서비스 브로커 메인 화면>>의 네임스페이스 선택 영역에서 새로운 클러스터 서비스 브로커를 생성할 네임스페이스를 선택한 후 *[클러스터 서비스 브로커 생성]* 버튼을 클릭한다.
+. <<../console_menu_sub/service-catalog#img-cluster-service-broker-main,클러스터 서비스 브로커 메인 화면>>의 네임스페이스 선택 영역에서 새로운 클러스터 서비스 브로커를 생성할 네임스페이스를 선택한 후 *[클러스터 서비스 브로커 생성]* 버튼을 클릭한다. (QA: 네임스페이스 영역이 따로 없는 클러스터 범위의 브로커입니다!)
 . *Create Cluster Service Broker* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
 . 폼 에디터가 열리면 생성할 클러스터 서비스 브로커의 구성 정보를 설정한다. +
 이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
