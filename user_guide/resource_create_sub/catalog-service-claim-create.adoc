@@ -91,7 +91,7 @@ spec:
       value: example <11>
 ----
 +
-.기본 작성 예
+.(QA: 예시)
 [source,yaml]
 ----
 apiVersion: tmax.io/v1
