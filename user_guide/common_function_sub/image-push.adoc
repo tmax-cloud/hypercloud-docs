@@ -4,9 +4,14 @@
 
 NOTE: 이미지 등록 과정 중 도커(Docker)가 설치되어 있는 환경은 Linux를 기준으로 설명한다.
 
-. 워크로드>시크릿 리스트에서 레지스트리가 생성된 네임스페이스의 hpcd-registry-rootca 시크릿을 클릭한다.
+인증을 위해 HyperCloud 환경에 적용한 CA를 사용합니다.
+HyperCloud 외 환경에서 진행할 경우에는 'CA 인증' 과정을 먼저 수행합니다.
+
+NOTE: CA 인증
+
+. 콘솔의 [워크로드] -> [시크릿] 리스트에서 레지스트리가 생성된 네임스페이스의 hpcd-registry-rootca 시크릿을 클릭한다.
 + 
-(워크로드 > 시크릿 > 레지스트리의 네임스페이스 선택 > 'hpcd-registry-rootca' 클릭)
+(QA : 워크로드 > 시크릿 > 레지스트리의 네임스페이스 선택 > 'hpcd-registry-rootca' 클릭)
 
 . 해당 시크릿의 상세 정보 화면이 열리면 아래 Data의 ca.crt가 존재함을 확인하고 우측 '복사' 버튼을 클릭한다.
 
@@ -24,21 +29,34 @@ update-ca-trust
 systemctl restart docker
 ----
 
-. 레지스트리에 로그인한다.
+
+NOTE: 로그인 및 이미지 푸시
+
+. [이미지] > [컨테이너 레지스트리] > 생성한 레지스트리의 URL 확인
++
+(QA : 이미지 > 컨테이너 레지스트리 > 생성한 레지스트리의 URL 컬럼)
+
+. URL을 참고하여 레지스트리에 로그인한다.
 +
 ----
-docker login https://172.21.4.172
+docker login 172.21.4.172
 ----
 
 
-. 레지스트리에 준비한 이미지를 푸시(Push)한다.
+. 레지스트리에 준비한 이미지를 푸시한다.
 +
 ----
-docker push 172.21.4.172/{이미지 이름}:{태그}
+docker push 172.21.4.172/nginx:latest
 ----
 
-. 레지스트리에 등록된 이미지를 사용하여 파드를 생성한다. +
-이때 생성할 파드의 YAML 파일 내용에서 imagePullSecrets 항목의 name 값으로 'hpcd-registry-{레지스트리 이름}'을 설정한다.
+NOTE: 이미지를 사용하여 Pod 생성
+
+. [워크로드] > [시크릿] > 레지스트리를 생성한 네임스페이스 선택 > dockerconfigjson 타입의 시크릿 이름을 확인한다.
++
+(QA : [워크로드] > [시크릿] > 레지스트리를 생성한 네임스페이스 선택 > 'hpcd-registry-{레지스트리 이름}' 이름으로 되어있는 kubernetes.io/dockerconfigjson 타입의 시크릿)
+
+. 레지스트리에 등록된 이미지를 사용하여 파드를 생성한다.
+이때 생성할 파드의 YAML 파일 내용에서 imagePullSecrets 항목의 name 값으로 'hpcd-registry-{레지스트리 이름}' 시크릿을 설정한다. 
 +
 ----
 imagePullSecrets: 
