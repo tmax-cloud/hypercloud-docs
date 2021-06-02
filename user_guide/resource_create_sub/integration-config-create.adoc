@@ -40,7 +40,7 @@ name
 . *Create Integration Config* 화면이 열리면 **Configure via**를 "YAML View"로 선택한다.
 . YAML 에디터가 열리면 생성할 인테그레이션 컨피그의 구성 정보를 작성한다.
 +
-.기본 작성 예 (TD: 인테그레이션 컨피그에 맞는 샘플 예제 작성 필요)
+.기본 작성 예 (TD: 인테그레이션 컨피그에 맞는 샘플 예제 작성 필요) (QA: https://github.com/tmax-cloud/cicd-operator/blob/master/docs/integration_config.md#sample-yaml )
 [source,yaml]
 ----
 apiVersion: v1
