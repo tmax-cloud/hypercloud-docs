@@ -237,7 +237,7 @@ image::../images/figure_admin_pod_security_main.png[]
 * False : 사용 안 함
 |보안 강화 리눅스|SELinux의 제어 범위를 표시한다.
 
-* MustRunAs : 지정된 범위만 허용 (범위 지정 필수)
+* MustRunAs : 지정된 범위만 허용 (범위 지정 필수)(QA: 범위 지정 부분 없음)
 * RunAsAny : 모두 허용
 |사용자로 실행|컨테이너를 실행할 사용자 ID의 제어 범위를 표시한다.
 
