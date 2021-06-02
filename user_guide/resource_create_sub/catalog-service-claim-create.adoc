@@ -90,6 +90,10 @@ spec:
       valueType: string <10>
       value: example <11>
 ----
++
+.기본 작성 예
+[source,yaml]
+----
 apiVersion: tmax.io/v1
 kind: ClusterTemplateClaim
 metadata:
