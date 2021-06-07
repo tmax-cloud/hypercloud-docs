@@ -53,12 +53,12 @@ metadata:
   name: example <1>
   namespace: default <2>
 spec:
-  image: 'registry:2.6.2' <3>
+  image: 'registry:2.6.2' <3> //(QA: 2.6.2 -> 2.7.1 이미지 tag 변경 요청드립니다.)
   loginId: tmax <4>
   loginPassword: xamtsecret <5>
   service:
     serviceType: LoadBalancer <6>
-    loadBalancer:
+    loadBalancer: //(QA: port 정보 없이도 사용 가능합니다.)
       port: 443
   persistentVolumeClaim: <7>
     create:
@@ -72,11 +72,11 @@ spec:
 +
 <1> 컨테이너 레지스트리의 이름
 <2> 컨테이너 레지스트리가 생성될 네임스페이스의 이름
-<3> 컨테이너 레지스트리 파드 생성에 사용될 이미지 *(현재 'registry:2.6.2' 만 가능)*
+<3> 컨테이너 레지스트리 파드 생성에 사용될 이미지 *(현재 'registry:2.6.2' 만 가능)* //(QA: hypercloud5.0 에서는 2.7.1 버전을 사용합니다.)
 <4> 컨테이너 레지스트리에 로그인할 ID
 <5> 컨테이너 레지스트리에 로그인할 ID의 비밀번호
 <6> 컨테이너 레지스트리의 서비스 유형을 정의한다. 우선 서비스의 유형으로 Ingress, LoadBalancer 중 하나를 선택한 후 각 유형에 따른 설정 항목을 정의한다. +
-이때 LoadBalancer를 선택한 경우에는 서비스에 접속하기 위한 포트 번호를 설정해야 한다.
+이때 LoadBalancer를 선택한 경우에는 서비스에 접속하기 위한 포트 번호를 설정해야 한다. //(QA: loadbalancer 선택한 경우에도 포트번호 설정이 따로 필요 없습니다.)
 <7> 컨테이너 레지스트리의 영구 볼륨 클레임을 정의한다. 우선 영구 볼륨 클레임의 유형으로 exist, create 중 하나를 선택한 후 각 유형에 따른 설정 항목을 정의한다.
 * pvcName : 영구 볼륨 클레임의 이름 (exist 유형만 해당)
 * accessMode : 영구 볼륨 클레임의 접근 모드 (create 유형만 해당)
