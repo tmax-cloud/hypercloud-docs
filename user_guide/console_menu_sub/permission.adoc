@@ -114,7 +114,7 @@ image::../images/figure_admin_role_binding_main.png[]
 
 == 롤 바인딩 클레임
 
-"마스터 클러스터" 콘솔 메뉴에서 *[인증/인가]* -> *[롤 바인딩 클레임]* 메뉴를 선택하면 *롤 바인딩 클레임* 메인 화면으로 이동한다. +
+"마스터 클러스터" 콘솔 메뉴에서 *[인증/인가]* -> *[롤 바인딩 클레임]* 메뉴를 선택하면 *롤 바인딩 클레임* 메인 화면으로 이동한다. + (QA: 롤 바인딩 탭 상단의 롤 바인딩 클레임 클릭)
 *롤 바인딩 클레임* 메인 화면에서는 롤 바인딩을 위한 요구 사항을 정의하는 ``롤 바인딩 클레임``을 생성 및 조회할 수 있다.
 
 //[caption="그림. "] //캡션 제목 변경
@@ -148,6 +148,7 @@ image::../images/figure_admin_role_binding_claim_main.png[]
 * Success : 클레임이 허가된 상태(QA: Approved)
 * Reject : 클레임이 거절된 상태(QA: Rejected)
 * (QA: Error 상태 추가, 클레임 승인 과정에서 오류가 발생한 상태)
+* (QA : 'Rolebinding Deleted’ 추가 예정, Claim을 통해 생성된 RoleBinding 리소스 삭제 시 업데이트되는 Status입니다.)
 |리소스 이름|롤 바인딩 클레임을 통해 실제 생성될 롤 바인딩의 이름이다.
 |생성 시간|룰 바인딩 클레임이 생성된 시간이다.
 |image:../images/figure_action_icon.png[]|롤 바인딩의 관리를 위한 메뉴를 사용할 수 있다. +
