@@ -184,7 +184,7 @@ spec:
   accessModes: <3>
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Recycle <4> //(QA: Delete로 변경 요청드립니다.)
-  storageClassName: slow <5> 
+  storageClassName: slow <5> //(QA: nfs로 변경 요청드립니다. storageclass 예시도 nfs이고 pv type도 nfs여서 nfs로 수정하는 것이 나을 것으로 보입니다.)
   # mountOptions: <6>
   #   - hard
   #   - nfsvers=4.1
