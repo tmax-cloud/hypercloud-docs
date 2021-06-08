@@ -61,8 +61,8 @@ spec:
   resources:
     requests:
       storage: 8Gi <5>
-  storageClassName: slow <6>
-  selector: <7>
+  storageClassName: slow <6> //(QA: nfs로 변경 요청드립니다. hypercloud5.0에서는 san, nfs를 주로 사용하므로 nfs로 변경하는 것이 나을 것으로 보입니다.)
+  selector: <7> //(QA: selector 내용 삭제요청드립니다. - nfs는 selector 따로 필요하지 않습니다.)
     matchLabels: 
       release: stable
     matchExpressions:
