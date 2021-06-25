@@ -8,7 +8,9 @@
 
 새로운 인테그레이션 컨피그를 폼 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/ci-cd#img-integration-config-main,인테그레이션 컨피그 메인 화면>>의 네임스페이스 선택 영역에서 새로운 인테그레이션 컨피그를 생성할 네임스페이스를 선택한 후 *[인테그레이션 컨피그 생성]* 버튼을 클릭한다.
+. "개발자" 콘솔 메뉴에서 *[CI/CD]* -> *[인테그레이션 컨피그]* 메뉴를 선택한다.
+. *인테그레이션 컨피그* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 인테그레이션 컨피그를 생성할 특정 네임스페이스를 선택한다.
+. *[인테그레이션 컨피그 생성]* 버튼을 클릭한다.
 . *Create Integration Config* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
 . 폼 에디터가 열리면 생성할 인테그레이션 컨피그의 구성 정보를 설정한다. +
 이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
@@ -18,49 +20,100 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 * Name *
 * Labels
 * Git * +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Git>["폼 에디터 설정 항목 참조"의 "Git"]을 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Git>["폼 에디터 설정 항목 참조"의 "Git"]을 참고한다.
 * Jobs * +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Jobs>["폼 에디터 설정 항목 참조"의 "Jobs"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Jobs>["폼 에디터 설정 항목 참조"의 "Jobs"]를 참고한다.
 * Pod Template +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Pod Template>["폼 에디터 설정 항목 참조"의 "Pod Template"]을 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Pod Template>["폼 에디터 설정 항목 참조"의 "Pod Template"]을 참고한다.
 * Secrets
 +
 ----
 name
 ----
 * Workspaces +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Workspaces>["폼 에디터 설정 항목 참조"의 "Workspaces"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Workspaces>["폼 에디터 설정 항목 참조"의 "Workspaces"]를 참고한다.
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터
 
 새로운 인테그레이션 컨피그를 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/ci-cd#img-integration-config-main,인테그레이션 컨피그 메인 화면>>의 네임스페이스 선택 영역에서 새로운 인테그레이션 컨피그를 생성할 네임스페이스를 선택한 후 *[인테그레이션 컨피그 생성]* 버튼을 클릭한다.
+. "개발자" 콘솔 메뉴에서 *[CI/CD]* -> *[인테그레이션 컨피그]* 메뉴를 선택한다.
+. *인테그레이션 컨피그* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 인테그레이션 컨피그를 생성할 특정 네임스페이스를 선택한다.
+. *[인테그레이션 컨피그 생성]* 버튼을 클릭한다.
 . *Create Integration Config* 화면이 열리면 **Configure via**를 "YAML View"로 선택한다.
 . YAML 에디터가 열리면 생성할 인테그레이션 컨피그의 구성 정보를 작성한다.
 +
-.기본 작성 예 (TD: 인테그레이션 컨피그에 맞는 샘플 예제 작성 필요) (QA: https://github.com/tmax-cloud/cicd-operator/blob/master/docs/integration_config.md#sample-yaml )
+.기본 작성 예
 [source,yaml]
 ----
-apiVersion: v1
-kind: LimitRange
+apiVersion: cicd.tmax.io/v1
+kind: IntegrationConfig
 metadata:
-  name: example <1>
+  name: sample-config <1>
   namespace: default <2>
 spec:
-  limits:
-    - default: <3>
-        memory: 512Mi
-      defaultRequest: <4>
-        memory: 256Mi
-      type: Container <5>
+  git: <3>
+    type: github 
+    repository: tmax-cloud/cicd-operator
+    token: <4>
+      valueFrom:
+        secretKeyRef:
+          name: tmax-cloud-bot-credential
+          key: token
+  secrets:
+    - name: tmax-cloud-hub
+  workspaces: <5>
+    - name: s2i
+      volumeClaimTemplate:
+        spec:
+          storageClassName: local-path
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+  jobs:
+    preSubmit: <6>
+    - name: test-unit
+      image: golang:1.14
+      command:
+      - go test -v ./pkg/...
+      when:
+        branch:
+        - master
+    - name: test-lint
+      image: golangci/golangci-lint:v1.32
+      command:
+      - golangci-lint run ./... -v -E gofmt --timeout 1h0m0s
+      when:
+        branch:
+        - master
+    postSubmit: <7>
+    - name: build-push-image
+      image: quay.io/buildah/stable
+      command:
+      - buildah bud --format docker --storage-driver=vfs -f ./Dockerfile -t $IMAGE_URL .
+      - buildah push --storage-driver=vfs --creds=$CRED $IMAGE_URL docker://$IMAGE_URL
+      env:
+      - name: IMAGE_URL
+        value: tmaxcloudck/cicd-operator:recent
+      - name: CRED
+        valueFrom:
+          secretKeyRef:
+             name: tmaxcloudck-hub-credential
+             key: .dockerconfigjson
+      privileged: true
+      when:
+        tag:
+        - v.*
 ----
 +
-<1> 제한 범위의 이름
-<2> 제한 범위가 생성될 네임스페이스의 이름
-<3> 기본 리소스 쿼타 제한 정보
-<4> 기본 리소스 쿼타 요청 정보
-<5> 적용될 리소스 종류
+<1> 인테그레이션 컨피그의 이름
+<2> 인테그레이션 컨피그가 생성될 네임스페이스의 이름
+<3> 대상 저장소에 대한 Git 구성
+<4> 원격 Git 서버에 액세스하기 위한 토큰 정보
+<5> 작업 간 데이터를 공유하기 위한 워크스페이스의 정보
+<6> Pull 요청 이벤트 발생 시 실행할 작업 지정
+<7> Push 이벤트 발생 시 실행할 작업 지정
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
-

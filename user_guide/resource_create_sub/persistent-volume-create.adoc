@@ -8,7 +8,8 @@
 
 새로운 영구 볼륨을 폼 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/storage#img-pv-main,영구 볼륨 메인 화면>>에서 *[영구 볼륨 생성]* 버튼을 클릭한다.
+. "마스터 클러스터" 콘솔 메뉴에서 *[스토리지]* -> *[영구 볼륨]* 메뉴를 선택한다.
+. *영구 볼륨* 메인 화면이 열리면 *[영구 볼륨 생성]* 버튼을 클릭한다.
 . *Create Persistent Volume* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
 . 폼 에디터가 열리면 생성할 영구 볼륨의 구성 정보를 설정한다. +
 이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
@@ -55,9 +56,9 @@ KEY
 VALUE
 ----
 * Cephfs +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Cephfs>["폼 에디터 설정 항목 참조"의 "Cephfs"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Cephfs>["폼 에디터 설정 항목 참조"의 "Cephfs"]를 참고한다.
 * Cinder +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Cinder>["폼 에디터 설정 항목 참조"의 "Cinder"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Cinder>["폼 에디터 설정 항목 참조"의 "Cinder"]를 참고한다.
 * Claim Ref
 +
 ----
@@ -70,11 +71,11 @@ resourceVersion
 uid
 ----
 * Csi +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Csi>["폼 에디터 설정 항목 참조"의 "Csi"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Csi>["폼 에디터 설정 항목 참조"의 "Csi"]를 참고한다.
 * Fc +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Fc>["폼 에디터 설정 항목 참조"의 "Fc"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Fc>["폼 에디터 설정 항목 참조"의 "Fc"]를 참고한다.
 * Flex Volume +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Flex Volume>["폼 에디터 설정 항목 참조"의 "Flex Volume"]을 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Flex Volume>["폼 에디터 설정 항목 참조"의 "Flex Volume"]을 참고한다.
 * Flocker
 +
 ----
@@ -103,7 +104,7 @@ path
 type
 ----
 * Iscsi +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Iscsi>["폼 에디터 설정 항목 참조"의 "Iscsi"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Iscsi>["폼 에디터 설정 항목 참조"의 "Iscsi"]를 참고한다.
 * Local
 +
 ----
@@ -122,7 +123,7 @@ readOnly
 server *
 ----
 * Node Affinity +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Node Affinity>["폼 에디터 설정 항목 참조"의 "Node Affinity"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Node Affinity>["폼 에디터 설정 항목 참조"의 "Node Affinity"]를 참고한다.
 * persistentVolumeReclaimPolicy
 * Photon Persistent Disk
 +
@@ -147,12 +148,12 @@ user
 volume *
 ----
 * Rbd +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Rbd>["폼 에디터 설정 항목 참조"의 "Rbd"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Rbd>["폼 에디터 설정 항목 참조"의 "Rbd"]를 참고한다.
 * Scale IO +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Scale IO>["폼 에디터 설정 항목 참조"의 "Scale IO"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Scale IO>["폼 에디터 설정 항목 참조"의 "Scale IO"]를 참고한다.
 * storageClassName
 * Storageos +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Storageos>["폼 에디터 설정 항목 참조"의 "Storageos"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Storageos>["폼 에디터 설정 항목 참조"의 "Storageos"]를 참고한다.
 * volumeMode
 * Vsphere Volume
 +
@@ -162,12 +163,14 @@ storagePolicyID
 storagePolicyName
 volumePath *
 ----
+. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터
 
 새로운 영구 볼륨을 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/storage#img-pv-main,영구 볼륨 메인 화면>>에서 *[영구 볼륨 생성]* 버튼을 클릭한다.
+. "마스터 클러스터" 콘솔 메뉴에서 *[스토리지]* -> *[영구 볼륨]* 메뉴를 선택한다.
+. *영구 볼륨* 메인 화면이 열리면 *[영구 볼륨 생성]* 버튼을 클릭한다.
 . *Create Persistent Volume* 화면이 열리면 **Configure via**를 "YAML View"로 선택한다.
 . YAML 에디터가 열리면 생성할 영구 볼륨의 구성 정보를 작성한다.
 +
@@ -183,8 +186,8 @@ spec:
     storage: 5Gi <2>
   accessModes: <3>
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Recycle <4> //(QA: Delete로 변경 요청드립니다.)
-  storageClassName: slow <5> //(QA: nfs로 변경 요청드립니다. hypercloud5.0에서는 san, nfs를 주로 사용하고, 현재 제공된 샘플의 pv type도 nfs여서 nfs로 수정하는 것이 나을 것으로 보입니다.)
+  persistentVolumeReclaimPolicy: Delete <4>
+  storageClassName: nfs <5>
   # mountOptions: <6>
   #   - hard
   #   - nfsvers=4.1
@@ -202,7 +205,6 @@ spec:
 * ReadWriteMany : 여러 노드에서 볼륨을 읽기, 쓰기로 마운트
 <4> 사용이 끝난 영구 볼륨의 처리 방식 (기본값: Delete) 
 * Retain : 볼륨을 삭제하지 않고, 데이터를 보존
-* Recycle : 데이터를 삭제하고, 새로운 영구 볼륨 클레임에서 재사용 (플러그인 유형이 nfs, hostpath인 경우에만 가능) // (QA: Recycle이 더이상 사용되지 않는 방식이므로 삭제 요청 드립니다.)
 * Delete : 볼륨을 삭제
 <5> 영구 볼륨의 스토리지 클래스 이름
 <6> 플러그인의 특성에 따른 마운트 옵션

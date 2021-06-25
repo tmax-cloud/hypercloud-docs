@@ -8,7 +8,9 @@
 
 새로운 네트워크 정책을 폼 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/security#img-network-main,네트워크 정책 메인 화면>>의 네임스페이스 선택 영역에서 새로운 네트워크 정책을 생성할 네임스페이스를 선택한 후 *[네트워크 정책 생성]* 버튼을 클릭한다.
+. "마스터 클러스터" 콘솔 메뉴에서 *[네트워크]* -> *[네트워크 정책]* 메뉴를 선택한다.
+. *네트워크 정책* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 네트워크 정책을 생성할 특정 네임스페이스를 선택한다.
+. *[네트워크 정책 생성]* 버튼을 클릭한다.
 . *Create Network Policy* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
 . 폼 에디터가 열리면 생성할 네트워크 정책의 구성 정보를 설정한다. +
 이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
@@ -18,11 +20,11 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 * Name *
 * Labels
 * Egress +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Egress>["폼 에디터 설정 항목 참조"의 "Egress"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Egress>["폼 에디터 설정 항목 참조"의 "Egress"]를 참고한다.
 * Ingress +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Ingress>["폼 에디터 설정 항목 참조"의 "Ingress"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Ingress>["폼 에디터 설정 항목 참조"의 "Ingress"]를 참고한다.
 * Pod Selector * +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Selector>["폼 에디터 설정 항목 참조"의 "Selector"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Selector>["폼 에디터 설정 항목 참조"의 "Selector"]를 참고한다.
 * Policy Types
 +
 ----
@@ -34,7 +36,9 @@ Value
 
 새로운 네트워크 정책을 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/security#img-network-main,네트워크 정책 메인 화면>>의 네임스페이스 선택 영역에서 새로운 네트워크 정책을 생성할 네임스페이스를 선택한 후 *[네트워크 정책 생성]* 버튼을 클릭한다.
+. "마스터 클러스터" 콘솔 메뉴에서 *[네트워크]* -> *[네트워크 정책]* 메뉴를 선택한다.
+. *네트워크 정책* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 네트워크 정책을 생성할 특정 네임스페이스를 선택한다.
+. *[네트워크 정책 생성]* 버튼을 클릭한다.
 . *Create Network Policy* 화면이 열리면 **Configure via**를 "YAML View"로 선택한다.
 . YAML 에디터가 열리면 생성할 네트워크 정책의 구성 정보를 작성한다.
 +

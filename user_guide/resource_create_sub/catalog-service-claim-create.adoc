@@ -1,16 +1,18 @@
-= 카탈로그 서비스 클레임 생성
+= 클러스터 템플릿 클레임 생성
 :toc:
 :toc-title:
 
-본 장에서는 카탈로그 서비스 클레임 리소스의 생성 방법에 대해서 설명한다. (QA: 클러스터 템플릿 클레임으로 이름 변경)
+본 장에서는 클러스터 템플릿 클레임 리소스의 생성 방법에 대해서 설명한다.
 
 == 폼 에디터
 
-새로운 카탈로그 서비스 클레임을 폼 에디터를 사용해서 생성할 수 있다.
+새로운 클러스터 템플릿 클레임을 폼 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/service-catalog#img-catalog-claim-main,카탈로그 서비스 클레임 메인 화면>>의 네임스페이스 선택 영역에서 새로운 카탈로그 서비스 클레임을 생성할 네임스페이스를 선택한 후 *[카탈로그 서비스 클레임 생성]* 버튼을 클릭한다.
-. *Create CatalogServiceClaim* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
-. 폼 에디터가 열리면 생성할 카탈로그 서비스 클레임의 구성 정보를 설정한다. +
+. "개발자" 콘솔 메뉴에서 *[서비스 카탈로그]* -> *[클러스터 템플릿 클레임]* 메뉴를 선택한다.
+. *클러스터 템플릿 클레임* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 클러스터 템플릿 클레임을 생성할 특정 네임스페이스를 선택한다.
+. *[클러스터 템플릿 클레임 생성]* 버튼을 클릭한다.
+. *Create ClusterTemplateClaim* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
+. 폼 에디터가 열리면 생성할 클러스터 템플릿 클레임의 구성 정보를 설정한다. +
 이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
 +
 NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한다.
@@ -23,98 +25,29 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 
 == YAML 에디터
 
-새로운 카탈로그 서비스 클레임을 YAML 에디터를 사용해서 생성할 수 있다.
+새로운 클러스터 템플릿 클레임을 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/service-catalog#img-catalog-claim-main,카탈로그 서비스 클레임 메인 화면>>의 네임스페이스 선택 영역에서 새로운 카탈로그 서비스 클레임을 생성할 네임스페이스를 선택한 후 *[카탈로그 서비스 클레임 생성]* 버튼을 클릭한다.
-. *Create CatalogServiceClaim* 화면이 열리면 **Configure via**를 "YAML View"로 선택한다. (QA: yaml수정)
-. YAML 에디터가 열리면 생성할 카탈로그 서비스 클레임의 구성 정보를 작성한다.
+. "개발자" 콘솔 메뉴에서 *[서비스 카탈로그]* -> *[클러스터 템플릿 클레임]* 메뉴를 선택한다.
+. *클러스터 템플릿 클레임* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 클러스터 템플릿 클레임을 생성할 특정 네임스페이스를 선택한다.
+. *[클러스터 템플릿 클레임 생성]* 버튼을 클릭한다.
+. *Create CatalogServiceClaim* 화면이 열리면 **Configure via**를 "YAML View"로 선택한다.
+. YAML 에디터가 열리면 생성할 클러스터 템플릿 클레임의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]
 ----
 apiVersion: tmax.io/v1
-kind: CatalogServiceClaim
-metadata:
-  name: nginx-catalog-service-claim <1>
-  namespace: default <2>
-spec:
-  apiVersion: tmax.io/v1
-  kind: Template
-  metadata:
-    name: example-template
-    namespace: default
-  imageUrl: example.com/example.gif <3>
-  urlDescription: https://www.nginx.com/ <4>
-  provider: tmax <5>
-  recommend: true <6>
-  objects: <7>
-    - apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: '${NAME}'
-        labels:
-          app: '${NAME}'
-      spec:
-        selector:
-          matchLabels:
-            app: '${NAME}'
-        template:
-          metadata:
-            labels:
-              app: '${NAME}'
-          spec:
-            containers:
-              - name: '${NAME}'
-                image: 'example/image:version'
-                ports:
-                  - name: example
-                    containerPort: 80
-  plans: <8>
-    - name: example-plan
-      metadata:
-        bullets:
-          - feat 1
-          - feat 2
-        costs:
-          amount: 100
-          unit: $
-        bindable: true
-        schemas:
-          service_instance:
-            create:
-              parameters:
-                EXAMPLE_PARAM: value
-  parameters: <9>
-    - name: NAME
-      description: Application name
-      valueType: string <10>
-      value: example <11>
-----
-+
-.(QA: 예시)
-[source,yaml]
-----
-apiVersion: tmax.io/v1
 kind: ClusterTemplateClaim
 metadata:
-  name: example22
-  namespace: default
+  name: example22 <1>
+  namespace: default <2>
 spec:
-  resourceName: mysql-template-resourcename2
-  template: mysql-template
+  resourceName: mysql-template-resourcename2 <3>
+  template: mysql-template <4>
 ----
 +
-<1> 카탈로그 서비스 클레임의 이름
-<2> 카탈로그 서비스 클레임이 생성될 네임스페이스의 이름
-<3> 템플릿의 이미지 URL
-<4> 템플릿 설명 페이지 URL
-<5> 템플릿 제공자
-<6> 템플릿 추천 유무
-<7> 템플릿을 기반으로 생성할 실제 오브젝트의 목록 (변수의 경우 ${PARAMETER} 형식으로 명시)
-<8> 서비스 브로커와 연동 시 사용될 플랜 목록
-<9> 템플릿에 명시된 변수의 상세 내역
-<10> 변수의 데이터 타입
-* string
-* number
-<11> 변수의 기본값
+<1> 클러스터 템플릿 클레임의 이름
+<2> 클러스터 템플릿 클레임이 생성될 네임스페이스의 이름
+<3> 클러스터 템플릿 클레임이 허가되면 생성될 클러스터 템플릿의 이름
+<4> 생성될 클러스터 템플릿의 정보가 정의된 템플릿의 이름
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

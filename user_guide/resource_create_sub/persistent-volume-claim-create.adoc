@@ -8,7 +8,9 @@
 
 새로운 영구 볼륨 클레임을 폼 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/storage#img-pvc-main,영구 볼륨 클레임 메인 화면>>의 네임스페이스 선택 영역에서 새로운 영구 볼륨 클레임을 생성할 네임스페이스를 선택한 후 *[영구 볼륨 클레임 생성]* 버튼을 클릭한다.
+. "마스터 클러스터" 콘솔 메뉴에서 *[스토리지]* -> *[영구 볼륨 클레임]* 메뉴를 선택한다.
+. *영구 볼륨 클레임* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 영구 볼륨 클레임을 생성할 특정 네임스페이스를 선택한다.
+. *[영구 볼륨 클레임 생성]* 버튼을 클릭한다.
 . *Create Persistent Volume Claim* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
 . 폼 에디터가 열리면 생성할 영구 볼륨 클레임의 구성 정보를 설정한다. +
 이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
@@ -30,9 +32,9 @@ kind *
 name *
 ----
 * Resources +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Resources>["폼 에디터 설정 항목 참조"의 "Resources"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Resources>["폼 에디터 설정 항목 참조"의 "Resources"]를 참고한다.
 * Selector +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Selector>["폼 에디터 설정 항목 참조"의 "Selector"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Selector>["폼 에디터 설정 항목 참조"의 "Selector"]를 참고한다.
 * storageClassName
 * volumeMode
 * volumeName
@@ -42,7 +44,9 @@ name *
 
 새로운 영구 볼륨 클레임을 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/storage#img-pvc-main,영구 볼륨 클레임 메인 화면>>의 네임스페이스 선택 영역에서 새로운 영구 볼륨 클레임을 생성할 네임스페이스를 선택한 후 *[영구 볼륨 클레임 생성]* 버튼을 클릭한다.
+. "마스터 클러스터" 콘솔 메뉴에서 *[스토리지]* -> *[영구 볼륨 클레임]* 메뉴를 선택한다.
+. *영구 볼륨 클레임* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 영구 볼륨 클레임을 생성할 특정 네임스페이스를 선택한다.
+. *[영구 볼륨 클레임 생성]* 버튼을 클릭한다.
 . *Create Persistent Volume Claim* 화면이 열리면 **Configure via**를 "YAML View"로 선택한다.
 . YAML 에디터가 열리면 생성할 영구 볼륨 클레임의 구성 정보를 작성한다.
 +
@@ -61,15 +65,7 @@ spec:
   resources:
     requests:
       storage: 8Gi <5>
-  storageClassName: slow <6> //(QA: nfs로 변경 요청드립니다. hypercloud5.0에서는 san, nfs를 주로 사용하므로 nfs로 변경하는 것이 나을 것으로 보입니다.)
-  selector: <7> //(QA: selector 내용 삭제요청드립니다. - nfs는 selector 따로 필요하지 않습니다.)
-    matchLabels: 
-      release: stable
-    matchExpressions:
-      - key: environment
-        operator: In
-        values:
-          - dev
+  storageClassName: nfs <6>
 ----
 +
 <1> 영구 볼륨 클레임의 이름
@@ -84,6 +80,4 @@ spec:
 * Block
 <5> 영구 볼륨 클레임의 크기
 <6> 영구 볼륨 클레임의 스토리지 클래스 이름
-<7> 영구 볼륨 클레임과 바인딩할 볼륨 정보 +
-이때 'matchLabels'와 'matchExpressions'에 작성된 조건을 모두 충족하는 볼륨만 바인딩이 가능
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

@@ -1,4 +1,4 @@
-= [AI DevOps] 메뉴
+= [AI DevOps] 메뉴 (TD: GS 인증 제외) 
 :toc:
 :toc-title:
 

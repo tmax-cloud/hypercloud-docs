@@ -8,7 +8,9 @@
 
 새로운 서비스를 폼 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/network#img-service-main,서비스 메인 화면>>의 네임스페이스 선택 영역에서 새로운 서비스를 생성할 네임스페이스를 선택한 후 *[서비스 생성]* 버튼을 클릭한다.
+. "마스터 클러스터" 콘솔 메뉴에서 *[네트워크]* -> *[서비스]* 메뉴를 선택한다.
+. *서비스* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 서비스를 생성할 특정 네임스페이스를 선택한다.
+. *[서비스 생성]* 버튼을 클릭한다.
 . *Create Service* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
 . 폼 에디터가 열리면 생성할 서비스의 구성 정보를 설정한다. +
 이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
@@ -45,36 +47,22 @@ targetPort
 * selector
 * sessionAffinity
 * Session Affinity Config +
-하위 세부 항목은 xref:../form_set_item/form-set-item.adoc#<Session Affinity Config>["폼 에디터 설정 항목 참조"의 "Session Affinity Config"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#<Session Affinity Config>["폼 에디터 설정 항목 참조"의 "Session Affinity Config"]를 참고한다.
 * type
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
-
 
 == YAML 에디터
 
 새로운 서비스를 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/network#img-service-main,서비스 메인 화면>>의 네임스페이스 선택 영역에서 새로운 서비스를 생성할 네임스페이스를 선택한 후 *[서비스 생성]* 버튼을 클릭한다.
+. "마스터 클러스터" 콘솔 메뉴에서 *[네트워크]* -> *[서비스]* 메뉴를 선택한다.
+. *서비스* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 서비스를 생성할 특정 네임스페이스를 선택한다.
+. *[서비스 생성]* 버튼을 클릭한다.
 . *Create Service* 화면이 열리면 **Configure via**를 "YAML View"로 선택한다.
 . YAML 에디터가 열리면 생성할 서비스의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]
-----
-apiVersion: v1
-kind: Service
-metadata:
-  name: example <1>
-  namespace: default <2>
-spec:
-  selector: <3>
-      app: MyApp
-    ports: 
-    - protocol: TCP <4>
-    port: 80 <5>
-    targetPort: 9376 <6>
-----
-(QA: yaml 내 들여쓰기때문에 아래 수정본 작성하였습니다.) 
 ----
 apiVersion: v1
 kind: Service

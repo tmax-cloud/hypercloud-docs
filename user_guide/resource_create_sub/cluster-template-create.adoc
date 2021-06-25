@@ -8,24 +8,24 @@
 
 새로운 클러스터 템플릿을 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/service-catalog#img-cluster-template-main,클러스터 템플릿 메인 화면>>에서 *[클러스터 템플릿 생성]* 버튼을 클릭한다.
-. Create Cluster Template 화면에서 YAML 에디터가 열리면 생성할 클러스터 템플릿의 구성 정보를 작성한다.
+. "개발자" 콘솔 메뉴에서 *[서비스 카탈로그]* -> *[클러스터 템플릿]* 메뉴를 선택한다.
+. *클러스터 템플릿* 메인 화면이 열리면 *[클러스터 템플릿 생성]* 버튼을 클릭한다.
+. *Create Cluster Template* 화면이 열리면 YAML 에디터에 생성할 클러스터 템플릿의 구성 정보를 작성한다.
 +
-.기본 작성 예 (TD: 클러스터 템플릿에 맞는 기본 작성 예 작성 필요) (QA: https://github.com/tmax-cloud/catalog 링크에서 template 예시가 여러개 있습니다. 아래 예시로 보자면, kind: Template->Kind: ClusterTemplate로 변경, metadata.namespace 제거 필요합니다.)
+.기본 작성 예
 [source,yaml]
 ----
 apiVersion: tmax.io/v1
-kind: Template
+kind: ClusterTemplate
 metadata:
   name: nginx-template <1>
-  namespace: default <2>
-imageUrl: example.com/example.gif <3>
-provider: tmax <4>
-recommend: true <5>
-urlDescription: http://url.example.com <6>
-tags: <7>
+imageUrl: example.com/example.gif <2>
+provider: tmax <3>
+recommend: true <4>
+urlDescription: http://url.example.com <5>
+tags: <6>
 - nginx
-objects: <8>
+objects: <7>
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
@@ -76,16 +76,16 @@ objects: <8>
     name: ${NAME}
   data:
     host: ZHVtbXk=
-parameters: <9>
+parameters: <8>
 - name: NAME
   description: Application name
-  valueType: string <10>
-  value: nginx <11>
+  valueType: string <9>
+  value: nginx <10>
 - name: IMAGE
   description: Application Docker Image
   valueType: string
   value: nginx
-plans: <12>  
+plans: <11>  
 - name: example-plan1
   description: example
   metadata:
@@ -125,18 +125,17 @@ plans: <12>
   
 ----
 +
-<1> 템플릿의 이름
-<2> 템플릿이 생성될 네임스페이스의 이름
-<3> 템플릿의 이미지 URL
-<4> 템플릿 제공자
-<5> 템플릿 추천 유무
-<6> 템플릿 설명 페이지 URL
-<7> 템플릿을 표현할 태그 목록
-<8> 템플릿을 기반으로 생성할 실제 오브젝트의 목록 (변수의 경우 ``${PARAMETER}`` 형식으로 명시)
-<9> 템플릿에 명시된 변수의 상세 내역
-<10> 변수의 데이터 타입
+<1> 클러스터 템플릿의 이름
+<2> 클러스터 템플릿의 이미지 URL
+<3> 클러스터 템플릿 제공자
+<4> 클러스터 템플릿 추천 유무
+<5> 클러스터 템플릿 설명 페이지 URL
+<6> 클러스터 템플릿을 표현할 태그 목록
+<7> 클러스터 템플릿을 기반으로 생성할 실제 오브젝트의 목록 (변수의 경우 ``${PARAMETER}`` 형식으로 명시)
+<8> 클러스터 템플릿에 명시된 변수의 상세 내역
+<9> 변수의 데이터 타입
 * string
 * number
-<11> 변수의 기본값
-<12> 서비스 브로커와 연동 시 사용될 플랜 목록
+<10> 변수의 기본값
+<11> 서비스 브로커와 연동 시 사용될 플랜 목록
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
