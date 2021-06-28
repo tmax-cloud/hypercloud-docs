@@ -47,7 +47,7 @@ targetPort
 * selector
 * sessionAffinity
 * Session Affinity Config +
-하위 세부 항목은 xref:../form-set-item.adoc#<Session Affinity Config>["폼 에디터 설정 항목 참조"의 "Session Affinity Config"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#SessionAffinityConfig["폼 에디터 설정 항목 참조"의 "Session Affinity Config"]를 참고한다.
 * type
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 

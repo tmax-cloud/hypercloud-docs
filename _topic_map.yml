@@ -20,25 +20,25 @@
 #
 # The ordering of the records in this document determines the ordering of the
 # topic groups and topics on the main page.
-
----
-Name: 환영합니다
-Dir: welcome
-Topics:
-  - Name: 제품 소개
-    Dir: overview_sub
-    Topics:
-      - Name: 개요
-        File: index
-      - Name: 특장점
-        File: advantage
-      - Name: 가치 제안
-        File: value-proposition
+#
+# ---
+# Name: 환영합니다
+# Dir: welcome
+# Topics:
+#   - Name: 제품 소개
+#     Dir: overview_sub
+#     Topics:
+#       - Name: 개요
+#         File: index
+#       - Name: 특장점
+#         File: advantage
+#       - Name: 가치 제안
+#         File: value-proposition
 #  - Name: 법적공지
 #    File: legal-notice
 #  - Name: 릴리즈노트
 #    File: release-note
----
+# ---
 # Name: 구성요소
 # Dir: component
 # Topics:
@@ -79,66 +79,66 @@ Topics:
 #       - Name: Kubevirt
 #         File: kubevirt
 # ---
-Name: 설치 안내서
-Dir: installation_guide
-Topics:
-  - Name: 설치 전 준비
-    Dir: ready_sub
-    Topics:
-      - Name: 로컬 저장소 생성 및 패키지 설치
-        File: package-install
-      - Name: 커널 버전 업그레이드
-        File: kernel-upgrade
-  - Name: 쿠버네티스 클러스터 구성
-    Dir: kube_cluster_sub
-    Topics:
-      - Name: 도커 설치 및 이미지 레지스트리 구성
-        File: docker-install
-      - Name: Keepalived 설치
-        File: keepalived-install
-      - Name: 클러스터 구성
-        File: cluster-composition
-  - Name: HyperCloud 4 설치
-    Dir: hyper_cloud_install_sub
-    Topics:
-      - Name: Rook-Ceph 설치
-        File: rook-ceph-install
-      - Name: HyperCloud 4 서버 설치
-        File: hyper-cloud-server-install
-      - Name: Prometheus 설치
-        File: prometheus-install
-      - Name: HyperCloud 4 콘솔(UI) 설치
-        File: hyper-cloud-ui-install
-  - Name: 플러그인 설치
-    Dir: plugin_install_sub
-    Topics:
-      - Name: Tekton 설치
-        File: tekton-install
-      - Name: Tekton Trigger 설치
-        File: tekton-trigger-install
-      - Name: Catalog Controller 설치
-        File: catalog-controller-install
-      - Name: Kubevirt 설치
-        File: kubevirt-install
-      - Name: CDI 설치
-        File: cdi-install
-      - Name: EFK 스택 설치
-        File: efk-stack-install
-      - Name: Istio 설치
-        File: istio-install
-      - Name: CI/CD 설치
-        File: ci-cd-install
-      - Name: VM Exporter 설치
-        File: vm-exporter-install
-      - Name: VM Image Exporter 설치
-        File: vm-image-exporter-install
-      - Name: Kubevirt Node Fail Controller 설치
-        File: kubevirt-node-fail-controller-install
-      - Name: HyperNetLocalAgent 설치
-        File: hyper-net-local-agent-install
-      - Name: Ingress Controller 설치
-        File: ingress-controller-install
----
+# Name: 설치 안내서
+# Dir: installation_guide
+# Topics:
+#   - Name: 설치 전 준비
+#     Dir: ready_sub
+#     Topics:
+#       - Name: 로컬 저장소 생성 및 패키지 설치
+#         File: package-install
+#       - Name: 커널 버전 업그레이드
+#         File: kernel-upgrade
+#   - Name: 쿠버네티스 클러스터 구성
+#     Dir: kube_cluster_sub
+#     Topics:
+#       - Name: 도커 설치 및 이미지 레지스트리 구성
+#         File: docker-install
+#       - Name: Keepalived 설치
+#         File: keepalived-install
+#       - Name: 클러스터 구성
+#         File: cluster-composition
+#   - Name: HyperCloud 4 설치
+#     Dir: hyper_cloud_install_sub
+#     Topics:
+#       - Name: Rook-Ceph 설치
+#         File: rook-ceph-install
+#       - Name: HyperCloud 4 서버 설치
+#         File: hyper-cloud-server-install
+#       - Name: Prometheus 설치
+#         File: prometheus-install
+#       - Name: HyperCloud 4 콘솔(UI) 설치
+#         File: hyper-cloud-ui-install
+#   - Name: 플러그인 설치
+#     Dir: plugin_install_sub
+#     Topics:
+#       - Name: Tekton 설치
+#         File: tekton-install
+#       - Name: Tekton Trigger 설치
+#         File: tekton-trigger-install
+#       - Name: Catalog Controller 설치
+#         File: catalog-controller-install
+#       - Name: Kubevirt 설치
+#         File: kubevirt-install
+#       - Name: CDI 설치
+#         File: cdi-install
+#       - Name: EFK 스택 설치
+#         File: efk-stack-install
+#       - Name: Istio 설치
+#         File: istio-install
+#       - Name: CI/CD 설치
+#         File: ci-cd-install
+#       - Name: VM Exporter 설치
+#         File: vm-exporter-install
+#       - Name: VM Image Exporter 설치
+#         File: vm-image-exporter-install
+#       - Name: Kubevirt Node Fail Controller 설치
+#         File: kubevirt-node-fail-controller-install
+#       - Name: HyperNetLocalAgent 설치
+#         File: hyper-net-local-agent-install
+#       - Name: Ingress Controller 설치
+#         File: ingress-controller-install
+# ---
 # Name: 튜닝 가이드
 # Dir: tuning_guide
 # Topics:
@@ -150,7 +150,7 @@ Topics:
 # Topics:
 #   - Name: 개요
 #     File: index
-# ---
+---
 Name: 웹 콘솔 사용자 안내서
 Dir: user_guide
 Topics:
@@ -175,154 +175,129 @@ Topics:
     Topics:
       - Name: 홈
         File: home
-      - Name: 서비스 카탈로그
-        File: service-catalog
       - Name: 워크로드
         File: work-load
-      - Name: 서비스 메시
-        File: service-mesh
       - Name: 네트워크
-        File: network
+        File: network        
       - Name: 스토리지
-        File: storage
-      - Name: CI-CD
-        File: ci-cd
-      - Name: AI DevOps
-        File: ai-dev
-      - Name: 보안
-        File: security
-      - Name: 이미지
-        File: image
+        File: storage        
       - Name: 매니지먼트
-        File: management
+        File: management        
       - Name: 호스트
         File: host
       - Name: 인증-인가
         File: permission
-  - Name: 리소스 생성
+      - Name: 서비스 카탈로그
+        File: service-catalog
+      - Name: CI-CD
+        File: ci-cd
+  - Name: 리소스 생성 (홈)
     Dir: resource_create_sub
     Topics:
-      - Name: HPA 생성
-        File: hpa-create
-      - Name: KF 서빙 생성
-        File: kf-serving-create
-      - Name: 가상머신 생성
-        File: virtual-machine-create
-      - Name: 가상 서비스 생성
-        File: virtual-service-create
-      - Name: 게이트웨이 생성
-        File: gateway-create
       - Name: 네임스페이스 생성
         File: namespace-create
       - Name: 네임스페이스 클레임 생성
-        File: namespace-claim-create
-      - Name: 네트워크 정책 생성
-        File: network-policy-create
-      - Name: 노트북 서버 생성
-        File: notebook-server-create
-      - Name: 데몬셋 생성
-        File: daemonset-create
-      - Name: 데이터 볼륨 생성
-        File: data-volume-create
+        File: namespace-claim-create    
+  - Name: 리소스 생성 (워크로드)
+    Dir: resource_create_sub
+    Topics:
+      - Name: 파드 생성
+        File: pod-create    
       - Name: 디플로이먼트 생성
-        File: deployment-create
-      - Name: 레지스트리 생성
-        File: registry-create
+        File: deployment-create    
       - Name: 레플리카 셋 생성
-        File: replicaset-create
+        File: replicaset-create    
+      - Name: HPA 생성
+        File: hpa-create    
+      - Name: 데몬 셋 생성
+        File: daemonset-create    
+      - Name: 스테이트풀 셋 생성
+        File: statefulset-create    
+      - Name: 컨피그 맵 생성
+        File: config-map-create
+      - Name: 시크릿 생성
+        File: secret-create
+      - Name: 잡 생성
+        File: job-create
+      - Name: 크론 잡 생성
+        File: cron-job-create
+  - Name: 리소스 생성 (네트워크)
+    Dir: resource_create_sub
+    Topics:        
+      - Name: 서비스 생성
+        File: service-create        
+      - Name: 인그레스 생성
+        File: ingress-create        
+      - Name: 네트워크 정책 생성
+        File: network-policy-create        
+  - Name: 리소스 생성 (스토리지)
+    Dir: resource_create_sub
+    Topics:
+      - Name: 스토리지 클래스 생성
+        File: storage-class-create
+      - Name: 영구 볼륨 클레임 생성
+        File: persistent-volume-claim-create
+      - Name: 영구 볼륨 생성
+        File: persistent-volume-create
+  - Name: 리소스 생성 (매니지먼트)
+    Dir: resource_create_sub
+    Topics:
+      - Name: 제한 범위 생성
+        File: basic-resource-create
+      - Name: 리소스 쿼타 생성
+        File: resource-quota-create
+      - Name: 리소스 쿼타 클레임 생성
+        File: resource-quota-claim-create
+      - Name: 사용자 리소스 정의 생성
+        File: custom-resource-create
+  - Name: 리소스 생성 (인증/인가)
+    Dir: resource_create_sub
+    Topics:        
       - Name: 롤 생성
         File: role-create
       - Name: 롤 바인딩 생성
         File: role-binding-create
       - Name: 롤 바인딩 클레임 생성
-        File: role-binding-claim-create
-      - Name: 리소스 쿼타 생성
-        File: resource-quota-create
-      - Name: 리소스 쿼타 클레임 생성
-        File: resource-quota-claim-create
-      - Name: 목적지 룰 생성
-        File: destination-rule-create
-      - Name: 사용자 생성
-        File: user-create
-      - Name: 사용자 그룹 생성
-        File: user-group-create
-      - Name: 사이드카 생성
-        File: sidecar-create
+        File: role-binding-claim-create        
       - Name: 서비스 계정 생성
-        File: service-account-create
-      - Name: 서비스 생성
-        File: service-create
-      - Name: 서비스 바인딩 생성
-        File: service-binding-create
+        File: service-account-create        
+  - Name: 리소스 생성 (서비스 카탈로그)
+    Dir: resource_create_sub
+    Topics:         
       - Name: 서비스 브로커 생성
-        File: service-broker-create
-      - Name: 서비스 엔트리 생성
-        File: service-entry-create
+        File: service-broker-create        
+      - Name: 클러스터 서비스 브로커 생성
+        File: cluster-service-broker-create     
       - Name: 서비스 인스턴스 생성
         File: service-instance-create
-      - Name: 스테이트 풀셋 생성
-        File: statefulset-create
-      - Name: 스토리지 클래스 생성
-        File: storage-class-create
-      - Name: 시크릿 생성
-        File: secret-create
-      - Name: 앤보이 필터 생성
-        File: envoy-filter-create
-      - Name: 영구 볼륨 생성
-        File: persistent-volume-create
-      - Name: 영구 볼륨 클레임 생성
-        File: persistent-volume-claim-create
-      - Name: 요청 인증 생성
-        File: request-auth-create
-      - Name: 워크플로우 생성
-        File: workflow-create
-      - Name: 워크플로우 템플릿 생성
-        File: work-temp-create
-      - Name: 인가 정책 생성
-        File: auth-policy-create
-      - Name: 인그레스 생성
-        File: ingress-create
-      - Name: 잡 생성
-        File: job-create
-      - Name: 제한 범위 생성
-        File: basic-resource-create
-      - Name: 카탈로그 서비스 클레임 생성
+      - Name: 서비스 바인딩 생성
+        File: service-binding-create
+      - Name: 클러스터 템플릿 클레임 생성
         File: catalog-service-claim-create
-      - Name: 카티브 생성
-        File: katib-create
-      - Name: 커스텀 리소스 정의 생성
-        File: custom-resource-create
-      - Name: 컨피그 맵 생성
-        File: config-map-create
-      - Name: 크론 잡 생성
-        File: cron-job-create
-      - Name: 클러스터 서비스 브로커 생성
-        File: cluster-service-broker-create
-      - Name: 태스크 생성
-        File: task-create
-      - Name: 태스크 런 생성
-        File: task-run-create
       - Name: 템플릿 생성
         File: template-create
+      - Name: 클러스터 템플릿 생성
+        File: cluster-template-create
       - Name: 템플릿 인스턴스 생성
         File: template-instance-create
-      - Name: 트레이닝 잡 생성
-        File: training-job-create
-      - Name: 파드 생성
-        File: pod-create
-      - Name: 파드 보안 정책 생성
-        File: pod-security-policy-create
+  - Name: 리소스 생성 (CI/CD)
+    Dir: resource_create_sub
+    Topics:
+      - Name: 태스크 생성
+        File: task-create
+      - Name: 클러스터 태스크 생성
+        File: cluster-task-create
+      - Name: 태스크 런 생성
+        File: task-run-create
       - Name: 파이프라인 생성
         File: pipeline-create
       - Name: 파이프라인 런 생성
         File: pipeline-run-create
       - Name: 파이프라인 리소스 생성
         File: pipeline-resource-create
-      - Name: 파이프라인 컨디션 생성
-        File: pipeline-condition-create
-      - Name: 피어 인증 생성
-        File: peer-auth-create
-  - Name: 공통 기능
+      - Name: 인테그레이션 컨피그 생성
+        File: integration-config-create
+  - Name: 기본 기능
     Dir: common_function_sub
     Topics:
       - Name: 레이블 관리
@@ -333,8 +308,6 @@ Topics:
         File: resource-info-edit
       - Name: 리소스 삭제
         File: resource-delete
-      - Name: YAML 샘플 확인
-        File: yaml-sample
       - Name: YAML 파일 다운로드
         File: yaml-down
       - Name: 레지스트리에 이미지 등록

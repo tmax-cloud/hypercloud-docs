@@ -21,18 +21,18 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 * Labels
 * activeDeadlineSeconds
 * Affinity +
-하위 세부 항목은 xref:../form-set-item.adoc#<Affinity>["폼 에디터 설정 항목 참조"의 "Affinity"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Affinity["폼 에디터 설정 항목 참조"의 "Affinity"]를 참고한다.
 * automountServiceAccountToken
 * Containers * +
-하위 세부 항목은 xref:../form-set-item.adoc#<Containers>["폼 에디터 설정 항목 참조"의 "Containers"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Containers["폼 에디터 설정 항목 참조"의 "Containers"]를 참고한다.
 * Dns Config +
-하위 세부 항목은 xref:../form-set-item.adoc#<Dns Config>["폼 에디터 설정 항목 참조"의 "Dns Config"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#DnsConfig["폼 에디터 설정 항목 참조"의 "Dns Config"]를 참고한다.
 * dnsPolicy
 * enableServiceLinks
 * Ephemeral Containers +
-하위 세부 항목은 xref:../form-set-item.adoc#<Ephemeral Containers>["폼 에디터 설정 항목 참조"의 "Ephemeral Containers"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#EphemeralContainers["폼 에디터 설정 항목 참조"의 "Ephemeral Containers"]를 참고한다.
 * Host Aliases +
-하위 세부 항목은 xref:../form-set-item.adoc#<Host Aliases>["폼 에디터 설정 항목 참조"의 "Host Aliases"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#HostAliases["폼 에디터 설정 항목 참조"의 "Host Aliases"]를 참고한다.
 * hostIPC
 * hostNetwork
 * hostPID
@@ -43,7 +43,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 name
 ----
 * Init Containers +
-하위 세부 항목은 xref:../form-set-item.adoc#<Containers>["폼 에디터 설정 항목 참조"의 "Containers"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Containers["폼 에디터 설정 항목 참조"의 "Containers"]를 참고한다.
 * nodeName
 * nodeSelector
 * Overhead
@@ -64,7 +64,7 @@ conditionType *
 * runtimeClassName
 * schedulerName
 * Security Context +
-하위 세부 항목은 xref:../form-set-item.adoc#<Security Context>["폼 에디터 설정 항목 참조"의 "Security Context"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#SecurityContext["폼 에디터 설정 항목 참조"의 "Security Context"]를 참고한다.
 * serviceAccountName
 * setHostnameAsFQDN
 * shareProcessNamespace
@@ -80,9 +80,9 @@ tolerationSeconds
 value
 ----
 * Topology Spread Constraints +
-하위 세부 항목은 xref:../form-set-item.adoc#<Topology Spread Constraints>["폼 에디터 설정 항목 참조"의 "Topology Spread Constraints"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#TopologySpreadConstraints["폼 에디터 설정 항목 참조"의 "Topology Spread Constraints"]를 참고한다.
 * Volumes +
-하위 세부 항목은 xref:../form-set-item.adoc#<Volumes>["폼 에디터 설정 항목 참조"의 "Volumes"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Volumes["폼 에디터 설정 항목 참조"의 "Volumes"]를 참고한다.
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터

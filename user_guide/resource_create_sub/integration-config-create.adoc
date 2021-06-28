@@ -20,18 +20,18 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 * Name *
 * Labels
 * Git * +
-하위 세부 항목은 xref:../form-set-item.adoc#<Git>["폼 에디터 설정 항목 참조"의 "Git"]을 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Git["폼 에디터 설정 항목 참조"의 "Git"]을 참고한다.
 * Jobs * +
-하위 세부 항목은 xref:../form-set-item.adoc#<Jobs>["폼 에디터 설정 항목 참조"의 "Jobs"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Jobs["폼 에디터 설정 항목 참조"의 "Jobs"]를 참고한다.
 * Pod Template +
-하위 세부 항목은 xref:../form-set-item.adoc#<Pod Template>["폼 에디터 설정 항목 참조"의 "Pod Template"]을 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#PodTemplate["폼 에디터 설정 항목 참조"의 "Pod Template"]을 참고한다.
 * Secrets
 +
 ----
 name
 ----
 * Workspaces +
-하위 세부 항목은 xref:../form-set-item.adoc#<Workspaces>["폼 에디터 설정 항목 참조"의 "Workspaces"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Workspaces["폼 에디터 설정 항목 참조"의 "Workspaces"]를 참고한다.
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터
