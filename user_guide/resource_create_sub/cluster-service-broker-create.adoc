@@ -19,10 +19,10 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 * Name *
 * Labels
 * Auth Info +
-하위 세부 항목은 xref:../form-set-item.adoc#<Auth Info(Cluster Service Broker)>["폼 에디터 설정 항목 참조"의 "Auth Info(Cluster Service Broker)"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#AuthInfo(ClusterServiceBroker)["폼 에디터 설정 항목 참조"의 "Auth Info(Cluster Service Broker)"]를 참고한다.
 * caBundle
 * Catalog Restrictions +
-하위 세부 항목은 xref:../form-set-item.adoc#<Catalog Restrictions>["폼 에디터 설정 항목 참조"의 "Catalog Restrictions"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#CatalogRestrictions["폼 에디터 설정 항목 참조"의 "Catalog Restrictions"]를 참고한다.
 * insecureSkipTLSVerify
 * relistBehavior
 * relistDuration

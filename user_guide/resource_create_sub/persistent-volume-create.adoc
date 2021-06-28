@@ -56,9 +56,9 @@ KEY
 VALUE
 ----
 * Cephfs +
-하위 세부 항목은 xref:../form-set-item.adoc#<Cephfs>["폼 에디터 설정 항목 참조"의 "Cephfs"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Cephfs["폼 에디터 설정 항목 참조"의 "Cephfs"]를 참고한다.
 * Cinder +
-하위 세부 항목은 xref:../form-set-item.adoc#<Cinder>["폼 에디터 설정 항목 참조"의 "Cinder"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Cinder["폼 에디터 설정 항목 참조"의 "Cinder"]를 참고한다.
 * Claim Ref
 +
 ----
@@ -71,11 +71,11 @@ resourceVersion
 uid
 ----
 * Csi +
-하위 세부 항목은 xref:../form-set-item.adoc#<Csi>["폼 에디터 설정 항목 참조"의 "Csi"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Csi["폼 에디터 설정 항목 참조"의 "Csi"]를 참고한다.
 * Fc +
-하위 세부 항목은 xref:../form-set-item.adoc#<Fc>["폼 에디터 설정 항목 참조"의 "Fc"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Fc["폼 에디터 설정 항목 참조"의 "Fc"]를 참고한다.
 * Flex Volume +
-하위 세부 항목은 xref:../form-set-item.adoc#<Flex Volume>["폼 에디터 설정 항목 참조"의 "Flex Volume"]을 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#FlexVolume["폼 에디터 설정 항목 참조"의 "Flex Volume"]을 참고한다.
 * Flocker
 +
 ----
@@ -104,7 +104,7 @@ path
 type
 ----
 * Iscsi +
-하위 세부 항목은 xref:../form-set-item.adoc#<Iscsi>["폼 에디터 설정 항목 참조"의 "Iscsi"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Iscsi["폼 에디터 설정 항목 참조"의 "Iscsi"]를 참고한다.
 * Local
 +
 ----
@@ -123,7 +123,7 @@ readOnly
 server *
 ----
 * Node Affinity +
-하위 세부 항목은 xref:../form-set-item.adoc#<Node Affinity>["폼 에디터 설정 항목 참조"의 "Node Affinity"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#NodeAffinity["폼 에디터 설정 항목 참조"의 "Node Affinity"]를 참고한다.
 * persistentVolumeReclaimPolicy
 * Photon Persistent Disk
 +
@@ -148,12 +148,12 @@ user
 volume *
 ----
 * Rbd +
-하위 세부 항목은 xref:../form-set-item.adoc#<Rbd>["폼 에디터 설정 항목 참조"의 "Rbd"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Rbd["폼 에디터 설정 항목 참조"의 "Rbd"]를 참고한다.
 * Scale IO +
-하위 세부 항목은 xref:../form-set-item.adoc#<Scale IO>["폼 에디터 설정 항목 참조"의 "Scale IO"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#ScaleIO["폼 에디터 설정 항목 참조"의 "Scale IO"]를 참고한다.
 * storageClassName
 * Storageos +
-하위 세부 항목은 xref:../form-set-item.adoc#<Storageos>["폼 에디터 설정 항목 참조"의 "Storageos"]를 참고한다.
+하위 세부 항목은 xref:../form-set-item.adoc#Storageos["폼 에디터 설정 항목 참조"의 "Storageos"]를 참고한다.
 * volumeMode
 * Vsphere Volume
 +
