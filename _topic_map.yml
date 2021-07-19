@@ -264,16 +264,6 @@ Topics:
   - Name: 리소스 생성 (서비스 카탈로그)
     Dir: resource_create_sub
     Topics:         
-      - Name: 서비스 브로커 생성
-        File: service-broker-create        
-      - Name: 클러스터 서비스 브로커 생성
-        File: cluster-service-broker-create     
-      - Name: 서비스 인스턴스 생성
-        File: service-instance-create
-      - Name: 서비스 바인딩 생성
-        File: service-binding-create
-      - Name: 클러스터 템플릿 클레임 생성
-        File: catalog-service-claim-create
       - Name: 템플릿 생성
         File: template-create
       - Name: 클러스터 템플릿 생성
@@ -310,8 +300,6 @@ Topics:
         File: resource-delete
       - Name: YAML 파일 다운로드
         File: yaml-down
-      - Name: 레지스트리에 이미지 등록
-        File: image-push
   - Name: 폼 에디터 설정 항목 참조
     File: form-set-item
 # ---
