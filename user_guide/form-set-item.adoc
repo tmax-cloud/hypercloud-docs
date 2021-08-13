@@ -1462,6 +1462,8 @@ runAsUser +
 matchLabels
 ****
 
+NOTE: 디플로이먼트, 레플리카 셋, 데몬 셋, 스테이트풀 셋을 생성할 경우 matchLabels 항목은 필수 설정 항목입니다.  
+
 [#SessionAffinityConfig]
 === Session Affinity Config
 ****

@@ -45,17 +45,14 @@ apiVersion: tmax.io/v1
 kind: NamespaceClaim
 metadata:
   name: example <1>
-  labels:
-    handled: f <2>
-resourceName: example-namespaceclaim <3>
-spec: <4>
+resourceName: example-namespaceclaim <2>
+spec: <3>
   hard:
     limits.cpu: "1" 
     limits.memory: "1Gi"
 ----
 +
 <1> 네임스페이스 클레임의 이름
-<2> HyperCloud Operator에서 클레임의 생성, 변경, 삭제를 감지하기 위한 레이블 정보 *(반드시 포함해야 함)*
-<3> 네임스페이스 클레임이 허가되면 생성될 네임스페이스의 이름
-<4> 할당할 리소스의 종류 및 양
+<2> 네임스페이스 클레임이 허가되면 생성될 네임스페이스의 이름
+<3> 할당할 리소스의 종류 및 양
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
