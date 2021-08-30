@@ -18,7 +18,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 
 * Name *
 * Labels
-* Access Modes
+* Access Modes *
 +
 ----
 Value
@@ -49,7 +49,7 @@ secretName *
 secretNamespace
 shareName *
 ----
-* Capacity
+* Capacity *
 +
 ----
 KEY
@@ -100,7 +100,7 @@ readOnly
 * Host Path
 +
 ----
-path
+path *
 type
 ----
 * Iscsi +
@@ -187,13 +187,11 @@ spec:
   accessModes: <3>
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete <4>
-  storageClassName: nfs <5>
-  # mountOptions: <6>
-  #   - hard
-  #   - nfsvers=4.1
-  nfs: <7>
-    path: /tmp
-    server: 172.17.0.2
+  storageClassName: hostpath <5>
+  hostPath: 
+    path: /mnt/dir1 <6>
+    type: DirectoryOrCreate <7>
+
 ----
 +
 <1> 영구 볼륨의 이름
@@ -207,6 +205,8 @@ spec:
 * Retain : 볼륨을 삭제하지 않고, 데이터를 보존
 * Delete : 볼륨을 삭제
 <5> 영구 볼륨의 스토리지 클래스 이름
-<6> 플러그인의 특성에 따른 마운트 옵션
-<7> 스토리지를 프로비저닝할 때 사용할 플러그인 유형의 상세 명세
+<6> hostPath 볼륨의 디렉터리 경로
+<7> hostPath 볼륨의 타입
+* DirectoryOrCreate : ``path``에 설정한 경로에 디렉터리가 없으면 Kubelet이 가지고 있는 동일한 그룹과 소유권, 권한을 0755로 설정한 빈 디렉터리를 생성함
+* Directory : ``path``에 설정한 경로에 해당 디렉터리가 존재해야 함
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

@@ -77,10 +77,10 @@ spec:
   resources:
     inputs: <2>
       - name: git-source
-     type: git
-  outputs: <3>
-    - name: output-image
-      type: image
+        type: git
+    outputs: <3>
+      - name: output-image
+        type: image
   params: <4>
     - name: example-string
       type: string

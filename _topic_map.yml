@@ -21,12 +21,12 @@
 # The ordering of the records in this document determines the ordering of the
 # topic groups and topics on the main page.
 #
-# ---
-# Name: 환영합니다
-# Dir: welcome
-# Topics:
-#   - Name: 제품 소개
-#     Dir: overview_sub
+---
+Name: 환영합니다
+Dir: welcome
+Topics:
+ - Name: 지원 사항
+   File: intro
 #     Topics:
 #       - Name: 개요
 #         File: index
@@ -294,6 +294,8 @@ Topics:
         File: label-edit
       - Name: 주석 관리
         File: annotation-edit
+      - Name: 리소스 상세 정보 확인
+        File: resource-detail
       - Name: 리소스 정보 수정
         File: resource-info-edit
       - Name: 리소스 삭제

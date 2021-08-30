@@ -712,7 +712,7 @@ annotations +
 ▼ Finalizers +
 │  Value * +
 generateName +
-labels +
+labels * +
 ▼ Managed Fields +
 │  apiVersion +
 │  fieldsType +
@@ -1361,12 +1361,8 @@ nodeSelector +
 [#Resources]
 === Resources
 ****
-▼ Limits +
-│  storage +
-│  ephemeral-storage +
 ▼ Requests +
-│  storage +
-│  ephemeral-storage
+│  storage *
 ****
 
 [#Rules]

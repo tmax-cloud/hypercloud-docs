@@ -2,7 +2,9 @@
 :toc:
 :toc-title:
 
-본 장에서는 스토리지 클래스 리소스의 생성 방법에 대해서 설명한다.
+본 장에서는 스토리지 클래스 리소스의 생성 방법에 대해서 설명한다. 
+
+CAUTION: Ceph 스토리지 클래스를 생성하기 전 반드시 쿠버네티스 환경에서 Ceph 스토리지가 연동된 상태여야 한다.
 
 == 폼 에디터
 
@@ -39,9 +41,9 @@ VALUE
 
 == YAML 에디터
 
-=== NFS 스토리지 클래스 
+=== CephFS(Ceph File System) 스토리지 클래스
 
-새로운 NFS 스토리지 클래스를 YAML 에디터를 사용해서 생성할 수 있다.
+새로운 CephFS 스토리지 클래스를 YAML 에디터를 사용해서 생성할 수 있다.
 
 . "마스터 클러스터" 콘솔 메뉴에서 *[스토리지]* -> *[스토리지 클래스]* 메뉴를 선택한다.
 . *스토리지 클래스* 메인 화면이 열리면 *[스토리지 클래스 생성]* 버튼을 클릭한다.
@@ -54,16 +56,30 @@ VALUE
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: nfs <1>
-provisioner: k8s-sigs.io/nfs-subdir-external-provisioner
+  name: csi-cephfs-sc <1>
+provisioner: cephfs.csi.ceph.com
 parameters:
-  onDelete: delete <2>
-  pathPattern: "${.PVC.namespace}/${.PVC.name}" <3>
+  clusterID: 708de56e-7feb-11eb-be84-dc4a3e974800 <2>
+  fsName: myfs <3>
+  csi.storage.k8s.io/provisioner-secret-name: csi-cephfs-secret <4>
+  csi.storage.k8s.io/provisioner-secret-namespace: ceph-csi <5>
+  csi.storage.k8s.io/controller-expand-secret-name: csi-cephfs-secret <4>
+  csi.storage.k8s.io/controller-expand-secret-namespace: ceph-csi <5>
+  csi.storage.k8s.io/node-stage-secret-name: csi-cephfs-secret <4>
+  csi.storage.k8s.io/node-stage-secret-namespace: ceph-csi <5>
+reclaimPolicy: Delete <6>
+allowVolumeExpansion: true <7>
 ----
 +
 <1> 스토리지 클래스의 이름
-<2> 사용이 끝난 영구 볼륨의 처리 방식
+<2> 쿠버네티스 환경에서 연동할 Ceph의 fsid +
+Ceph 노드에서 `cat /etc/ceph/ceph.conf` 명령으로 조회 가능
+<3> Ceph의 파일 시스템 이름 +
+Ceph 노드에서 `ceph fs volume ls` 명령으로 조회 가능
+<4> Ceph 연동에서 생성한 CephFS 시크릿 이름
+<5> Ceph 연동에서 생성한 네임스페이스 이름
+<6> 사용이 끝난 영구 볼륨의 처리 방식
 * retain : 볼륨을 삭제하지 않고, 데이터를 보존
 * delete : 볼륨을 삭제
-<3> NFS 서버에 생성되는 DIR 경로 형식
+<7> PVC 볼륨 확장 기능 지원 여부
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
