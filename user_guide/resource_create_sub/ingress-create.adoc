@@ -41,7 +41,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 .기본 작성 예
 [source,yaml]
 ----
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: example-ingress <1>

@@ -43,23 +43,20 @@ VALUE
 .기본 작성 예
 [source,yaml]
 ----
-apiVersion: tmax.io/v1
+apiVersion: claim.tmax.io/v1alpha1
 kind: ResourceQuotaClaim
 metadata:
   name: example <1>
   namespace: default <2>
-  labels:
-    handled: f <3>
-resourceName: example-resourcequotaclaim <4>
-spec:
+resourceName: example-resourcequotaclaim <3>
+spec: <4>
   hard:
-    limits.cpu: '1' <5>
-    limits.memory: 1Gi <6>
+    limits.cpu: '1'
+    limits.memory: 1Gi
 ----
 +
 <1> 리소스 쿼타 클레임의 이름
 <2> 리소스 쿼타 클레임이 생성될 네임스페이스의 이름
-<3> HyperCloud Operator에서 클레임의 생성, 변경, 삭제를 감지하기 위한 레이블 정보 *(필수 설정)*
-<4> 리소스 쿼타 클레임이 허가되면 생성될 리소스 쿼타의 이름
-<5> 할당할 리소스의 종류 및 양
+<3> 리소스 쿼타 클레임이 허가되면 생성될 리소스 쿼타의 이름
+<4> 할당할 리소스의 종류 및 양
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
