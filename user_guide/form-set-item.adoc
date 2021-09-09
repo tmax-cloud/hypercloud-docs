@@ -1362,7 +1362,7 @@ nodeSelector +
 === Resources
 ****
 ▼ Requests +
-│  storage *
+│  storage
 ****
 
 [#Rules]
