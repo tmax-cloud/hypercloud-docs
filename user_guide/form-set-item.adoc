@@ -565,7 +565,7 @@ targetPortal *
 === Job Template
 ****
 ▶ <<Metadata>> +
-▼ Spec +
+▼ Spec * +
 │  activeDeadlineSeconds +
 │  backoffLimit +
 │  completions +
@@ -574,7 +574,7 @@ targetPortal *
 │  ▶ <<Selector>> +
 │  ▼ Template * +
 │  │  ▶ <<Metadata>> +
-│  │  ▼ Spec +
+│  │  ▼ Spec * +
 │  │  │  activeDeadlineSeconds +
 │  │  │  ▶ <<Affinity>> +
 │  │  │  automountServiceAccountToken +
@@ -1550,8 +1550,8 @@ type
 [#Template]
 === Template
 ****
-▶ <<Metadata>> +
-▼ Spec +
+▶ <<Metadata>> * +
+▼ Spec * +
 │  activeDeadlineSeconds +
 │  ▶ <<Affinity>> +
 │  automountServiceAccountToken +
