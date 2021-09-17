@@ -45,9 +45,9 @@ image::../images/figure_admin_pod_main.png[]
 * *Pending 상태를 조회할 경우 :* +
 'Pending' 및 'ImagePullBackOff' 상태의 파드가 조회됨
 * *Succeeded 상태를 조회할 경우 :* +
-'Completed' 상태의 파드가 조회됨
+'Succeeded' 및 'Completed' 상태의 파드가 조회됨
 * *Failed 상태를 조회할 경우 :* +
-'Failed' 및 'Error' 상태의 파드가 조회됨
+'Failed', 'Error', 'Completed' 상태의 파드가 조회됨
 ====
 
 <4> *검색 조건 (레이블, 이름)* +
@@ -70,9 +70,10 @@ image::../images/figure_admin_pod_main.png[]
 * ImagePullBackOff : 하나 이상의 컨테이너에서 이미지 Pull 작업 문제가 발생하여 실행 대기 중
 * Terminating : 컨테이너가 시스템에 의해서 종료 중
 * CrashLoopBackOff : 컨테이너 중 하나가 비정상 종료되어 재시작 시도 중
-* Completed : 모든 컨테이너들이 정상 종료되어 재시작 하지 않음
+* Completed : 모든 컨테이너들이 종료되어 재시작하지 않음
+* Succeeded : 모든 컨테이너들이 모두 정상 종료되어 재시작하지 않음
 * Failed : 모든 컨테이너가 종료되었지만 하나 이상의 컨테이너가 시스템에 의해 실패로 종료됨
-* Error : 모든 컨테이너가 종료되었지만 하나 이상의 컨테이너가 non-zero 상태로 exit되어 실패로 종료됨
+* Error : 모든 컨테이너가 종료되었지만 하나 이상의 컨테이너가 non-zero 상태로 종료되어 실패로 종료됨
 * Unknown : 파드의 상태를 확인할 수 없음
 |준비|요청에 대한 컨테이너의 처리 준비 건수이다. (처리 준비 건수/요청 건수)
 |재시작|파드의 재시작 횟수이다.
