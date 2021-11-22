@@ -1,15 +1,53 @@
-= 카티브 생성
+= 하이퍼파라미터 튜닝 생성
 :toc:
 :toc-title:
 
-본 장에서는 카티브 리소스의 생성 방법에 대해서 설명한다.
+본 장에서는 하이퍼파라미터 튜닝 리소스의 생성 방법에 대해서 설명한다.
+
+== 폼 에디터
+
+새로운 하이퍼파라미터 튜닝을 폼 에디터를 사용해서 생성할 수 있다.
+
+. "개발자" 콘솔 메뉴에서 *[AI DevOps]* -> *[하이퍼파라미터 튜닝]* 메뉴를 선택한다.
+. *하이퍼파라미터 튜닝* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 하이퍼파라미터 튜닝을 생성할 특정 네임스페이스를 선택한다.
+. *[하이퍼파라미터 튜닝 생성]* 버튼을 클릭한다.
+. *하이퍼파라미터 튜닝 생성* 화면이 열리면 **"다음을 통해 설정"**을 "Form View"로 선택한다.
+. 폼 에디터가 열리면 생성할 하이퍼파라미터 튜닝의 구성 정보를 설정한다. +
+이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
++
+NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한다.
+
+* Name *
+* Labels
+* Algorithm +
+하위 세부 항목은 xref:../form-set-item.adoc#Algorithm["폼 에디터 설정 항목 참조"의 "Algorithm"]을 참고한다.
+* Early Stopping +
+하위 세부 항목은 xref:../form-set-item.adoc#EarlyStopping["폼 에디터 설정 항목 참조"의 "Early Stopping"]을 참고한다.
+* maxFailedTrialCount
+* maxTrialCount
+* Metrics Collector Spec +
+하위 세부 항목은 xref:../form-set-item.adoc#MetricsCollectorSpec["폼 에디터 설정 항목 참조"의 "Metrics Collector Spec"]을 참고한다.
+* Nas Config +
+하위 세부 항목은 xref:../form-set-item.adoc#NasConfig["폼 에디터 설정 항목 참조"의 "Nas Config"]를 참고한다.
+* Objective +
+하위 세부 항목은 xref:../form-set-item.adoc#Objective["폼 에디터 설정 항목 참조"의 "Objective"]를 참고한다.
+* parallelTrialCount
+* Parameters +
+하위 세부 항목은 xref:../form-set-item.adoc#Parameters["폼 에디터 설정 항목 참조"의 "Parameters"]를 참고한다.
+* resumePolicy
+* Trial Template +
+하위 세부 항목은 xref:../form-set-item.adoc#TrialTemplate["폼 에디터 설정 항목 참조"의 "Trial Template"]을 참고한다.
+. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터
 
-새로운 카티브를 YAML 에디터를 사용해서 생성할 수 있다.
+새로운 하이퍼파라미터 튜닝을 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/ai-dev#img-katib-main,카티브 메인 화면>>에서 *[카티브 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 카티브의 구성 정보를 작성한다.
+. "개발자" 콘솔 메뉴에서 *[AI DevOps]* -> *[하이퍼파라미터 튜닝]* 메뉴를 선택한다.
+. *하이퍼파라미터 튜닝* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 하이퍼파라미터 튜닝을 생성할 특정 네임스페이스를 선택한다.
+. *[하이퍼파라미터 튜닝 생성]* 버튼을 클릭한다.
+. *하이퍼파라미터 튜닝 생성* 화면이 열리면 **"다음을 통해 설정"**을 "YAML View"로 선택한다.
+. YAML 에디터 화면이 열리면 생성할 하이퍼파라미터 튜닝의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]
