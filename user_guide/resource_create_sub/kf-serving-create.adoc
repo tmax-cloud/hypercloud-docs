@@ -27,7 +27,9 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 하위 세부 항목은 xref:../form-set-item.adoc#Transformer["폼 에디터 설정 항목 참조"의 "Transformer"]을 참고한다.
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
-== YAML 에디터
+== YAML 에디터(QA: 기본 작성 예시 yaml 수정 요청드립니다.)
+(QA: 변경된 sample.yaml 정리한 문서 url:https://docs.google.com/document/d/15Nako-7MJqf5kGAgshMUDO0FhRjowrGN_Z_i1jPi8rc/edit?usp=sharing)
+
 
 새로운 추론 서비스를 YAML 에디터를 사용해서 생성할 수 있다.
 
