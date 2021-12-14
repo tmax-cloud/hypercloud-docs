@@ -159,7 +159,7 @@ spec: <4>
                   containerPort: 23456
               resources:
                 limits:
-                  nvidia.com/gpu: "1"
+                  nvidia.com/gpu: "1" (QA: 해당 예시로 생성시 에러 발생해 1 -> "1" 로 변경했습니다. )
     Worker: <10>
       replicas: 1
       restartPolicy: OnFailure
@@ -173,7 +173,7 @@ spec: <4>
                   containerPort: 23456
               resources:
                 limits:
-                  nvidia.com/gpu: "1"
+                  nvidia.com/gpu: "1" (QA: 해당 예시로 생성시 에러 발생해 1 -> "1" 로 변경했습니다. )
 ----
 +
 <1> 파이토치 잡의 메타데이터
