@@ -159,7 +159,7 @@ spec: <4>
                   containerPort: 23456
               resources:
                 limits:
-                  nvidia.com/gpu: "1" (QA: 해당 예시로 생성시 에러 발생해 1 -> "1" 로 변경했습니다. )
+                  nvidia.com/gpu: "1"
     Worker: <10>
       replicas: 1
       restartPolicy: OnFailure
@@ -173,17 +173,17 @@ spec: <4>
                   containerPort: 23456
               resources:
                 limits:
-                  nvidia.com/gpu: "1" (QA: 해당 예시로 생성시 에러 발생해 1 -> "1" 로 변경했습니다. )
+                  nvidia.com/gpu: "1"
 ----
 +
 <1> 파이토치 잡의 메타데이터
 <2> 파이토치 잡의 이름
 <3> 파이토치 잡이 생성될 네임스페이스의 이름
-<4> 파이토치 잡의 스펙
-<5> 파이토치 잡이 생성할 레플리카의 스펙
-<6> Master의 스펙
+<4> 파이토치 잡의 사양
+<5> 파이토치 잡이 생성할 레플리카의 사양
+<6> Master의 사양
 <7> 레플리카의 개수
 <8> Master 파드의 템플릿
 <9> 실패 시 재시작 정책
-<10> 실제 학습을 수행하는 Worker의 스펙
+<10> 실제 학습을 수행하는 Worker의 사양
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

@@ -14,8 +14,8 @@
 |이벤트|네임스페이스에서 발생한 이벤트를 실시간으로 조회 (최대 1시간) 
 |그라파나|선택한 네임스페이스의 파드 정보를 모니터링
 |키바나|수집된 데이터를 시각화하여 다양한 형태의 차트로 확인
-|관리 GitLab|(TD: 설명 필요) (QA: hypercloud 클러스터 내부에 깃랩을 띄워 개발자 콘솔 기능을 사용할 수 있도록 함)
-|이미지 레지스트리|컨테이너 이미지 레지스트리를 관리(TD: 검수 필요. 개발자 콘솔의 컨테이너 레지스트리와 차이가 무엇인가.)(QA: 컨테이너 이미지를 제공하는 레지스트리 기능 및 멀티 테넌트 방식의 레지스트리 관리 기능 제공 )
+|관리 GitLab|HyperCloud 클러스터에 내장된 GitLab을 이용하여 개발자 콘솔의 소스 코드를 관리
+|이미지 레지스트리|컨테이너 이미지를 제공하는 레지스트리 및 멀티 테넌트 방식의 레지스트리를 관리
 |====================
 
 본 장에서는 하위 메뉴의 화면 구성과 기능에 대해서 설명한다.
@@ -117,7 +117,7 @@ image::../images/figure_admin_namespace_claim_main.png[]
 |====================
 |항목|설명  
 |이름|네임스페이스 클레임의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스 클레임의 상세 정보를 확인할 수 있는 화면이 열린다.
-|네임스페이스(QA: 리소스 이름)|네임스페이스 클레임을 통해 실제 생성될 네임스페이스의 이름이다.
+|리소스 이름|네임스페이스 클레임을 통해 실제 생성될 네임스페이스의 이름이다.
 |상태|네임스페이스 클레임의 현재 승인 상태 정보이다.
 
 * Awaiting : 클레임에 대한 허가를 기다리는 상태
@@ -233,7 +233,7 @@ image:../images/figure_pause_button.png[](정지) 버튼을 클릭하면 실시�
 == 그라파나
 
 "마스터 클러스터" 콘솔 메뉴에서 *[홈]* -> *[그라파나]* 메뉴를 선택하면 *그라파나* 메인 화면으로 이동한다. +
-*그라파나* 메인 화면에서는 사용자가 선택한 네임스페이스의 파드 정보를 모니터링 확인할 수 있다. 그라파나 툴의 사용 방법에 대한 자세한 설명은 link:https://grafana.com/docs/grafana/latest/getting-started/getting-started/[그라파나 설명서]를 참고한다.
+*그라파나* 메인 화면에서는 사용자가 선택한 네임스페이스의 파드 정보를 모니터링할 수 있다. 그라파나 툴의 사용 방법에 대한 자세한 설명은 link:https://grafana.com/docs/grafana/latest/getting-started/getting-started/[그라파나 설명서]를 참고한다.
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-grafana-main]
@@ -274,7 +274,22 @@ URL을 복사하거나, 대시보드를 JSON 파일로 내보내기
 [#img-kibana-main]
 image::../images/figure_admin_kibana_main.png[]
 
-== 관리 GitLab (TD: 기능 파악 필요)
+== 관리 GitLab
 
+"마스터 클러스터" 콘솔 메뉴에서 *[홈]* -> *[관리 GitLab]* 메뉴를 선택하면 *GitLab* 메인 화면으로 이동한다. +
+*GitLab* 메인 화면에서는 개발자 콘솔의 소스 코드를 관리할 수 있다. GitLab의 사용 방법에 대한 자세한 설명은 link:https://docs.gitlab.com/[GitLab 설명서]를 참고한다.
 
-== 이미지 레지스트리 (TD: 기능 파악 필요)
+//[caption="그림. "] //캡션 제목 변경
+[#img-gitlab-main]
+image::../images/figure_admin_gitlab_main.png[]
+
+== 이미지 레지스트리
+
+"마스터 클러스터" 콘솔 메뉴에서 *[홈]* -> *[이미지 레지스트리]* 메뉴를 선택하면 *HyperRegistry* 메인 화면으로 이동한다. +
+*HyperRegistry* 메인 화면에서는 컨테이너 이미지를 제공하는 레지스트리 및 멀티 테넌트 방식의 레지스트리를 관리할 수 있다. HyperRegistry의 사용 방법에 대한 자세한 설명은 link:https://goharbor.io/docs/2.4.0/[Harbor 설명서]를 참고한다.
+
+//[caption="그림. "] //캡션 제목 변경
+[#img-hyper-registry-main]
+image::../images/figure_admin_hyper_registry_main.png[]
+
+NOTE: HyperRegistry 최초 접속 시 HyperRegistry 로그인 화면에서 *[LOGIN VIA OIDC PROVIDER]* 버튼을 클릭하여 로그인한다.

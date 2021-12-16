@@ -29,8 +29,7 @@ storageUri *
 ----
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다
 
-== YAML 에디터(QA: 기본 작성 예시 추가)
-(QA: 기본 작성 예시로 우측 링크의 학습모델 yaml 적용 요청드립니다. url:https://docs.google.com/document/d/15Nako-7MJqf5kGAgshMUDO0FhRjowrGN_Z_i1jPi8rc/edit?usp=sharing)
+== YAML 에디터
 
 새로운 학습 모델을 YAML 에디터를 사용해서 생성할 수 있다.
 
@@ -38,19 +37,29 @@ storageUri *
 . *학습 모델* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 학습 모델을 생성할 특정 네임스페이스를 선택한다.
 . *[학습 모델 생성]* 버튼을 클릭한다.
 . *학습 모델 생성* 화면이 열리면 **"다음을 통해 설정"**을 "YAML View"로 선택한다.
-. YAML 에디터가 열리면 생성할 학습 모델의 구성 정보를 설정한다. (TD: 기본 작성 예 작성 필요)
+. YAML 에디터가 열리면 생성할 학습 모델의 구성 정보를 설정한다.
 +
 .기본 작성 예
 [source,yaml]
 ----
-apiVersion: serving.kubeflow.org/v1alpha1
-kind: TrainedModel
+apiVersion: "serving.kubeflow.org/v1alpha1"
+kind: "TrainedModel"
 metadata:
-  name: example <1>
+  name: "fashion" <1>
   namespace: demo <2>
-
+spec:
+  inferenceService: triton-mms <3>
+  model: <4>
+    framework: tensorflow <5>
+    memory: 1.0Gi <6>
+    storageUri: "s3://triton/models/fashion" <7>
 ----
 +
 <1> 학습 모델의 이름
 <2> 학습 모델이 생성될 네임스페이스의 이름
+<3> 학습 모델을 배포할 상위 추론 서비스의 이름
+<4> 예측(predictor) 모델의 사양
+<5> 학습에서 사용하는 프레임워크의 종류
+<6> 모델이 사용할 최대 메모리
+<7> 학습 모델 리포지터리의 스토리지 URI 주소
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

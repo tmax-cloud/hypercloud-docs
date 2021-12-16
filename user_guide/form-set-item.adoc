@@ -231,6 +231,49 @@ readOnly +
 volumeID *
 ****
 
+[#ConfigPatches]
+=== Config Patches
+****
+applyTo +
+▼ Match +
+│  ▼ Cluster +
+│  │  name +
+│  │  portNumber +
+│  │  service +
+│  │  subset +
+│  context +
+│  ▼ Listener +
+│  │  ▼ Filter Chain +
+│  │  │  applicationProtocols +
+│  │  │  ▼ Filter +
+│  │  │  │  name +
+│  │  │  │  ▼ Sub Filter +
+│  │  │  │  │  name +
+│  │  │  name +
+│  │  │  sni +
+│  │  │  transportProtocol +
+│  │  name +
+│  │  portName +
+│  │  portNumber +
+│  ▼ Proxy +
+│  │  ▼ Metadata +
+│  │  │  KEY +
+│  │  │  VALUE +
+│  │  proxyVersion +
+│  ▼ Route Configuration +
+│  │  gateway +
+│  │  name +
+│  │  portName +
+│  │  portNumber +
+│  │  ▼ Vhost +
+│  │  │  name +
+│  │  │  ▼ Route +
+│  │  │  │  action +
+│  │  │  │  name +
+▼ Patch +
+│  operation
+****
+
 [#Containers]
 === Containers
 ****
@@ -658,6 +701,23 @@ readOnly +
 │  Value
 ****
 
+[#Filters]
+=== Filters
+****
+filterName +
+filterType +
+▼ Insert Position +
+│  index +
+│  relativeTo +
+▼ Listener Match +
+│  ▼ Address +
+│  │  Value * +
+│  listenerProtocol +
+│  listenerType +
+│  portNamePrefix +
+│  portNumber +
+****
+
 [#FlexVolume]
 === Flex Volume
 ****
@@ -697,6 +757,135 @@ type *
 ▼ Hostnames +
 │  Value * +
 ip
+****
+
+[#Http]
+=== Http
+****
+▼ Cors Policy +
+│  allowCredentials +
+│  ▼ Allow Headers +
+│  │  Value * +
+│  ▼ Allow Methods +
+│  │  Value * +
+│  ▼ Allow Origin +
+│  │  Value * +
+│  ▼ Allow Origins +
+│  │  exact +
+│  │  prefix +
+│  │  regex +
+│  ▼ Expose Headers +
+│  │  Value * +
+│  maxAge +
+▼ Fault +
+│  ▼ Abort +
+│  │  grpcStatus +
+│  │  http2Error +
+│  │  httpStatus +
+│  │  ▼ Percentage +
+│  │  │  value +
+│  ▼ Delay +
+│  │  exponentialDelay +
+│  │  fixedDelay +
+│  │  percent +
+│  │  ▼ Percentage +
+│  │  │  value +
+▼ Headers +
+│  ▼ Request +
+│  │  ▼ Add +
+│  │  │  KEY +
+│  │  │  VALUE +
+│  │  ▼ Remove +
+│  │  │  Value * +
+│  │  ▼ Set +
+│  │  │  KEY +
+│  │  │  VALUE +
+│  ▼ Response +
+│  │  ▼ Add +
+│  │  │  KEY +
+│  │  │  VALUE +
+│  │  ▼ Remove +
+│  │  │  Value * +
+│  │  ▼ Set +
+│  │  │  KEY +
+│  │  │  VALUE +
+▼ Match +
+│  ▼ Authority +
+│  │  exact +
+│  │  prefix +
+│  │  regex +
+│  ▼ Gateways +
+│  │  Value * +
+│  ▼ Headers +
+│  │  KEY +
+│  │  VALUE +
+│  ignoreUriCase +
+│  ▼ Method +
+│  │  exact +
+│  │  prefix +
+│  │  regex +
+│  name +
+│  port +
+│  ▼ Query Params +
+│  │  KEY +
+│  │  VALUE +
+│  ▼ Scheme +
+│  │  exact +
+│  │  prefix +
+│  │  regex +
+│  sourceLabels +
+│  ▼ Uri +
+│  │  exact +
+│  │  prefix +
+│  │  regex +
+▼ Mirror +
+│  host +
+│  ▼ Port +
+│  │  number +
+│  subset +
+mirrorPercent +
+▼ Mirror Percentage +
+│  value +
+mirror_percent +
+name +
+▼ Redirect +
+│  authority +
+│  redirectCode +
+│  uri +
+▼ Retries +
+│  attempts +
+│  perTryTimeout +
+│  retryOn +
+▼ Rewrite +
+│  authority +
+│  uri +
+▼ Route +
+│  ▼ Destination +
+│  │  host +
+│  │  ▼ Port +
+│  │  │  number +
+│  │  subset +
+│  ▼ Headers +
+│  │  ▼ Request +
+│  │  │  ▼ Add +
+│  │  │  │  KEY +
+│  │  │  │  VALUE +
+│  │  │  ▼ Remove +
+│  │  │  │  Value * +
+│  │  │  ▼ Set +
+│  │  │  │  KEY +
+│  │  │  │  VALUE +
+│  │  ▼ Response +
+│  │  │  ▼ Add +
+│  │  │  │  KEY +
+│  │  │  │  VALUE +
+│  │  │  ▼ Remove +
+│  │  │  │  Value * +
+│  │  │  ▼ Set +
+│  │  │  │  KEY +
+│  │  │  │  VALUE +
+│  weight +
+timeout
 ****
 
 == I
@@ -814,6 +1003,24 @@ targetPortal *
 │  │  │  ▶ <<Topology Spread Constraints>> +
 │  │  │  ▶ <<Volumes>> +
 │  ttlSecondsAfterFinished
+****
+
+[#JwtRules]
+=== Jwt Rules
+****
+▼ Audiences +
+│  Value * +
+forwardOriginalToken +
+▼ From Headers +
+│  name +
+│  prefix +
+▼ From Params +
+│  Value * +
+issuer +
+jwks +
+jwksUri +
+jwks_uri +
+outputPayloadToHeader
 ****
 
 == L
@@ -1071,7 +1278,7 @@ type *
 │  │  path +
 │  ▼ Filter +
 │  │  ▼ Metrics Format +
-│  │  │  Value *
+│  │  │  Value * +
 │  ▼ Http Get +
 │  │  host +
 │  │  ▼ Http Headers +
@@ -1792,18 +1999,48 @@ nodeSelector +
 [#Rules]
 === Rules
 ****
-host +
-▼ Http +
-│  ▼ Paths * +
-│  │  ▼ Backend * +
-│  │  │  ▼ Resource +
-│  │  │  │  apiGroup +
-│  │  │  │  kind * +
-│  │  │  │  name * +
-│  │  │  serviceName +
-│  │  │  servicePort +
-│  │  path +
-│  │  pathType
+▼ From +
+│  ▼ Source +
+│  │  ▼ Ip Blocks +
+│  │  │  Value * +
+│  │  ▼ Namespaces +
+│  │  │  Value * +
+│  │  ▼ Not Ip Blocks +
+│  │  │  Value * +
+│  │  ▼ Not Namespaces +
+│  │  │  Value * +
+│  │  ▼ Not Principals +
+│  │  │  Value * +
+│  │  ▼ Not Request Principals +
+│  │  │  Value * +
+│  │  ▼ Principals +
+│  │  │  Value * +
+│  │  ▼ Request Principals +
+│  │  │  Value * +
+▼ To +
+│  ▼ Operation +
+│  │  ▼ Hosts +
+│  │  │  Value * +
+│  │  ▼ Methods +
+│  │  │  Value * +
+│  │  ▼ Not Hosts +
+│  │  │  Value * +
+│  │  ▼ Not Methods +
+│  │  │  Value * +
+│  │  ▼ Not Paths +
+│  │  │  Value * +
+│  │  ▼ Not Ports +
+│  │  │  Value * +
+│  │  ▼ Paths +
+│  │  │  Value * +
+│  │  ▼ Ports +
+│  │  │  Value * +
+▼ When +
+│  key +
+│  ▼ Not Values +
+│  │  Value * +
+│  ▼ Values +
+│  │  Value *
 ****
 
 == S
@@ -1941,6 +2178,36 @@ matchLabels
 
 NOTE: 디플로이먼트, 레플리카 셋, 데몬 셋, 스테이트풀 셋을 생성할 경우 matchLabels 항목은 필수 설정 항목입니다.  
 
+[#Servers]
+=== Servers
+****
+binds +
+defaultEndpoint +
+▼ Hosts +
+│  Value * +
+▼ Port +
+│  name +
+│  number +
+│  protocol +
+▼ Tls +
+│  caCertificates +
+│  ▼ Cipher Suites +
+│  │  Value * +
+│  credentialName +
+│  httpsRedirect +
+│  maxProtocolVersion +
+│  minProtocolVersion +
+│  mode +
+│  privateKey +
+│  serverCertificate +
+│  ▼ Subject Alt Names +
+│  │  Value * +
+│  ▼ Verify Certificate Hash +
+│  │  Value * +
+│  ▼ Verify Certificate Spki +
+│  │  Value * +
+****
+
 [#SessionAffinityConfig]
 === Session Affinity Config
 ****
@@ -2026,7 +2293,35 @@ volumeNamespace
 type
 ****
 
+[#Subsets]
+=== Subsets
+****
+labels +
+name +
+▶ <<Traffic Policy>>
+****
+
 == T
+
+[#Tcp]
+=== Tcp
+****
+▼ Match +
+│  ▼ Destination Subnets +
+│  │  Value * +
+│  ▼ Gateways +
+│  │  Value * +
+│  port +
+│  sourceLabels +
+│  sourceSubnet +
+▼ Route +
+│  ▼ Destination +
+│  │  host +
+│  │  ▼ Port +
+│  │  │  number +
+│  │  subset +
+│  weight
+****
 
 [#Template]
 === Template
@@ -2209,15 +2504,28 @@ type
 ▼ Worker +
 │  replicas +
 │  restartPolicy +
-│  ▶ <<Template(Tf Replica Specs),Template>> +
+│  ▶ <<Template(Tf Replica Specs),Template>>
 ****
 
 [#Tls]
 === Tls
 ****
-▼ Hosts +
-│  Value +
-secretName
+▼ Match +
+│  ▼ Destination Subnets +
+│  │  Value * +
+│  ▼ Gateways +
+│  │  Value * +
+│  port +
+│  ▼ Sni Hosts +
+│  │  Value * +
+│  sourceLabels +
+▼ Route +
+│  ▼ Destination +
+│  │  host +
+│  │  ▼ Port +
+│  │  │  number +
+│  │  subset +
+│  weight
 ****
 
 [#TopologySpreadConstraints]
@@ -2233,6 +2541,116 @@ secretName
 maxSkew * +
 topologyKey * +
 whenUnsatisfiable *
+****
+
+[#TrafficPolicy]
+=== Traffic Policy
+****
+▼ Connection Pool +
+│  ▼ Http +
+│  │  h2UpgradePolicy +
+│  │  http1MaxPendingRequests +
+│  │  http2MaxRequests +
+│  │  idleTimeout +
+│  │  maxRequestsPerConnection +
+│  │  maxRetries +
+│  ▼ Tcp +
+│  │  connectTimeout +
+│  │  maxConnections +
+│  │  ▼ Tcp Keepalive +
+│  │  │  interval +
+│  │  │  probes +
+│  │  │  time +
+▼ Load Balancer +
+│  ▼ Consistent Hash +
+│  │  ▼ Http Cookie +
+│  │  │  name +
+│  │  │  path +
+│  │  │  ttl +
+│  │  httpHeaderName +
+│  │  minimumRingSize +
+│  │  useSourceIp +
+│  ▼ Locality Lb Setting +
+│  │  ▼ Distribute +
+│  │  │  from +
+│  │  │  ▼ To +
+│  │  │  │  KEY +
+│  │  │  │  VALUE +
+│  │  enabled +
+│  │  ▼ Failover +
+│  │  │  from +
+│  │  │  to +
+│  simple +
+▼ Outlier Detection +
+│  baseEjectionTime +
+│  consecutive5xxErrors +
+│  consecutiveErrors +
+│  consecutiveGatewayErrors +
+│  interval +
+│  maxEjectionPercent +
+│  minHealthPercent +
+▼ Port Level Settings +
+│  ▼ Connection Pool +
+│  │  ▼ Http +
+│  │  │  h2UpgradePolicy +
+│  │  │  http1MaxPendingRequests +
+│  │  │  http2MaxRequests +
+│  │  │  idleTimeout +
+│  │  │  maxRequestsPerConnection +
+│  │  │  maxRetries +
+│  │  ▼ Tcp +
+│  │  │  connectTimeout +
+│  │  │  maxConnections +
+│  │  │  ▼ Tcp Keepalive +
+│  │  │  │  interval +
+│  │  │  │  probes +
+│  │  │  │  time +
+│  ▼ Load Balancer +
+│  │  ▼ Consistent Hash +
+│  │  │  ▼ Http Cookie +
+│  │  │  │  name +
+│  │  │  │  path +
+│  │  │  │  ttl +
+│  │  │  httpHeaderName +
+│  │  │  minimumRingSize +
+│  │  │  useSourceIp +
+│  │  ▼ Locality Lb Setting +
+│  │  │  ▼ Distribute +
+│  │  │  │  from +
+│  │  │  │  ▼ To +
+│  │  │  │  │  KEY +
+│  │  │  │  │  VALUE +
+│  │  │  enabled +
+│  │  │  ▼ Failover +
+│  │  │  │  from +
+│  │  │  │  to +
+│  │  simple +
+│  ▼ Outlier Detection +
+│  │  baseEjectionTime +
+│  │  consecutive5xxErrors +
+│  │  consecutiveErrors +
+│  │  consecutiveGatewayErrors +
+│  │  interval +
+│  │  maxEjectionPercent +
+│  │  minHealthPercent +
+│  ▼ Port +
+│  │  number +
+│  ▼ Tls +
+│  │  caCertificates +
+│  │  clientCertificate +
+│  │  mode +
+│  │  privateKey +
+│  │  sni +
+│  │  ▼ Subject Alt Names +
+│  │  │  Value * +
+▼ Tls +
+│  caCertificates +
+│  clientCertificate +
+│  mode +
+│  privateKey +
+│  sni +
+│  ▼ Subject Alt Names +
+│  │  Value * +
 ****
 
 [#Transformer]
@@ -2801,7 +3219,7 @@ kind +
 │  │  path * +
 │  name +
 │  optional +
-▼ Empty Dir
+▼ Empty Dir +
 │  medium +
 │  sizeLimit +
 name * +

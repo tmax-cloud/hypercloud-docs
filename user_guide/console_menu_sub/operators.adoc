@@ -1,4 +1,4 @@
-= [Operators] 메뉴 // (TD: 기능 설명 필요)
+= [Operators] 메뉴 (TD: 릴리즈 제외(1206)
 :toc:
 :toc-title:
 

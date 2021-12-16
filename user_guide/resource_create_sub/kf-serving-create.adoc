@@ -27,8 +27,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 하위 세부 항목은 xref:../form-set-item.adoc#Transformer["폼 에디터 설정 항목 참조"의 "Transformer"]을 참고한다.
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
-== YAML 에디터(QA: 기본 작성 예시 yaml 수정 요청드립니다.)
-(QA: 변경된 sample.yaml 정리한 문서 url:https://docs.google.com/document/d/15Nako-7MJqf5kGAgshMUDO0FhRjowrGN_Z_i1jPi8rc/edit?usp=sharing)
+== YAML 에디터
 
 새로운 추론 서비스를 YAML 에디터를 사용해서 생성할 수 있다.
 
@@ -41,36 +40,33 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 .기본 작성 예
 [source,yaml]
 ----
-apiVersion: serving.kubeflow.org/v1alpha2
-kind: InferenceService
+apiVersion: "serving.kubeflow.org/v1beta1"
+kind: "InferenceService"
 metadata: <1>
-  name: demo-inferenceservice <2>
+  name: "triton-mms" <2>
   namespace: demo <3>
 spec: <4>
-  default: <5>
-    predictor: <6>
-      tensorflow: <7>
-        resources: <8>
-          limits: <9>
-            cpu: 100m
-            memory: 1Gi
-          requests: <10>
-            cpu: 100m
-            memory: 1Gi
-        runtimeVersion: 1.14.0 <11>
-        storageUri: pvc://demo-pvc/saved_model <12>
+  predictor: <5>
+    serviceAccountName: minio-serviceaccount <6>
+    triton: <7>
+      args:
+      - --log-verbose=1
+      - --strict-model-config=false
+      resources:
+        limits:
+          cpu: "1"
+          memory: 8Gi
+        requests:
+          cpu: "1"
+          memory: 8Gi
 ----
 +
 <1> 추론 서비스의 메타데이터
 <2> 추론 서비스의 이름
 <3> 추론 서비스가 생성될 네임스페이스의 이름
-<4> 추론 서비스의 스펙
-<5> 기본 추론 서버의 스펙
-<6> ML predictor에 대한 스펙
-<7> 사용하는 ML framework을 명시
-<8> 추론 서비스의 자원량
-<9> 자원 제한량
-<10> 자원 요청량
-<11> 텐서플로의 버전
-<12> 추론 서버에서 사용할 ML 모델의 경로
+<4> 추론 서비스의 사양
+<5> 머신러닝의 예측(predictor) 모델에 대한 사양
+<6> 추론 서비스에서 생성한 파드를 실행할 때 사용할 서비스 어카운트의 이름
+<7> Trition 추론 서버의 사양
+
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
