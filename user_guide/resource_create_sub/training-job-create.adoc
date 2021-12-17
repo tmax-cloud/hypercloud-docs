@@ -100,7 +100,7 @@ spec: <4>
             name: tensorflow
             resources:
               limits:
-                cpu: 1
+                cpu: "1" (QA: 1 -> "1" 로 수정)
                 memory: 1.86Gi
             securityContext:
               runAsUser: 0
