@@ -10,7 +10,7 @@
 
 . "마스터 클러스터" 콘솔 메뉴에서 *[스토리지]* -> *[영구 볼륨]* 메뉴를 선택한다.
 . *영구 볼륨* 메인 화면이 열리면 *[영구 볼륨 생성]* 버튼을 클릭한다.
-. *Create Persistent Volume* 화면이 열리면 **Configure via**를 "Form View"로 선택한다.
+. *영구 볼륨 생성* 화면이 열리면 **"다음을 통해 설정"**을 "Form View"로 선택한다.
 . 폼 에디터가 열리면 생성할 영구 볼륨의 구성 정보를 설정한다. +
 이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
 +
@@ -18,7 +18,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 
 * Name *
 * Labels
-* Access Modes
+* Access Modes *
 +
 ----
 Value
@@ -49,7 +49,7 @@ secretName *
 secretNamespace
 shareName *
 ----
-* Capacity
+* Capacity *
 +
 ----
 KEY
@@ -100,7 +100,7 @@ readOnly
 * Host Path
 +
 ----
-path
+path *
 type
 ----
 * Iscsi +
@@ -171,7 +171,7 @@ volumePath *
 
 . "마스터 클러스터" 콘솔 메뉴에서 *[스토리지]* -> *[영구 볼륨]* 메뉴를 선택한다.
 . *영구 볼륨* 메인 화면이 열리면 *[영구 볼륨 생성]* 버튼을 클릭한다.
-. *Create Persistent Volume* 화면이 열리면 **Configure via**를 "YAML View"로 선택한다.
+. *영구 볼륨 생성* 화면이 열리면 **"다음을 통해 설정"**을 "YAML View"로 선택한다.
 . YAML 에디터가 열리면 생성할 영구 볼륨의 구성 정보를 작성한다.
 +
 .기본 작성 예

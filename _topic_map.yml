@@ -21,12 +21,21 @@
 # The ordering of the records in this document determines the ordering of the
 # topic groups and topics on the main page.
 #
-# ---
-# Name: 환영합니다
-# Dir: welcome
-# Topics:
-#   - Name: 제품 소개
-#     Dir: overview_sub
+---
+Name: 환영합니다
+Dir: welcome
+Topics:
+#  - Name: 제품 소개
+#    Dir: overview_sub
+#    Topics:
+#      - Name: 개요
+#        File: index
+#      - Name: 특장점
+#        File: advantage
+#      - Name: 가치 제안
+#        File: value-proposition
+  - Name: 지원 사항
+    File: intro
 #     Topics:
 #       - Name: 개요
 #         File: index
@@ -178,19 +187,23 @@ Topics:
       - Name: 워크로드
         File: work-load
       - Name: 네트워크
-        File: network        
+        File: network
       - Name: 스토리지
-        File: storage        
-      - Name: 매니지먼트
-        File: management        
+        File: storage
+      - Name: 관리
+        File: management
       - Name: 호스트
         File: host
       - Name: 인증-인가
         File: permission
       - Name: 서비스 카탈로그
         File: service-catalog
+      - Name: 서비스 메시
+        File: service-mesh
       - Name: CI-CD
         File: ci-cd
+      - Name: AI DevOps
+        File: ai-dev
   - Name: 리소스 생성 (홈)
     Dir: resource_create_sub
     Topics:
@@ -239,7 +252,7 @@ Topics:
         File: persistent-volume-claim-create
       - Name: 영구 볼륨 생성
         File: persistent-volume-create
-  - Name: 리소스 생성 (매니지먼트)
+  - Name: 리소스 생성 (관리)
     Dir: resource_create_sub
     Topics:
       - Name: 제한 범위 생성
@@ -248,6 +261,8 @@ Topics:
         File: resource-quota-create
       - Name: 리소스 쿼타 클레임 생성
         File: resource-quota-claim-create
+      - Name: 파드 보안 정책 생성
+        File: pod-security-policy-create
       - Name: 사용자 리소스 정의 생성
         File: custom-resource-create
   - Name: 리소스 생성 (인증/인가)
@@ -265,9 +280,9 @@ Topics:
     Dir: resource_create_sub
     Topics:         
       - Name: 서비스 브로커 생성
-        File: service-broker-create        
+        File: service-broker-create
       - Name: 클러스터 서비스 브로커 생성
-        File: cluster-service-broker-create     
+        File: cluster-service-broker-create
       - Name: 서비스 인스턴스 생성
         File: service-instance-create
       - Name: 서비스 바인딩 생성
@@ -280,6 +295,27 @@ Topics:
         File: cluster-template-create
       - Name: 템플릿 인스턴스 생성
         File: template-instance-create
+  - Name: 리소스 생성 (서비스 메시)
+    Dir: resource_create_sub
+    Topics:
+      - Name: 가상 서비스 생성
+        File: virtual-service-create
+      - Name: 목적지 규칙 생성
+        File: destination-rule-create
+      - Name: 엔보이 필터 생성
+        File: envoy-filter-create
+      - Name: 게이트웨이 생성
+        File: gateway-create
+      - Name: 사이드카 생성
+        File: sidecar-create
+      - Name: 서비스 엔트리 생성
+        File: service-entry-create
+      - Name: 요청 인증 생성
+        File: request-auth-create
+      - Name: 피어 인증 생성
+        File: peer-auth-create
+      - Name: 인가 정책 생성
+        File: auth-policy-create
   - Name: 리소스 생성 (CI/CD)
     Dir: resource_create_sub
     Topics:
@@ -297,6 +333,19 @@ Topics:
         File: pipeline-resource-create
       - Name: 인테그레이션 컨피그 생성
         File: integration-config-create
+  - Name: 리소스 생성 (AI DevOps)
+    Dir: resource_create_sub
+    Topics:
+      - Name: 노트북 서버 생성
+        File: notebook-server-create
+      - Name: 하이퍼파라미터 튜닝 생성
+        File: katib-create
+      - Name: 트레이닝 잡 생성
+        File: training-job-create
+      - Name: 추론 서비스 생성
+        File: kf-serving-create
+      - Name: 학습 모델 생성
+        File: trained-model-create     
   - Name: 기본 기능
     Dir: common_function_sub
     Topics:
@@ -304,14 +353,14 @@ Topics:
         File: label-edit
       - Name: 주석 관리
         File: annotation-edit
+      - Name: 리소스 상세 정보 확인
+        File: resource-detail
       - Name: 리소스 정보 수정
         File: resource-info-edit
       - Name: 리소스 삭제
         File: resource-delete
       - Name: YAML 파일 다운로드
         File: yaml-down
-      - Name: 레지스트리에 이미지 등록
-        File: image-push
   - Name: 폼 에디터 설정 항목 참조
     File: form-set-item
 # ---

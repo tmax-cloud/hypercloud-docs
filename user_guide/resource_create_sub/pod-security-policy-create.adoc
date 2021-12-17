@@ -2,7 +2,137 @@
 :toc:
 :toc-title:
 
-본 장에서는 파드 보안 정책 리소스의 생성 방법에 대해서 설명한다. (QA: FORM VIEW 추가 부탁드립니다.)
+본 장에서는 파드 보안 정책 리소스의 생성 방법에 대해서 설명한다.
+
+== 폼 에디터
+
+새로운 파드 보안 정책을 폼 에디터를 사용해서 생성할 수 있다.
+
+. "마스터 클러스터" 콘솔 메뉴에서 *[관리]* -> *[파드 보안 정책]* 메뉴를 선택한다.
+. *파드 보안 정책* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 파드 보안 정책을 생성할 특정 네임스페이스를 선택한다.
+. *[파드 보안 정책 생성]* 버튼을 클릭한다.
+. *파드 보안 정책 생성* 화면이 열리면 **"다음을 통해 설정"**을 "Form View"로 선택한다.
+. 폼 에디터가 열리면 생성할 파드 보안 정책의 구성 정보를 설정한다. +
+이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
++
+NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한다.
+
+* Name *
+* Labels
+* allowPrivilegeEscalation
+* Allowed CSI Drivers
++
+----
+name *
+----
+* Allowed Capabilities
++
+----
+Value *
+----
+* Allowed Flex Volumes
++
+----
+driver *
+----
+* Allowed Host Paths
++
+----
+pathPrefix
+readOnly
+----
+* Allowed Proc Mount Types
++
+----
+Value *
+----
+* Allowed Unsafe Sysctls
++
+----
+Value *
+----
+* Default Add Capabilities
++
+----
+Value *
+----
+* defaultAllowPrivilegeEscalation
+* Forbidden Sysctls
++
+----
+Value *
+----
+* Fs Group *
++
+----
+▼ Ranges
+│  max *
+│  min *
+rule *
+----
+* hostIPC
+* hostNetwork
+* hostPID
+* Host Ports
++
+----
+max *
+min *
+----
+* privileged
+* readOnlyRootFilesystem
+* Required Drop Capabilities
++
+----
+Value *
+----
+* Run As Group
++
+----
+▼ Ranges
+│  max *
+│  min *
+rule *
+----
+* Run As User *
++
+----
+▼ Ranges
+│  max *
+│  min *
+rule *
+----
+* Runtime Class
++
+----
+▼ Allowed Runtime Class Names *
+│  Value *
+defaultRuntimeClassName
+----
+* Se Linux *
++
+----
+rule *
+▼ Se Linux Options
+│  level
+│  role
+│  type
+│  user
+----
+* Supplemental Groups *
++
+----
+▼ Ranges
+│  max *
+│  min *
+rule *
+----
+* Volumes
++
+----
+Value *
+----
+. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터
 
@@ -10,8 +140,11 @@
 
 새로운 Privileged 권한의 파드 보안 정책을 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/security#img-pod-security-main,파드 보안 정책 메인 화면>>에서 *[파드 보안 정책 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 파드 보안 정책(Privileged 권한)의 구성 정보를 작성한다.
+. "마스터 클러스터" 콘솔 메뉴에서 *[관리]* -> *[파드 보안 정책]* 메뉴를 선택한다.
+. *파드 보안 정책* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 파드 보안 정책을 생성할 특정 네임스페이스를 선택한다.
+. *[파드 보안 정책 생성]* 버튼을 클릭한다.
+. *파드 보안 정책 생성* 화면이 열리면 **"다음을 통해 설정"**을 "YAML View"로 선택한다.
+. YAML 에디터가 열리면 생성할 파드 보안 정책(Privileged 권한)의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]
@@ -91,8 +224,11 @@ spec:
 
 새로운 Restricted 권한의 파드 보안 정책을 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/security#img-pod-security-main,파드 보안 정책 메인 화면>>에서 *[파드 보안 정책 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 파드 보안 정책(Restricted 권한)의 구성 정보를 작성한다.
+. "마스터 클러스터" 콘솔 메뉴에서 *[관리]* -> *[파드 보안 정책]* 메뉴를 선택한다.
+. *파드 보안 정책* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 파드 보안 정책을 생성할 특정 네임스페이스를 선택한다.
+. *[파드 보안 정책 생성]* 버튼을 클릭한다.
+. *파드 보안 정책 생성* 화면이 열리면 **"다음을 통해 설정"**을 "YAML View"로 선택한다.
+. YAML 에디터가 열리면 생성할 파드 보안 정책(Restricted 권한)의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]

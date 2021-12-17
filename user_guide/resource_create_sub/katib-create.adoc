@@ -1,115 +1,152 @@
-= 카티브 생성
+= 하이퍼파라미터 튜닝 생성
 :toc:
 :toc-title:
 
-본 장에서는 카티브 리소스의 생성 방법에 대해서 설명한다.
+본 장에서는 하이퍼파라미터 튜닝 리소스의 생성 방법에 대해서 설명한다.
+
+== 폼 에디터
+
+새로운 하이퍼파라미터 튜닝을 폼 에디터를 사용해서 생성할 수 있다.
+
+. "개발자" 콘솔 메뉴에서 *[AI DevOps]* -> *[하이퍼파라미터 튜닝]* 메뉴를 선택한다.
+. *하이퍼파라미터 튜닝* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 하이퍼파라미터 튜닝을 생성할 특정 네임스페이스를 선택한다.
+. *[하이퍼파라미터 튜닝 생성]* 버튼을 클릭한다.
+. *하이퍼파라미터 튜닝 생성* 화면이 열리면 **"다음을 통해 설정"**을 "Form View"로 선택한다.
+. 폼 에디터가 열리면 생성할 하이퍼파라미터 튜닝의 구성 정보를 설정한다. +
+이때 설정 가능한 항목들은 다음과 같다. (* : 필수 입력 항목) 
++
+NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한다.
+
+* Name *
+* Labels
+* Algorithm +
+하위 세부 항목은 xref:../form-set-item.adoc#Algorithm["폼 에디터 설정 항목 참조"의 "Algorithm"]을 참고한다.
+* Early Stopping +
+하위 세부 항목은 xref:../form-set-item.adoc#EarlyStopping["폼 에디터 설정 항목 참조"의 "Early Stopping"]을 참고한다.
+* maxFailedTrialCount
+* maxTrialCount
+* Metrics Collector Spec +
+하위 세부 항목은 xref:../form-set-item.adoc#MetricsCollectorSpec["폼 에디터 설정 항목 참조"의 "Metrics Collector Spec"]을 참고한다.
+* Nas Config +
+하위 세부 항목은 xref:../form-set-item.adoc#NasConfig["폼 에디터 설정 항목 참조"의 "Nas Config"]를 참고한다.
+* Objective +
+하위 세부 항목은 xref:../form-set-item.adoc#Objective["폼 에디터 설정 항목 참조"의 "Objective"]를 참고한다.
+* parallelTrialCount
+* Parameters +
+하위 세부 항목은 xref:../form-set-item.adoc#Parameters["폼 에디터 설정 항목 참조"의 "Parameters"]를 참고한다.
+* resumePolicy
+* Trial Template +
+하위 세부 항목은 xref:../form-set-item.adoc#TrialTemplate["폼 에디터 설정 항목 참조"의 "Trial Template"]을 참고한다.
+. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터
 
-새로운 카티브를 YAML 에디터를 사용해서 생성할 수 있다.
+새로운 하이퍼파라미터 튜닝을 YAML 에디터를 사용해서 생성할 수 있다.
 
-. <<../console_menu_sub/ai-dev#img-katib-main,카티브 메인 화면>>에서 *[카티브 생성]* 버튼을 클릭한다.
-. YAML 에디터 화면이 열리면 생성할 카티브의 구성 정보를 작성한다.
+. "개발자" 콘솔 메뉴에서 *[AI DevOps]* -> *[하이퍼파라미터 튜닝]* 메뉴를 선택한다.
+. *하이퍼파라미터 튜닝* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 하이퍼파라미터 튜닝을 생성할 특정 네임스페이스를 선택한다.
+. *[하이퍼파라미터 튜닝 생성]* 버튼을 클릭한다.
+. *하이퍼파라미터 튜닝 생성* 화면이 열리면 **"다음을 통해 설정"**을 "YAML View"로 선택한다.
+. YAML 에디터 화면이 열리면 생성할 하이퍼파라미터 튜닝의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]
 ----
-apiVersion: "kubeflow.org/v1alpha3"
+apiVersion: "kubeflow.org/v1beta1"
 kind: Experiment
 metadata: <1>
   namespace: demo <2>
-  labels: <3>
-    controller-tools.k8s.io: "1.0"
-  name: demo-experiment <4>
-spec: <5>
-  objective: <6>
-    type: maximize <7>
-    goal: 0.99 <8>
-    objectiveMetricName: Validation-accuracy <9>
-    additionalMetricNames: <10>
-      - accuracy
+  name: demo-experiment <3>
+spec: <4>
+  objective: <5>
+    type: maximize <6>
+    goal: 0.99 <7>
+    objectiveMetricName: Validation-accuracy <8>
+    additionalMetricNames: <9>
+      - Train-accuracy      
       - loss
       - Validation-loss
-  metricsCollectorSpec: <11>
-    source: <12>
-      fileSystemPath: <13>
-        path: "/result/mnist.log" <14>
-        kind: File <15>
-    collector: <16>
-      kind: File <17>
-  algorithm: <18>
-    algorithmName: random <19>
-  parallelTrialCount: 3 <20>
-  maxTrialCount: 5 <21>
-  maxFailedTrialCount: 3 <22>
-  parameters: <23>
-    - name: --learning_rate <24>
-      parameterType: double <25>
-      feasibleSpace: <26>
-        min: "0.01" <27>
-        max: "0.03" <28>
+  metricsCollectorSpec: <10>
+    source: <11>
+      fileSystemPath: <12>
+        path: "/result/mnist.log" <13>
+        kind: File <14>
+    collector: <15>
+      kind: File <16>
+  algorithm: <17>
+    algorithmName: random <18>
+  parallelTrialCount: 3 <19>
+  maxTrialCount: 12 <20>
+  maxFailedTrialCount: 3 <21>
+  parameters: <22>
+    - name: --learning_rate <23>
+      parameterType: double <24>
+      feasibleSpace: <25>
+        min: "0.01" <26>
+        max: "0.03" <27>
     - name: --dropout_rate
       parameterType: double
       feasibleSpace:
         min: "0.1"
         max: "0.9"
-  trialTemplate: <29>
-    goTemplate: <30>
-        rawTemplate: |-
-          apiVersion: batch/v1
-          kind: Job
+  trialTemplate: <28>
+    primaryContainerName: training-container
+    trialParameters:
+      - name: learningRate
+        description: Learning rate for the training model
+        reference: --learning_rate
+      - name: dropoutRate
+        description: Dropout rate for the training model
+        reference: --dropout_rate         
+    trialSpec:
+      apiVersion: batch/v1
+      kind: Job
+      spec:
+        template:
           metadata:
-            name: {{.Trial}}
-            namespace: {{.NameSpace}}
+            annotations:
+              sidecar.istio.io/inject: "false"
           spec:
-            template:
-              spec:
-                containers:
-                - name: {{.Trial}}
-                  image: docker.io/rhojw/sample-job:3C8CE2EE
-                  command:
+            containers:
+              - name: training-container
+                image: docker.io/rhojw/sample-job:3C8CE2EE
+                command:
                   - "python"
-                  - "/app/fmnist-save-model-renew.py"
-                  {{- with .HyperParameters}}
-                  {{- range .}}
-                  - "{{.Name}}={{.Value}}" <31>
-                  {{- end}}
-                  {{- end}}
-                  resources:
-                    limits:
-                      nvidia.com/gpu: 1
-                restartPolicy: Never
+                  - "/app/fmnist-save-model-renew.py"    
+                  - "--learning_rate=${trialParameters.learningRate}"
+                  - "--dropout_rate=${trialParameters.dropoutRate}"    
+                resources:
+                  limits:
+                    nvidia.com/gpu: 1           
+            restartPolicy: Never
 ----
 +
 <1> Experiment의 메타데이터
 <2> Experiment가 생성될 네임스페이스의 이름
-<3> Experiment를 분류할 때 사용할 레이블 정보 (키-값 형식)
-<4> Experiment의 이름
-<5> Experiment의 스펙
-<6> Experiment의 Objective
-<7> Objective의 종류
-<8> Objective의 목표 수치
-<9> Objective로 정할 메트릭의 이름
-<10> Objective 외에 추가적으로 확인할 메트릭들의 목록
-<11> 메트릭을 수집할 Collector의 스펙
-<12> 메트릭을 수집할 Source
-<13> 파일 시스템 내 메트릭을 수집할 Source의 정보
-<14> 메트릭을 수집할 경로
-<15> 경로 내의 유형 (파일 또는 디렉터리)
-<16> Collector의 정보
-<17> Collector의 유형
-<18> 최적의 파라미터 조합을 찾기 위한 알고리즘
-<19> 알고리즘의 이름
-<20> 병렬적으로 수행할 트라이얼의 최대 개수
-<21> 최대 트라이얼 횟수
-<22> 허용할 최대 실패 횟수
-<23> Experiment를 통해 최적화할 파라미터의 목록
-<24> 파라미터의 이름
-<25> 파라미터의 유형
-<26> 파라미터의 범위 지정
-<27> 파라미터의 범위 (최솟값)
-<28> 파라미터의 범위 (최댓값)
-<29> 트라이얼의 템플릿
-<30> Go 언어의 템플릿 정의
-<31> 파라미터를 넣을 형식
+<3> Experiment의 이름
+<4> Experiment의 스펙
+<5> Experiment의 Objective
+<6> Objective의 종류
+<7> Objective의 목표 수치
+<8> Objective로 정할 메트릭의 이름
+<9> Objective 외에 추가적으로 확인할 메트릭들의 목록
+<10> 메트릭을 수집할 Collector의 스펙
+<11> 메트릭을 수집할 Source
+<12> 파일 시스템 내 메트릭을 수집할 Source의 정보
+<13> 메트릭을 수집할 경로
+<14> 경로 내의 유형 (파일 또는 디렉터리)
+<15> Collector의 정보
+<16> Collector의 유형
+<17> 최적의 파라미터 조합을 찾기 위한 알고리즘
+<18> 알고리즘의 이름
+<19> 병렬적으로 수행할 트라이얼의 최대 개수
+<20> 최대 트라이얼 횟수
+<21> 허용할 최대 실패 횟수
+<22> Experiment를 통해 최적화할 파라미터의 목록
+<23> 파라미터의 이름
+<24> 파라미터의 유형
+<25> 파라미터의 범위 지정
+<26> 파라미터의 범위 (최솟값)
+<27> 파라미터의 범위 (최댓값)
+<28> 트라이얼의 템플릿
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
