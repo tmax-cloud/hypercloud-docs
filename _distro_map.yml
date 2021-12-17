@@ -9,6 +9,9 @@ hypercloud: # 빌드 시 _preview에 떨어지는 디렉토리명. 영문, 숫�
     21-ko: # 브랜치명
       name: '21' # 버전명 ( adoc: product_version / erb: version)
       dir: '21-ko' # 해당 버전의 디렉토리 명.
+    4.1-ko: # 브랜치명
+      name: '4.1' # 버전명 ( adoc: product_version / erb: version)
+      dir: '4.1-ko' # 해당 버전의 디렉토리 명.
 #    4-ko: # 브랜치명
 #      name: '4' # 버전명 ( adoc: product_version / erb: version)
 #      dir: '4-ko' # 해당 버전의 디렉토리 명.
