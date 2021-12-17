@@ -201,7 +201,7 @@ image::../images/figure_admin_kf_serving_main.png[]
 
 * Y : 지원함 
 * N : 지원 안 함
-|생성 시간|추론 서비스가 생성된 시간이다.(QA: 추가)
+|생성 시간|추론 서비스가 생성된 시간이다.
 |image:../images/figure_action_icon.png[]|추론 서비스의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
