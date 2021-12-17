@@ -25,15 +25,12 @@
 Name: 환영합니다
 Dir: welcome
 Topics:
-  - Name: 제품 소개
-    Dir: overview_sub
-    Topics:
-      - Name: 개요
-        File: index
-      - Name: 특장점
-        File: advantage
-      - Name: 가치 제안
-        File: value-proposition
+  - Name: 개요
+    File: intro
+  - Name: 특장점
+    File: advantage
+  - Name: 가치 제안
+    File: value-proposition
 #  - Name: 법적공지
 #    File: legal-notice
 #  - Name: 릴리즈노트
