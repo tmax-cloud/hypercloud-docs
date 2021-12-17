@@ -43,7 +43,7 @@ storageClass
 .기본 작성 예
 [source,yaml]
 ----
-apiVersion: hyperflow.tmax.io/v1
+apiVersion: kubeflow.tmax.io/v1 (QA: hyperflow -> kubeflow로 수정)
 kind: Notebook
 metadata: <1>
   labels: <2>
