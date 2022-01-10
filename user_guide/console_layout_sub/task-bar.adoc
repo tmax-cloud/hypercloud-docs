@@ -4,6 +4,16 @@
 
 본 장에서는 작업표시줄 영역에서 수행할 수 있는 기능들에 대해서 설명한다.
 
+== 메인 메뉴 표시/숨기기
+
+메인 메뉴를 화면에서 보이지 않도록 숨기거나, 숨겨진 메인 메뉴를 다시 표시할 수 있다.
+
+. HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 image:../images/figure_hide_icon.png[] 아이콘을 클릭한다.
++
+image::../images/figure_menu_hide.png[]
+
+. 메인 메뉴가 화면에서 숨겨진다. 이때 숨겨진 메인 메뉴를 표시하려면 image:../images/figure_hide_icon.png[] 아이콘을 다시  클릭한다.
+
 == 세션 유효 시간 연장
 
 HyperCloud 콘솔의 기본 세션 유효 시간은 60분이며, 세션 유효 시간이 지나면 자동으로 로그아웃된다. +
@@ -39,6 +49,18 @@ image::../images/figure_import_yaml.png[]
 . *Import YAML* 화면이 열리면 빈 YAML 에디터에 생성할 리소스의 구성 정보를 직접 입력한다. 만약 기존에 생성된 YAML 파일을 가져오려면 YAML 에디터 영역에 가져올 YAML 파일을 드래그 앤드 드롭한다.
 
 . 내용 작성 완료 후 *[생성]* 버튼을 클릭하면 리소스가 생성된다.
+
+== 매뉴얼 확인
+
+HyperCloud 콘솔의 사용법을 간편하게 확인할 수 있다.
+
+다음은 매뉴얼을 확인하는 과정에 대한 설명이다.
+
+. HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 image:../images/figure_help_icon.png[] 아이콘을 클릭한다.
++
+image::../images/figure_help.png[]
+
+. HyperCloud 콘솔 매뉴얼이 새 창으로 열린다.
 
 == 로그아웃
 
