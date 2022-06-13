@@ -1,0 +1,520 @@
+= 폐쇄망 환경에서 설치
+
+본 장에서는 폐쇄망 환경에서 Kubespray를 이용하여 HyperCloud를 설치하는 방법에 대해서 설명한다.
+
+폐쇄망 환경에서 Kubespray를 이용하여 HyperCloud를 설치하는 과정은 크게 다음과 같다.
+
+. <<Terraform 설치>>
+. <<Kubespray 설치>>
+. <<Terraform 환경 설정>>
+. <<Terraform 적용>>
+. <<Kubespray 환경 설정>>
+* 필수 설정
+* 온프레미스(on-premise) 환경에서의 설정
+* AWS 클러스터 환경에서의 설정
+. <<Kubespray 실행>>
+. <<환경 설정>>
+. <<마스터 클러스터 설치>>
+. <<싱글 클러스터 설치>>
+. <<리소스 배포>>
+
+[#Terraform 설치]
+== Terraform 설치(TD: 전체 검수 필요)
+(TD: 테라폼의 설치 목적을 간단하게 작성 필요)
+
+.Terraform을 설치하기 위해서는 다음과 같은 사전 준비가 필요하다.
+[NOTE]
+====
+* IAM 계정 발급
+* 액세스 키 ID 및 시크릿 키 저장
+* 키페어 발급
+====
+
+. *저장소 추가*
++
+패키지 설치에 사용할 저장소를 추가한다.
++
+----
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+----
+
+. *패키지 설치*
++
+설치 가능한 Terraform의 버전을 확인한다.
++
+----
+yum --showduplicate list terraform
+----
++
+추가한 저장소에 Terraform을 설치한다.
++
+----
+sudo yum -y install terraform
+----
+
+. *설치 확인*
++
+설치된 Terraform의 버전을 확인한다.
++
+----
+terraform  version
+----
+
+[#Kubespray 설치]
+== Kubespray 설치 (TD: 전체 검수 필요)
+(TD: Kubespray의 설치 목적을 간단하게 작성 필요)
+
+다음의 명령을 실행하여 Kubespray를 설치한다.
+----
+git clone https://github.com/tmax-cloud/kubespray.git
+----
+
+[#Terraform 환경 설정]
+== Terraform 환경 설정 (TD: 전체 검수 필요)
+`kubespray/contrib/terraform/aws/terraform.tfvars` 파일을 열어 Terraform에 전달하는 변수의 값을 정의한다.
+----
+#Global Vars
+aws_cluster_name = "terraform"
+
+#VPC Vars
+aws_vpc_cidr_block       = "20.0.0.0/16"
+aws_cidr_subnets_public  = ["20.0.1.0/24", "20.0.2.0/24", "20.0.3.0/24"]
+aws_cidr_subnets_private = ["20.0.6.0/24", "20.0.7.0/24", "20.0.8.0/24"]
+
+#Bastion Host
+aws_bastion_num  = 1
+aws_bastion_size = "t2.medium"
+
+#Kubernetes Cluster
+aws_kube_master_num  = 3
+aws_kube_master_size = "t2.medium"
+aws_kube_master_disk_size = 50
+
+aws_etcd_num  = 0
+aws_etcd_size = "t2.medium"
+aws_etcd_disk_size = 50
+
+aws_kube_worker_num  = 1
+aws_kube_worker_size = "t2.medium"
+aws_kube_worker_disk_size = 50
+
+#EC2 Source/Dest Check
+aws_src_dest_check      = false
+
+#Settings AWS ELB
+aws_elb_api_port          = 6443
+k8s_secure_api_port       = 6443
+aws_elb_api_internal      = true
+aws_elb_api_public_subnet = false
+
+default_tags = {
+    Env = "terraform-qatest"
+    Product = "kubernetes"
+    Team = "QA"
+}
+
+#Setting VPN Connection
+
+vpn_connection_enable = true
+customer_gateway_ip   = "175.195.163.15"
+local_cidr            = "30.0.0.0/16"
+
+inventory_file = "../../../inventory/tmaxcloud/hosts"
+----
+
+[#Terraform 적용]
+== Terraform 적용 (TD: 전체 검수 필요)
+변경된 Terraform의 환경 설정을 적용하기 위해 AWS 계정 및 액세스 키 정보를 등록한다.
+
+. *AWS 계정 및 액세스 키 정보 등록*
++
+`credentials.tfvars` 파일을 생성한 후 사전에 발급받은 AWS 액세스 키 ID와 보안 액세스 키 정보를 등록한다.
++
+.예시
+----
+#AWS Access Key
+AWS_ACCESS_KEY_ID = "AKIAVVIW**********"
+#AWS Secret Key
+AWS_SECRET_ACCESS_KEY = "oa3ph/GBPkO5Km8rlM*********************"
+#EC2 SSH Key Name
+AWS_SSH_KEY_NAME = "default"
+#AWS Region
+AWS_DEFAULT_REGION = "us-east-1"
+----
+
+. *AWS 계정 및 액세스 키 정보 적용* 
++
+AWS 액세스 키 ID와 보안 액세스 키 정보가 등록된 `credentials.tfvars` 파일을 *terraform apply* 명령을 사용하여 적용한다.
++
+----
+terraform apply -var-file=credentials.tfvars
+----
+
+[#Kubespray 환경 설정]
+== Kubespray 환경 설정 (TD: 전체 검수 필요)
+
+=== 필수 설정
+Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
+
+.Kubespray를 실행하기 위해서는 다음과 같은 사전 준비가 필요하다.
+[NOTE]
+====
+* 웹서버 저장소 구성
+. 아래의 FTP 서버에서 files-repo를 다운로드한다.
++
+----
+192.168.1.150:/home/ck-ftp/k8s/install/offline/files-repo
+----
+. 로컬 저장소 구성
+. httpd 서비스 설치 및 설정
+. 파일 저장소 설정 수정
+* 이미지 저장소 구성
+. podman 설치 및 설정
+. 이미지 tar 파일 및 registry.tar 파일 다운로드
+. tar 파일 압축 해제 후 이미지 레지스트리 기동
+* Kubespray를 실행시키기 위한 의존성 패키지 설치
+* Terraform을 실행시키기 위한 의존성 패키지 설치
+====
+
+. (TD: all.yml 파일에 무슨 설정을 하는 것인지 키워드 작성 필요)
++
+`kubespray/inventory/tmaxcloud/group_vars/all/all.yml` 파일을 열어
++
+.예시
+----
+apiserver_loadbalancer_domain_name: "10.0.10.50" <1>
+loadbalancer_apiserver:
+  address: 10.0.10.50 <2>
+  port: 6443 <3>
+  
+upstream_dns_servers: <4>
+  - 192.168.1.150  
+----
++
+<1> (TD: 항목 설명 필요)
+<2> (TD: 항목 설명 필요)
+<3> (TD: 항목 설명 필요)
+<4> (TD: 항목 설명 필요)
+ 
+. (TD: k8s-net-calico.yml 파일에 무슨 설정을 하는 것인지 키워드 작성 필요)
++
+`kubespray/inventory/tmaxcloud/k8s_cluster/k8s-net-calico.yml` 파일을 열어
++
+.예시
+----
+calico_ip_auto_method: "cidr=192.168.7.0/24" <1>
+----
++
+<1> (TD: 항목 설명 필요)
+
+. (TD: addons.yml 파일에 무슨 설정을 하는 것인지 키워드 작성 필요)
++
+`kubespray/inventory/tmaxcloud/k8s_cluster/addons.yml` 파일을 열어
++
+.예시
+----
+aws_efs_csi_enabled: true <1>
+aws_efs_csi_namespace: aws-efs-csi <2>
+aws_efs_csi_controller_replicas: 1 <3>
+aws_efs_filesystem_id: fs-0fcfea187281e5235 <4>
+----
++
+<1> (TD: 항목 설명 필요)
+<2> (TD: 항목 설명 필요)
+<3> (TD: 항목 설명 필요)
+<4> (TD: 항목 설명 필요)
+
+. (TD: offline.yml  파일에 무슨 설정을 하는 것인지 키워드 작성 필요)
++
+`kubespray/inventory/tmaxcloud/group_vars/all/offline.yml` 파일을 열어
++
+.예시
+----
+is_this_offline: true <1>
+registry_host: "10.0.10.50:5000" <2>
+files_repo: "http://172.22.5.2" <3>
+----
++
+<1> (TD: 항목 설명 필요)
+<2> (TD: 항목 설명 필요)
+<3> (TD: 항목 설명 필요)
+
+=== 온프레미스(on-premise) 환경에서의 설정
+온프레미스 환경에서 Kubespray를 실행하기 위해 설정 파일을 정의한다.
+
+[NOTE]
+====
+예제로 사용되는 환경 정보는 다음과 같다.
+
+* Worker 노드 1: 10.0.0.4
+* Worker 노드 2: 172.22.7.2
+* Master 노드 1: 10.0.0.1
+* Master 노드 2: 10.0.0.2
+* Master 노드 3: 10.0.0.3
+* 프록시 노드: 10.0.0.5
+====
+
+* *offline.yml*
++
+kubespray/inventory/tmaxcloud/group_vars/all/offline.yml 파일을 열어 다음과 같이 설정한다.
++
+----
+is_this_offline: true
+----
+(TD: QA 가이드에서 각 파일별로 나누어서 예제 작성 필요. 샘플로 작성한 offline.yml 포맷과 동일하게 작성하면 됨.)
+
+
+
+
+=== AWS 클러스터 환경에서의 설정
+AWS 클러스터 환경에서 Kubespray를 실행하기 위해 설정 파일을 정의한다.
+
+[NOTE]
+====
+예제로 사용되는 환경 정보는 다음과 같다.
+
+* Worker 노드 1: 10.0.0.4
+* Worker 노드 2: 172.22.7.2
+* Master 노드 1: 10.0.0.1
+* Master 노드 2: 10.0.0.2
+* Master 노드 3: 10.0.0.3
+* 프록시 노드: 10.0.0.5
+* VPC 환경: 20.0.0.0/16
+====
+
+(TD: QA 가이드에서 각 파일별로 나누어서 예제 작성 필요. 샘플로 작성한 offline.yml 포맷과 동일하게 작성하면 됨.)
+
+[#Kubespray 실행]
+== Kubespray 실행 (TD: 전체 검수 필요)
+
+ansible-playbook 명령을 사용하여 Kubespray를 실행한다.
+----
+ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml
+----
+
+[#환경 설정]
+== 환경 설정
+(TD: 무엇에 대한 환경 설정인지 간략한 설명 작성 필요)
+
+. *노드 정보 등록*
++ 
+`inventory/tmaxcloud/inventory.ini` 파일을 열어 kubespray에서 설치할 노드들의 정보를 등록한다. +
+이때 all 그룹은 `*[호스트 이름] [Ansible IP 주소] [Backup IP 주소]*` 형태로 작성하고, 그 외 그룹은 all 그룹에서 정의한 호스트 이름만 작성한다.
+
+
+. *컨테이너 이미지 레지스트리 정보 설정*
++
+`tmaxcloud/group_vars/all/offline.yml` 파일을 열어 프라이빗 컨테이너 이미지 레지스트리의 정보를 설정한다.
++
+.예시
+----
+### Private Container Image Registry
+registry_host: "10.0.0.1:5000" <1>
+files_repo: "http://10.0.0.1" <2>
+----
++
+<1> 프라이빗 컨테이너 이미지 레지스트리의 주소
+<2> 구축한 웹 서버의 저장소 경로
+
+
+. *사용자 지정 도메인 등록*
++
+`tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 외부에 노출할 사용자 지정 도메인의 정보를 등록한다.
++
+.예시
+----
+# Enable extra custom DNS domain - by sophal_hong@tmax.co.kr
+enable_local_nip_domain: false <1>
+enable_custom_domain: true <2>
+custom_domain_name: "cloudqa.link" <3>
+custom_domain_ip: 172.22.7.2 <4>
+api_server_dns_cfwhn: true <5>
+----
++
+<1> nip.io 도메인의 사용 여부 (Self-Signed 도메인을 사용할 경우 true)
+<2> 커스텀 도메인의 사용 여부 (DNS를 사용할 경우 true)
+<3> 프록시 노드에 맵핑된 DNS 이름
+<4> 프록시 노드의 IP 주소 
+<5> kube-apiserver의 DNS 정책으로 "ClusterFirstWithHostNet" 적용 여부
+
+. *설치할 애플리케이션 구성 정보 확인* (TD: 해당 과정 내용 검수 필요)
++
+Kubespray로 설치될 애플리케이션(`nginx`, `harbor`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. +
+해당 애플리케이션의 구성 정보는 기본적으로 `roles/bootstrap-cloud/defaults/main.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `roles/bootstrap-cloud/task/` 및 `roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다.
++
+다음은 인그레스의 서비스 타입을 "NodePort"로 설정하는 예이다.
++
+.roles/bootstrap-cloud/defaults/main.yml
+----
+ingress_nginx_service_type: NodePort (TD:
+----
+
+. *애플리케이션 설치*
++
+ansible-playbook 명령을 사용하여 애플리케이션을 설치한다. 
++
+----
+ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml -t bootstrap-cloud
+----
+
+NOTE: 애플리케이션 설치가 정상적으로 완료되면, Gitlab과 ArgoCD 간의 저장소가 자동으로 연동된다.
+
+[#마스터 클러스터 설치]
+== 마스터 클러스터 설치
+
+. *master-values.yaml 파일 수정*
++
+`application/helm/master-values.yaml` 파일을 열어 애플리케이션을 Helm Chart로 설치하기 위해 사용할 환경 변수를 정의한다. (TD: 내용 검수 필요)
++
+.예시
+----
+...
+global:
+  privateRegistry: 10.0.0.1:5000 <1>
+...
+  gatewayBootstrap:
+    enabled: true <2>
+    svc_type: NodePort <3>
+    tls:
+      selfsigned:
+        enabled: true <4>
+...
+----
++
+<1> 프라이빗 컨테이너 이미지 레지스트리의 주소
+<2> 게이트웨이 부트스트랩의 포함 여부
+<3> 네트워크 서비스 타입 
+<4> 자체 서명 인증서의 사용 여부
++
+NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하거나, 필요시 사용자 지정 도메인을 등록한다.
+
+. *shared-values.yaml 파일 수정*
++
+`application/helm/shared-values.yaml` 파일을 열어 클러스터에 필요한 정보를 설정한다.(TD: shared-values.yaml 파일의 역할이 무엇인가?)
++
+.예시
+----
+...
+    repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1>
+...
+global:
+  network:
+    disabled: true <2>
+  domain: qa.shinhan.com <3>
+  keycloak:
+    domain: hyperauth.qa.shinhan.com <4>
+...
+----
+<1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
+<2> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
+<3> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
+<4> 설치할 HyperAuth 도메인 이름
+
+. *애플리케이션 변수 설정*
++
+`application/app_of_apps/master-applications.yaml` 파일을 열어 마스터 클러스터의 애플리케이션 변수를 설정한다.
++
+.예시
+----
+spec:
+  ...
+  source:
+    ...
+    repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1>
+    targetRevision: {{ target_branch_or_release }} <2> (TD: 실제 예시 데이터 작성)
+----
+<1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
+<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름 (TD:
+
+. *애플리케이션 등록*
++
+설치 환경에 애플리케이션을 등록한다.
++
+----
+$ kubectl -n argocd apply -f application/app_of_apps/master-applications.yaml
+----
+
+
+[#싱글 클러스터 설치]
+== 싱글 클러스터 설치
+
+. *애플리케이션 파일 생성*
++
+싱글 클러스터 생성을 위해 ArgoCD에 띄울 템플릿 파일을 생성한다. +
+이때 생성할 파일의 이름은 `{네임스페이스 이름}-{클러스터 이름}-applications.yaml` 형태로 생성한다.
++
+.예시
+----
+$ cp application/app_of_apps/single-applications.yaml application/app_of_apps/default-cluster-applications.yaml
+----
+
+. *애플리케이션 변수 설정*
++
+1번 과정에서 생성한 파일에 싱글 클러스터의 애플리케이션 변수를 설정한다. 이때 설정 항목에 대한 자세한 설명은 해당 파일 내의 주석을 참고한다.
+
+. *애플리케이션 등록*
++
+1번 과정에서 생성한 파일을 사용하여 마스터 클러스터 환경에 애플리케이션을 등록한다.
++
+.예시
+----
+$ kubectl -n argocd apply -f application/app_of_apps/default-cluster-applications.yaml
+----
+
+[#리소스 배포]
+== 리소스 배포
+
+애플리케이션 동기화 작업을 통해 리소스를 배포한다.
+
+CAUTION: 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. + 
+1. api-gateway-bootstrap(cert-manager + api-gateway) +
+2. strimzi kafka operator +
+3. hyperauth +
+4. efk or opensearch +
+5. prometheus +
+6. grafana +
+7. istio +
+8. jaeger +
+9. kiali +
+10. cluster-api +
+11. cluster-api-provider-aws +
+12. cluster-api-provider-vsphere +
+13. template-service-broker +
+14. catalog-controller +
+15. hypercloud +
+16. tekton-pipeline +
+17. tekton-trigger +
+18. cicd-operator +
+19. redis-operator +
+20. image-validating-webhook +
+21. ai-devops
+
+. *ArgoCD 서버 접속*
++
+ArgoCD 서버에 접속한 후 로그인한다. 이때 ArgoCD 서버의 주소는 다음의 명령어를 실행하여 확인할 수 있다.
++
+----
+$ kubectl get svc -n argocd argocd-server
+----
+
+. *동기화할 애플리케이션 검색*
++
+동기화 작업을 수행할 애플리케이션을 검색한 후 *[sync]* 버튼을 클릭한다.
++
+image::../images/figure_application_sync_01.png[]
+
+. *동기화 옵션 설정*
++
+동기화할 리소스 및 동기화 옵션을 설정한 후 *[SYNCHRONIZE]* 버튼을 클릭한다.
++
+image::../images/figure_application_sync_02.png[]
+
+. *상태 확인*
++
+애플리케이션의 *Status* 항목에 "Healthy"와 "Synced"가 표시되는지 확인한다.
++
+image::../images/figure_application_sync_03.png[]
+
+
+(TD: QA 가이드의 "nignx ingress-> traefik gateway ingress로 변경 방법"의 목적에 대해 설명이 필요합니다.) (QA : argocd-installer로 설치하는 모듈들이 traefik gateway를 사용합니다.)
