@@ -63,12 +63,41 @@ terraform  version
 
 [#Kubespray 설치]
 == Kubespray 설치 (TD: 전체 검수 필요)
-(TD: Kubespray의 설치 목적을 간단하게 작성 필요)
+(TD: Kubespray의 설치 목적을 간단하게 작성 필요)(QA: Kubespray는 Kubeadm 과 Ansible을 이용한 자동화 배포 도구이며 Kubernetes를 쉽게 설치할 수 있습니다. )
 
-다음의 명령을 실행하여 Kubespray를 설치한다.
+다음의 명령을 실행하여 Kubespray를 설치한다. (QA: 다음의 명령을 실행하여 kubernetes 설치를 위한 kubespray를 다운로드 한다.)
 ----
-git clone https://github.com/tmax-cloud/kubespray.git
+git clone https://github.com/tmax-cloud/kubespray.git (QA: git clone -b tmax-master https://github.com/tmax-cloud/kubespray.git)
 ----
+
+(QA: 설치 프로세스 모형이 kubespray 설치부분이나 kubespray 환경설정 부분에 들어갔으면 좋겠습니다.)
+(QA: kubespray 구성 시 필요한 패키지 및 버전이 들어갔으면 좋겠습니다. 
+ex) 모든 node에 필요
+
+nss-3.53.1-17.el8_3
+conntrack-1.4.4-10.el8
+socat-1.7.3.3-2.el8
+cri-o-1.19
+sshpass
+nfs-utils-1:2.3.3-41.el8_4.2.x86_64
+java-1.8.0-openjdk-devel.x86_64
+unzip
+tar
+kubespray install 실행하는 node에만 필요
+
+python3-pip-python 3.6
+python3-cryptography-3.2.1-4.el8 (BaseOS)
+python3-jinja2- 2.10.1-2.el8_0 (AppStream)
+python3-netaddr-0.7.19-8.el8 (AppStream)
+python3-jmespath-0.9.0-11.el8 (AppStream)
+python3-ruamel-yaml-0.15.41-2.el8 (epel)
+python3-pbr-5.1.2-3.el8 (epel-release)
+ansible-2.9.23-1.el8 (epel)
+private registry node에만 필요
+
+podman
+webserver repo node에만 필요 )
+httpd(apache-2.4.37)
 
 [#Terraform 환경 설정]
 == Terraform 환경 설정 (TD: 전체 검수 필요)
