@@ -206,8 +206,7 @@ Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 * Terraform을 실행시키기 위한 의존성 패키지 설치
 ====
 
-. (TD: all.yml 파일에 무슨 설정을 하는 것인지 키워드 작성 필요)
-. (QA: all.yml: 쿠버네티스 기본 설정 파일)
+. (TD: all.yml 파일에 무슨 설정을 하는 것인지 키워드 작성 필요) (QA: all.yml: 쿠버네티스 기본 설정 파일)
 +
 `kubespray/inventory/tmaxcloud/group_vars/all/all.yml` 파일을 열어
 +
@@ -239,12 +238,11 @@ calico_ip_auto_method: "cidr=192.168.7.0/24" <1>
 +
 <1> (TD: 항목 설명 필요) (QA: calico cidr 설정)
 
-. (TD: addons.yml 파일에 무슨 설정을 하는 것인지 키워드 작성 필요)
-. (QA: addons.yml 추가 설치 모듈 설정)
+. (TD: addons.yml 파일에 무슨 설정을 하는 것인지 키워드 작성 필요) (QA: addons.yml 추가 설치 모듈 설정)
 +
 `kubespray/inventory/tmaxcloud/k8s_cluster/addons.yml` 파일을 열어
 +
-.예시
+.예시(aws)
 ----
 default_storageclass_name: efs-sc <1>
 sc_name_0: efs-sc-0 <2>
@@ -259,6 +257,8 @@ aws_efs_filesystem_id: fs-XXX <5>
 <4> (TD: 항목 설명 필요) aws-efs-csi 스토리지 네임스페이스 명
 <5> (TD: 항목 설명 필요) aws-efs filesystem id 명
 
+. 예시(온프레미스)
++
 ----
 default_storageclass_name: nfs <1>
 sc_name_0: nfs <2>
@@ -268,15 +268,14 @@ nfs_server: 192.168.7.17 <5>
 nfs_path: /root/test <6>
 ----
 +
-<1> (TD: 항목 설명 필요) 기본값으로 설정할 스토리지명
-<2> (TD: 항목 설명 필요) Hyperregistry에서 postgres pvc의 storage class 명
-<3> (TD: 항목 설명 필요) 그 외의 pvc storage class 명
-<4> (TD: 항목 설명 필요) nfs 스토리지 네임스페이스 명
-<5> (TD: 항목 설명 필요) nfs 서버 주소
-<6> (TD: 항목 설명 필요) nfs 서버 공유 폴더 위치
+<1> (TD: 항목 설명 필요) 기본값으로 설정할 스토리지명  
+<2> (TD: 항목 설명 필요) Hyperregistry에서 postgres pvc의 storage class 명  
+<3> (TD: 항목 설명 필요) 그 외의 pvc storage class 명  
+<4> (TD: 항목 설명 필요) nfs 스토리지 네임스페이스 명  
+<5> (TD: 항목 설명 필요) nfs 서버 주소  
+<6> (TD: 항목 설명 필요) nfs 서버 공유 폴더 위치  
 
-. (TD: offline.yml  파일에 무슨 설정을 하는 것인지 키워드 작성 필요)
-. (QA: offline.yml  폐쇄망 설치 시 설정 파일)
+. (TD: offline.yml  파일에 무슨 설정을 하는 것인지 키워드 작성 필요) (QA: offline.yml  폐쇄망 설치 시 설정 파일)
 +
 `kubespray/inventory/tmaxcloud/group_vars/all/offline.yml` 파일을 열어
 +
@@ -378,7 +377,7 @@ files_repo: "http://10.0.0.1" <2>
 # Enable extra custom DNS domain - by sophal_hong@tmax.co.kr
 enable_local_nip_domain: false <1>
 enable_custom_domain: true <2>
-custom_domain_name: "cloudqa.link" <3>
+custom_domain_name: "cloudqa.com" <3>
 custom_domain_ip: 172.22.7.2 <4>
 api_server_dns_cfwhn: true <5>
 ----
