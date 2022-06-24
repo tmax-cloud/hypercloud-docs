@@ -207,12 +207,13 @@ Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 ====
 
 . (TD: all.yml 파일에 무슨 설정을 하는 것인지 키워드 작성 필요)
+. (QA: all.yml: 쿠버네티스 기본 설정 파일)
 +
 `kubespray/inventory/tmaxcloud/group_vars/all/all.yml` 파일을 열어
 +
 .예시
 ----
-apiserver_loadbalancer_domain_name: "10.0.10.50" <1>
+apiserver_loadbalancer_domain_name: "10.0.10.50" <1> 
 loadbalancer_apiserver:
   address: 10.0.10.50 <2>
   port: 6443 <3>
@@ -221,12 +222,13 @@ upstream_dns_servers: <4>
   - 192.168.1.150  
 ----
 +
-<1> (TD: 항목 설명 필요)
-<2> (TD: 항목 설명 필요)
-<3> (TD: 항목 설명 필요)
-<4> (TD: 항목 설명 필요)
+<1> (TD: 항목 설명 필요) (QA: 단일 마스터의 경우 마스터 노드 ip, 마스터 다중화의 경우 vip)
+<2> (TD: 항목 설명 필요) (QA: 단일 마스터의 경우 마스터 노드 ip, 마스터 다중화의 경우 vip)
+<3> (TD: 항목 설명 필요) (QA: 쿠버네티스 api server 포트)
+<4> (TD: 항목 설명 필요) (QA: 도메인네임서버 주소)
  
 . (TD: k8s-net-calico.yml 파일에 무슨 설정을 하는 것인지 키워드 작성 필요)
+. (QA: k8s-net-calico.yml calico 설정 파일)
 +
 `kubespray/inventory/tmaxcloud/k8s_cluster/k8s-net-calico.yml` 파일을 열어
 +
@@ -235,26 +237,46 @@ upstream_dns_servers: <4>
 calico_ip_auto_method: "cidr=192.168.7.0/24" <1>
 ----
 +
-<1> (TD: 항목 설명 필요)
+<1> (TD: 항목 설명 필요) (QA: calico cidr 설정)
 
 . (TD: addons.yml 파일에 무슨 설정을 하는 것인지 키워드 작성 필요)
+. (QA: addons.yml 추가 설치 모듈 설정)
 +
 `kubespray/inventory/tmaxcloud/k8s_cluster/addons.yml` 파일을 열어
 +
 .예시
 ----
-aws_efs_csi_enabled: true <1>
-aws_efs_csi_namespace: aws-efs-csi <2>
-aws_efs_csi_controller_replicas: 1 <3>
-aws_efs_filesystem_id: fs-0fcfea187281e5235 <4>
+default_storageclass_name: efs-sc <1>
+sc_name_0: efs-sc-0 <2>
+sc_name_999: efs-sc-999 <3>
+aws_efs_csi_namespace: aws-efs-csi <4>
+aws_efs_filesystem_id: fs-XXX <5>
 ----
 +
-<1> (TD: 항목 설명 필요)
-<2> (TD: 항목 설명 필요)
-<3> (TD: 항목 설명 필요)
-<4> (TD: 항목 설명 필요)
+<1> (TD: 항목 설명 필요) 기본값으로 설정할 스토리지명
+<2> (TD: 항목 설명 필요) Hyperregistry에서 postgres pvc의 storage class 명
+<3> (TD: 항목 설명 필요) 그 외의 pvc storage class 명
+<4> (TD: 항목 설명 필요) aws-efs-csi 스토리지 네임스페이스 명
+<5> (TD: 항목 설명 필요) aws-efs filesystem id 명
+
+----
+default_storageclass_name: nfs <1>
+sc_name_0: nfs <2>
+sc_name_999: nfs <3>
+nfs_namespace: nfs <4>
+nfs_server: 192.168.7.17 <5>
+nfs_path: /root/test <6>
+----
++
+<1> (TD: 항목 설명 필요) 기본값으로 설정할 스토리지명
+<2> (TD: 항목 설명 필요) Hyperregistry에서 postgres pvc의 storage class 명
+<3> (TD: 항목 설명 필요) 그 외의 pvc storage class 명
+<4> (TD: 항목 설명 필요) nfs 스토리지 네임스페이스 명
+<5> (TD: 항목 설명 필요) nfs 서버 주소
+<6> (TD: 항목 설명 필요) nfs 서버 공유 폴더 위치
 
 . (TD: offline.yml  파일에 무슨 설정을 하는 것인지 키워드 작성 필요)
+. (QA: offline.yml  폐쇄망 설치 시 설정 파일)
 +
 `kubespray/inventory/tmaxcloud/group_vars/all/offline.yml` 파일을 열어
 +
@@ -265,9 +287,9 @@ registry_host: "10.0.10.50:5000" <2>
 files_repo: "http://172.22.5.2" <3>
 ----
 +
-<1> (TD: 항목 설명 필요)
-<2> (TD: 항목 설명 필요)
-<3> (TD: 항목 설명 필요)
+<1> (TD: 항목 설명 필요) 폐쇄망 유무
+<2> (TD: 항목 설명 필요) 프라이빗 레지스트리 주소
+<3> (TD: 항목 설명 필요) 파일 레포지토리 주소
 
 === 온프레미스(on-premise) 환경에서의 설정
 온프레미스 환경에서 Kubespray를 실행하기 위해 설정 파일을 정의한다.
@@ -430,9 +452,9 @@ NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하�
 global:
   network:
     disabled: true <2>
-  domain: qa.shinhan.com <3>
+  domain: qa.shinhan.com <3> (QA: cloudqa.com)
   keycloak:
-    domain: hyperauth.qa.shinhan.com <4>
+    domain: hyperauth.qa.shinhan.com <4> (QA: hyperauth.cloudqa.com)
 ...
 ----
 <1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
@@ -450,11 +472,11 @@ spec:
   ...
   source:
     ...
-    repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1>
-    targetRevision: {{ target_branch_or_release }} <2> (TD: 실제 예시 데이터 작성)
+    repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1> 
+    targetRevision: {{ target_branch_or_release }} <2> (TD: 실제 예시 데이터 작성) 
 ----
 <1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
-<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름 (TD:
+<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름 (TD: (QA: HEAD)
 
 . *애플리케이션 등록*
 +
