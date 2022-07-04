@@ -1,17 +1,14 @@
-= 폐쇄망 환경에서 설치
+= AWS 환경에서 구축
 
-본 장에서는 폐쇄망 환경에서 Kubespray를 이용하여 HyperCloud를 설치하는 방법에 대해서 설명한다.
+본 장에서는 AWS 환경에서 폐쇄망으로 Kubespray를 이용하여 HyperCloud를 설치하는 방법에 대해서 설명한다.
 
-폐쇄망 환경에서 Kubespray를 이용하여 HyperCloud를 설치하는 과정은 크게 다음과 같다.
+설치하는 과정은 크게 다음과 같다.
 
 . <<Terraform 설치>>
-. <<Kubespray 설치>>
+. <<Kubespray 다운로드>>
 . <<Terraform 환경 설정>>
 . <<Terraform 적용>>
 . <<Kubespray 환경 설정>>
-* 필수 설정
-* 온프레미스(on-premise) 환경에서의 설정
-* AWS 클러스터 환경에서의 설정
 . <<Kubespray 실행>>
 . <<환경 설정>>
 . <<마스터 클러스터 설치>>
@@ -19,10 +16,10 @@
 . <<리소스 배포>>
 
 [#Terraform 설치]
-== Terraform 설치(TD: 전체 검수 필요)
-(TD: 테라폼의 설치 목적을 간단하게 작성 필요)
+== Terraform 설치
+Terraform을 이용하여 CSP(AWS, vSphere) 환경에서의 쿠버네티스 클러스터 구성을 위한 인프라 리소스를 생성할 수 있다.
 
-.Terraform을 설치하기 위해서는 다음과 같은 사전 준비가 필요하다.
+.Terraform을 설치하기 위해서는 다음과 같은 사전 준비가 필요하다.(TD: 사전 방법에 대한 상세 설명이 필요한가? 필요하다면 참고 자료 요청)
 [NOTE]
 ====
 * IAM 계정 발급
@@ -61,46 +58,17 @@ sudo yum -y install terraform
 terraform  version
 ----
 
-[#Kubespray 설치]
-== Kubespray 설치 (TD: 전체 검수 필요)
-(TD: Kubespray의 설치 목적을 간단하게 작성 필요)(QA: Kubespray는 Kubeadm 과 Ansible을 이용한 자동화 배포 도구이며 Kubernetes를 쉽게 설치할 수 있습니다. )
+[#Kubespray 다운로드]
+== Kubespray 다운로드
+Kubespray는 Kubeadm과 Ansible을 이용한 자동화 배포 도구로, Kubespray를 이용하여 쿠버네티스를 쉽게 설치할 수 있다.
 
-다음의 명령을 실행하여 Kubespray를 설치한다. (QA: 다음의 명령을 실행하여 kubernetes 설치를 위한 kubespray를 다운로드 한다.)
+다음의 명령을 실행하여 쿠버네티스 설치를 위한 Kubespray를 다운로드한다.
 ----
-git clone https://github.com/tmax-cloud/kubespray.git (QA: git clone -b tmax-master https://github.com/tmax-cloud/kubespray.git)
+git clone -b tmax-master https://github.com/tmax-cloud/kubespray.git
 ----
-
-(QA: 설치 프로세스 모형이 kubespray 설치부분이나 kubespray 환경설정 부분에 들어갔으면 좋겠습니다.)
-(QA: kubespray 구성 시 필요한 패키지 및 버전이 들어갔으면 좋겠습니다. 
-ex) 모든 node에 필요
-nss-3.53.1-17.el8_3
-conntrack-1.4.4-10.el8
-socat-1.7.3.3-2.el8
-cri-o-1.19
-sshpass
-nfs-utils-1:2.3.3-41.el8_4.2.x86_64
-java-1.8.0-openjdk-devel.x86_64
-unzip
-tar
-
-kubespray install 실행하는 node에만 필요
-python3-pip-python 3.6
-python3-cryptography-3.2.1-4.el8 (BaseOS)
-python3-jinja2- 2.10.1-2.el8_0 (AppStream)
-python3-netaddr-0.7.19-8.el8 (AppStream)
-python3-jmespath-0.9.0-11.el8 (AppStream)
-python3-ruamel-yaml-0.15.41-2.el8 (epel)
-python3-pbr-5.1.2-3.el8 (epel-release)
-ansible-2.9.23-1.el8 (epel)
-
-private registry node에만 필요
-podman
-
-webserver repo node에만 필요
-httpd(apache-2.4.37)
 
 [#Terraform 환경 설정]
-== Terraform 환경 설정 (TD: 전체 검수 필요)
+== Terraform 환경 설정
 `kubespray/contrib/terraform/aws/terraform.tfvars` 파일을 열어 Terraform에 전달하는 변수의 값을 정의한다.
 ----
 #Global Vars
@@ -153,7 +121,7 @@ inventory_file = "../../../inventory/tmaxcloud/hosts"
 ----
 
 [#Terraform 적용]
-== Terraform 적용 (TD: 전체 검수 필요)
+== Terraform 적용
 변경된 Terraform의 환경 설정을 적용하기 위해 AWS 계정 및 액세스 키 정보를 등록한다.
 
 . *AWS 계정 및 액세스 키 정보 등록*
@@ -181,34 +149,15 @@ terraform apply -var-file=credentials.tfvars
 ----
 
 [#Kubespray 환경 설정]
-== Kubespray 환경 설정 (TD: 전체 검수 필요)
+== Kubespray 환경 설정
 
-=== 필수 설정
 Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 
-.Kubespray를 실행하기 위해서는 다음과 같은 사전 준비가 필요하다.
-[NOTE]
-====
-* 웹서버 저장소 구성
-. 아래의 FTP 서버에서 files-repo를 다운로드한다.
-+
-----
-192.168.1.150:/home/ck-ftp/k8s/install/offline/files-repo
-----
-. 로컬 저장소 구성
-. httpd 서비스 설치 및 설정
-. 파일 저장소 설정 수정
-* 이미지 저장소 구성
-. podman 설치 및 설정
-. 이미지 tar 파일 및 registry.tar 파일 다운로드
-. tar 파일 압축 해제 후 이미지 레지스트리 기동
-* Kubespray를 실행시키기 위한 의존성 패키지 설치
-* Terraform을 실행시키기 위한 의존성 패키지 설치
-====
+NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 환경을 구성한다.
 
-. (TD: all.yml 파일에 무슨 설정을 하는 것인지 키워드 작성 필요) (QA: all.yml: 쿠버네티스 기본 설정 파일)
+. *쿠버네티스 기본 정보 설정*
 +
-`kubespray/inventory/tmaxcloud/group_vars/all/all.yml` 파일을 열어
+`kubespray/inventory/tmaxcloud/group_vars/all/all.yml` 파일을 열어 Kubernetes의 기본 정보를 설정한다.
 +
 .예시
 ----
@@ -221,28 +170,27 @@ upstream_dns_servers: <4>
   - 192.168.1.150  
 ----
 +
-<1> (TD: 항목 설명 필요) (QA: 단일 마스터의 경우 마스터 노드 ip, 마스터 다중화의 경우 vip)
-<2> (TD: 항목 설명 필요) (QA: 단일 마스터의 경우 마스터 노드 ip, 마스터 다중화의 경우 vip)
-<3> (TD: 항목 설명 필요) (QA: 쿠버네티스 api server 포트)
-<4> (TD: 항목 설명 필요) (QA: 도메인네임서버 주소)
+<1> (QA: 단일 마스터의 경우 마스터 노드 ip, 마스터 다중화의 경우 vip)(TD: 작성한 내용은 값 작성 방법이므로, 해당 항목의 정의 작성 필요)
+<2> (QA: 단일 마스터의 경우 마스터 노드 ip, 마스터 다중화의 경우 vip)(TD: 작성한 내용은 값 작성 방법이므로, 해당 항목의 정의 작성 필요)
+<3> 쿠버네티스 API 서버 포트 번호
+<4> 도메인 네임서버 주소
  
-. (TD: k8s-net-calico.yml 파일에 무슨 설정을 하는 것인지 키워드 작성 필요)
-. (QA: k8s-net-calico.yml calico 설정 파일)
+. *Calico 구성 정보 설정*
 +
-`kubespray/inventory/tmaxcloud/k8s_cluster/k8s-net-calico.yml` 파일을 열어
+`kubespray/inventory/tmaxcloud/k8s_cluster/k8s-net-calico.yml` 파일을 열어 Calico 관련 정보를 설정한다.
 +
 .예시
 ----
 calico_ip_auto_method: "cidr=192.168.7.0/24" <1>
 ----
 +
-<1> (TD: 항목 설명 필요) (QA: calico cidr 설정)
+<1> (QA: calico cidr 설정) (TD: 항목 설명 필요) 
 
-. (TD: addons.yml 파일에 무슨 설정을 하는 것인지 키워드 작성 필요) (QA: addons.yml 추가 설치 모듈 설정)
+. *추가 설치 모듈 설정*
 +
-`kubespray/inventory/tmaxcloud/k8s_cluster/addons.yml` 파일을 열어
+`kubespray/inventory/tmaxcloud/k8s_cluster/addons.yml` 파일을 열어 추가 설치가 가능한 모듈 관련 정보를 설정한다.
 +
-.예시(aws)
+.예시
 ----
 default_storageclass_name: efs-sc <1>
 sc_name_0: efs-sc-0 <2>
@@ -251,33 +199,15 @@ aws_efs_csi_namespace: aws-efs-csi <4>
 aws_efs_filesystem_id: fs-XXX <5>
 ----
 +
-<1> (TD: 항목 설명 필요) 기본값으로 설정할 스토리지명
-<2> (TD: 항목 설명 필요) Hyperregistry에서 postgres pvc의 storage class 명
-<3> (TD: 항목 설명 필요) 그 외의 pvc storage class 명
-<4> (TD: 항목 설명 필요) aws-efs-csi 스토리지 네임스페이스 명
-<5> (TD: 항목 설명 필요) aws-efs filesystem id 명
+<1> 기본값으로 설정할 스토리지 이름
+<2> HyperRegistry에서 Postgres PVC의 스토리지 클래스 이름  
+<3> 그 외의 PVC 스토리지 클래스 이름
+<4> AWS EFS CSI 스토리지의 네임스페이스 이름
+<5> AWS EFS 파일 시스템의 ID
 
-. 예시(온프레미스)
+. *폐쇄망 정보 설정*
 +
-----
-default_storageclass_name: nfs <1>
-sc_name_0: nfs <2>
-sc_name_999: nfs <3>
-nfs_namespace: nfs <4>
-nfs_server: 192.168.7.17 <5>
-nfs_path: /root/test <6>
-----
-+
-<1> (TD: 항목 설명 필요) 기본값으로 설정할 스토리지명  
-<2> (TD: 항목 설명 필요) Hyperregistry에서 postgres pvc의 storage class 명  
-<3> (TD: 항목 설명 필요) 그 외의 pvc storage class 명  
-<4> (TD: 항목 설명 필요) nfs 스토리지 네임스페이스 명  
-<5> (TD: 항목 설명 필요) nfs 서버 주소  
-<6> (TD: 항목 설명 필요) nfs 서버 공유 폴더 위치  
-
-. (TD: offline.yml  파일에 무슨 설정을 하는 것인지 키워드 작성 필요) (QA: offline.yml  폐쇄망 설치 시 설정 파일)
-+
-`kubespray/inventory/tmaxcloud/group_vars/all/offline.yml` 파일을 열어
+`kubespray/inventory/tmaxcloud/group_vars/all/offline.yml` 파일을 열어 폐쇄망 관련 정보를 설정한다.
 +
 .예시
 ----
@@ -286,57 +216,12 @@ registry_host: "10.0.10.50:5000" <2>
 files_repo: "http://172.22.5.2" <3>
 ----
 +
-<1> (TD: 항목 설명 필요) 폐쇄망 유무
-<2> (TD: 항목 설명 필요) 프라이빗 레지스트리 주소
-<3> (TD: 항목 설명 필요) 파일 레포지토리 주소
-
-=== 온프레미스(on-premise) 환경에서의 설정
-온프레미스 환경에서 Kubespray를 실행하기 위해 설정 파일을 정의한다.
-
-[NOTE]
-====
-예제로 사용되는 환경 정보는 다음과 같다.
-
-* Worker 노드 1: 10.0.0.4
-* Worker 노드 2: 172.22.7.2
-* Master 노드 1: 10.0.0.1
-* Master 노드 2: 10.0.0.2
-* Master 노드 3: 10.0.0.3
-* 프록시 노드: 10.0.0.5
-====
-
-* *offline.yml*
-+
-kubespray/inventory/tmaxcloud/group_vars/all/offline.yml 파일을 열어 다음과 같이 설정한다.
-+
-----
-is_this_offline: true
-----
-(TD: QA 가이드에서 각 파일별로 나누어서 예제 작성 필요. 샘플로 작성한 offline.yml 포맷과 동일하게 작성하면 됨.)
-
-
-
-
-=== AWS 클러스터 환경에서의 설정
-AWS 클러스터 환경에서 Kubespray를 실행하기 위해 설정 파일을 정의한다.
-
-[NOTE]
-====
-예제로 사용되는 환경 정보는 다음과 같다.
-
-* Worker 노드 1: 10.0.0.4
-* Worker 노드 2: 172.22.7.2
-* Master 노드 1: 10.0.0.1
-* Master 노드 2: 10.0.0.2
-* Master 노드 3: 10.0.0.3
-* 프록시 노드: 10.0.0.5
-* VPC 환경: 20.0.0.0/16
-====
-
-(TD: QA 가이드에서 각 파일별로 나누어서 예제 작성 필요. 샘플로 작성한 offline.yml 포맷과 동일하게 작성하면 됨.)
+<1> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
+<2> 프라이빗 레지스트리 주소
+<3> 파일 리포지터리 주소
 
 [#Kubespray 실행]
-== Kubespray 실행 (TD: 전체 검수 필요)
+== Kubespray 실행
 
 ansible-playbook 명령을 사용하여 Kubespray를 실행한다.
 ----
@@ -345,28 +230,12 @@ ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=roo
 
 [#환경 설정]
 == 환경 설정
-(TD: 무엇에 대한 환경 설정인지 간략한 설명 작성 필요)
+(TD: 해당 환경설정 부분이 상단의 "Kubespray 환경 설정"에 포함되어야 하나?)
 
 . *노드 정보 등록*
 + 
 `inventory/tmaxcloud/inventory.ini` 파일을 열어 kubespray에서 설치할 노드들의 정보를 등록한다. +
 이때 all 그룹은 `*[호스트 이름] [Ansible IP 주소] [Backup IP 주소]*` 형태로 작성하고, 그 외 그룹은 all 그룹에서 정의한 호스트 이름만 작성한다.
-
-
-. *컨테이너 이미지 레지스트리 정보 설정*
-+
-`tmaxcloud/group_vars/all/offline.yml` 파일을 열어 프라이빗 컨테이너 이미지 레지스트리의 정보를 설정한다.
-+
-.예시
-----
-### Private Container Image Registry
-registry_host: "10.0.0.1:5000" <1>
-files_repo: "http://10.0.0.1" <2>
-----
-+
-<1> 프라이빗 컨테이너 이미지 레지스트리의 주소
-<2> 구축한 웹 서버의 저장소 경로
-
 
 . *사용자 지정 도메인 등록*
 +
@@ -388,7 +257,7 @@ api_server_dns_cfwhn: true <5>
 <4> 프록시 노드의 IP 주소 
 <5> kube-apiserver의 DNS 정책으로 "ClusterFirstWithHostNet" 적용 여부
 
-. *설치할 애플리케이션 구성 정보 확인* (TD: 해당 과정 내용 검수 필요)
+. *설치할 애플리케이션 구성 정보 확인*
 +
 Kubespray로 설치될 애플리케이션(`nginx`, `harbor`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. +
 해당 애플리케이션의 구성 정보는 기본적으로 `roles/bootstrap-cloud/defaults/main.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `roles/bootstrap-cloud/task/` 및 `roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다.
@@ -397,7 +266,7 @@ Kubespray로 설치될 애플리케이션(`nginx`, `harbor`, `gitlab`, `argocd`)
 +
 .roles/bootstrap-cloud/defaults/main.yml
 ----
-ingress_nginx_service_type: NodePort (TD:
+ingress_nginx_service_type: NodePort
 ----
 
 . *애플리케이션 설치*
@@ -415,7 +284,7 @@ NOTE: 애플리케이션 설치가 정상적으로 완료되면, Gitlab과 ArgoC
 
 . *master-values.yaml 파일 수정*
 +
-`application/helm/master-values.yaml` 파일을 열어 애플리케이션을 Helm Chart로 설치하기 위해 사용할 환경 변수를 정의한다. (TD: 내용 검수 필요)
+`application/helm/master-values.yaml` 파일을 열어 애플리케이션을 Helm Chart로 설치하기 위해 사용할 환경 변수를 정의한다.
 +
 .예시
 ----
@@ -451,9 +320,9 @@ NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하�
 global:
   network:
     disabled: true <2>
-  domain: qa.shinhan.com <3> (QA: cloudqa.com)
+  domain: cloudqa.com <3>
   keycloak:
-    domain: hyperauth.qa.shinhan.com <4> (QA: hyperauth.cloudqa.com)
+    domain: hyperauth.cloudqa.com <4>
 ...
 ----
 <1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
@@ -475,7 +344,7 @@ spec:
     targetRevision: {{ target_branch_or_release }} <2> (TD: 실제 예시 데이터 작성) 
 ----
 <1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
-<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름 (TD: (QA: HEAD)
+<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름 (QA: HEAD)(TD: 무엇에 대한 답변인가?)
 
 . *애플리케이션 등록*
 +
@@ -567,4 +436,4 @@ image::../images/figure_application_sync_02.png[]
 image::../images/figure_application_sync_03.png[]
 
 
-(TD: QA 가이드의 "nignx ingress-> traefik gateway ingress로 변경 방법"의 목적에 대해 설명이 필요합니다.) (QA : argocd-installer로 설치하는 모듈들이 traefik gateway를 사용합니다.)
+(QA : argocd-installer로 설치하는 모듈들이 traefik gateway를 사용합니다.) (TD: "nignx ingress-> traefik gateway ingress로 변경 방법" 매뉴얼 포함 여부 QA와 협의 필요)
