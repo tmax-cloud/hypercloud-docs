@@ -4,34 +4,46 @@
 
 설치하는 과정은 크게 다음과 같다.
 
-. <<Kubespray 다운로드>>
-. <<Kubespray 환경 설정>>
-. <<Kubespray 실행>>
-. <<환경 설정>>
-. <<마스터 클러스터 설치>>
-. <<싱글 클러스터 설치>>
-. <<리소스 배포>>
+. <<K8sInfraOn, 쿠버네티스 인프라 구성>>
+. <<ArgoCDInstallOn, ArgoCD 설치>>
+. <<MasterClusterOn, 마스터 클러스터 설치>>
+. <<SingleClusterOn, 싱글 클러스터 설치>>
+. <<ResourceDeployOn, 리소스 배포>>
+. <<TraefikApiGatewayOn, Traefik 기반의  API 게이트웨이 구성>>
 
+[#K8sInfraOn]
+== 쿠버네티스 인프라 구성
+본 절에서는 Kubespray를 이용하여 쿠버네티스 인프라를 구성하는 방법에 대해서 설명한다.
 
-[#Kubespray 다운로드]
-== Kubespray 다운로드
-Kubespray는 Kubeadm과 Ansible을 이용한 자동화 배포 도구로, Kubespray를 이용하여 쿠버네티스를 쉽게 설치할 수 있다.
+쿠버네티스 인프라를 구성하는 순서는 다음과 같다.
+
+. <<KubesprayDownK8sOn, Kubespray 다운로드 (쿠버네티스 설치용)>>
+. <<KubesprayConfigK8sOn, Kubespray 환경 설정>>
+. <<KubesprayRunK8sOn, Kubespray 실행>>
+
+[#KubesprayDownK8sOn]
+=== Kubespray 다운로드 (쿠버네티스 설치용)
 
 다음의 명령을 실행하여 쿠버네티스 설치를 위한 Kubespray를 다운로드한다.
 ----
-git clone -b tmax-master https://github.com/tmax-cloud/kubespray.git
+$ git clone -b tmax-master https://github.com/tmax-cloud/kubespray.git ./kubespray-infra
 ----
 
-[#Kubespray 환경 설정]
-== Kubespray 환경 설정
+[#KubesprayConfigK8sOn]
+=== Kubespray 환경 설정
 
 Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 
-NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 환경을 구성한다.
+NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. 반드시  xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 환경을 구성한다.
+
+. *노드 정보 등록*
++ 
+`kubespray-infra/inventory/tmaxcloud/inventory.ini` 파일을 열어 kubespray에서 설치할 노드들의 정보를 등록한다. +
+이때 all 그룹은 `*[호스트 이름] [Ansible IP 주소] [Backup IP 주소]*` 형태로 작성하고, 그 외 그룹은 all 그룹에서 정의한 호스트 이름만 작성한다.
 
 . *쿠버네티스 기본 정보 설정*
 +
-`kubespray/inventory/tmaxcloud/group_vars/all/all.yml` 파일을 열어 Kubernetes의 기본 정보를 설정한다.
+`kubespray-infra/inventory/tmaxcloud/group_vars/all/all.yml` 파일을 열어 Kubernetes의 기본 정보를 설정한다.
 +
 .예시
 ----
@@ -44,25 +56,28 @@ upstream_dns_servers: <4>
   - 192.168.1.150  
 ----
 +
-<1> (TD: 작성한 내용은 값 작성 방법이므로, 해당 항목의 정의 작성 필요)(QA : 각 쿠버네티스 API 서버와 통신할 수 있는 vip 주소)
-<2> (TD: 작성한 내용은 값 작성 방법이므로, 해당 항목의 정의 작성 필요)(QA : 각 쿠버네티스 API 서버와 통신할 수 있는 vip 주소)
+<1> 쿠버네티스 API 서버 주소
+
+* 싱글 마스터의 경우: 마스터 노드의 IP 주소
+* 멀티 마스터의 경우: API 서버와 통신할 수 있는 VIP 주소 
+<2> 쿠버네티스 API 서버와 통신할 수 있는 VIP 주소
 <3> 쿠버네티스 API 서버 포트 번호
 <4> 도메인 네임서버 주소
  
 . *Calico 구성 정보 설정*
 +
-`kubespray/inventory/tmaxcloud/k8s_cluster/k8s-net-calico.yml` 파일을 열어 Calico 관련 정보를 설정한다.
+`kubespray-infra/inventory/tmaxcloud/k8s_cluster/k8s-net-calico.yml` 파일을 열어 Calico 관련 정보를 설정한다.
 +
 .예시
 ----
 calico_ip_auto_method: "cidr=192.168.7.0/24" <1>
 ----
 +
-<1> (QA: calico cidr 설정) (TD: 항목 설명 필요)(QA : calico가 자동으로 감지할 노드들의 CIDR 값 )
+<1> Calico가 자동으로 감지할 노드들의 CIDR 값 
 
 . *추가 설치 모듈 설정*
 +
-`kubespray/inventory/tmaxcloud/k8s_cluster/addons.yml` 파일을 열어 추가 설치가 가능한 모듈 관련 정보를 설정한다.
+`kubespray-infra/inventory/tmaxcloud/k8s_cluster/addons.yml` 파일을 열어 추가 설치가 가능한 모듈 관련 정보를 설정한다.
 +
 .예시
 ----
@@ -83,7 +98,7 @@ nfs_path: /root/test <6>
 
 . *폐쇄망 정보 설정*
 +
-`kubespray/inventory/tmaxcloud/group_vars/all/offline.yml` 파일을 열어 폐쇄망 관련 정보를 설정한다.
+`kubespray-infra/inventory/tmaxcloud/group_vars/all/offline.yml` 파일을 열어 폐쇄망 관련 정보를 설정한다.
 +
 .예시
 ----
@@ -96,26 +111,80 @@ files_repo: "http://172.22.5.2" <3>
 <2> 프라이빗 레지스트리 주소
 <3> 파일 리포지터리 주소
 
-[#Kubespray 실행]
-== Kubespray 실행
+. *IP 주소 대역 설정*
++
+`kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 파드 및 서비스의 IP 주소 대역 정보를 설정한다.
++
+.예시
+----
+# Kubernetes internal network for services, unused block of space.
+kube_service_addresses: 10.96.0.0/24 <1>
+
+# internal network. When used, it will assign IP
+# addresses from this range to individual pods.
+# This network must be unused in your network infrastructure!
+kube_pods_subnet: 10.244.0.0/24 <2>
+----
++
+<1> 서비스 IP 주소 대역
+<2> 파드 서브넷 IP 주소 대역
+
+[#KubesprayRunK8sOn]
+=== Kubespray 실행
 
 ansible-playbook 명령을 사용하여 Kubespray를 실행한다.
 ----
-ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml
+$ ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml
 ----
 
-[#환경 설정]
-== 환경 설정
-(TD: 해당 환경설정 부분이 상단의 "Kubespray 환경 설정"에 포함되어야 하나?)
+[#ArgoCDInstallOn]
+== ArgoCD 설치
+본 절에서는 Kubespray를 이용하여 ArgoCD를 설치하는 방법에 대해서 설명한다.
+
+ArgoCD를 설치하는 순서는 다음과 같다.
+
+. <<KubesprayDownArgoOn, Kubespray 다운로드 (ArgoCD 설치용)>>
+. <<KubesprayConfigArgoOn, Kubespray 환경 설정>>
+. <<KubesprayRunArgoOn, Kubespray 실행>>
+
+[#KubesprayDownArgoOn]
+=== Kubespray 다운로드 (ArgoCD 설치용)
+
+다음의 명령을 실행하여 ArgoCD 설치를 위한 Kubespray를 다운로드한다.
+----
+$ git clone -b ck1room https://github.com/tmax-cloud/kubespray.git ./kubespray-argocd
+----
+
+[#KubesprayConfigArgoOn]
+=== Kubespray 환경 설정
+
+Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
+
+NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. 반드시  xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 환경을 구성한다.
 
 . *노드 정보 등록*
 + 
-`inventory/tmaxcloud/inventory.ini` 파일을 열어 kubespray에서 설치할 노드들의 정보를 등록한다. +
+`kubespray-argocd/inventory/tmaxcloud/inventory.ini` 파일을 열어 kubespray에서 설치할 노드들의 정보를 등록한다. +
 이때 all 그룹은 `*[호스트 이름] [Ansible IP 주소] [Backup IP 주소]*` 형태로 작성하고, 그 외 그룹은 all 그룹에서 정의한 호스트 이름만 작성한다.
+
+. *폐쇄망 정보 설정*
++
+`kubespray-argocd/inventory/tmaxcloud/group_vars/all/offline.yml` 파일을 열어 폐쇄망 관련 정보를 설정한다.
++
+.예시
+----
+is_this_offline: true <1>
+registry_host: "10.0.10.50:5000" <2>
+files_repo: "http://172.22.5.2" <3>
+----
++
+<1> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
+<2> 프라이빗 레지스트리 주소
+<3> 파일 리포지터리 주소
 
 . *사용자 지정 도메인 등록*
 +
-`tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 외부에 노출할 사용자 지정 도메인의 정보를 등록한다.
+`kubespray-argocd/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 외부에 노출할 사용자 지정 도메인의 정보를 등록한다.
 +
 .예시
 ----
@@ -125,37 +194,47 @@ enable_custom_domain: true <2>
 custom_domain_name: "cloudqa.com" <3>
 custom_domain_ip: 172.22.7.2 <4>
 api_server_dns_cfwhn: true <5>
+
+# Kubernetes internal network for services, unused block of space.
+kube_service_addresses: 10.96.0.0/24 <6>
+
+# internal network. When used, it will assign IP
+# addresses from this range to individual pods.
+# This network must be unused in your network infrastructure!
+kube_pods_subnet: 10.244.0.0/24 <7>
 ----
 +
 <1> nip.io 도메인의 사용 여부 (Self-Signed 도메인을 사용할 경우 true)
 <2> 커스텀 도메인의 사용 여부 (DNS를 사용할 경우 true)
 <3> 프록시 노드에 맵핑된 DNS 이름
 <4> 프록시 노드의 IP 주소 
-<5> kube-apiserver의 DNS 정책으로 "ClusterFirstWithHostNet" 적용 여부
+<5> kube-apiserver의 DNS 정책으로 "ClusterFirstWithHostNet" 적용 여부 
+<6> 서비스 IP 주소 대역
+<7> 파드 서브넷 IP 주소 대역
 
 . *설치할 애플리케이션 구성 정보 확인*
 +
 Kubespray로 설치될 애플리케이션(`nginx`, `harbor`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. +
-해당 애플리케이션의 구성 정보는 기본적으로 `roles/bootstrap-cloud/defaults/main.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `roles/bootstrap-cloud/task/` 및 `roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다.
+해당 애플리케이션의 구성 정보는 기본적으로 `kubespray-argocd/roles/bootstrap-cloud/defaults/main.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `kubespray-argocd/roles/bootstrap-cloud/task/` 및 `kubespray-argocd/roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다. (TD: 파일의 풀경로가 정상적으로 작성되었는지 확인 필요)
 +
 다음은 인그레스의 서비스 타입을 "NodePort"로 설정하는 예이다.
 +
-.roles/bootstrap-cloud/defaults/main.yml
+.kubespray-argocd/roles/bootstrap-cloud/defaults/main.yml
 ----
 ingress_nginx_service_type: NodePort
 ----
 
-. *애플리케이션 설치*
-+
-ansible-playbook 명령을 사용하여 애플리케이션을 설치한다. 
-+
+[#KubesprayRunArgoOn]
+=== Kubespray 실행
+
+ansible-playbook 명령을 사용하여 애플리케이션을 설치한다.
 ----
-ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml -t bootstrap-cloud
+$ ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml -t bootstrap-cloud
 ----
 
 NOTE: 애플리케이션 설치가 정상적으로 완료되면, Gitlab과 ArgoCD 간의 저장소가 자동으로 연동된다.
 
-[#마스터 클러스터 설치]
+[#MasterClusterOn]
 == 마스터 클러스터 설치
 
 . *master-values.yaml 파일 수정*
@@ -186,7 +265,7 @@ NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하�
 
 . *shared-values.yaml 파일 수정*
 +
-`application/helm/shared-values.yaml` 파일을 열어 클러스터에 필요한 정보를 설정한다.(TD: shared-values.yaml 파일의 역할이 무엇인가?)(QA : 마스터 클러스터와 싱글 클러스터 설정 정보 중 중복되는 정보들을 shared-values.yaml 에 담아놨습니다. 마스터 클러스터 설정 : master-values.yaml + shared-values.yaml / 싱글 클러스터 설정 : single-values.yaml + shard-values.yaml 입니다.)
+`application/helm/shared-values.yaml` 파일을 열어 마스터 클러스터에 필요한 구성 정보를 설정한다.
 +
 .예시
 ----
@@ -217,10 +296,10 @@ spec:
   source:
     ...
     repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1> 
-    targetRevision: {{ target_branch_or_release }} <2> (TD: 실제 예시 데이터 작성)(QA : targetRevision: HEAD) 
+    targetRevision: HEAD <2>
 ----
 <1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
-<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름 (QA: HEAD) (TD: 무엇에 대한 답변인가?) (QA :실제 예시 데이터 작성 예 입니다.)
+<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름
 
 . *애플리케이션 등록*
 +
@@ -230,8 +309,7 @@ spec:
 $ kubectl -n argocd apply -f application/app_of_apps/master-applications.yaml
 ----
 
-
-[#싱글 클러스터 설치]
+[#SingleClusterOn]
 == 싱글 클러스터 설치
 
 . *애플리케이션 파일 생성*
@@ -257,7 +335,7 @@ $ cp application/app_of_apps/single-applications.yaml application/app_of_apps/de
 $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-applications.yaml
 ----
 
-[#리소스 배포]
+[#ResourceDeployOn]
 == 리소스 배포
 
 애플리케이션 동기화 작업을 통해 리소스를 배포한다.
@@ -295,7 +373,7 @@ $ kubectl get svc -n argocd argocd-server
 
 . *동기화할 애플리케이션 검색*
 +
-동기화 작업을 수행할 애플리케이션을 검색한 후 *[sync]* 버튼을 클릭한다.(TD: 화면 캡처를 위한 ArgoCD 접속 URL 및 계정 정보 필요) 
+동기화 작업을 수행할 애플리케이션을 검색한 후 *[SYNC]* 버튼을 클릭한다.
 +
 image::../images/figure_application_sync_01.png[]
 
@@ -311,5 +389,64 @@ image::../images/figure_application_sync_02.png[]
 +
 image::../images/figure_application_sync_03.png[]
 
+[#TraefikApiGatewayOn]
+== Traefik 기반의  API 게이트웨이 구성 (TD: 전체 내용 검수 필요)
 
-(QA : argocd-installer로 설치하는 모듈들이 traefik gateway를 사용합니다.) (TD: "nignx ingress-> traefik gateway ingress로 변경 방법" 매뉴얼 포함 여부 QA와 협의 필요)
+Gitlab과 ArgoCD에서 Traefik 게이트웨이를 사용하도록 설정한다.
+
+=== Gitlab
+. 다음의 명령을 실행하여 Gitlab에 대해 인그레스 리소스를 편집한다.
++
+----
+$ kubectl edit ingress -n gitlab-system gitlab-ingress
+----
+. 편집 모드에서 다음과 같이 정보를 추가한다.
++
+----
+...
+metadata:
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure <1>
+...
+  labels:
+    ingress.tmaxcloud.org/name: gitlab <2>
+...
+spec:
+  ingressClassName: tmax-cloud <3>
+...
+----
+<1> 주석 추가
+<2> 레이블 추가
+<3> 인그레스 클래스 추가
+
+=== ArgoCD
+. 다음의 명령을 실행하여 ArgoCD에 대해 인그레스 리소스를 편집한다.
++
+----
+$ kubectl edit ingress -n argocd argocd-server-ingress
+----
+. 편집 모드에서 다음과 같이 정보를 추가 및 수정한다.
++
+----
+...
+metadata:
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure <1>
+...
+  labels:
+    ingress.tmaxcloud.org/name: argocd <2>
+...
+spec:
+  ingressClassName: tmax-cloud <3>
+  rules:
+    http:
+      paths:
+      - backend:
+          serviceName: argocd-server
+          servicePort: http <4>
+...
+----
+<1> 주석 추가
+<2> 레이블 추가
+<3> 인그레스 클래스 추가
+<4> 트래픽을 처리할 서비스 포트를 ``http``로 수정
