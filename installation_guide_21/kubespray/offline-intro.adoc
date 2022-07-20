@@ -35,7 +35,7 @@ Amazon Linux 2
 Worker 노드의 경우: 1024MB 이상
 |====================
 
-== 설치 과정(TD: 해당 내용 포함 여부 QA와 협의 필요)
+== 설치 과정(TD: 해당 내용 포함 여부 QA와 협의 필요)(QA: offline-aws, offline-onpremise 단계 시작 부분에 나와있어서 필요 없을 것 같습니다. 필요하시다 생각하시면 말씀해주세요 다시 적어놓겠습니다.)
 각 구축 환경에 따른 제품의 설치 과정에 대해서 설명한다. 
 
 === 온프레미스 환경
@@ -78,19 +78,19 @@ ArgoCD를 이용해 HyperCloud 모듈을 설치
 HyperCloud를 설치하기 전에 필요한 준비사항에 대해서 설명한다.
 
 === 웹 서버 리포지터리 구성
-(TD: 웹 서버 리포지터리 구성 목적 작성 필요)
+(TD: 웹 서버 리포지터리 구성 목적 작성 필요)(QA: 외부 통신이 되지 않는 폐쇄망 환경을 운영하기 위한 rpm 패키지 저장소)
 
-. *files-repo 다운로드* (TD: files-repo의 의미 및 역할은?)
+. *files-repo 다운로드* (TD: files-repo의 의미 및 역할은?)(QA: files-repo : kubespray를 이용한 hypercloud 설치에 필요한 패키지 모음)
 +
 아래의 FTP 서버에서 files-repo를 다운로드한다.
 +
 ----
-192.168.1.150:/home/ck-ftp/k8s/install/offline/files-repo
+192.168.1.150:/home/ck-ftp/k8s/install/offline/files-repo (QA: scp -r ck-ftp@192.168.1.150:/home/ck-ftp/k8s/install/offline/files-repo(pw: ck-ftp) 를 통해 받아야 하는데 비밀번호도 알려주고 이래도 되는건지 잘 모르겠습니다. )
 ----
 
 . *로컬 리포지터리 구성*
 +
-(TD: 로컬 리포지터리의 역할은?)~~를 위한 로컬 리포지터리를 구축한다.
+(TD: 로컬 리포지터리의 역할은?)~~를 위한 로컬 리포지터리를 구축한다.(QA:  web server repository = local repo - local 내에서만 돌아가는 rpm 패키지 저장소 / 폐쇄망 환경을 운영하기 위한 로컬 리포지터리를 구축한다. 위에 웹 서버 리포지터리 설명과 동일합니다.) 
 
 +
 .로컬 리포지터리 구축
@@ -98,7 +98,7 @@ HyperCloud를 설치하기 전에 필요한 준비사항에 대해서 설명한�
 $ pushd {FILES_REPO_PATH}
 $ createrepo_c ./
 $ modifyrepo_c modules.yaml ./repodata
-$ export LOCAL_REPO_PATH={FILES_REPO_PATH}
+$ export LOCAL_REPO_PATH={FILES_REPO_PATH} (QA: 이 부분을 통해 local-repo-path를 files-repo-path 로 지정해서 두개의 값이 같습니다. 아래 설명 부분에 두개 나눠서 설명하는게 더 헷갈릴까 싶어서 말씀드립니다.)
 $ popd
 
 $ dnf config-manager --add-repo file://${LOCAL_REPO_PATH}
@@ -119,8 +119,14 @@ $ dnf config-manager --add-repo file://${LOCAL_REPO_PATH}
 ----
 [files-repo]
 name=files-repo
-baseurl=file:///home/centos/files-repo
-enabled=0
+baseurl=file:///home/centos/files-repo 
+enabled=0  
+(QA:
+[files-repo]
+name=files-repo
+baseurl=file://${LOCAL_REPO_PATH}
+enabled=1
+gpgcheck=0  로 바꾸는게 더 객관적일 것 같습니다.)
 ----
 +
 [NOTE]
@@ -163,7 +169,7 @@ httpd.conf 파일의 인자 값에 대한 설명은 다음과 같다.
 [width="100%",options="header", cols="1,3"]
 |====================
 |인자 값|설명
-|{WEB_SERVER_REPO_IP}|(TD: 설명 작성) (예: 172.22.5.2)
+|{WEB_SERVER_REPO_IP}|(TD: 설명 작성) (예: 172.22.5.2) (QA: 웹 서버 리포지터리를 구성한 서버 ip / 10.0.0.1)
 |{FILES_REPO_PATH}|files-repo의 경로 입력
 |====================
 
@@ -201,7 +207,7 @@ Kubespray를 이용하여 설치할 모든 노드(Master, Worker)에 구축한 �
 .files-repo.repo 파일
 ----
 [files_repo]
-name=files repo
+name=files repo  (QA: name= files-repo)
 baseurl=http://{WEB_SERVER_REPO_IP}/
 enabled=1
 gpgcheck=0
@@ -212,10 +218,10 @@ files-repo.repo 파일의 인자 값에 대한 설명은 다음과 같다.
 [width="100%",options="header", cols="1,3"]
 |====================
 |인자 값|설명
-|{WEB_SERVER_REPO_IP}|(TD: 인자 설명 필요) (예: 172.22.5.2)
+|{WEB_SERVER_REPO_IP}|(TD: 인자 설명 필요) (예: 172.22.5.2) (QA: 웹 서버 리포지터리를 구성한 서버 ip 10.0.10.50)
 |====================
 
-=== 이미지 리포지터리 구성
+=== 이미지 리포지터리 구성 (QA: 이미지 레지스트리로 변경)
 
 . *Podman 설치 및 환경 설정* 
 +
@@ -237,12 +243,12 @@ files-repo.repo 파일의 인자 값에 대한 설명은 다음과 같다.
 [width="100%",options="header", cols="1,3"]
 |====================
 |인자 값|설명
-|{INTERNAL_IP:PORT}|(TD: 인자 설명 필요) (예: 10.0.10.50:5000)
+|{INTERNAL_IP:PORT}|(TD: 인자 설명 필요) (예: 10.0.10.50:5000) (QA: 이미지 레지스트리를 만들 서버의 ip, 이미지 레지스트리를 만들때 필요한 registry 이미지의 포트가 5000 이라 5000으로 포트 바인딩합니다. 예: 10.0.10.50:5000)
 |====================
 
 . *supercloud-images.tar 및 registry.tar 다운로드*
 +
-아래의 FTP 서버에서 supercloud-images.tar와 registry.tar를 다운로드한다. (TD: supercloud-images.tar와 registry.tar의 각 역할은?)
+아래의 FTP 서버에서 supercloud-images.tar와 registry.tar를 다운로드한다. (TD: supercloud-images.tar와 registry.tar의 각 역할은?)(QA: supercloud-images.tar : hypercloud 설치에 필요한 이미지 파일 / registry.tar : 이미지 레지스트리를 만들기 위한 registry 이미지 파일)
 +
 ----
 192.168.1.150:/home/ck-ftp/k8s/install/offline/supercloud-images
@@ -275,14 +281,20 @@ $ podman run -it -d -p{IMAGE_REGISTRY_IP:PORT}:5000 --privileged -v {IMAGE_FILE_
 [width="100%",options="header", cols="1,3"]
 |====================
 |인자 값|설명
-|{IMAGE_REGISTRY_IP:PORT}|(TD: 설명 작성) (예: 10.0.10.50:5000)
+|{IMAGE_REGISTRY_IP:PORT}|(TD: 설명 작성) (예: 10.0.10.50:5000) (QA: 이미지 레지스트리를 만든 서버의 ip, 이미지 레지스트리를 만들때 필요한 registry 이미지의 포트인 5000 예:10.0.10.50:5000)
 |{IMAGE_FILE_PATH}|supercloud-images.tar 파일의 압축을 해제한 경로 입력 (예: /root/supercloud-registry)
 |====================
 
 === 의존성 패키지 설치
 Kubespray 및 Terraform을 실행하기 위해 필요한 패키지를 설치한다.
-(TD: 해당 과정이 필요한가? 필요하다면 각각의 의존성 패키지 종류와 설치 명령에 대한 설명 작성 필요)
-(QA: kubespray 구성 시 필요한 패키지 및 버전이 들어갔으면 좋겠습니다.) (TD: 작성해준 패키지를 의존성 패키지로 봐도 무방한가?) 
+
+(TD: 해당 과정이 필요한가? 필요하다면 각각의 의존성 패키지 종류와 설치 명령에 대한 설명 작성 필요)(QA: 패키지 정보는 맨 위 시스템 요구사항에 버전 정보 아래에 들어가는게 좋을 것 같습니다.)
++
+(QA: kubespray 구성 시 필요한 패키지 및 버전이 들어갔으면 좋겠습니다.) (TD: 작성해준 패키지를 의존성 패키지로 봐도 무방한가?)(QA: 네) 
++
+(QA: 아래 패키지 정보는 시스템 요구사항으로 올리고 의존성 패키지 설치에 대한 내용은 아래와 같은 명령어 추가하면 될 것 같습니다. 각각에 대한 정보를 쓸 필요가 있을까요?)
+yum -y install python3-pip python3-cryptography python3-jinja2 python3-netaddr python3-jmespath python3-ruamel-yaml python3-pbr ansible
++
 
 * *모든 노드에 필요한 패키지*
 ** nss-3.53.1-17.el8_3
@@ -311,8 +323,9 @@ Kubespray 및 Terraform을 실행하기 위해 필요한 패키지를 설치한�
 * *웹 서버 리포지터리 노드에 필요한 패키지*
 ** httpd(apache-2.4.37)
 
+
 == Kubespray 환경 설정 파일 종류
-Kubespray를 실행하기 위한 필수 설정 파일의 종류와 각 파일의 역할에 대한 설명은 다음과 같다. (TD: 지민매니저 가이드와 PS 가이드에 작성된 경로가 다름. 확인 필요)
+Kubespray를 실행하기 위한 필수 설정 파일의 종류와 각 파일의 역할에 대한 설명은 다음과 같다. (TD: 지민매니저 가이드와 PS 가이드에 작성된 경로가 다름. 확인 필요)(QA: 지민매니저 가이드가 맞습니다. 지금 이게 맞습니다.)
 ----
 kubespray
 +-- inventory
@@ -335,7 +348,10 @@ kubespray
 폐쇄망 설정 파일
 <3> `kubespray/inventory/tmaxcloud/group_vars/k8s_cluster/addons.yml`
 +
-Kubernetes Dashboard, Helm Deployment, Registry Deployment, CephFS, Nginx Ingress, Argocd 등 추가 가능한 모듈 설정 파일
+Kubernetes Dashboard, Helm Deployment, Registry Deployment, CephFS, Nginx Ingress, Argocd 등 추가 가능한 모듈 설정 파일 
++
+(QA: 다른 모듈에 대한 이미지 파일이 담겨있지 않습니다. 사용자가 다른 주석 내용을 건드리지 않도록 optional 모듈 설정 파일 정도로 줄여서 눈에 띄지 않았으면 좋겠습니다. )
++
 <4> `kubespray/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml`
 +
 사용자 지정 도메인 설정 파일
