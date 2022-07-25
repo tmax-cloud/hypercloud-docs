@@ -361,9 +361,9 @@ Kubespray로 설치될 애플리케이션(`nginx`, `harbor`, `gitlab`, `argocd`)
 +
 다음은 인그레스의 서비스 타입을 "NodePort"로 설정하는 예이다. (QA: aws elb(elastic loadbalancer)를 사용하기 위해 서비스 타입을 LoadBalancer 로 설정해야 합니다.)
 +
-.kubespray-argocd/roles/bootstrap-cloud/defaults/main.yml (QA: `kubespray-argocd/inventory/tmaxcloud/group_vars/k8s_cluster/addon.yml` 파일에서 ingress_nginx 서비스 타입에서 바꾸는 것으로 변경해야 할 것 같습니다. "추가 설치 모듈 설정" 에 해당 내용 추가)
+.kubespray-argocd/roles/bootstrap-cloud/defaults/main.yml 
 ----
-ingress_nginx_service_type: NodePort ()  (QA: ingress_nginx_service_type_pre: "LoadBalancer")
+ingress_nginx_service_type: NodePort (QA: LoadBalancer)
 ----
 
 [#KubesprayRunArgoAws]
