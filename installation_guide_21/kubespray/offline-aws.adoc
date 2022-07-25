@@ -17,7 +17,7 @@
 
 Terraform을 이용하여 CSP(AWS, vSphere) 환경에서의 쿠버네티스 클러스터 구성을 위한 인프라 리소스를 생성할 수 있다.
 
-.Terraform을 설치하기 위해서는 다음과 같은 사전 준비가 필요하다.(TD: 사전 방법에 대한 상세 설명이 필요한가? 필요하다면 참고 자료 요청)(QA: 필요없다고 생각합니다.)
+.Terraform을 설치하기 위해서는 다음과 같은 사전 준비가 필요하다.
 [NOTE]
 ====
 * IAM 계정 발급
@@ -188,21 +188,17 @@ NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. 반�
 +
 .예시
 ----
-apiserver_loadbalancer_domain_name: "10.0.10.50" <1> (QA: aws elb 주소 입력 "kubernetes-nlb-test-xxx.elb.us-east-x.amazonaws.com" ) 
+apiserver_loadbalancer_domain_name: "kubernetes-nlb-test-xxx.elb.us-east-x.amazonaws.com" <1>
 loadbalancer_apiserver:
-  address: 10.0.10.50 <2> (QA: aws에서는 쓰이지 않습니다. 주석처리)
-  port: 6443 <3>
+  port: 6443 <2>
   
-upstream_dns_servers: <4>
-  - 192.168.1.150  (QA: aws dns server 는 20.0.0.2 입니다. 20.0.0.2로 교체)
+upstream_dns_servers: <3>
+  - 20.0.0.2
 ----
 +
-<1> 쿠버네티스 API 서버 주소 (QA: aws elb 주소)
-* 싱글 마스터의 경우: 마스터 노드의 IP 주소 (QA: 삭제)
-* 멀티 마스터의 경우: API 서버와 통신할 수 있는 VIP 주소 (QA: 삭제) 
-<2> 쿠버네티스 API 서버와 통신할 수 있는 VIP 주소 (QA: 주석처리한 항목입니다. 삭제)
-<3> 쿠버네티스 API 서버 포트 번호
-<4> 도메인 네임서버 주소 (QA: aws 도메인 네임서버 주소)
+<1> AWS ELB(Elastic Load Balancing) 주소
+<2> 쿠버네티스 API 서버 포트 번호
+<3> AWS 도메인 네임서버 주소
  
 . *Calico 구성 정보 설정*
 +
@@ -210,11 +206,11 @@ upstream_dns_servers: <4>
 +
 .예시
 ----
-(QA: calico_ipip_mode: 'Always' 추가) <1>
+calico_ipip_mode: "Always" <1>
 calico_ip_auto_method: "cidr=192.168.7.0/24" <2>
 ----
 +
-<1>(QA: calico IP_in_IP 모드 설정)
+<1> Calico의 IP-in-IP 모드 활성화 여부
 <2> Calico가 자동으로 감지할 노드들의 CIDR 값 
 
 . *추가 설치 모듈 설정*
@@ -274,11 +270,10 @@ kube_pods_subnet: 10.244.0.0/24 <2>
 
 ansible-playbook 명령을 사용하여 Kubespray를 실행한다.
 ----
-$ ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml
-(QA: ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -e ansible_user=ec2-user -e bootstrap_os=centos -e ansible_ssh_private_key_file={pem 파일 위치} -e cloud_provider=aws -b --become-user=root --flush-cache -v )
+$ ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -e ansible_user=ec2-user -e ansible_ssh_private_key_file={PEM 파일 경로} -e cloud_provider=aws -b --become-user=root --flush-cache -v
 ----
 
-[#ArgoCDInstallOn]
+[#ArgoCDInstallAws]
 == ArgoCD 설치
 
 본 절에서는 Kubespray를 이용하여 ArgoCD를 설치하는 방법에 대해서 설명한다.
@@ -357,13 +352,13 @@ kube_pods_subnet: 10.244.0.0/24 <7>
 . *설치할 애플리케이션 구성 정보 확인*
 +
 Kubespray로 설치될 애플리케이션(`nginx`, `harbor`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. +
-해당 애플리케이션의 구성 정보는 기본적으로 `kubespray-argocd/roles/bootstrap-cloud/defaults/main.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `kubespray-argocd/roles/bootstrap-cloud/task/` 및 `kubespray-argocd/roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다. (TD: 파일의 풀경로가 정상적으로 작성되었는지 확인 필요)(QA: 맞습니다.)
+해당 애플리케이션의 구성 정보는 기본적으로 `kubespray-argocd/inventory/tmaxcloud/group_vars/k8s_cluster/addon.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `kubespray-argocd/roles/bootstrap-cloud/task/` 및 `kubespray-argocd/roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다.
 +
-다음은 인그레스의 서비스 타입을 "NodePort"로 설정하는 예이다. (QA: aws elb(elastic loadbalancer)를 사용하기 위해 서비스 타입을 LoadBalancer 로 설정해야 합니다.)
+AWS 환경에서는 AWS ELB(Elastic Load Balancing)를 사용하기 위해 다음과 같이 인그레스의 서비스 타입을 "LoadBalancer"로 설정해야 한다.
 +
-.kubespray-argocd/roles/bootstrap-cloud/defaults/main.yml (QA: `kubespray-argocd/inventory/tmaxcloud/group_vars/k8s_cluster/addon.yml` 파일에서 ingress_nginx 서비스 타입에서 바꾸는 것으로 변경해야 할 것 같습니다. "추가 설치 모듈 설정" 에 해당 내용 추가)
+.kubespray-argocd/roles/bootstrap-cloud/defaults/main.yml
 ----
-ingress_nginx_service_type: NodePort ()  (QA: ingress_nginx_service_type_pre: "LoadBalancer")
+ingress_nginx_service_type: LoadBalancer
 ----
 
 [#KubesprayRunArgoAws]
@@ -371,7 +366,7 @@ ingress_nginx_service_type: NodePort ()  (QA: ingress_nginx_service_type_pre: "L
 
 ansible-playbook 명령을 사용하여 애플리케이션을 설치한다.
 ----
-$ (QA: ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -t bootstrap-cloud -e ansible_user=ec2-user -e bootstrap_os=centos -e ansible_ssh_private_key_file={pem 파일 위치} -e cloud_provider=aws -b --become-user=root --flush-cache -v )
+$ ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -t bootstrap-cloud -e ansible_user=ec2-user -e ansible_ssh_private_key_file={PEM 파일 경로} -e cloud_provider=aws -b --become-user=root --flush-cache -v
 ----
 
 NOTE: 애플리케이션 설치가 정상적으로 완료되면, Gitlab과 ArgoCD 간의 저장소가 자동으로 연동된다.
@@ -391,7 +386,7 @@ global:
 ...
   gatewayBootstrap:
     enabled: true <2>
-    svc_type: NodePort <3> (QA: LoadBalancer)
+    svc_type: LoadBalancer <3>
     tls:
       selfsigned:
         enabled: true <4>
@@ -505,21 +500,34 @@ CAUTION: 애플리케이션 동기화 순서는 다음과 같다. 반드시 순�
 20. image-validating-webhook +
 21. ai-devops
 
-. *ArgoCD 서버 접속* (QA: argocd 콘솔 접속용 id, password 찾기도 추가, 초기 pw가 난수로 되어있어서 찾는 방법도 필요합니다.)
+. *ArgoCD 콘솔 접속*
 +
-ArgoCD 서버에 접속한 후 로그인한다. 이때 ArgoCD 서버의 주소는 다음의 명령어를 실행하여 확인할 수 있다.
+웹 브라우저의 주소 표시줄에 ArgoCD 서버의 주소를 입력한다.
 +
+[NOTE]
+====
+ArgoCD 서버 주소는 다음의 명령을 실행하여 확인할 수 있다.
 ----
 $ kubectl get svc -n argocd argocd-server
 ----
-(QA: argocd 콘솔 접속용 id : admin, password는 아래 명령어를 통해 접속 후 왼쪽 메뉴바의 user info에서 update password를 통해 비밀번호를 변경한다.)
+====
+
+. *ArgoCD 콘솔 로그인*
++
+ArgoCD 콘솔 로그인 화면이 열리면 계정 아이디와 비밀번호를 입력한 후 *[SIGN IN]* 버튼을 클릭한다.
++
+[NOTE]
+====
+ArgoCD 계정 아이디 및 초기 비밀번호 정보는 다음의 명령을 실행하여 확인할 수 있다.
 ----
 $ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 ----
+ArgoCD 콘솔에 첫 로그인 시 위에서 확인한 계정 정보로 로그인이 가능하며, 로그인 후 *[User Info]* 메뉴를 통해 비밀번호를 변경할 수 있다.
+====
 
 . *동기화할 애플리케이션 검색*
 +
-동기화 작업을 수행할 애플리케이션을 검색한 후 *[SYNC]* 버튼을 클릭한다.
+ArgoCD 콘솔의 **Applications 화면**에서 동기화 작업을 수행할 애플리케이션을 검색한 후 *[SYNC]* 버튼을 클릭한다.
 +
 image::../images/figure_application_sync_01.png[]
 
@@ -536,9 +544,9 @@ image::../images/figure_application_sync_02.png[]
 image::../images/figure_application_sync_03.png[]
 
 [#TraefikApiGatewayAws]
-== Traefik 기반의  API 게이트웨이 구성 (TD: 전체 내용 검수 필요)
+== Traefik 기반의 API 게이트웨이 구성
 
-Gitlab과 ArgoCD에서 Traefik 게이트웨이를 사용하도록 설정한다. (QA: argocd에서 application을 sync 하면 자동적으로 traefik 게이트웨이가 깔리는데 깔린 후 인그레스 리소스를 수정해야 합니다.)
+Gitlab과 ArgoCD에서 Traefik 게이트웨이를 사용하도록 설정한다.
 
 === Gitlab
 . 다음의 명령을 실행하여 Gitlab에 대해 인그레스 리소스를 편집한다.

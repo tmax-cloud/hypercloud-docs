@@ -89,17 +89,19 @@ Topics:
 #         File: tekton
 #       - Name: Kubevirt
 #         File: kubevirt
-# ---
-# Name: 설치 안내서
-# Dir: installation_guide
-# Topics:
-#   - Name: 설치 전 준비
-#     Dir: ready_sub
-#     Topics:
-#       - Name: 로컬 저장소 생성 및 패키지 설치
-#         File: package-install
-#       - Name: 커널 버전 업그레이드
-#         File: kernel-upgrade
+  ---
+  Name: 설치 안내서
+  Dir: installation_guide_21
+  Topics:
+    - Name: 폐쇄망 환경에서 Kubespray로 설치
+      Dir: kubespray
+      Topics:
+        - Name: 개요
+          File: offline-intro
+        - Name: 온프레미스 환경에서 구축
+          File: offline-onpremise
+        - Name: AWS 환경에서 구축
+          File: offline-aws
 #   - Name: 쿠버네티스 클러스터 구성
 #     Dir: kube_cluster_sub
 #     Topics:
