@@ -35,6 +35,8 @@ Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 
 NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. 반드시  xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 환경을 구성한다.
 
+CAUTION: RHEL 운영체제일 경우 `kubespray-infra/cluster.yml` 파일을 열어 *- { role: bootstrap-os, tags: bootstrap-os}* 행을 반드시 주석 처리해야 한다. (TD: 문구 검수 필요)
+
 . *노드 정보 등록*
 + 
 `kubespray-infra/inventory/tmaxcloud/inventory.ini` 파일을 열어 kubespray에서 설치할 노드들의 정보를 등록한다. +
@@ -65,7 +67,7 @@ upstream_dns_servers: <4>
  
 . *Calico 구성 정보 설정*
 +
-`kubespray-infra/inventory/tmaxcloud/k8s_cluster/k8s-net-calico.yml` 파일을 열어 Calico 관련 정보를 설정한다. (QA: kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-net-calico.yml)
+`kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-net-calico.yml` 파일을 열어 Calico 관련 정보를 설정한다.
 +
 .예시
 ----
@@ -76,7 +78,7 @@ calico_ip_auto_method: "cidr=192.168.7.0/24" <1>
 
 . *추가 설치 모듈 설정*
 +
-`kubespray-infra/inventory/tmaxcloud/k8s_cluster/addons.yml` 파일을 열어 추가 설치가 가능한 모듈 관련 정보를 설정한다. (QA: kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/addons.yml)
+`kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/addons.yml` 파일을 열어 추가 설치가 가능한 모듈 관련 정보를 설정한다.
 +
 .예시
 ----
@@ -158,8 +160,6 @@ $ git clone -b ck1room https://github.com/tmax-cloud/kubespray.git ./kubespray-a
 === Kubespray 환경 설정
 
 Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
-
-NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. 반드시  xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 환경을 구성한다.
 
 . *노드 정보 등록*
 + 
