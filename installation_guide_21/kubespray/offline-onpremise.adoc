@@ -65,7 +65,7 @@ upstream_dns_servers: <4>
  
 . *Calico 구성 정보 설정*
 +
-`kubespray-infra/inventory/tmaxcloud/k8s_cluster/k8s-net-calico.yml` 파일을 열어 Calico 관련 정보를 설정한다.
+`kubespray-infra/inventory/tmaxcloud/k8s_cluster/k8s-net-calico.yml` 파일을 열어 Calico 관련 정보를 설정한다. (QA: kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-net-calico.yml)
 +
 .예시
 ----
@@ -76,7 +76,7 @@ calico_ip_auto_method: "cidr=192.168.7.0/24" <1>
 
 . *추가 설치 모듈 설정*
 +
-`kubespray-infra/inventory/tmaxcloud/k8s_cluster/addons.yml` 파일을 열어 추가 설치가 가능한 모듈 관련 정보를 설정한다.
+`kubespray-infra/inventory/tmaxcloud/k8s_cluster/addons.yml` 파일을 열어 추가 설치가 가능한 모듈 관련 정보를 설정한다. (QA: kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/addons.yml)
 +
 .예시
 ----
