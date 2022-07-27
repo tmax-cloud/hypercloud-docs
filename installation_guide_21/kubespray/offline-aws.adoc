@@ -202,7 +202,7 @@ upstream_dns_servers: <3>
  
 . *Calico 구성 정보 설정*
 +
-`kubespray-infra/inventory/tmaxcloud/k8s_cluster/k8s-net-calico.yml` 파일을 열어 Calico 관련 정보를 설정한다.
+`kubespray-infra/inventory/tmaxcloud/k8s_cluster/k8s-net-calico.yml` 파일을 열어 Calico 관련 정보를 설정한다. (QA: kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-net-calico.yml)
 +
 .예시
 ----
@@ -215,7 +215,7 @@ calico_ip_auto_method: "cidr=192.168.7.0/24" <2>
 
 . *추가 설치 모듈 설정*
 +
-`kubespray-infra/inventory/tmaxcloud/k8s_cluster/addons.yml` 파일을 열어 추가 설치가 가능한 모듈 관련 정보를 설정한다.
+`kubespray-infra/inventory/tmaxcloud/k8s_cluster/addons.yml` 파일을 열어 추가 설치가 가능한 모듈 관련 정보를 설정한다. (QA: kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/addons.yml)
 +
 .예시
 ----
@@ -289,7 +289,7 @@ ArgoCD를 설치하는 순서는 다음과 같다.
 
 다음의 명령을 실행하여 ArgoCD 설치를 위한 Kubespray를 다운로드한다.
 ----
-$ git clone -b ck1room https://github.com/tmax-cloud/kubespray.git ./kubespray-argocd
+$ git clone -b ck1room https://github.com/tmax-cloud/kubespray.git ./kubespray-argocd (QA: git clone -b ck1room-aws https://github.com/tmax-cloud/kubespray.git ./kubespray-argocd)
 ----
 
 [#KubesprayConfigArgoAws]
