@@ -236,6 +236,8 @@ NOTE: 애플리케이션 설치가 정상적으로 완료되면, Gitlab과 ArgoC
 [#MasterClusterOn]
 == 마스터 클러스터 설치
 
+(QA: kubespray-argocd/roles/bootstrap-cloud/templates/argocd_installer  1.)
+
 . *master-values.yaml 파일 수정*
 +
 `application/helm/master-values.yaml` 파일을 열어 애플리케이션을 Helm Chart로 설치하기 위해 사용할 환경 변수를 정의한다.
@@ -299,6 +301,8 @@ spec:
 ----
 <1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
 <2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름
+
+(QA: 연동되어 있는 Gitlab의 argocd-installer 브랜치에서도 동일한 작업을 수행한다.  2.)
 
 . *애플리케이션 등록*
 +
