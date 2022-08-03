@@ -35,7 +35,7 @@ Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 
 NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. 반드시  xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 환경을 구성한다.
 
-CAUTION: RHEL 운영체제일 경우 `kubespray-infra/cluster.yml` 파일을 열어 *- { role: bootstrap-os, tags: bootstrap-os}* 행을 반드시 주석 처리해야 한다. (TD: 문구 검수 필요)
+CAUTION: RHEL 운영체제일 경우 `kubespray-infra/cluster.yml` 파일을 열어 *- { role: bootstrap-os, tags: bootstrap-os}* 행을 반드시 주석 처리해야 한다.
 
 . *노드 정보 등록*
 + 
@@ -161,6 +161,8 @@ $ git clone -b ck1room https://github.com/tmax-cloud/kubespray.git ./kubespray-a
 
 Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 
+CAUTION: RHEL 운영체제일 경우 `kubespray-argocd/cluster.yml` 파일을 열어 *- { role: bootstrap-os, tags: bootstrap-os}* 행을 반드시 주석 처리해야 한다.
+
 . *노드 정보 등록*
 + 
 `kubespray-argocd/inventory/tmaxcloud/inventory.ini` 파일을 열어 kubespray에서 설치할 노드들의 정보를 등록한다. +
@@ -236,11 +238,9 @@ NOTE: 애플리케이션 설치가 정상적으로 완료되면, Gitlab과 ArgoC
 [#MasterClusterOn]
 == 마스터 클러스터 설치
 
-(QA: kubespray-argocd/roles/bootstrap-cloud/templates/argocd_installer  1.)
-
 . *master-values.yaml 파일 수정*
 +
-`application/helm/master-values.yaml` 파일을 열어 애플리케이션을 Helm Chart로 설치하기 위해 사용할 환경 변수를 정의한다.
+`kubespray-argocd/roles/bootstrap-cloud/templates/argocd_installer/application/helm/master-values.yaml` 파일을 열어 애플리케이션을 Helm Chart로 설치하기 위해 사용할 환경 변수를 정의한다.
 +
 .예시
 ----
@@ -266,7 +266,7 @@ NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하�
 
 . *shared-values.yaml 파일 수정*
 +
-`application/helm/shared-values.yaml` 파일을 열어 마스터 클러스터에 필요한 구성 정보를 설정한다.
+`kubespray-argocd/roles/bootstrap-cloud/templates/argocd_installer/application/helm/shared-values.yaml` 파일을 열어 마스터 클러스터에 필요한 구성 정보를 설정한다.
 +
 .예시
 ----
@@ -288,7 +288,7 @@ global:
 
 . *애플리케이션 변수 설정*
 +
-`application/app_of_apps/master-applications.yaml` 파일을 열어 마스터 클러스터의 애플리케이션 변수를 설정한다.
+`kubespray-argocd/roles/bootstrap-cloud/templates/argocd_installer/application/app_of_apps/master-applications.yaml` 파일을 열어 마스터 클러스터의 애플리케이션 변수를 설정한다.
 +
 .예시
 ----
@@ -302,7 +302,9 @@ spec:
 <1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
 <2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름
 
-(QA: 연동되어 있는 Gitlab의 argocd-installer 브랜치에서도 동일한 작업을 수행한다.  2.)
+. *Gitlab 동기화 작업*
++
+ArgoCD와 연동된 Gitlab의 argocd-installer 브랜치에서 `master-values.yaml`, `shared-values.yaml`, `master-applications.yaml` 파일을 열어 위의 1~3번 과정과 동일하게 환경 변수를 설정한다.
 
 . *애플리케이션 등록*
 +
