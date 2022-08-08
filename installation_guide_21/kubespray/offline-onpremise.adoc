@@ -23,9 +23,9 @@
 [#KubesprayDownK8sOn]
 === Kubespray 다운로드 (쿠버네티스 설치용)
 
-다음의 명령을 실행하여 쿠버네티스 설치를 위한 Kubespray를 다운로드한다.
+다음의 명령을 실행하여 쿠버네티스 설치를 위한 Kubespray를 다운로드한다. (QA: 테크넷에서 쿠버네티스 설치를 위한 kubespray-infra zip 파일을 다운로드한다.)
 ----
-$ git clone -b tmax-master https://github.com/tmax-cloud/kubespray.git ./kubespray-infra
+$ git clone -b tmax-master https://github.com/tmax-cloud/kubespray.git ./kubespray-infra  (QA: 삭제)
 ----
 
 [#KubesprayConfigK8sOn]
@@ -151,9 +151,9 @@ ArgoCD를 설치하는 순서는 다음과 같다.
 [#KubesprayDownArgoOn]
 === Kubespray 다운로드 (ArgoCD 설치용)
 
-다음의 명령을 실행하여 ArgoCD 설치를 위한 Kubespray를 다운로드한다.
+다음의 명령을 실행하여 ArgoCD 설치를 위한 Kubespray를 다운로드한다. (QA: 테크넷에서 온프레미스에서 argocd 설치를 위한 kubespray-onpremise zip 파일을 다운로드한다.)
 ----
-$ git clone -b ck1room https://github.com/tmax-cloud/kubespray.git ./kubespray-argocd
+$ git clone -b ck1room https://github.com/tmax-cloud/kubespray.git ./kubespray-argocd (QA : 삭제)
 ----
 
 [#KubesprayConfigArgoOn]
@@ -161,16 +161,16 @@ $ git clone -b ck1room https://github.com/tmax-cloud/kubespray.git ./kubespray-a
 
 Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 
-CAUTION: RHEL 운영체제일 경우 `kubespray-argocd/cluster.yml` 파일을 열어 *- { role: bootstrap-os, tags: bootstrap-os}* 행을 반드시 주석 처리해야 한다.
+CAUTION: RHEL 운영체제일 경우 `kubespray-argocd/cluster.yml` 파일을 열어 *- { role: bootstrap-os, tags: bootstrap-os}* 행을 반드시 주석 처리해야 한다. (QA: kubespray-argocd -> kubespray-onpremise)
 
 . *노드 정보 등록*
 + 
-`kubespray-argocd/inventory/tmaxcloud/inventory.ini` 파일을 열어 kubespray에서 설치할 노드들의 정보를 등록한다. +
+`kubespray-argocd/inventory/tmaxcloud/inventory.ini` 파일을 열어 kubespray에서 설치할 노드들의 정보를 등록한다. (QA: kubespray-argocd -> kubespray-onpremise)+ 
 이때 all 그룹은 `*[호스트 이름] [Ansible IP 주소] [Backup IP 주소]*` 형태로 작성하고, 그 외 그룹은 all 그룹에서 정의한 호스트 이름만 작성한다.
 
 . *폐쇄망 정보 설정*
 +
-`kubespray-argocd/inventory/tmaxcloud/group_vars/all/offline.yml` 파일을 열어 폐쇄망 관련 정보를 설정한다.
+`kubespray-argocd/inventory/tmaxcloud/group_vars/all/offline.yml` 파일을 열어 폐쇄망 관련 정보를 설정한다. (QA: kubespray-argocd -> kubespray-onpremise)
 +
 .예시
 ----
@@ -185,7 +185,7 @@ files_repo: "http://172.22.5.2" <3>
 
 . *사용자 지정 도메인 등록*
 +
-`kubespray-argocd/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 외부에 노출할 사용자 지정 도메인의 정보를 등록한다.
+`kubespray-argocd/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 외부에 노출할 사용자 지정 도메인의 정보를 등록한다. (QA: kubespray-argocd -> kubespray-onpremise)
 +
 .예시
 ----
@@ -216,11 +216,11 @@ kube_pods_subnet: 10.244.0.0/24 <7>
 . *설치할 애플리케이션 구성 정보 확인*
 +
 Kubespray로 설치될 애플리케이션(`nginx`, `harbor`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. +
-해당 애플리케이션의 구성 정보는 기본적으로 `kubespray-argocd/roles/bootstrap-cloud/defaults/main.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `kubespray-argocd/roles/bootstrap-cloud/task/` 및 `kubespray-argocd/roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다.
+해당 애플리케이션의 구성 정보는 기본적으로 `kubespray-argocd/roles/bootstrap-cloud/defaults/main.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `kubespray-argocd/roles/bootstrap-cloud/task/` 및 `kubespray-argocd/roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다. (QA: kubespray-argocd -> kubespray-onpremise)
 +
 온프레미스 환경에서는 다음과 같이 인그레스의 서비스 타입을 "NodePort"로 설정해야 한다.
 +
-.kubespray-argocd/roles/bootstrap-cloud/defaults/main.yml
+.kubespray-argocd/roles/bootstrap-cloud/defaults/main.yml (QA: kubespray-argocd -> kubespray-onpremise)
 ----
 ingress_nginx_service_type: NodePort
 ----
@@ -240,7 +240,7 @@ NOTE: 애플리케이션 설치가 정상적으로 완료되면, Gitlab과 ArgoC
 
 . *master-values.yaml 파일 수정*
 +
-`kubespray-argocd/roles/bootstrap-cloud/templates/argocd_installer/application/helm/master-values.yaml` 파일을 열어 애플리케이션을 Helm Chart로 설치하기 위해 사용할 환경 변수를 정의한다.
+`kubespray-argocd/roles/bootstrap-cloud/templates/argocd_installer/application/helm/master-values.yaml` 파일을 열어 애플리케이션을 Helm Chart로 설치하기 위해 사용할 환경 변수를 정의한다. (QA: kubespray-argocd -> kubespray-onpremise) 
 +
 .예시
 ----
@@ -254,6 +254,22 @@ global:
     tls:
       selfsigned:
         enabled: true <4>
+(QA: 교체)
+  gatewayBootstrap:
+    enabled: true <2>
+    svc_type: NodePort <3>
+    tls:
+      selfsigned:
+        enabled: false <4>
+      acme:
+        enabled: true <5>
+        email: test@tmax.co.kr
+        dns:
+          type: route53
+          accessKeyID: AKIAVXXXXXXXXXX <6>
+          accessKeySecret: kFOYY4dYyXXXXXXXXXXXXXXXXXXXX <7>
+          hostedZoneID: Z077XXXXXXXXXXXX <8>
+        environment: production <9>       
 ...
 ----
 +
@@ -261,12 +277,18 @@ global:
 <2> 게이트웨이 부트스트랩의 포함 여부
 <3> 네트워크 서비스 타입 
 <4> 자체 서명 인증서의 사용 여부
+<(QA: 추가)>
+<5> route53으로 생성한 도메인을 사용하기 위한 자동 인증서 관리 환경 사용 여부
+<6> aws에서 사용하는 계정의 access key
+<7> access key에 대한 secret
+<8> route53으로 생성한 도메인에 대한 호스팅 영역 ID
+<9> 실제 사용할 인증서 발급 용도
 +
 NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하거나, 필요시 사용자 지정 도메인을 등록한다.
 
 . *shared-values.yaml 파일 수정*
 +
-`kubespray-argocd/roles/bootstrap-cloud/templates/argocd_installer/application/helm/shared-values.yaml` 파일을 열어 마스터 클러스터에 필요한 구성 정보를 설정한다.
+`kubespray-argocd/roles/bootstrap-cloud/templates/argocd_installer/application/helm/shared-values.yaml` 파일을 열어 마스터 클러스터에 필요한 구성 정보를 설정한다. (QA: kubespray-argocd -> kubespray-onpremise) 
 +
 .예시
 ----
@@ -288,7 +310,7 @@ global:
 
 . *애플리케이션 변수 설정*
 +
-`kubespray-argocd/roles/bootstrap-cloud/templates/argocd_installer/application/app_of_apps/master-applications.yaml` 파일을 열어 마스터 클러스터의 애플리케이션 변수를 설정한다.
+`kubespray-argocd/roles/bootstrap-cloud/templates/argocd_installer/application/app_of_apps/master-applications.yaml` 파일을 열어 마스터 클러스터의 애플리케이션 변수를 설정한다. (QA: kubespray-argocd -> kubespray-onpremise) 
 +
 .예시
 ----
@@ -369,6 +391,36 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 19. redis-operator +
 20. image-validating-webhook +
 21. ai-devops
+
+(QA: master cluster 와 single cluster 동기화 순서 분리)
+Master cluster
+
+1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway with console)
+2. strimzi-kafka-operator
+3. hyperauth
+4. efk or opensearch
+5. prometheus
+6. grafana
+7. service-mesh(istio, jaeger, kiali)
+8. cluster-api(aws, vsphere)
+9. template-service-broker
+10. catalog-controller
+11. hypercloud
+12. cicd-operator(tekton)
+13. redis-operator
+14. image-validating-webhook
+
+Single cluster
+
+1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway with console)
+2. strimzi-kafka-operator
+3. efk or opensearch
+4. prometheus
+5. grafana
+6. service-mesh(istio, jaeger, kiali)
+7. harbor
+8. cicd-operator(tekton)
+9. redis-operator
 
 *※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
 ====
