@@ -358,7 +358,7 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway with console) +
 2. strimzi-kafka-operator +
 3. hyperauth +
-4. efk or opensearch +
+4. efk or opensearch (QA: 이제 efk를 사용하지 않아서 opensearch 만 작성) +   
 5. prometheus +
 6. grafana +
 7. service-mesh(istio, jaeger, kiali) +
@@ -379,7 +379,7 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 싱글 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
 1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway with console) (QA: api-gateway without console 인데 제가 잘못 작성했었습니다. with console을 빼거나 without console로 변경해야 합니다.) +
 2. strimzi-kafka-operator +
-3. efk or opensearch +
+3. efk or opensearch (QA: 이제 efk를 사용하지 않아서 opensearch 만 작성) +
 4. prometheus +
 5. grafana +
 6. service-mesh(istio, jaeger, kiali) +
