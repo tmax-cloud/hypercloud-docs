@@ -30,7 +30,7 @@ CAUTION: RHEL 운영체제일 경우 `kubespray-infra/cluster.yml` 파일을 열
 
 . *Kubespray 파일 압축 해제*
 + 
-쿠버네티스 설치를 위해 테크넷을 통해서 다운로드한 *kubespray-infra.zip* 파일의 압축을 해제한다. (TD: 문구 검수 필요)
+쿠버네티스 설치를 위해 테크넷을 통해서 다운로드한 *kubespray-infra.zip* 파일의 압축을 해제한다. (TD: 문구 검수 필요) (QA: 문구는 괜찮은데 위치가 caution 보다 위에 있어야 할 것 같습니다.)
 
 . *노드 정보 등록*
 + 
@@ -151,7 +151,7 @@ CAUTION: RHEL 운영체제일 경우 `kubespray-onpremise/cluster.yml` 파일을
 
 . *Kubespray 파일 압축 해제*
 + 
-ArgoCD 설치를 위해 테크넷을 통해서 다운로드한 *kubespray-onpremise.zip* 파일의 압축을 해제한다.
+ArgoCD 설치를 위해 테크넷을 통해서 다운로드한 *kubespray-onpremise.zip* 파일의 압축을 해제한다. (QA: 여기도 bootstrap-os 주석처리보다 압축 해제가 먼저와야 한다고 생각합니다.)
 
 . *노드 정보 등록*
 + 
@@ -377,7 +377,7 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 .싱글 클러스터 동기화 순서
 ====
 싱글 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
-1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway with console) +
+1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway with console) (QA: api-gateway without console 인데 제가 잘못 작성했었습니다. with console을 빼거나 without console로 변경해야 합니다.) +
 2. strimzi-kafka-operator +
 3. efk or opensearch +
 4. prometheus +
