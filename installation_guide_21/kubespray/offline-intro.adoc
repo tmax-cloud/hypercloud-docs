@@ -6,20 +6,34 @@
 
 (TD: 전체 검수 필요. 작성된 내용은 예시로 같은 포맷으로 작성할 필요 없음. QA 판단하에 설치 구성도를 통해 사용자에게 전달하고 싶은 내용을 작성하면 됨.)
 
-HyperCloud는 온프레미스와 AWS 환경에서 구성할 수 있다.
+HyperCloud는 온프레미스와 AWS 환경에서 구성할 수 있다. +
+
+(QA:) Hypercloud21은 멀티 클러스터 환경에서 효율적인 클러스터 통합 관리를 지원한다. +
+하나의 마스터 콘솔에서 모든 클러스터의 콘솔을 관리하여 모든 애플리케이션을 모니터링하고 분석할 수 있다. +
 
 [caption="그림. "]
-.설치 구성도
+.설치 구성도 (QA: 멀티 클러스터 환경 구성도)
 image::../images/figure_install_composition.png[]
 
 이때 온프레미스 환경은 마스터 클러스터로 구성하고, AWS 환경은 싱글 클러스터로 구성한다. +
 전반적인 구성 순서는 다음과 같다.
 
-* 온프레미스
-. 인프라 구성 : 마스터 노드와 워커 노드에 ~~~~~
-. 폐쇄망 구성
-* AWS
+(QA) 
+온프레미스 환경을 마스터 클러스터로 구성하고 aws 환경을 싱글 클러스터로 구성할 때의 멀티 클러스터 환경 구성 순서는 다음과 같다. +
 
+* 온프레미스
+. 마스터 노드와 워커 노드로 사용하기 위해 인프라를 구성한다. 
+. 설치 전 준비사항을 수행한다.
+. kubespray-infra를 수행하여 쿠버네티스 인프라를 구성한다.
+. kubespray-onpremise를 수행하여 nginx-ingress, hyperregistry, gitlab, argocd를 설치한다.
+. argocd를 통해 애플리케이션들을 배포한다.
+
+* AWS
+. 테라폼을 통해 aws에 노드들을 구성한다.
+. 설치 전 준비사항을 수행한다.
+. kubesrpay-infra를 수행하여 쿠버네티스 인프라를 구성한다.
+. kubespray-aws를 수행하여 nginx-ingress, hyperregistry, gitlab, argocd를 설치한다.
+. argocd를 통해 애플리케이션들을 배포한다.
 
 
 == 시스템 요구사항
@@ -40,7 +54,7 @@ Worker 노드의 경우: 1024MB 이상
 == 설치 전 준비사항
 HyperCloud를 설치하기 전에 필요한 준비사항에 대해서 설명한다.
 
-=== Kubespray 파일 다운로드 (TD: 전체 검수)
+=== Kubespray 파일 다운로드 (TD: 전체 검수)(QA: 검수완료)
 
 테크넷을 통해서 쿠버네티스 및 ArgoCD 설치를 위한 Kubespray 파일을 다운로드한다.
 ----
@@ -265,7 +279,8 @@ $ podman run -it -d -p{IMAGE_REGISTRY_IP:PORT}:5000 --privileged -v {IMAGE_FILE_
 
 === SSH 키 배포(TD: 전체 검수)
 
-생성한 SSH 키를 배포하여 여러 노드에서 비밀번호 없이 SSH 접근을 가능하게 한다.
+생성한 SSH 키를 배포하여 여러 노드에서 비밀번호 없이 SSH 접근을 가능하게 한다. +
+(QA: kubespray를 실행하는 노드에서 생성한 SSH 키를 인프라 환경을 구성할 모든 노드에 배포하여 비밀번호 없이 SSH 접근을 가능하게 한다.)
 
 . *sshpass 설치*
 +
@@ -285,7 +300,7 @@ $ ssh-keygen -t rsa
 
 . *SSH 키 복사*
 +
-생성한 SSH 키를 복사한 후 여러 노드에 배포한다.
+생성한 SSH 키를 복사한 후 여러 노드에 배포한다. (QA: 여러 노드 대신 인프라 환경을 구성할 모든 노드)
 +
 ----
 $ ssh-copy-id -i root@{NODE_IP}
