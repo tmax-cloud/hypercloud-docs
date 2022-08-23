@@ -36,7 +36,7 @@ Terraform을 구성하는 순서는 다음과 같다.
 [#TerraformInstallAws]
 === Terraform 설치
 
-Terraform을 사용하기 위해 관련 패키지를 설치한다.
+Terraform을 사용하기 위해 관련 패키지를 설치한다. (QA1: 외부망 환경에서 Terraform을 사용하기 위해 관련 패키지를 설치한다.)
 
 . *저장소 추가*
 +
@@ -89,20 +89,20 @@ aws_cidr_subnets_private = ["20.0.6.0/24", "20.0.7.0/24", "20.0.8.0/24"]
 
 #Bastion Host
 aws_bastion_num  = 1
-aws_bastion_size = "t2.medium"
+aws_bastion_size = "t2.medium" 
 
 #Kubernetes Cluster
 aws_kube_master_num  = 3
-aws_kube_master_size = "t2.medium"
-aws_kube_master_disk_size = 50
+aws_kube_master_size = "t2.medium" (QA2: t2.2xlarge)
+aws_kube_master_disk_size = 50 (QA2: 30)
 
 aws_etcd_num  = 0
 aws_etcd_size = "t2.medium"
-aws_etcd_disk_size = 50
+aws_etcd_disk_size = 50 (QA2: 30)
 
 aws_kube_worker_num  = 1
-aws_kube_worker_size = "t2.medium"
-aws_kube_worker_disk_size = 50
+aws_kube_worker_size = "t2.medium" (QA2: t2.2xlarge)
+aws_kube_worker_disk_size = 50 (QA2: 30)
 
 #EC2 Source/Dest Check
 aws_src_dest_check      = false
@@ -122,7 +122,7 @@ default_tags = {
 #Setting VPN Connection
 
 vpn_connection_enable = true
-customer_gateway_ip   = "175.195.163.15"
+customer_gateway_ip   = "175.195.163.15" (QA3: 175.195.xxx.xxx  설정한 vpn ip)
 local_cidr            = "30.0.0.0/16"
 
 inventory_file = "../../../inventory/tmaxcloud/hosts"
@@ -151,7 +151,7 @@ AWS_DEFAULT_REGION = "us-east-x"
 
 . *AWS 계정 및 액세스 키 정보 적용* 
 +
-AWS 액세스 키 ID와 보안 액세스 키 정보가 등록된 `credentials.tfvars` 파일을 *terraform apply* 명령을 사용하여 적용한다.
+AWS 액세스 키 ID와 보안 액세스 키 정보가 등록된 `credentials.tfvars` 파일을 *terraform apply* 명령을 사용하여 적용한다. (QA4: 파일을 terraform init 명령 수행 후 terraform apply 명령을 사용하여 적용한다. )
 +
 ----
 terraform apply -var-file=credentials.tfvars
@@ -160,7 +160,7 @@ terraform apply -var-file=credentials.tfvars
 [#K8sInfraAws]
 == 쿠버네티스 인프라 구성
 
-본 절에서는 Kubespray를 이용하여 쿠버네티스 인프라를 구성하는 방법에 대해서 설명한다.
+본 절에서는 Kubespray를 이용하여 쿠버네티스 인프라를 구성하는 방법에 대해서 설명한다. (QA5: 본 절에서는 terraform을 통해 생성한 bastion node에서 Kubespray를 이용하여 쿠버네티스 인프라를 구성하는 방법에 대해서 설명한다.)
 
 쿠버네티스 인프라를 구성하는 순서는 다음과 같다.
 
@@ -172,7 +172,7 @@ terraform apply -var-file=credentials.tfvars
 
 Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 
-NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. 반드시  xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 환경을 구성한다.
+NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. 반드시  xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 (QA5: terraform을 통해 생성한 bastion node에 추가) 환경을 구성한다. 
 
 CAUTION: RHEL 운영체제일 경우 `kubespray-infra/cluster.yml` 파일을 열어 *- { role: bootstrap-os, tags: bootstrap-os}* 행을 반드시 주석 처리해야 한다.
 
