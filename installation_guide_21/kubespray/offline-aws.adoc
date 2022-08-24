@@ -271,7 +271,7 @@ ansible-playbook 명령을 사용하여 Kubespray를 실행한다.
 
 .사용 방법
 ----
-$ ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -e ansible_user=ec2-user -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v
+$ ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -e ansible_user=ec2-user -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v (QA: ansible_user=centos)
 ----
 Kubespray 실행 명령의 인자 값에 대한 설명은 다음과 같다.
 
@@ -369,7 +369,7 @@ ingress_nginx_service_type: LoadBalancer
 
 ansible-playbook 명령을 사용하여 애플리케이션을 설치한다.
 ----
-$ ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -t bootstrap-cloud -e ansible_user=ec2-user -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v
+$ ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -t bootstrap-cloud -e ansible_user=ec2-user -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v  (QA: ansible_user=centos)
 ----
 Kubespray 실행 명령의 인자 값에 대한 설명은 다음과 같다.
 
