@@ -221,13 +221,17 @@ calico_ip_auto_method: "cidr=192.168.7.0/24" <2> (QA: "cidr=20.0.6.0/24, 20.0.7.
 default_storageclass_name: efs-sc <1>
 sc_name_0: efs-sc-0 <2>
 sc_name_999: efs-sc-999 <3>
-aws_efs_csi_namespace: aws-efs-csi <4>
-aws_efs_filesystem_id: fs-XXX <5>
+(QA: nfs_external_provisioner_enabled: false <4> 추가)
+(QA: aws_efs_csi_enabled: true <5> 추가)
+aws_efs_csi_namespace: aws-efs-csi <6>
+aws_efs_filesystem_id: fs-XXX <7>
 ----
 +
 <1> 기본값으로 설정할 스토리지 이름
 <2> HyperRegistry에서 Postgres PVC의 스토리지 클래스 이름
 <3> 그 외의 PVC 스토리지 클래스 이름
+(QA: <4> nfs-provisioner 설치 유무)
+(QA: <5> aws-efs-csi 설치 유무)
 <4> AWS EFS CSI 스토리지의 네임스페이스 이름
 <5> AWS EFS 파일 시스템의 ID
 
