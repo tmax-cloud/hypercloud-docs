@@ -206,7 +206,7 @@ upstream_dns_servers: <3>
 .예시
 ----
 calico_ipip_mode: "Always" <1>
-calico_ip_auto_method: "cidr=192.168.7.0/24" <2>
+calico_ip_auto_method: "cidr=192.168.7.0/24" <2> (QA: "cidr=20.0.6.0/24, 20.0.7.0/24, 20.0.8.0/24")
 ----
 +
 <1> Calico의 IP-in-IP 모드 활성화 여부
