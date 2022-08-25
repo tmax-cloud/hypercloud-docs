@@ -36,7 +36,7 @@ Terraform을 구성하는 순서는 다음과 같다.
 [#TerraformInstallAws]
 === Terraform 설치
 
-Terraform을 사용하기 위해 관련 패키지를 설치한다. (QA1: 외부망 환경에서 Terraform을 사용하기 위해 관련 패키지를 설치한다.)
+외부망 환경에서 Terraform을 사용하기 위해 관련 패키지를 설치한다.
 
 . *저장소 추가*
 +
@@ -93,16 +93,16 @@ aws_bastion_size = "t2.medium"
 
 #Kubernetes Cluster
 aws_kube_master_num  = 3
-aws_kube_master_size = "t2.medium" (QA2: t2.2xlarge)
-aws_kube_master_disk_size = 50 (QA2: 30)
+aws_kube_master_size = "t2.2xlarge"
+aws_kube_master_disk_size = 30
 
 aws_etcd_num  = 0
 aws_etcd_size = "t2.medium"
-aws_etcd_disk_size = 50 (QA2: 30)
+aws_etcd_disk_size = 30
 
 aws_kube_worker_num  = 1
-aws_kube_worker_size = "t2.medium" (QA2: t2.2xlarge)
-aws_kube_worker_disk_size = 50 (QA2: 30)
+aws_kube_worker_size = "t2.2xlarge"
+aws_kube_worker_disk_size = 30
 
 #EC2 Source/Dest Check
 aws_src_dest_check      = false
@@ -122,7 +122,7 @@ default_tags = {
 #Setting VPN Connection
 
 vpn_connection_enable = true
-customer_gateway_ip   = "175.195.163.15" (QA3: 175.195.xxx.xxx  설정한 vpn ip)
+customer_gateway_ip   = "175.195.xxx.xxx"
 local_cidr            = "30.0.0.0/16"
 
 inventory_file = "../../../inventory/tmaxcloud/hosts"
@@ -149,18 +149,26 @@ AWS_SSH_KEY_NAME = "default"
 AWS_DEFAULT_REGION = "us-east-x"
 ----
 
-. *AWS 계정 및 액세스 키 정보 적용* 
+. *Terraform 초기화* 
 +
-AWS 액세스 키 ID와 보안 액세스 키 정보가 등록된 `credentials.tfvars` 파일을 *terraform apply* 명령을 사용하여 적용한다. (QA4: 파일을 terraform init 명령 수행 후 terraform apply 명령을 사용하여 적용한다. )
+*terraform init* 명령을 수행하여 설정한 Terraform 정보를 저장하고, 필요한 플러그인을 설치한다.
 +
 ----
-terraform apply -var-file=credentials.tfvars
+$ terraform init
+----
+
+. *AWS 계정 및 액세스 키 정보 적용* 
++
+AWS 액세스 키 ID와 보안 액세스 키 정보가 등록된 `credentials.tfvars` 파일을 *terraform apply* 명령을 사용하여 적용한다.
++
+----
+$ terraform apply -var-file=credentials.tfvars
 ----
 
 [#K8sInfraAws]
 == 쿠버네티스 인프라 구성
 
-본 절에서는 Kubespray를 이용하여 쿠버네티스 인프라를 구성하는 방법에 대해서 설명한다. (QA5: 본 절에서는 terraform을 통해 생성한 bastion node에서 Kubespray를 이용하여 쿠버네티스 인프라를 구성하는 방법에 대해서 설명한다.)
+본 절에서는 Terraform을 통해 생성한 bastion 노드에서 Kubespray를 이용하여 쿠버네티스 인프라를 구성하는 방법에 대해서 설명한다.
 
 쿠버네티스 인프라를 구성하는 순서는 다음과 같다.
 
@@ -172,7 +180,7 @@ terraform apply -var-file=credentials.tfvars
 
 Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 
-NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. 반드시  xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 (QA5: terraform을 통해 생성한 bastion node에 추가) 환경을 구성한다. 
+NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. 반드시  xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 환경을 구성한다. 
 
 CAUTION: RHEL 운영체제일 경우 `kubespray-infra/cluster.yml` 파일을 열어 *- { role: bootstrap-os, tags: bootstrap-os}* 행을 반드시 주석 처리해야 한다.
 
@@ -206,7 +214,7 @@ upstream_dns_servers: <3>
 .예시
 ----
 calico_ipip_mode: "Always" <1>
-calico_ip_auto_method: "cidr=192.168.7.0/24" <2> (QA: "cidr=20.0.6.0/24, 20.0.7.0/24, 20.0.8.0/24")
+calico_ip_auto_method: "cidr=20.0.6.0/24, 20.0.7.0/24, 20.0.8.0/24" <2>
 ----
 +
 <1> Calico의 IP-in-IP 모드 활성화 여부
@@ -221,8 +229,8 @@ calico_ip_auto_method: "cidr=192.168.7.0/24" <2> (QA: "cidr=20.0.6.0/24, 20.0.7.
 default_storageclass_name: efs-sc <1>
 sc_name_0: efs-sc-0 <2>
 sc_name_999: efs-sc-999 <3>
-(QA: nfs_external_provisioner_enabled: false <4> 추가)
-(QA: aws_efs_csi_enabled: true <5> 추가)
+nfs_external_provisioner_enabled: false <4>
+aws_efs_csi_enabled: true <5>
 aws_efs_csi_namespace: aws-efs-csi <6>
 aws_efs_filesystem_id: fs-XXX <7>
 ----
@@ -230,10 +238,10 @@ aws_efs_filesystem_id: fs-XXX <7>
 <1> 기본값으로 설정할 스토리지 이름
 <2> HyperRegistry에서 Postgres PVC의 스토리지 클래스 이름
 <3> 그 외의 PVC 스토리지 클래스 이름
-(QA: <4> nfs-provisioner 설치 유무)
-(QA: <5> aws-efs-csi 설치 유무)
-<4> AWS EFS CSI 스토리지의 네임스페이스 이름
-<5> AWS EFS 파일 시스템의 ID
+<4> NFS Provisioner 설치 여부
+<5> AWS EFS CSI 드라이버 설치 여부
+<6> AWS EFS CSI 스토리지의 네임스페이스 이름
+<7> AWS EFS 파일 시스템의 ID
 
 . *폐쇄망 정보 설정*
 +
@@ -275,7 +283,7 @@ ansible-playbook 명령을 사용하여 Kubespray를 실행한다.
 
 .사용 방법
 ----
-$ ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -e ansible_user=ec2-user -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v (QA: ansible_user=centos)
+$ ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -e ansible_user=centos -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v
 ----
 Kubespray 실행 명령의 인자 값에 대한 설명은 다음과 같다.
 
@@ -288,12 +296,18 @@ Kubespray 실행 명령의 인자 값에 대한 설명은 다음과 같다.
 [#ArgoCDInstallAws]
 == ArgoCD 설치
 
-본 절에서는 Kubespray를 이용하여 ArgoCD를 설치하는 방법에 대해서 설명한다.
+본 절에서는 Terraform을 통해 생성한 bastion 노드에서 Kubespray를 이용하여 ArgoCD를 설치하는 방법에 대해서 설명한다.
 
 ArgoCD를 설치하는 순서는 다음과 같다.
 
+. <<KubesprayDecompressionArgoAws, Kubespray 파일 압축 해제>>
 . <<KubesprayConfigArgoAws, Kubespray 환경 설정>>
 . <<KubesprayRunArgoAws, Kubespray 실행>>
+
+[#KubesprayDecompressionArgoAws]
+=== Kubespray 파일 압축 해제
+
+ArgoCD 설치를 위해 테크넷을 통해서 다운로드한 *kubespray-aws.zip* 파일의 압축을 해제한다.
 
 [#KubesprayConfigArgoAws]
 === Kubespray 환경 설정
@@ -301,10 +315,6 @@ ArgoCD를 설치하는 순서는 다음과 같다.
 Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 
 CAUTION: RHEL 운영체제일 경우 `kubespray-aws/cluster.yml` 파일을 열어 *- { role: bootstrap-os, tags: bootstrap-os}* 행을 반드시 주석 처리해야 한다.
-
-. *Kubespray 파일 압축 해제*
-+ 
-ArgoCD 설치를 위해 테크넷을 통해서 다운로드한 *kubespray-aws.zip* 파일의 압축을 해제한다. (QA: bootstrap-os 주석처리보다 압축 해제가 먼저와야 한다고 생각합니다.)
 
 . *노드 정보 등록*
 + 
@@ -372,8 +382,10 @@ ingress_nginx_service_type: LoadBalancer
 === Kubespray 실행
 
 ansible-playbook 명령을 사용하여 애플리케이션을 설치한다.
+
+.사용 방법
 ----
-$ ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -t bootstrap-cloud -e ansible_user=ec2-user -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v  (QA: ansible_user=centos)
+$ ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -t bootstrap-cloud -e ansible_user=centos -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v
 ----
 Kubespray 실행 명령의 인자 값에 대한 설명은 다음과 같다.
 
@@ -518,7 +530,7 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway with console) +
 2. strimzi-kafka-operator +
 3. hyperauth +
-4. efk or opensearch (QA: 이제 efk를 사용하지 않아서 opensearch 만 작성) +
+4. opensearch +
 5. prometheus +
 6. grafana +
 7. service-mesh(istio, jaeger, kiali) +
@@ -535,9 +547,9 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 .싱글 클러스터 동기화 순서
 ====
 싱글 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
-1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway with console)(QA: api-gateway without console 인데 제가 잘못 작성했었습니다. with console을 빼거나 without console로 변경해야 합니다.) +
+1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway without console) +
 2. strimzi-kafka-operator +
-3. efk or opensearch (QA: 이제 efk를 사용하지 않아서 opensearch 만 작성) +
+3. opensearch +
 4. prometheus +
 5. grafana +
 6. service-mesh(istio, jaeger, kiali) +

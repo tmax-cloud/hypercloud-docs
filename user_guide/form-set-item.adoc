@@ -159,6 +159,19 @@ algorithmName +
 
 == B
 
+[#Backend]
+=== Backend
+****
+▼ Resource +
+│  apiGroup +
+│  kind * +
+│  name * +
+serviceName +
+▼ Service Port +
+│  integer +
+│  string
+****
+
 [#Behavior]
 === Behavior
 ****

@@ -134,7 +134,7 @@ image::../images/figure_admin_namespace_claim_main.png[]
 * 주석 수정 : 리소스를 외부에서 참조하여 사용하기 위한 주석을 추가, 수정, 삭제
 * 네임스페이스 클레임 수정 : 네임스페이스 클레임의 구성 정보를 수정
 * 네임스페이스 클레임 삭제 : 네임스페이스 클레임을 삭제
-* 승인 처리 : 네임스페이스 클레임의 승인 여부를 선택 (단, Approved 및 Namespace Deleted 상태일 경우 비활성화)
+* 승인 처리 : 네임스페이스 클레임의 승인 여부를 선택 (단, 'Approved' 및 'Namespace Deleted' 상태일 경우 비활성화)
 
 ** Approved : 승인
 ** Rejected : 승인 거절

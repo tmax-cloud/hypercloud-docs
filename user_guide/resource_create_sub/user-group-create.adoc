@@ -11,7 +11,7 @@
 . <<../console_menu_sub/permission#img-user-group-main,Groups 메인 화면>>에서 *[New]* 버튼을 클릭한다.
 . *Create group* 화면이 열리면 생성할 사용자 그룹의 구성 정보를 설정한다.
 +
-각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 입력 항목)
+각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 설정 항목)
 +
 [width="100%",options="header", cols="1,3"]
 |====================

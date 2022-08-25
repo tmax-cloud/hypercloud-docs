@@ -245,7 +245,7 @@ CRD의 이름 및 레이블 정보를 입력해서 검색한다. +
 |버전|API의 버전 정보이다.
 |범위|적용 범위를 표시한다.
 
-* Namspaced : 특정 네임스페이스에 적용
+* Namespaced : 특정 네임스페이스에 적용
 * Cluster : 모든 네임스페이스에 적용 
 |연결됨|CRD의 활성화 여부를 표시한다.
 |image:../images/figure_action_icon.png[]|CRD의 관리를 위한 메뉴를 사용할 수 있다.+

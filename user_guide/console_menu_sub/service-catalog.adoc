@@ -316,7 +316,7 @@ image::../images/figure_admin_catalog_claim_main.png[]
 
 * 클러스터 템플릿 클레임 수정 : 클러스터 템플릿 클레임의 구성 정보를 수정
 * 클러스터 템플릿 클레임 삭제 : 클러스터 템플릿 클레임을 삭제
-* 승인 처리 : 클러스터 템플릿 클레임의 승인 여부를 선택 (단, Approved 및 Cluster Template Deleted 상태일 경우 비활성화)
+* 승인 처리 : 클러스터 템플릿 클레임의 승인 여부를 선택 (단, 'Approved' 및 'Cluster Template Deleted' 상태일 경우 비활성화)
 
 ** Approved : 승인
 ** Rejected : 승인 거절
