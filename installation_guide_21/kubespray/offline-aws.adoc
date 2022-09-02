@@ -10,7 +10,7 @@
 . <<MasterClusterAws, 마스터 클러스터 설치>>
 . <<SingleClusterAws, 싱글 클러스터 설치>>
 . <<ResourceDeployAws, 리소스 배포>>
-. <<TraefikApiGatewayAws, Traefik 기반의  API 게이트웨이 구성>>
+. <<TraefikApiGatewayAws, Traefik 기반의 API 게이트웨이 구성>>
 
 [#TerraformAws]
 == Terraform 구성
