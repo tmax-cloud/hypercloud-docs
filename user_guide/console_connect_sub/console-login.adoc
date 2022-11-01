@@ -9,7 +9,7 @@ HyperCloud 시스템의 웹 콘솔에 로그인하는 과정은 다음과 같다
 [#img-admin-login-main]
 image::../images/figure_admin_login_change.png[]
 
-. 정상적으로 로그인이 완료되면 HyperCloud 콘솔의 메인 화면이 열린다. 콘솔의 메인 화면 구성에 대한 자세한 내용은 xref:../console_layout_sub/console-layout-main.adoc[메인 화면 구성]을 참고한다.
+. 정상적으로 로그인이 완료되면 HyperCloud 콘솔의 메인 화면이 열린다. 콘솔의 메인 화면 구성에 대한 자세한 내용은 xref:../console_layout_sub/console-layout-main.adoc[메인 화면 구성]을 참고한다. (TD: 클러스터 리소스 생성 필요)
 +
 image::../images/figure_admin_login_05.png[]
 
