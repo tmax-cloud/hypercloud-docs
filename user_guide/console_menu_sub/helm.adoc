@@ -2,6 +2,8 @@
 :toc:
 :toc-title:
 
+QA: 헬름 리소스 생성 주소 : https://console-bak.cloudqa.link/helmreleases/ns/test +
+hc-admin@tmax.co.kr / admin +
 *[헬름]* 메뉴는 쿠버네티스 리소스의 패키지인 차트를 관리할 수 있는 메뉴이다. +
 (QA: 헬름 메뉴는 쿠버네티스 패키지 매니저 툴인 헬름 서비스를 쉽게 사용할 수 있도록 지원하는 메뉴이다.)
 [width="100%",options="header", cols="1,3"]
