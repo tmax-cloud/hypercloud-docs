@@ -1,9 +1,10 @@
-= [레디스] 메뉴 (TD: 전체 검수 필요) +
-(QA: 레디스 리소스 생성 위치 : https://console-bak.cloudqa.link/k8s/ns/test/redis   hc-admin@tmax.co.kr/admin)
+= [레디스] 메뉴 (TD: 전체 검수 필요)
+
 :toc:
 :toc-title:
-
-*[레디스]* 메뉴는 시스템 메모리를 사용하는 키-값 데이터 스토어인 레디스를 관리할 수 있는 메뉴이다.
+(QA: 레디스 리소스 생성 위치 : https://console-bak.cloudqa.link/k8s/ns/test/redis +  
+hc-admin@tmax.co.kr/admin) +
+*[레디스]* 메뉴는 시스템 메모리를 사용하는 키-값 데이터 스토어인 레디스를 관리할 수 있는 메뉴이다. 
 [width="100%",options="header", cols="1,3"]
 |====================
 |하위 메뉴|기능
