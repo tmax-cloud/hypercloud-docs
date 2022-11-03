@@ -21,18 +21,27 @@ image::../images/figure_admin_topology_main.png[]
 토폴로지를 확인할 네임스페이스를 선택한다.
 
 <2> *애플리케이션 선택* +
-화면에 표시할 애플리케이션을 선택한다.
+화면에 표시할 애플리케이션을 선택한다. +
 
 <3> *보기 옵션* +
-레이블 정보 표시 여부 및 그룹화에 대한 토폴로지 보기를 구성한다.
-
+레이블 정보 표시 여부 및 그룹화에 대한 토폴로지 보기를 구성한다. +
+(QA : 보기 옵션 세부 기능 추가)
++
+[width="100%",options="header", cols="1,3a"]
+|====================
+|메뉴|설명  
+|Show Labels|해당 리소스의 종류와 이름 나타내는 레이블 표시 여부
+|Application Groupings|애플리케이션 리소스 구성도 도형화 여부
+|Workload Groupings|워크로드 리소스 구성도 도형화 여부
+|====================
 <4> *이름 검색* +
 입력한 텍스트와 일치하는 이름을 가진 구성 요소를 강조해서 표시한다.
  
 <5> *토폴로지 화면* +
 애플리케이션의 토폴로지가 표시된다. 이때 연결된 각 구성 요소를 클릭하면 화면 왼쪽에 해당 구성 요소의 상세 정보를 확인할 수 있는 팝업이 열린다. +
 또한 토폴로지 외 빈 영역에 마우스 오른쪽 버튼을 클릭하면 콘텍스트 메뉴가 열리고, 해당 메뉴를 통해 프로젝트에 여러 구성 요소 또는 서비스를 추가할 수 있다. +
-다음은 각 메뉴에 대한 설명이다. (TD: 각 메뉴에 대한 설명 작성 필요)
+다음은 각 메뉴에 대한 설명이다. (TD: 각 메뉴에 대한 설명 작성 필요) +
+(QA: 토폴로지 외 빈 영역에 마우스 오른쪽 버튼을 클릭해서 나오는 기능을 뺄건지의 유무를 논의하고 있습니다. 논의가 끝나면 2차 검수때 다시 말씀드리겠습니다.)
 +
 [width="100%",options="header", cols="1,3a"]
 |====================
@@ -54,7 +63,10 @@ image::../images/figure_admin_topology_main.png[]
 |image:../images/figure_zoom_in_icon.png[] (Zoom In)|토폴로지의 크기를 확대한다.
 |image:../images/figure_zoom_out_icon.png[] (Zoom Out)|토폴로지의 크기를 축소한다.
 |image:../images/figure_fit_screen_icon.png[] (Fit to Screen)|현재 화면의 크기에 맞춰 토폴로지의 크기를 자동으로 조정한다.
-|image:../images/figure_reset_view_icon.png[] (Reset View)|(TD: 설명 작성 필요)
-|image:../images/figure_layout1_icon.png[] (Layout Type 1)|(TD: 설명 작성 필요)
-|image:../images/figure_layout2_icon.png[] (Layout Type 2)|(TD: 설명 작성 필요)
+|image:../images/figure_reset_view_icon.png[] (Reset View)|(TD: 설명 작성 필요) + 
+(QA: 화면을 초기 상태로 되돌린다.)
+|image:../images/figure_layout1_icon.png[] (Layout Type 1)|(TD: 설명 작성 필요) +
+(QA: 토폴로지를 구성하는 리소스들을 서로 겹쳐지게 배치할 수 있는 유형이다.)
+|image:../images/figure_layout2_icon.png[] (Layout Type 2)|(TD: 설명 작성 필요) +
+(QA: 토폴로지를 구성하는 리소스들을 서로 겹쳐지게 배치할 수 없는 유형이다.)
 |====================
