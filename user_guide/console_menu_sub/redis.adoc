@@ -1,4 +1,5 @@
-= [레디스] 메뉴 (TD: 전체 검수 필요)
+= [레디스] 메뉴 (TD: 전체 검수 필요) +
+(QA: 레디스 리소스 생성 위치 : https://console-bak.cloudqa.link/k8s/ns/test/redis   hc-admin@tmax.co.kr/admin)
 :toc:
 :toc-title:
 
