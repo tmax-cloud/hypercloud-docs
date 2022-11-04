@@ -85,6 +85,115 @@
 │  │  topologyKey *
 ****
 
+[#AffinityRedis]
+=== Affinity(Redis)
+****
+▼ Node Affinity +
+│  ▼ Preferred During Scheduling Ignored During Execution +
+│  │  ▼ Preference * +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  │  ▼ Match Fields +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  weight * +
+│  ▼ Required During Scheduling Ignored During Execution +
+│  │  ▼ Node Selector Terms * +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  │  ▼ Match Fields +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+▼ Pod Affinity +
+│  ▼ Preferred During Scheduling Ignored During Execution +
+│  │  ▼ Pod Affinity Term * +
+│  │  │  ▼ Label Selector +
+│  │  │  │  ▼ Match Expressions +
+│  │  │  │  │  key * +
+│  │  │  │  │  operator * +
+│  │  │  │  │  ▼ Values +
+│  │  │  │  │  │  Value * +
+│  │  │  │  matchLabels +
+│  │  │  ▼ Namespace Selector +
+│  │  │  │  ▼ Match Expressions +
+│  │  │  │  │  key * +
+│  │  │  │  │  operator * +
+│  │  │  │  │  ▼ Values +
+│  │  │  │  │  │  Value * +
+│  │  │  │  matchLabels +
+│  │  │  ▼ Namespaces +
+│  │  │  │  Value * +
+│  │  │  topologyKey * +
+│  │  weight * +
+│  ▼ Required During Scheduling Ignored During Execution +
+│  │  ▼ Label Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  │  matchLabels +
+│  │  ▼ Namespace Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  │  matchLabels +
+│  │  ▼ Namespaces +
+│  │  │  Value * +
+│  │  topologyKey * +
+▼ Pod Anti Affinity +
+│  ▼ Preferred During Scheduling Ignored During Execution +
+│  │  ▼ Pod Affinity Term * +
+│  │  │  ▼ Label Selector +
+│  │  │  │  ▼ Match Expressions +
+│  │  │  │  │  key * +
+│  │  │  │  │  operator * +
+│  │  │  │  │  ▼ Values +
+│  │  │  │  │  │  Value * +
+│  │  │  │  matchLabels +
+│  │  │  ▼ Namespace Selector +
+│  │  │  │  ▼ Match Expressions +
+│  │  │  │  │  key * +
+│  │  │  │  │  operator * +
+│  │  │  │  │  ▼ Values +
+│  │  │  │  │  │  Value * +
+│  │  │  │  matchLabels +
+│  │  │  ▼ Namespaces +
+│  │  │  │  Value * +
+│  │  │  topologyKey * +
+│  │  weight * +
+│  ▼ Required During Scheduling Ignored During Execution +
+│  │  ▼ Label Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  │  matchLabels +
+│  │  ▼ Namespace Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  │  matchLabels +
+│  │  ▼ Namespaces +
+│  │  │  Value * +
+│  │  topologyKey *
+****
+
 [#Aix/Alibi/Art]
 === Aix / Alibi / Art
 ****
@@ -157,6 +266,39 @@ algorithmName +
 │  │  Value
 ****
 
+[#Authentication]
+=== Authentication
+****
+▼ Access Token +
+│  key * +
+│  secretName * +
+accessTokenIsJwt +
+audience +
+▼ Certificate And Key +
+│  certificate * +
+│  key * +
+│  secretName * +
+clientId +
+▼ Client Secret +
+│  key * +
+│  secretName * +
+disableTlsHostnameVerification +
+maxTokenExpirySeconds +
+▼ Password Secret +
+│  password * +
+│  secretName * +
+▼ Refresh Token +
+│  key * +
+│  secretName * +
+scope +
+▼ Tls Trusted Certificates +
+│  certificate * +
+│  secretName * +
+tokenEndpointUri +
+type * +
+username
+****
+
 == B
 
 [#Backend]
@@ -189,6 +331,29 @@ serviceName +
 │  │  value * +
 │  selectPolicy +
 │  stabilizationWindowSeconds
+****
+
+[#Build]
+=== Build
+****
+▼ Output * +
+│  ▼ Additional Kaniko Options +
+│  │  Value * +
+│  image * +
+│  pushSecret +
+│  type * +
+▼ Plugins * +
+│  ▼ Artifacts * +
+│  │  artifact +
+│  │  fileName +
+│  │  group +
+│  │  insecure +
+│  │  repository +
+│  │  sha512sum +
+│  │  type * +
+│  │  url +
+│  │  version +
+│  name *
 ****
 
 == C
@@ -242,6 +407,18 @@ readOnly +
 │  name +
 │  namespace +
 volumeID *
+****
+
+[#Clusters]
+=== Clusters
+****
+alias * +
+▶ <<Authentication>> +
+bootstrapServers * +
+▼ Tls * +
+│  ▼ Trusted Certificates +
+│  │  certificate * +
+│  │  secretName *
 ****
 
 [#ConfigPatches]
@@ -427,6 +604,153 @@ tty +
 workingDir +
 ****
 
+[#CruiseControl]
+=== Cruise Control
+****
+▼ Broker Capacity +
+│  cpuUtilization +
+│  disk +
+│  inboundNetwork +
+│  outboundNetwork +
+image +
+▶ <<Jvm Options>> +
+▼ Liveness Probe +
+│  failureThreshold +
+│  initialDelaySeconds +
+│  periodSeconds +
+│  successThreshold +
+│  timeoutSeconds +
+▶ <<Logging>> +
+▶ <<Metrics Config>> +
+▼ Readiness Probe +
+│  failureThreshold +
+│  initialDelaySeconds +
+│  periodSeconds +
+│  successThreshold +
+│  timeoutSeconds +
+▼ Template +
+│  ▼ Api Service +
+│  │  ▼ Ip Families +
+│  │  │  Value * +
+│  │  ipFamilyPolicy +
+│  ▼ Cruise Control Container +
+│  │  ▼ Env +
+│  │  │  name +
+│  │  │  value +
+│  │  ▼ Security Context +
+│  │  │  allowPrivilegeEscalation +
+│  │  │  ▼ Capabilities +
+│  │  │  │  ▼ Add +
+│  │  │  │  │  Value * +
+│  │  │  │  ▼ Drop +
+│  │  │  │  │  Value * +
+│  │  │  privileged +
+│  │  │  procMount +
+│  │  │  readOnlyRootFilesystem +
+│  │  │  runAsGroup +
+│  │  │  runAsNonRoot +
+│  │  │  runAsUser +
+│  │  │  ▼ Se Linux Options +
+│  │  │  │  level +
+│  │  │  │  role +
+│  │  │  │  type +
+│  │  │  │  user +
+│  │  │  ▼ Seccomp Profile +
+│  │  │  │  localhostProfile +
+│  │  │  │  type +
+│  │  │  ▼ Windows Options +
+│  │  │  │  gmsaCredentialSpec +
+│  │  │  │  gmsaCredentialSpecName +
+│  │  │  │  hostProcess +
+│  │  │  │  runAsUserName +
+│  ▼ Pod +
+│  │  ▶ <<Affinity>> +
+│  │  enableServiceLinks +
+│  │  ▼ Host Aliases +
+│  │  │  ▼ Hostnames +
+│  │  │  │  Value * +
+│  │  │  ip +
+│  │  ▼ Image Pull Secrets +
+│  │  │  name +
+│  │  priorityClassName +
+│  │  schedulerName +
+│  │  ▼ Security Context +
+│  │  │  fsGroup +
+│  │  │  fsGroupChangePolicy +
+│  │  │  runAsGroup +
+│  │  │  runAsNonRoot +
+│  │  │  runAsUser +
+│  │  │  ▼ Se Linux Options +
+│  │  │  │  level +
+│  │  │  │  role +
+│  │  │  │  type +
+│  │  │  │  user +
+│  │  │  ▼ Seccomp Profile +
+│  │  │  │  localhostProfile +
+│  │  │  │  type +
+│  │  │  ▼ Supplemental Groups +
+│  │  │  │  Value * +
+│  │  │  ▼ Sysctls +
+│  │  │  │  name +
+│  │  │  │  value +
+│  │  │  ▼ Windows Options +
+│  │  │  │  gmsaCredentialSpec +
+│  │  │  │  gmsaCredentialSpecName +
+│  │  │  │  hostProcess +
+│  │  │  │  runAsUserName +
+│  │  terminationGracePeriodSeconds +
+│  │  tmpDirSizeLimit +
+│  │  ▼ Tolerations +
+│  │  │  effect +
+│  │  │  key +
+│  │  │  operator +
+│  │  │  tolerationSeconds +
+│  │  │  value +
+│  │  ▼ Topology Spread Constraints +
+│  │  │  ▼ Label Selector +
+│  │  │  │  ▼ Match Expressions +
+│  │  │  │  │  key +
+│  │  │  │  │  operator +
+│  │  │  │  │  ▼ Values +
+│  │  │  │  │  │  Value * +
+│  │  │  maxSkew +
+│  │  │  topologyKey +
+│  │  │  whenUnsatisfiable +
+│  ▼ Pod Disruption Budget +
+│  │  maxUnavailable +
+│  ▼ Tls Sidecar Container +
+│  │  ▼ Env +
+│  │  │  name +
+│  │  │  value +
+│  │  ▼ Security Context +
+│  │  │  allowPrivilegeEscalation +
+│  │  │  ▼ Capabilities +
+│  │  │  │  ▼ Add +
+│  │  │  │  │  Value * +
+│  │  │  │  ▼ Drop +
+│  │  │  │  │  Value * +
+│  │  │  privileged +
+│  │  │  procMount +
+│  │  │  readOnlyRootFilesystem +
+│  │  │  runAsGroup +
+│  │  │  runAsNonRoot +
+│  │  │  runAsUser +
+│  │  │  ▼ Se Linux Options +
+│  │  │  │  level +
+│  │  │  │  role +
+│  │  │  │  type +
+│  │  │  │  user +
+│  │  │  ▼ Seccomp Profile +
+│  │  │  │  localhostProfile +
+│  │  │  │  type +
+│  │  │  ▼ Windows Options +
+│  │  │  │  gmsaCredentialSpec +
+│  │  │  │  gmsaCredentialSpecName +
+│  │  │  │  hostProcess +
+│  │  │  │  runAsUserName +
+▶ <<Tls Sidecar>> +
+****
+
 [#Csi]
 === Csi
 ****
@@ -528,6 +852,167 @@ algorithmName +
 │  │  │  ▼ Values +
 │  │  │  │  Value +
 │  │  matchLabels
+****
+
+[#EntityOperator]
+=== Entity Operator
+****
+▼ Template +
+│  ▼ Pod +
+│  │  ▶ <<Affinity>> +
+│  │  enableServiceLinks +
+│  │  ▶ <<Host Aliases>> +
+│  │  ▼ Image Pull Secrets +
+│  │  │  name +
+│  │  priorityClassName +
+│  │  schedulerName +
+│  │  ▶ <<Security Context>> +
+│  │  terminationGracePeriodSeconds +
+│  │  tmpDirSizeLimit +
+│  │  ▼ Tolerations +
+│  │  │  effect +
+│  │  │  key +
+│  │  │  operator +
+│  │  │  tolerationSeconds +
+│  │  │  value +
+│  │  ▶ <<Topology Spread Constraints>> +
+│  ▼ Tls Sidecar Container +
+│  │  ▼ Env +
+│  │  │  name +
+│  │  │  value +
+│  │  ▼ Security Context +
+│  │  │  allowPrivilegeEscalation +
+│  │  │  ▼ Capabilities +
+│  │  │  │  ▼ Add +
+│  │  │  │  │  Value * +
+│  │  │  │  ▼ Drop +
+│  │  │  │  │  Value * +
+│  │  │  privileged +
+│  │  │  procMount +
+│  │  │  readOnlyRootFilesystem +
+│  │  │  runAsGroup +
+│  │  │  runAsNonRoot +
+│  │  │  runAsUser +
+│  │  │  ▼ Se Linux Options +
+│  │  │  │  level +
+│  │  │  │  role +
+│  │  │  │  type +
+│  │  │  │  user +
+│  │  │  ▼ Seccomp Profile +
+│  │  │  │  localhostProfile +
+│  │  │  │  type +
+│  │  │  ▼ Windows Options +
+│  │  │  │  gmsaCredentialSpec +
+│  │  │  │  gmsaCredentialSpecName +
+│  │  │  │  hostProcess +
+│  │  │  │  runAsUserName +
+│  ▼ Topic Operator Container +
+│  │  ▼ Env +
+│  │  │  name +
+│  │  │  value +
+│  │  ▼ Security Context +
+│  │  │  allowPrivilegeEscalation +
+│  │  │  ▼ Capabilities +
+│  │  │  │  ▼ Add +
+│  │  │  │  │  Value * +
+│  │  │  │  ▼ Drop +
+│  │  │  │  │  Value * +
+│  │  │  privileged +
+│  │  │  procMount +
+│  │  │  readOnlyRootFilesystem +
+│  │  │  runAsGroup +
+│  │  │  runAsNonRoot +
+│  │  │  runAsUser +
+│  │  │  ▼ Se Linux Options +
+│  │  │  │  level +
+│  │  │  │  role +
+│  │  │  │  type +
+│  │  │  │  user +
+│  │  │  ▼ Seccomp Profile +
+│  │  │  │  localhostProfile +
+│  │  │  │  type +
+│  │  │  ▼ Windows Options +
+│  │  │  │  gmsaCredentialSpec +
+│  │  │  │  gmsaCredentialSpecName +
+│  │  │  │  hostProcess +
+│  │  │  │  runAsUserName +
+│  ▼ User Operator Container +
+│  │  ▼ Env +
+│  │  │  name +
+│  │  │  value +
+│  │  ▼ Security Context +
+│  │  │  allowPrivilegeEscalation +
+│  │  │  ▼ Capabilities +
+│  │  │  │  ▼ Add +
+│  │  │  │  │  Value * +
+│  │  │  │  ▼ Drop +
+│  │  │  │  │  Value * +
+│  │  │  privileged +
+│  │  │  procMount +
+│  │  │  readOnlyRootFilesystem +
+│  │  │  runAsGroup +
+│  │  │  runAsNonRoot +
+│  │  │  runAsUser +
+│  │  │  ▼ Se Linux Options +
+│  │  │  │  level +
+│  │  │  │  role +
+│  │  │  │  type +
+│  │  │  │  user +
+│  │  │  ▼ Seccomp Profile +
+│  │  │  │  localhostProfile +
+│  │  │  │  type +
+│  │  │  ▼ Windows Options +
+│  │  │  │  gmsaCredentialSpec +
+│  │  │  │  gmsaCredentialSpecName +
+│  │  │  │  hostProcess +
+│  │  │  │  runAsUserName +
+▶ <<Tls Sidecar>> +
+▼ Topic Operator +
+│  image +
+│  ▶ <<Jvm Options>> +
+│  ▼ Liveness Probe +
+│  │  failureThreshold +
+│  │  initialDelaySeconds +
+│  │  periodSeconds +
+│  │  successThreshold +
+│  │  timeoutSeconds +
+│  ▶ <<Logging>> +
+│  ▼ Readiness Probe +
+│  │  failureThreshold +
+│  │  initialDelaySeconds +
+│  │  periodSeconds +
+│  │  successThreshold +
+│  │  timeoutSeconds +
+│  reconciliationIntervalSeconds +
+│  ▼ Startup Probe +
+│  │  failureThreshold +
+│  │  initialDelaySeconds +
+│  │  periodSeconds +
+│  │  successThreshold +
+│  │  timeoutSeconds +
+│  topicMetadataMaxAttempts +
+│  watchedNamespace +
+│  zookeeperSessionTimeoutSeconds +
+▼ User Operator +
+│  image +
+│  ▶ <<Jvm Options>> +
+│  ▼ Liveness Probe +
+│  │  failureThreshold +
+│  │  initialDelaySeconds +
+│  │  periodSeconds +
+│  │  successThreshold +
+│  │  timeoutSeconds +
+│  ▶ <<Logging>> +
+│  ▼ Readiness Probe +
+│  │  failureThreshold +
+│  │  initialDelaySeconds +
+│  │  periodSeconds +
+│  │  successThreshold +
+│  │  timeoutSeconds +
+│  reconciliationIntervalSeconds +
+│  secretPrefix +
+│  watchedNamespace +
+│  zookeeperSessionTimeoutSeconds +
 ****
 
 [#Env]
@@ -698,6 +1183,40 @@ timeout +
 │  value +
 ▶ <<Topology Spread Constraints>> +
 ▶ <<Volumes>>
+****
+
+[#ExternalConfiguration]
+=== External Configuration
+****
+▼ Env +
+│  name * +
+│  ▼ Value From * +
+│  │  ▼ Config Map Key Ref +
+│  │  │  key +
+│  │  │  name +
+│  │  │  optional +
+│  │  ▼ Secret Key Ref +
+│  │  │  key +
+│  │  │  name +
+│  │  │  optional +
+▼ Volumes +
+│  ▼ Config Map +
+│  │  defaultMode +
+│  │  ▼ Items +
+│  │  │  key +
+│  │  │  mode +
+│  │  │  path +
+│  │  name +
+│  │  optional +
+│  name * +
+│  ▼ Secret +
+│  │  defaultMode +
+│  │  ▼ Items +
+│  │  │  key +
+│  │  │  mode +
+│  │  │  path +
+│  │  optional +
+│  │  secretName
 ****
 
 == F
@@ -901,6 +1420,17 @@ name +
 timeout
 ****
 
+[#HttpKafka]
+=== Http(Kafka)
+****
+▼ Cors +
+│  ▼ Allowed Methods * +
+│  │  Value * +
+│  ▼ Allowed Origins * +
+│  │  Value * +
+port
+****
+
 == I
 
 [#Ingress]
@@ -950,6 +1480,84 @@ targetPortal *
 ****
 
 == J
+
+[#JmxOptionss]
+=== Jmx Options
+****
+▼ Authentication +
+│  type *
+****
+
+[#JmxTrans]
+=== Jmx Trans
+****
+image +
+▼ Kafka Queries * +
+│  ▼ Attributes * +
+│  │  Value * +
+│  ▼ Outputs * +
+│  │  Value * +
+│  targetMBean * +
+logLevel +
+▼ Output Definitions * +
+│  flushDelayInSeconds +
+│  host +
+│  name * +
+│  outputType * +
+│  port +
+│  ▼ Type Names +
+│  │  Value * +
+▼ Template +
+│  ▼ Container +
+│  │  ▼ Env +
+│  │  │  name +
+│  │  │  value +
+│  │  ▼ Security Context +
+│  │  │  allowPrivilegeEscalation +
+│  │  │  ▼ Capabilities +
+│  │  │  │  ▼ Add +
+│  │  │  │  │  Value * +
+│  │  │  │  ▼ Drop +
+│  │  │  │  │  Value * +
+│  │  │  privileged +
+│  │  │  procMount +
+│  │  │  readOnlyRootFilesystem +
+│  │  │  runAsGroup +
+│  │  │  runAsNonRoot +
+│  │  │  runAsUser +
+│  │  │  ▼ Se Linux Options +
+│  │  │  │  level +
+│  │  │  │  role +
+│  │  │  │  type +
+│  │  │  │  user +
+│  │  │  ▼ Seccomp Profile +
+│  │  │  │  localhostProfile +
+│  │  │  │  type +
+│  │  │  ▼ Windows Options +
+│  │  │  │  gmsaCredentialSpec +
+│  │  │  │  gmsaCredentialSpecName +
+│  │  │  │  hostProcess +
+│  │  │  │  runAsUserName +
+│  ▼ Pod +
+│  │  ▶ <<Affinity>> +
+│  │  enableServiceLinks +
+│  │  ▶ <<Host Aliases>> +
+│  │  ▼ Image Pull Secrets +
+│  │  │  name +
+│  │  priorityClassName +
+│  │  schedulerName +
+│  │  ▶ <<Security Context>> +
+│  │  terminationGracePeriodSeconds +
+│  │  tmpDirSizeLimit +
+│  │  ▼ Tolerations +
+│  │  │  effect +
+│  │  │  key +
+│  │  │  operator +
+│  │  │  tolerationSeconds +
+│  │  │  value +
+│  │  ▶ <<Topology Spread Constraints>>
+****
+
 
 [#Jobs]
 === Jobs
@@ -1018,6 +1626,17 @@ targetPortal *
 │  ttlSecondsAfterFinished
 ****
 
+[#JvmOptions]
+=== Jvm Options
+****
+-Xms +
+-Xmx +
+gcLoggingEnabled +
+▼ Java System Properties +
+│  name +
+│  value +
+****
+
 [#JwtRules]
 === Jwt Rules
 ****
@@ -1034,6 +1653,360 @@ jwks +
 jwksUri +
 jwks_uri +
 outputPayloadToHeader
+****
+
+== K
+
+[#Kafka]
+=== Kafka
+****
+▼ Authorization +
+│  allowOnError +
+│  authorizerClass +
+│  clientId +
+│  delegateToKafkaAcls +
+│  disableTlsHostnameVerification +
+│  expireAfterMs +
+│  grantsRefreshPeriodSeconds +
+│  grantsRefreshPoolSize +
+│  initialCacheCapacity +
+│  maximumCacheSize +
+│  ▼ Super Users +
+│  │  Value * +
+│  supportsAdminApi +
+│  ▼ Tls Trusted Certificates +
+│  │  certificate * +
+│  │  secretName * +
+│  tokenEndpointUri +
+│  type * +
+│  url +
+brokerRackInitImage +
+image +
+▶ <<Jmx Options>> +
+▶ <<Jvm Options>> +
+▼ Listeners * +
+│  ▼ Authentication +
+│  │  accessTokenIsJwt +
+│  │  checkAccessTokenType +
+│  │  checkAudience +
+│  │  checkIssuer +
+│  │  clientAudience +
+│  │  clientId +
+│  │  clientScope +
+│  │  ▼ Client Secret +
+│  │  │  key * +
+│  │  │  secretName * +
+│  │  customClaimCheck +
+│  │  disableTlsHostnameVerification +
+│  │  enableECDSA +
+│  │  enableOauthBearer +
+│  │  enablePlain +
+│  │  fallbackUserNameClaim +
+│  │  fallbackUserNamePrefix +
+│  │  introspectionEndpointUri +
+│  │  jwksEndpointUri +
+│  │  jwksExpirySeconds +
+│  │  jwksMinRefreshPauseSeconds +
+│  │  jwksRefreshSeconds +
+│  │  maxSecondsWithoutReauthentication +
+│  │  ▼ Tls Trusted Certificates +
+│  │  │  certificate * +
+│  │  │  secretName * +
+│  │  tokenEndpointUri +
+│  │  type * +
+│  │  userInfoEndpointUri +
+│  │  userNameClaim +
+│  │  validIssuerUri +
+│  │  validTokenType +
+│  ▼ Configuration +
+│  │  ▼ Bootstrap +
+│  │  │  ▼ Alternative Names +
+│  │  │  │  Value * +
+│  │  │  host +
+│  │  │  loadBalancerIP +
+│  │  │  nodePort +
+│  │  ▼ Broker Cert Chain And Key +
+│  │  │  certificate * +
+│  │  │  key * +
+│  │  │  secretName * +
+│  │  ▼ Brokers +
+│  │  │  advertisedHost +
+│  │  │  advertisedPort +
+│  │  │  broker * +
+│  │  │  host +
+│  │  │  loadBalancerIP +
+│  │  │  nodePort +
+│  │  class +
+│  │  externalTrafficPolicy +
+│  │  ▼ Finalizers +
+│  │  │  Value * +
+│  │  ▼ Ip Families +
+│  │  │  Value * +
+│  │  ipFamilyPolicy +
+│  │  ▼ Load Balancer Source Ranges +
+│  │  │  Value * +
+│  │  maxConnectionCreationRate +
+│  │  maxConnections +
+│  │  preferredNodePortAddressType +
+│  │  useServiceDnsDomain +
+│  name * +
+│  ▼ Network Policy Peers +
+│  │  ▼ Ip Block +
+│  │  │  cidr +
+│  │  │  ▼ Except +
+│  │  │  │  Value * +
+│  │  ▼ Namespace Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key +
+│  │  │  │  operator +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  ▼ Pod Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key +
+│  │  │  │  operator +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  port * +
+│  tls * +
+│  type * +
+▼ Liveness Probe +
+│  failureThreshold +
+│  initialDelaySeconds +
+│  periodSeconds +
+│  successThreshold +
+│  timeoutSeconds +
+▶ <<Logging>> +
+▶ <<Metrics Config>> +
+▼ Rack +
+│  topologyKey *
+▼ Readiness Probe +
+│  failureThreshold +
+│  initialDelaySeconds +
+│  periodSeconds +
+│  successThreshold +
+│  timeoutSeconds +
+replicas * +
+▼ Storage * +
+│  class +
+│  deleteClaim +
+│  id +
+│  ▼ Overrides +
+│  │  broker +
+│  │  class +
+│  size +
+│  sizeLimit +
+│  type * +
+│  ▼ Volumes +
+│  │  class +
+│  │  deleteClaim +
+│  │  id +
+│  │  ▼ Overrides +
+│  │  │  broker +
+│  │  │  class +
+│  │  size +
+│  │  sizeLimit +
+│  │  type * +
+▼ Template * +
+│  ▼ Bootstrap Service +
+│  │  ▼ Ip Families +
+│  │  │  Value * +
+│  │  ipFamilyPolicy +
+│  ▼ Brokers Service +
+│  │  ▼ Ip Families +
+│  │  │  Value * +
+│  │  ipFamilyPolicy +
+│  ▼ Init Container +
+│  │  ▼ Env +
+│  │  │  value +
+│  │  │  name +
+│  │  ▼ Security Context +
+│  │  │  allowPrivilegeEscalation +
+│  │  │  ▼ Capabilities +
+│  │  │  │  ▼ Add +
+│  │  │  │  │  Value * +
+│  │  │  │  ▼ Drop +
+│  │  │  │  │  Value * +
+│  │  │  privileged +
+│  │  │  procMount +
+│  │  │  readOnlyRootFilesystem +
+│  │  │  runAsGroup +
+│  │  │  runAsNonRoot +
+│  │  │  runAsUser +
+│  │  │  ▼ Se Linux Options +
+│  │  │  │  level +
+│  │  │  │  role +
+│  │  │  │  type +
+│  │  │  │  user +
+│  │  │  ▼ Seccomp Profile +
+│  │  │  │  localhostProfile +
+│  │  │  │  type +
+│  │  │  ▼ Windows Options +
+│  │  │  │  gmsaCredentialSpec +
+│  │  │  │  gmsaCredentialSpecName +
+│  │  │  │  hostProcess +
+│  │  │  │  runAsUserName +
+│  ▼ Kafka Container +
+│  │  ▼ Env +
+│  │  │  value +
+│  │  │  name +
+│  │  ▼ Security Context +
+│  │  │  allowPrivilegeEscalation +
+│  │  │  ▼ Capabilities +
+│  │  │  │  ▼ Add +
+│  │  │  │  │  Value * +
+│  │  │  │  ▼ Drop +
+│  │  │  │  │  Value * +
+│  │  │  privileged +
+│  │  │  procMount +
+│  │  │  readOnlyRootFilesystem +
+│  │  │  runAsGroup +
+│  │  │  runAsNonRoot +
+│  │  │  runAsUser +
+│  │  │  ▼ Se Linux Options +
+│  │  │  │  level +
+│  │  │  │  role +
+│  │  │  │  type +
+│  │  │  │  user +
+│  │  │  ▼ Seccomp Profile +
+│  │  │  │  localhostProfile +
+│  │  │  │  type +
+│  │  │  ▼ Windows Options +
+│  │  │  │  gmsaCredentialSpec +
+│  │  │  │  gmsaCredentialSpecName +
+│  │  │  │  hostProcess +
+│  │  │  │  runAsUserName +
+│  ▼ Pod +
+│  │  ▶ <<Affinity>> +
+│  │  enableServiceLinks +
+│  │  c <<Host Aliases>> +
+│  │  ▼ Image Pull Secrets +
+│  │  │  name +
+│  │  priorityClassName +
+│  │  schedulerName +
+│  │  ▶ <<Security Context>> +
+│  │  terminationGracePeriodSeconds +
+│  │  tmpDirSizeLimit +
+│  │  ▼ Tolerations +
+│  │  │  effect +
+│  │  │  key +
+│  │  │  operator +
+│  │  │  tolerationSeconds +
+│  │  │  value +
+│  │  ▼ Topology Spread Constraints +
+│  │  │  ▼ Label Selector +
+│  │  │  │  ▼ Match Expressions +
+│  │  │  │  │  key +
+│  │  │  │  │  operator +
+│  │  │  │  │  ▼ Values +
+│  │  │  │  │  │  Value * +
+│  │  │  maxSkew +
+│  │  │  topologyKey +
+│  │  │  whenUnsatisfiable +
+│  ▼ Pod Disruption Budget +
+│  │  maxUnavailable +
+│  ▼ Statefulset +
+│  │  podManagementPolicy +
+version
+****
+
+[#KafkaExporter]
+=== Kafka Exporter
+****
+enableSaramaLogging +
+groupRegex +
+image +
+▼ Liveness Probe +
+│  failureThreshold +
+│  initialDelaySeconds +
+│  periodSeconds +
+│  successThreshold +
+│  timeoutSeconds +
+logging +
+▼ Readiness Probe +
+│  failureThreshold +
+│  initialDelaySeconds +
+│  periodSeconds +
+│  successThreshold +
+│  timeoutSeconds +
+▼ Template +
+│  ▼ Container +
+│  │  ▼ Env +
+│  │  │  value +
+│  │  │  name +
+│  │  ▼ Security Context +
+│  │  │  allowPrivilegeEscalation +
+│  │  │  ▼ Capabilities +
+│  │  │  │  ▼ Add +
+│  │  │  │  │  Value * +
+│  │  │  │  ▼ Drop +
+│  │  │  │  │  Value * +
+│  │  │  privileged +
+│  │  │  procMount +
+│  │  │  readOnlyRootFilesystem +
+│  │  │  runAsGroup +
+│  │  │  runAsNonRoot +
+│  │  │  runAsUser +
+│  │  │  ▼ Se Linux Options +
+│  │  │  │  level +
+│  │  │  │  role +
+│  │  │  │  type +
+│  │  │  │  user +
+│  │  │  ▼ Seccomp Profile +
+│  │  │  │  localhostProfile +
+│  │  │  │  type +
+│  │  │  ▼ Windows Options +
+│  │  │  │  gmsaCredentialSpec +
+│  │  │  │  gmsaCredentialSpecName +
+│  │  │  │  hostProcess +
+│  │  │  │  runAsUserName +
+│  ▼ Pod +
+│  │  ▶ <<Affinity>> +
+│  │  enableServiceLinks +
+│  │  ▶ <<Host Aliases>> +
+│  │  ▼ Image Pull Secrets +
+│  │  │  name +
+│  │  priorityClassName +
+│  │  schedulerName +
+│  │  ▶ <<Security Context>> +
+│  │  terminationGracePeriodSeconds +
+│  │  tmpDirSizeLimit +
+│  │  ▼ Tolerations +
+│  │  │  effect +
+│  │  │  key +
+│  │  │  operator +
+│  │  │  tolerationSeconds +
+│  │  │  value +
+│  │  ▼ Topology Spread Constraints +
+│  │  │  ▼ Label Selector +
+│  │  │  │  ▼ Match Expressions +
+│  │  │  │  │  key +
+│  │  │  │  │  operator +
+│  │  │  │  │  ▼ Values +
+│  │  │  │  │  │  Value * +
+│  │  │  maxSkew +
+│  │  │  topologyKey +
+│  │  │  whenUnsatisfiable +
+topicRegex
+****
+
+[#KubernetesConfig]
+=== Kubernetes Config
+****
+image * +
+imagePullPolicy * +
+▼ Image Pull Secrets +
+│  name +
+▼ Redis Secret +
+│  key +
+│  name +
+▼ Resources +
+│  ▼ Limits +
+│  │  KEY +
+│  │  VALUE +
+│  ▼ Requests +
+│  │  KEY +
+│  │  VALUE +
 ****
 
 == L
@@ -1193,6 +2166,17 @@ successThreshold +
 timeoutSeconds
 ****
 
+[#Logging]
+=== Logging
+****
+type * +
+▼ Value From +
+│  ▼ Config Map Key Ref +
+│  │  key +
+│  │  name +
+│  │  optional +
+****
+
 == M
 
 [#Metadata]
@@ -1300,6 +2284,39 @@ type *
 │  │  path +
 │  │  port * +
 │  │  scheme
+****
+
+[#MetricsConfig]
+=== Metrics Config
+****
+type * +
+▼ Value From * +
+│  ▼ Config Map Key Ref +
+│  │  key +
+│  │  name +
+│  │  optional +
+****
+
+[#Mirrors]
+=== Mirrors
+****
+▼ Checkpoint Connector +
+│  pause +
+│  tasksMax +
+groupsBlacklistPattern +
+groupsExcludePattern +
+groupsPattern +
+▼ Heartbeat Connector +
+│  pause +
+│  tasksMax +
+sourceCluster * +
+▼ Source Connector +
+│  pause +
+│  tasksMax +
+targetCluster * +
+topicsBlacklistPattern +
+topicsExcludePattern +
+topicsPattern
 ****
 
 == N
@@ -1981,6 +2998,65 @@ successThreshold +
 timeoutSeconds
 ****
 
+[RedisExporter]
+=== Redis Exporter
+****
+enabled +
+▼ Env +
+│  name * +
+│  value +
+│  ▼ Value From +
+│  │  ▼ Config Map Key Ref +
+│  │  │  key * +
+│  │  │  name +
+│  │  │  optional +
+│  │  ▼ Field Ref +
+│  │  │  apiVersion +
+│  │  │  fieldPath * +
+│  │  ▼ Resource Field Ref +
+│  │  │  containerName +
+│  │  │  divisor +
+│  │  │  resource * +
+│  │  ▼ Secret Key Ref +
+│  │  │  key * +
+│  │  │  name +
+│  │  │  optional +
+image * +
+imagePullPolicy +
+▼ Resources +
+│  ▼ Limits +
+│  │  KEY +
+│  │  VALUE +
+│  ▼ Requests +
+│  │  KEY +
+│  │  VALUE
+****
+
+[#RedisFollower/RedisLeader]
+=== Redis Follower / Redis Leader
+****
+▶ <<AffinityRedis,Affinity>> +
+▼ Liveness Probe +
+│  failureThreshold +
+│  initialDelaySeconds +
+│  periodSeconds +
+│  successThreshold +
+│  timeoutSeconds +
+▼ Pdb +
+│  enabled +
+│  maxUnavailable +
+│  minAvailable +
+▼ Readiness Probe +
+│  failureThreshold +
+│  initialDelaySeconds +
+│  periodSeconds +
+│  successThreshold +
+│  timeoutSeconds +
+▼ Redis Config +
+│  additionalRedisConfig +
+replicas
+****
+
 [#RegistryDeployment]
 === Registry Deployment
 ****
@@ -2160,6 +3236,34 @@ runAsUser +
 │  runAsUserName +
 ****
 
+[#SecurityContextRedis]
+=== Security Context(Redis)
+****
+fsGroup +
+fsGroupChangePolicy +
+runAsGroup +
+runAsNonRoot +
+runAsUser +
+▼ Se Linux Options +
+│  level +
+│  role +
+│  type +
+│  user +
+▼ Seccomp Profile +
+│  localhostProfile +
+│  type * +
+▼ Supplemental Groups +
+│  Value * +
+▼ Sysctls +
+│  name * +
+│  value * +
+▼ Windows Options +
+│  gmsaCredentialSpec +
+│  gmsaCredentialSpecName +
+│  hostProcess +
+│  runAsUserName +
+****
+
 [#SecurityContextTfReplicaSpecs]
 === Security Context(Tf Replica Specs)
 ****
@@ -2228,6 +3332,22 @@ defaultEndpoint +
 │  timeoutSeconds
 ****
 
+[#Sidecars]
+=== Sidecars
+****
+▶ <<Env>> +
+image * +
+imagePullPolicy +
+name * +
+▼ Resources +
+│  ▼ Limits +
+│  │  KEY +
+│  │  VALUE +
+│  ▼ Requests +
+│  │  KEY +
+│  │  VALUE
+****
+
 [#Spec]
 === Spec
 ****
@@ -2278,6 +3398,60 @@ successThreshold +
 │  host +
 │  port * +
 timeoutSeconds
+****
+
+[#Storage]
+=== Storage
+****
+▼ Volume Claim Template +
+│  apiVersion +
+│  kind +
+│  ▼ Spec +
+│  │  ▼ Access Modes +
+│  │  │  Value * +
+│  │  ▼ Data Source +
+│  │  │  apiGroup +
+│  │  │  kind * +
+│  │  │  name * +
+│  │  ▼ Data Source Ref +
+│  │  │  apiGroup +
+│  │  │  kind * +
+│  │  │  name * +
+│  │  ▼ Resources +
+│  │  │  ▼ Limits +
+│  │  │  │  KEY +
+│  │  │  │  Value +
+│  │  │  ▼ Requests +
+│  │  │  │  KEY +
+│  │  │  │  Value +
+│  │  ▼ Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key * +
+│  │  │  │  operator * +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  │  matchLabels +
+│  │  storageClassName +
+│  │  volumeMode +
+│  │  volumeName +
+│  ▼ Status +
+│  │  ▼ Access Modes +
+│  │  │  Value * +
+│  │  ▼ Allocated Resources +
+│  │  │  KEY +
+│  │  │  VALUE +
+│  │  ▼ Capacity +
+│  │  │  KEY +
+│  │  │  VALUE +
+│  │  ▼ Conditions +
+│  │  │  lastProbeTime +
+│  │  │  lastTransitionTime +
+│  │  │  message +
+│  │  │  reason +
+│  │  │  status * +
+│  │  │  type * +
+│  │  phase
+│  │  resizeStatus
 ****
 
 [#Storageos]
@@ -2384,6 +3558,211 @@ name +
 │  │  value +
 │  ▶ <<Topology Spread Constraints>> +
 │  ▶ <<Volumes>>
+****
+
+[#Templatekafka]
+=== Template(Kafka)
+****
+▼ Api Service +
+│  ▼ Ip Families +
+│  │  Value * +
+│  ipFamilyPolicy +
+▼ Build Config +
+│  pullSecret +
+▼ Build Container +
+│  ▼ Env +
+│  │  name +
+│  │  value +
+│  ▼ Security Context +
+│  │  allowPrivilegeEscalation +
+│  │  ▼ Capabilities +
+│  │  │  ▼ Add +
+│  │  │  │  Value * +
+│  │  │  ▼ Drop +
+│  │  │  │  Value * +
+│  │  privileged +
+│  │  procMount +
+│  │  readOnlyRootFilesystem +
+│  │  runAsGroup +
+│  │  runAsNonRoot +
+│  │  runAsUser +
+│  │  ▼ Se Linux Options +
+│  │  │  level +
+│  │  │  role +
+│  │  │  type +
+│  │  │  user +
+│  │  ▼ Seccomp Profile +
+│  │  │  localhostProfile +
+│  │  │  type +
+│  │  ▼ Windows Options +
+│  │  │  gmsaCredentialSpec +
+│  │  │  gmsaCredentialSpecName +
+│  │  │  hostProcess +
+│  │  │  runAsUserName +
+▼ Build Pod +
+│  ▶ <<Affinity>> +
+│  enableServiceLinks +
+│  ▶ <<Host Aliases>> +
+│  ▼ Image Pull Secrets +
+│  │  name +
+│  priorityClassName +
+│  schedulerName +
+│  ▼ Security Context +
+│  │  fsGroup +
+│  │  fsGroupChangePolicy +
+│  │  runAsGroup +
+│  │  runAsNonRoot +
+│  │  runAsUser +
+│  │  ▼ Se Linux Options +
+│  │  │  level +
+│  │  │  role +
+│  │  │  type +
+│  │  │  user +
+│  │  ▼ Seccomp Profile +
+│  │  │  localhostProfile +
+│  │  │  type +
+│  │  ▼ Supplemental Groups +
+│  │  │  Value * +
+│  │  ▼ Sysctls +
+│  │  │  name +
+│  │  │  value +
+│  │  ▼ Windows Options +
+│  │  │  gmsaCredentialSpec +
+│  │  │  gmsaCredentialSpecName +
+│  │  │  hostProcess +
+│  │  │  runAsUserName +
+│  terminationGracePeriodSeconds +
+│  tmpDirSizeLimit +
+│  ▼ Tolerations +
+│  │  effect +
+│  │  key +
+│  │  operator +
+│  │  tolerationSeconds +
+│  │  value +
+│  ▼ Topology Spread Constraints +
+│  │  ▼ Label Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key +
+│  │  │  │  operator +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  maxSkew +
+│  │  topologyKey +
+│  │  whenUnsatisfiable +
+▼ Connect Container +
+│  ▼ Env +
+│  │  name +
+│  │  value +
+│  ▼ Security Context +
+│  │  allowPrivilegeEscalation +
+│  │  ▼ Capabilities +
+│  │  │  ▼ Add +
+│  │  │  │  Value * +
+│  │  │  ▼ Drop +
+│  │  │  │  Value * +
+│  │  privileged +
+│  │  procMount +
+│  │  readOnlyRootFilesystem +
+│  │  runAsGroup +
+│  │  runAsNonRoot +
+│  │  runAsUser +
+│  │  ▼ Se Linux Options +
+│  │  │  level +
+│  │  │  role +
+│  │  │  type +
+│  │  │  user +
+│  │  ▼ Seccomp Profile +
+│  │  │  localhostProfile +
+│  │  │  type +
+│  │  ▼ Windows Options +
+│  │  │  gmsaCredentialSpec +
+│  │  │  gmsaCredentialSpecName +
+│  │  │  hostProcess +
+│  │  │  runAsUserName +
+▼ Deployment +
+│  deploymentStrategy +
+▼ Init Container +
+│  ▼ Env +
+│  │  name +
+│  │  value +
+│  ▼ Security Context +
+│  │  allowPrivilegeEscalation +
+│  │  ▼ Capabilities +
+│  │  │  ▼ Add +
+│  │  │  │  Value * +
+│  │  │  ▼ Drop +
+│  │  │  │  Value * +
+│  │  privileged +
+│  │  procMount +
+│  │  readOnlyRootFilesystem +
+│  │  runAsGroup +
+│  │  runAsNonRoot +
+│  │  runAsUser +
+│  │  ▼ Se Linux Options +
+│  │  │  level +
+│  │  │  role +
+│  │  │  type +
+│  │  │  user +
+│  │  ▼ Seccomp Profile +
+│  │  │  localhostProfile +
+│  │  │  type +
+│  │  ▼ Windows Options +
+│  │  │  gmsaCredentialSpec +
+│  │  │  gmsaCredentialSpecName +
+│  │  │  hostProcess +
+│  │  │  runAsUserName +
+▼ Pod +
+│  ▶ <<Affinity>> +
+│  enableServiceLinks +
+│  ▶ <<Host Aliases>> +
+│  ▼ Image Pull Secrets +
+│  │  name +
+│  priorityClassName +
+│  schedulerName +
+│  ▼ Security Context +
+│  │  fsGroup +
+│  │  fsGroupChangePolicy +
+│  │  runAsGroup +
+│  │  runAsNonRoot +
+│  │  runAsUser +
+│  │  ▼ Se Linux Options +
+│  │  │  level +
+│  │  │  role +
+│  │  │  type +
+│  │  │  user +
+│  │  ▼ Seccomp Profile +
+│  │  │  localhostProfile +
+│  │  │  type +
+│  │  ▼ Supplemental Groups +
+│  │  │  Value * +
+│  │  ▼ Sysctls +
+│  │  │  name +
+│  │  │  value +
+│  │  ▼ Windows Options +
+│  │  │  gmsaCredentialSpec +
+│  │  │  gmsaCredentialSpecName +
+│  │  │  hostProcess +
+│  │  │  runAsUserName +
+│  terminationGracePeriodSeconds +
+│  tmpDirSizeLimit +
+│  ▼ Tolerations +
+│  │  effect +
+│  │  key +
+│  │  operator +
+│  │  tolerationSeconds +
+│  │  value +
+│  ▼ Topology Spread Constraints +
+│  │  ▼ Label Selector +
+│  │  │  ▼ Match Expressions +
+│  │  │  │  key +
+│  │  │  │  operator +
+│  │  │  │  ▼ Values +
+│  │  │  │  │  Value * +
+│  │  maxSkew +
+│  │  topologyKey +
+│  │  whenUnsatisfiable +
+▼ Pod Disruption Budget +
+│  maxUnavailable
 ****
 
 [#TemplateNotebook]
@@ -2540,6 +3919,44 @@ name +
 │  │  subset +
 │  weight
 ****
+
+[#TlsRedis]
+=== Tls(Redis)
+****
+ca +
+cert +
+key +
+▼ Secret * +
+│  defaultMode +
+│  ▼ Items +
+│  │  key * +
+│  │  mode +
+│  │  path * +
+│  optional +
+│  secretName
+****
+
+
+
+[#TlsSidecar]
+=== Tls Sidecar
+****
+image +
+▼ Liveness Probe +
+│  failureThreshold +
+│  initialDelaySeconds +
+│  periodSeconds +
+│  successThreshold +
+│  timeoutSeconds +
+logLevel +
+▼ Readiness Probe +
+│  failureThreshold +
+│  initialDelaySeconds +
+│  periodSeconds +
+│  successThreshold +
+│  timeoutSeconds
+****
+
 
 [#TopologySpreadConstraints]
 === Topology Spread Constraints
@@ -3266,4 +4683,109 @@ subPath +
 │  │  │  status * +
 │  │  │  type * +
 │  │  phase
+****
+
+== Z
+
+[#Zookeepers]
+=== Zookeeper
+****
+image +
+▶ <<Jmx Options>> +
+▶ <<Jvm Options>> +
+▼ Liveness Probe +
+│  failureThreshold +
+│  initialDelaySeconds +
+│  periodSeconds +
+│  successThreshold +
+│  timeoutSeconds +
+▶ <<Logging>> +
+▶ <<Metrics Config>> +
+▼ Readiness Probe +
+│  failureThreshold +
+│  initialDelaySeconds +
+│  periodSeconds +
+│  successThreshold +
+│  timeoutSeconds +
+replicas * +
+▼ Storage * +
+│  class +
+│  deleteClaim +
+│  id +
+│  ▼ Overrides +
+│  │  broker +
+│  │  class +
+│  size +
+│  sizeLimit +
+│  type * +
+▼ Template +
+│  ▼ Client Service +
+│  │  ▼ Ip Families +
+│  │  │  Value * +
+│  │  ipFamilyPolicy +
+│  ▼ Nodes Service +
+│  │  ▼ Ip Families +
+│  │  │  Value * +
+│  │  ipFamilyPolicy +
+│  ▼ Pod +
+│  │  ▶ <<Affinity>> +
+│  │  enableServiceLinks +
+│  │  ▶ <<Host Aliases>> +
+│  │  ▼ Image Pull Secrets +
+│  │  │  name +
+│  │  priorityClassName +
+│  │  schedulerName +
+│  │  ▶ <<Security Context>> +
+│  │  terminationGracePeriodSeconds +
+│  │  tmpDirSizeLimit +
+│  │  ▼ Tolerations +
+│  │  │  effect +
+│  │  │  key +
+│  │  │  operator +
+│  │  │  tolerationSeconds +
+│  │  │  value +
+│  │  ▼ Topology Spread Constraints +
+│  │  │  ▼ Label Selector +
+│  │  │  │  ▼ Match Expressions +
+│  │  │  │  │  key +
+│  │  │  │  │  operator +
+│  │  │  │  │  ▼ Values +
+│  │  │  │  │  │  Value * +
+│  │  │  maxSkew +
+│  │  │  topologyKey +
+│  │  │  whenUnsatisfiable +
+│  ▼ Pod Disruption Budget +
+│  │  maxUnavailable +
+│  ▼ Statefulset +
+│  │  podManagementPolicy +
+│  ▼ Zookeeper Container +
+│  │  ▼ Env +
+│  │  │  name +
+│  │  │  value +
+│  │  ▼ Security Context +
+│  │  │  allowPrivilegeEscalation +
+│  │  │  ▼ Capabilities +
+│  │  │  │  ▼ Add +
+│  │  │  │  │  Value * +
+│  │  │  │  ▼ Drop +
+│  │  │  │  │  Value * +
+│  │  │  privileged +
+│  │  │  procMount +
+│  │  │  readOnlyRootFilesystem +
+│  │  │  runAsGroup +
+│  │  │  runAsNonRoot +
+│  │  │  runAsUser +
+│  │  │  ▼ Se Linux Options +
+│  │  │  │  level +
+│  │  │  │  role +
+│  │  │  │  type +
+│  │  │  │  user +
+│  │  │  ▼ Seccomp Profile +
+│  │  │  │  localhostProfile +
+│  │  │  │  type +
+│  │  │  ▼ Windows Options +
+│  │  │  │  gmsaCredentialSpec +
+│  │  │  │  gmsaCredentialSpecName +
+│  │  │  │  hostProcess +
+│  │  │  │  runAsUserName +
 ****
