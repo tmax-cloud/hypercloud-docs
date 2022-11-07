@@ -260,19 +260,40 @@ global:
           hostedZoneID: Z077XXXXXXXXXXXX <8>
         environment: production <9>
 ...
+(QA: 변경 ↓)
+global:
+  privateRegistry: 10.0.0.1:5000 <1>
+  domain: cloudqa.com <2>
+...  
+  gatewayBootstrap:
+    enabled: true <3>
+    svc_type: NodePort <4>
+    tls:
+      selfsigned:
+        enabled: false <5>
+      acme:
+        enabled: true <6>
+        email: test@tmax.co.kr
+        dns:
+          type: route53
+          accessKeyID: AKIAVXXXXXXXXXX <7>
+          accessKeySecret: kFOYY4dYyXXXXXXXXXXXXXXXXXXXX <8>
+          hostedZoneID: Z077XXXXXXXXXXXX <9>
+        environment: production <10>
 ----
 +
 <1> 프라이빗 컨테이너 이미지 레지스트리의 주소
-<2> 게이트웨이 부트스트랩의 포함 여부
-<3> 네트워크 서비스 타입 
-<4> 자체 서명 인증서의 사용 여부
-<5> Route 53으로 생성한 도메인을 사용하기 위한 자동 인증서 관리 환경 사용 여부
-<6> AWS에서 사용하는 계정의 액세스 키 ID
-<7> 액세스 키 ID에 대한 시크릿 키
-<8> Route 53으로 생성한 도메인에 대한 호스팅 영역 ID
-<9> 실제 사용할 인증서 발급 용도
+<2> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름 (QA: 추가)
+<3> 게이트웨이 부트스트랩의 포함 여부
+<4> 네트워크 서비스 타입 (QA: 추가)(NodePort, LoadBalancer) 
+<5> 자체 서명 인증서의 사용 여부
+<6> Route 53으로 생성한 도메인을 사용하기 위한 자동 인증서 관리 환경 사용 여부
+<7> AWS에서 사용하는 계정의 액세스 키 ID
+<8> 액세스 키 ID에 대한 시크릿 키
+<9> Route 53으로 생성한 도메인에 대한 호스팅 영역 ID
+<10> 실제 사용할 인증서 발급 용도 (QA: 추가)(운영용: production, 테스트용 : staging)
 +
-NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하거나, 필요시 사용자 지정 도메인을 등록한다.
+NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하거나, 필요시 사용자 지정 도메인을 등록한다.(QA: 사용자 지정 도메인 -> 서브 도메인)
 
 . *shared-values.yaml 파일 수정*
 +
@@ -290,11 +311,33 @@ global:
   keycloak:
     domain: hyperauth.cloudqa.com <4>
 ...
+(QA: 변경 ↓)
+    repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1>
+    targetRevision: HEAD <2>
+...
+global:
+  timezone: UTC <3>
+  network:
+    disabled: true <4>
+...    
+  masterSingle:
+    enabled: true <5>
+    hyperAuthDomain: "hyperauth.cloudqa.com" <6>
+...
 ----
 <1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
 <2> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
 <3> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
 <4> 설치할 HyperAuth 도메인 이름
+
+(QA: 변경 ↓)
+
+<1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
+<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름
+<3> 애플리케이션 타임존 설정 (UTC, Asia/Seoul)
+<4> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
+<5> 마스터 클러스터와 싱글 클러스터의 hyperauth 연동 여부
+<6> 마스터 클러스터와 싱글 클러스터에서 사용할 hyperauth 주소
 
 . *애플리케이션 변수 설정*
 +
