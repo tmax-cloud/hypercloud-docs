@@ -209,14 +209,16 @@ kube_pods_subnet: 10.244.0.0/24 <7>
 
 . *설치할 애플리케이션 구성 정보 확인*
 +
-Kubespray로 설치될 애플리케이션(`nginx`, `harbor`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. +
+Kubespray로 설치될 애플리케이션(`nginx`, `harbor`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. (QA: harbor -> hyperregistry) +
 해당 애플리케이션의 구성 정보는 기본적으로 `kubespray-onpremise/roles/bootstrap-cloud/defaults/main.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `kubespray-onpremise/roles/bootstrap-cloud/task/` 및 `kubespray-onpremise/roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다.
 +
-온프레미스 환경에서는 다음과 같이 인그레스의 서비스 타입을 "NodePort"로 설정해야 한다.
+온프레미스 환경에서는 다음과 같이 인그레스의 서비스 타입을 "NodePort"로 설정해야 한다.(QA: 설명이 모호해서 삭제) +
+(QA: hyperregistry는 default storageclass가 nfs로 고정되어 있어서 default storageclass가 바뀌다면 설정에 맞게 수정해야 한다.)
 +
 .kubespray-onpremise/roles/bootstrap-cloud/defaults/main.yml
 ----
-ingress_nginx_service_type: NodePort
+ingress_nginx_service_type: NodePort (QA: 삭제)
+(QA: hyperregistry_storage_class: "nfs"   추가)
 ----
 
 [#KubesprayRunArgoOn]
@@ -258,19 +260,40 @@ global:
           hostedZoneID: Z077XXXXXXXXXXXX <8>
         environment: production <9>
 ...
+(QA: 변경 ↓)
+global:
+  privateRegistry: 10.0.0.1:5000 <1>
+  domain: cloudqa.com <2>
+...  
+  gatewayBootstrap:
+    enabled: true <3>
+    svc_type: NodePort <4>
+    tls:
+      selfsigned:
+        enabled: false <5>
+      acme:
+        enabled: true <6>
+        email: test@tmax.co.kr
+        dns:
+          type: route53
+          accessKeyID: AKIAVXXXXXXXXXX <7>
+          accessKeySecret: kFOYY4dYyXXXXXXXXXXXXXXXXXXXX <8>
+          hostedZoneID: Z077XXXXXXXXXXXX <9>
+        environment: production <10>
 ----
 +
 <1> 프라이빗 컨테이너 이미지 레지스트리의 주소
-<2> 게이트웨이 부트스트랩의 포함 여부
-<3> 네트워크 서비스 타입 
-<4> 자체 서명 인증서의 사용 여부
-<5> Route 53으로 생성한 도메인을 사용하기 위한 자동 인증서 관리 환경 사용 여부
-<6> AWS에서 사용하는 계정의 액세스 키 ID
-<7> 액세스 키 ID에 대한 시크릿 키
-<8> Route 53으로 생성한 도메인에 대한 호스팅 영역 ID
-<9> 실제 사용할 인증서 발급 용도
+<2> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름 (QA: 추가)
+<3> 게이트웨이 부트스트랩의 포함 여부
+<4> 네트워크 서비스 타입 (QA: 추가)(NodePort, LoadBalancer) 
+<5> 자체 서명 인증서의 사용 여부
+<6> Route 53으로 생성한 도메인을 사용하기 위한 자동 인증서 관리 환경 사용 여부
+<7> AWS에서 사용하는 계정의 액세스 키 ID
+<8> 액세스 키 ID에 대한 시크릿 키
+<9> Route 53으로 생성한 도메인에 대한 호스팅 영역 ID
+<10> 실제 사용할 인증서 발급 용도 (QA: 추가)(운영용: production, 테스트용 : staging)
 +
-NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하거나, 필요시 사용자 지정 도메인을 등록한다.
+NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하거나, 필요시 사용자 지정 도메인을 등록한다.(QA: 사용자 지정 도메인 -> 서브 도메인)
 
 . *shared-values.yaml 파일 수정*
 +
@@ -288,11 +311,33 @@ global:
   keycloak:
     domain: hyperauth.cloudqa.com <4>
 ...
+(QA: 변경 ↓)
+    repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1>
+    targetRevision: HEAD <2>
+...
+global:
+  timezone: UTC <3>
+  network:
+    disabled: true <4>
+...    
+  masterSingle:
+    enabled: true <5>
+    hyperAuthDomain: "hyperauth.cloudqa.com" <6>
+...
 ----
 <1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
 <2> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
 <3> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
 <4> 설치할 HyperAuth 도메인 이름
+
+(QA: 변경 ↓)
+
+<1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
+<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름
+<3> 애플리케이션 타임존 설정 (UTC, Asia/Seoul)
+<4> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
+<5> 마스터 클러스터와 싱글 클러스터의 hyperauth 연동 여부
+<6> 마스터 클러스터와 싱글 클러스터에서 사용할 hyperauth 주소
 
 . *애플리케이션 변수 설정*
 +
@@ -362,7 +407,7 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway with console) +
 2. strimzi-kafka-operator +
 3. hyperauth +
-4. opensearch
+4. opensearch +
 5. prometheus +
 6. grafana +
 7. service-mesh(istio, jaeger, kiali) +
@@ -372,9 +417,26 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 11. hypercloud +
 12. cicd-operator(tekton) +
 13. redis-operator +
-14. image-validating-webhook 
-
+14. image-validating-webhook +
 *※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
++
+(QA: 수정 ↓) +
+1. api-gateway-bootstrap(namespaces + cert-manager + jwt-decode-auth + api-gateway with console) +
+2. gitlab, argocd, hyperregistry +
+3. strimzi-kafka-operator +
+4. hyperauth +
+5. opensearch or loki +
+6. prometheus +
+7. grafana-operator +
+8. service-mesh(istio, jaeger, kiali) +
+9. hypercloud +
+10. template-service-broker +
+11. catalog-controller +
+12. cicd-operator(tekton) +
+13. cluster-api(aws, vsphere) +
+14. redis-operator, helm-apiserver, service-binding-operator +
+15. image-validating-webhook +
+*(QA: 삭제)※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
 ====
 
 [CAUTION]
@@ -389,9 +451,20 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 6. service-mesh(istio, jaeger, kiali) +
 7. harbor +
 8. cicd-operator(tekton) +
-9. redis-operator
-
+9. redis-operator +
 *※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
++
+(QA: 수정 ↓) +
+1. api-gateway-bootstrap(namespaces + cert-manager + jwt-decode-auth + api-gateway without console) + 
+2. opensearch or loki +
+3. prometheus +
+4. grafana-operator +
+5. hyperregistry +
+6. service-mesh(istio, jaeger, kiali) + 
+7. template-service-broker +
+8. catalog-controller, cicd-operator(tekton), redis-operator, helm-apiserver, service-binding-operator +
+9. image-validating-webhook +
+*(QA: 삭제)※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
 ====
 
 . *ArgoCD 콘솔 접속*
@@ -402,7 +475,8 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 ====
 ArgoCD 서버 주소는 다음의 명령을 실행하여 확인할 수 있다.
 ----
-$ kubectl get svc -n argocd argocd-server
+$ kubectl get svc -n argocd argocd-server 
+(QA: 수정 $ kubectl get ingress -n argocd) 
 ----
 ====
 
@@ -439,6 +513,7 @@ image::../images/figure_application_sync_03.png[]
 
 [#TraefikApiGatewayOn]
 == Traefik 기반의 API 게이트웨이 구성
+(QA: 이 부분 전체 삭제 : gitlab, argocd, sync를 통해 해당 작업 자동화 했습니다.)
 
 Gitlab과 ArgoCD에서 Traefik 게이트웨이를 사용하도록 설정한다.
 
