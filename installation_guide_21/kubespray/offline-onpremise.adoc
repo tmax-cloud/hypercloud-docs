@@ -209,14 +209,16 @@ kube_pods_subnet: 10.244.0.0/24 <7>
 
 . *설치할 애플리케이션 구성 정보 확인*
 +
-Kubespray로 설치될 애플리케이션(`nginx`, `harbor`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. +
+Kubespray로 설치될 애플리케이션(`nginx`, `harbor`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. (QA: harbor -> hyperregistry) +
 해당 애플리케이션의 구성 정보는 기본적으로 `kubespray-onpremise/roles/bootstrap-cloud/defaults/main.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `kubespray-onpremise/roles/bootstrap-cloud/task/` 및 `kubespray-onpremise/roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다.
 +
-온프레미스 환경에서는 다음과 같이 인그레스의 서비스 타입을 "NodePort"로 설정해야 한다.
+온프레미스 환경에서는 다음과 같이 인그레스의 서비스 타입을 "NodePort"로 설정해야 한다.(QA: 설명이 모호해서 삭제) +
+(QA: hyperregistry는 default storageclass가 nfs로 고정되어 있어서 default storageclass가 바뀌다면 설정에 맞게 수정해야 한다.)
 +
 .kubespray-onpremise/roles/bootstrap-cloud/defaults/main.yml
 ----
-ingress_nginx_service_type: NodePort
+ingress_nginx_service_type: NodePort (QA: 삭제)
+(QA: hyperregistry_storage_class: "nfs"   추가)
 ----
 
 [#KubesprayRunArgoOn]
