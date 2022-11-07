@@ -407,7 +407,7 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway with console) +
 2. strimzi-kafka-operator +
 3. hyperauth +
-4. opensearch
+4. opensearch +
 5. prometheus +
 6. grafana +
 7. service-mesh(istio, jaeger, kiali) +
@@ -417,9 +417,26 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 11. hypercloud +
 12. cicd-operator(tekton) +
 13. redis-operator +
-14. image-validating-webhook 
-
+14. image-validating-webhook +
 *※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
++
+(QA: 수정 ↓) +
+1. api-gateway-bootstrap(namespaces + cert-manager + jwt-decode-auth + api-gateway with console) +
+2. gitlab, argocd, hyperregistry +
+3. strimzi-kafka-operator +
+4. hyperauth +
+5. opensearch or loki +
+6. prometheus +
+7. grafana-operator +
+8. service-mesh(istio, jaeger, kiali) +
+9. hypercloud +
+10. template-service-broker +
+11. catalog-controller +
+12. cicd-operator(tekton) +
+13. cluster-api(aws, vsphere) +
+14. redis-operator, helm-apiserver, service-binding-operator +
+15. image-validating-webhook +
+*(QA: 삭제)※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
 ====
 
 [CAUTION]
@@ -434,9 +451,20 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 6. service-mesh(istio, jaeger, kiali) +
 7. harbor +
 8. cicd-operator(tekton) +
-9. redis-operator
-
+9. redis-operator +
 *※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
++
+(QA: 수정 ↓) +
+1. api-gateway-bootstrap(namespaces + cert-manager + jwt-decode-auth + api-gateway without console) + 
+2. opensearch or loki +
+3. prometheus +
+4. grafana-operator +
+5. hyperregistry +
+6. service-mesh(istio, jaeger, kiali) + 
+7. template-service-broker +
+8. catalog-controller, cicd-operator(tekton), redis-operator, helm-apiserver, service-binding-operator +
+9. image-validating-webhook +
+*(QA: 삭제)※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
 ====
 
 . *ArgoCD 콘솔 접속*
@@ -447,7 +475,8 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 ====
 ArgoCD 서버 주소는 다음의 명령을 실행하여 확인할 수 있다.
 ----
-$ kubectl get svc -n argocd argocd-server
+$ kubectl get svc -n argocd argocd-server 
+(QA: 수정 $ kubectl get ingress -n argocd) 
 ----
 ====
 
@@ -484,6 +513,7 @@ image::../images/figure_application_sync_03.png[]
 
 [#TraefikApiGatewayOn]
 == Traefik 기반의 API 게이트웨이 구성
+(QA: 이 부분 전체 삭제 : gitlab, argocd, sync를 통해 해당 작업 자동화 했습니다.)
 
 Gitlab과 ArgoCD에서 Traefik 게이트웨이를 사용하도록 설정한다.
 
