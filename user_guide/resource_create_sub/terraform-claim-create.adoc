@@ -1,4 +1,4 @@
-= 테라폼 클레임 생성(TD: 전체 검수 필요)
+= 테라폼 클레임 생성(QA : destroy, variable 관련 내용 추가 확인 필요합니다.)
 :toc:
 :toc-title:
 
@@ -46,8 +46,21 @@ kind: TFApplyClaim
 metadata:
   name: example <1>
   namespace: default <2>
+spec:
+  branch: master <3>
+  destroy: true <4>
+  type: public <5>
+  secret: git-credential <6>
+  url: http://gitlab.tmaxcloud.com/root/public.git <7>
+  version: 0.14.9 <8>
 ----
 +
 <1> 테라폼 클레임의 이름
 <2> 테라폼 클레임이 생성될 네임스페이스의 이름
+<3> 사용할 git brach 이름
+<4> terraform destroy 기능 활성화 여부
+<5> 사용할 git repo type (private or public) : private type 사용 시 git secret 지정 필수
+<6> private git 사용 시 해당 git에 접근 가능한 access token으로 생성한 secret 지정
+<7> 사용할 HCL 코드가 있는 git 링크
+<8> 사용할 terraform 버전
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
