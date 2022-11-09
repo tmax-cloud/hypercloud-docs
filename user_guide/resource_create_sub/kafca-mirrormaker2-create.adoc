@@ -1,4 +1,4 @@
-= 카프카 미러 메이커 2 생성 (TD: 전체 검수 필요)
+= 카프카 미러 메이커 2 생성 (TD: 전체 검수 필요)(QA: 293381 clusters 항목 필수지정 반영하였습니다.)
 :toc:
 :toc-title:
 
@@ -19,7 +19,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 
 * Name *
 * Labels
-* Clusters +
+* Clusters * +
 하위 세부 항목은 xref:../form-set-item.adoc#Clusters["폼 에디터 설정 항목 참조"의 "Clusters"]을 참고한다.
 * connectCluster *
 * External Configuration +
@@ -81,10 +81,28 @@ type *
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaMirrorMaker2
 metadata:
-  name: example <1>
-  namespace: default <2>
+  name: my-mirror-maker-2 (1)
+spec:
+  version: 3.0.0
+  replicas: 1
+  connectCluster: "my-target-cluster" (2)
+  clusters: (3)
+  - alias: "my-source-cluster"
+    bootstrapServers: my-source-cluster-kafka-bootstrap:9092
+  - alias: "my-target-cluster"
+    bootstrapServers: my-target-cluster-kafka-bootstrap:9092
+    config:
+      # -1 means it will use the default replication factor configured in the broker
+      config.storage.replication.factor: -1
+      offset.storage.replication.factor: -1
+      status.storage.replication.factor: -1
+  mirrors:
+  - sourceCluster: "my-source-cluster"
+    targetCluster: "my-target-cluster"
+    sourceConnector: {}
 ----
 +
 <1> 카프카 미러 메이커 2의 이름
-<2> 카프카 미러 메이커 2가 생성될 네이스페이스의 이름
+<2> 미러링 target이 되는 클러스터 별칭 명세(별칭은 spec.clusters 목록에 있는 alias와 동일하게 지정)
+<3> 미러링을 위한 카프카 클러스터의 상세 명세
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
