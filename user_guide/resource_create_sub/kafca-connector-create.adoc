@@ -1,4 +1,4 @@
-= 카프카 커넥터 생성 (TD: 전체 검수 필요)
+= 카프카 커넥터 생성 (TD: 전체 검수 필요)(QA: [293381] class 항목 필수지정 추가 반영했습니다.)
 :toc:
 :toc-title:
 
@@ -19,7 +19,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 
 * Name *
 * Labels
-* class
+* class *
 * pause
 * tasksMax
 
@@ -41,10 +41,17 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaConnector
 metadata:
-  name: example <1>
-  namespace: default <2>
+  name: my-source-connector (1)
+  labels:
+    strimzi.io/cluster: my-connect-cluster
+spec:
+  class: org.apache.kafka.connect.file.FileStreamSourceConnector (2)
+  tasksMax: 2
+  config:
+    file: "/opt/kafka/LICENSE"
+    topic: my-topic
 ----
 +
 <1> 카프카 커넥터의 이름
-<2> 카프카 커넥터가 생성될 네이스페이스의 이름
+<2> 카프카 커넥터의 java 클래스
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
