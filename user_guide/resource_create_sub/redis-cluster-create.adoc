@@ -73,13 +73,43 @@ value
 .기본 작성 예
 [source,yaml]
 ----
+(QA: 레디스 클러스터 생성 시 설정할 수 있는 옵셔널 값들 다 포함한 yaml입니다.)
 apiVersion: redis.redis.opstreelabs.in/v1beta1
 kind: RedisCluster
 metadata:
-  name: example <1>
-  namespace: default <2>
+  name: redis-cluster-test <1>
+  namespace: test <2>
 spec:
-  redisFollower:
+  TLS: <3>
+    ca: ca.pem
+    cert: ca.crt
+    key: ca.key
+    secret:
+      defaultMode: 1
+      secretName: redis-tls-secret
+  clusterSize: 3 <4>
+  kubernetesConfig: <5>
+    image: 'quay.io/opstree/redis:v6.2.5'
+    imagePullPolicy: IfNotPresent
+    resources:
+      limits:
+        cpu: 101m
+        memory: 128Mi
+      requests:
+        cpu: 101m
+        memory: 128Mi
+  redisExporter: <6>
+    enabled: true
+    image: 'quay.io/opstree/redis-exporter:1.0'
+    imagePullPolicy: IfNotPresent
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+  redisFollower: <7>
     livenessProbe:
       failureThreshold: 3
       initialDelaySeconds: 1
@@ -92,7 +122,9 @@ spec:
       periodSeconds: 10
       successThreshold: 1
       timeoutSeconds: 1
-  redisLeader:
+    redisConfig: <8>
+      additionalRedisConfig: redis-cluster-follower
+  redisLeader: <9>
     livenessProbe:
       failureThreshold: 3
       initialDelaySeconds: 1
@@ -105,8 +137,28 @@ spec:
       periodSeconds: 10
       successThreshold: 1
       timeoutSeconds: 1
+    redisConfig: <10>
+      additionalRedisConfig: redis-cluster-leader
+  storage: <11>
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
 ----
 +
-<1> 레디스 클러스터의 이름
-<2> 레디스 클러스터가 생성될 네이스페이스의 이름
+(QA: 필수, 선택 옵션들을 구분해서 큰 단락에서의 설명입니다. 각 옵션별로 하나씩 설명을 쓰기에는 너무 많아질 것 같아서 어떤 옵션 사용할때 필요한 부분인지에 대해서만 썼습니다.) +
+<1> 레디스 클러스터의 이름 (필수) +
+<2> 레디스 클러스터가 생성될 네이스페이스의 이름 (필수) +
+<3> TLS 컨피그 사용 시 필요한 정보 (선택) +
+<4> 클러스터 크기 (필수) +
+<5> 레디스 버전 및 리소스 정보 (필수) + 
+<6> prometheus exporter 생성 시 필요한 정보 (선택) +
+<7> 레디스 follower 정보 (필수) +
+<8> 레디스 follwer 컨피그 맵 사용 시 필요한 정보 (선택) +
+<9> 레디스 leader 정보 (필수) +
+<10> 레디스 leader 컨피그 맵 사용 시 필요한 정보 (선택) +
+<11> 스토리지 설정 시 필요한 정보 (필수) +
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
