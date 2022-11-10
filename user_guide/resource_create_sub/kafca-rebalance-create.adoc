@@ -1,4 +1,4 @@
-= 카프카 리밸런스 생성 (TD: 전체 검수 필요)(QA: 293381 labels 항목 필수지정 반영하였습니다.)
+= 카프카 리밸런스 생성 (TD: 전체 검수 필요)
 :toc:
 :toc-title:
 
@@ -18,7 +18,7 @@
 NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한다.
 
 * Name *
-* Labels *
+* Labels 
 * concurrentIntraBrokerPartitionMovements
 * concurrentLeaderMovements
 * concurrentPartitionMovementsPerBroker
@@ -55,7 +55,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaRebalance 
 metadata:
   name: my-rebalance (1)
-  labels: (2)
+  labels:
     strimzi.io/cluster: my-cruise
 spec:
   goals:
@@ -69,5 +69,4 @@ spec:
 ----
 +
 <1> 카프카 리밸런스의 이름
-<2> 리밸런스 대상이 되는 카프카 이름을 라벨로 지정(strimzi.io/cluster: 카프카 이름)
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
