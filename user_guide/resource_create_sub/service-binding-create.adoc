@@ -36,7 +36,7 @@
 * 직접 입력 : 네임스페이스, 그룹, 버전, 리소스, 리소스 이름
 
 이때 **[+ 백업 서비스 추가]**를 클릭하면 설정 항목이 한 세트씩 추가되고, **[- 백업 서비스 제거]**를 클릭하면 설정 항목을 삭제할 수 있다.  
-|바인딩 데이터|(TD: 항목 설명 작성 필요)
+|바인딩 데이터|서비스 바인딩에 추가할 바인딩 데이터 정보(키/값)를 입력한다. (TD: 항목 설명 작성 필요)
 
 이때 **[+ 바인딩 데이터 추가]**를 클릭하면 설정 항목이 한 세트씩 추가되고, **[- 바인딩 데이터 제거]**를 클릭하면 설정 항목을 삭제할 수 있다.  
 |데이터 저장 방식|애플리케이션 내 바인딩 데이터의 저장 방식을 선택한다. 
@@ -50,5 +50,42 @@
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터
+새로운 서비스 바인딩을 YAML 에디터를 사용해서 생성할 수 있다.
 
+. HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 image:../images/figure_import_yaml_icon.png[] 아이콘을 클릭한다.
+. *Import YAML* 화면이 열리면 빈 YAML 에디터에 생성할 태스크의 구성 정보를 작성한다.
++
+.기본 작성 예
+[source,yaml]
+----
+apiVersion: binding.operators.coreos.com/v1alpha1
+kind: ServiceBinding
+metadata:
+  name: example (1)
+spec:
+  application: (2)
+    group: apps
+    kind: Deployment
+    name: deployment
+    version: v1
+  bindAsFiles: true 
+  detectBindingResources: true 
+  mappings: 
+  - name: key
+    value: value
+  namingStrategy: '{{ .name | upper }}' 
+  services: (3)
+  - group: kafka.strimzi.io
+    kind: Kafka
+    name: kafka
+    namespace: service-binding-operator
+    version: v1beta2
+----
++
+<1> 서비스 바인딩의 이름
+<2> 애플리케이션(바인딩 데이터 제공받는 대상)의 상세 명세
+<3> 백업 서비스(바인딩 데이터 제공하는 대상)의 상세 명세
+
+. 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
++
 (TD: Import YAML을 통한 생성 과정 작성 필요 여부 확인. 작성이 필요할 경우 다른 리소스의 포맷과 동일하게 작성하면 됨.)
