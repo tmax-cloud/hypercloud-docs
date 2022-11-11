@@ -73,10 +73,53 @@ Value *
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
-  name: example <1>
-  namespace: default <2>
+  name: simple (1)
+  namespace: default (2)
+spec:
+  kafka: (3)
+    version: 2.8.0
+    replicas: 1
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 2Gi
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    jvmOptions:
+      "-Xmx": "1500m"
+      "-Xms": "256m"
+    listeners:
+      - name: plain
+        port: 9092
+        type: internal
+        tls: false
+    config:
+      offsets.topic.replication.factor: 1
+      transaction.state.log.replication.factor: 1
+      transaction.state.log.min.isr: 1
+      log.message.format.version: "2.8"
+      inter.broker.protocol.version: "2.8"
+    storage:
+      type: ephemeral
+  zookeeper: (4)
+    replicas: 1
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 2Gi
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    jvmOptions:
+      "-Xmx": "1500m"
+      "-Xms": "256m"
+    storage:
+      type: ephemeral
 ----
 +
 <1> 카프카 클러스터의 이름
 <2> 카프카 클러스터가 생성될 네이스페이스의 이름
+<3> 카프카 클러스터의 상세 명세
+<4> 브로커 상태 점검 및 분산 코디네이션 서비스를 제공하는 주키퍼의 상세 명세
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
