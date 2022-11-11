@@ -18,7 +18,7 @@
 NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한다.
 
 * Name *
-* Labels
+* Labels 
 * concurrentIntraBrokerPartitionMovements
 * concurrentLeaderMovements
 * concurrentPartitionMovementsPerBroker
@@ -52,12 +52,21 @@ Value *
 [source,yaml]
 ----
 apiVersion: kafka.strimzi.io/v1beta2
-kind: KafkaRebalance
+kind: KafkaRebalance 
 metadata:
-  name: example <1>
-  namespace: default <2>
+  name: my-rebalance (1)
+  labels:
+    strimzi.io/cluster: my-cruise
+spec:
+  goals:
+    - CpuCapacityGoal
+    - NetworkInboundCapacityGoal
+    - DiskCapacityGoal
+    - RackAwareGoal
+    - MinTopicLeadersPerBrokerGoal
+    - NetworkOutboundCapacityGoal
+    - ReplicaCapacityGoal
 ----
 +
 <1> 카프카 리밸런스의 이름
-<2> 카프카 리밸런스가 생성될 네이스페이스의 이름
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
