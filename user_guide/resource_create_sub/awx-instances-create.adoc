@@ -20,9 +20,40 @@
 apiVersion: awx.ansible.com/v1beta1
 kind: AWX
 metadata:
-  namespace: default <1>
+  name: awx <1>
+  namespace: default <2>
+spec:
+  ingress_type: Ingress <3>
+  ingress_annotations: "kubernetes.io/ingress.class: nginx-shd"  <4>
+  hostname: awx.example.com  <5>
+  image: quay.io/ansible/awx  <6>
+  image_version: 19.3.0   <7>
+  redis_image: docker.io/redis  <8>
+  redis_image_version: latest  <9>
+  postgres_image: postgres  <10>
+  postgres_image_version: "12"  <11>
+  init_container_image: quay.io/centos/centos  <12>
+  init_container_image_version: "8"  <13>
+  ee_images:  
+    - name: awx-ee
+      image: quay.io/ansible/awx-ee:0.5.0  <14>
+  control_plane_ee_image: quay.io/ansible/awx-ee:0.5.0  <15>
 ----
 +
-<1> AWX 인스턴스가 생성될 네임스페이스의 이름
+<1> 생성할 AWX 인스턴스의 이름
+<2> AWX 인스턴스가 생성될 네임스페이스의 이름
+<3> AWX 대시보드 접속 시 사용할 ingress enable 설정
+<4> Ingress 생성 시 추가할 annotations 지정 : ingress-controller 지정
+<5> Ingress에 사용할 도메인 주소
+<6> AWX 대시보드를 띄우는 컨테이너 이미지 경로 지정
+<7> AWX 대시보드를 띄우는 컨테이너 이미지 버전 지정
+<8> redis 컨테이너 이미지 경로 지정
+<9> redis 컨테이너 이미지 버전 지정
+<10> AWX DB로 사용될 postgre 이미지 경로 지정
+<11> postgre 이미지 버전 지정
+<12> init 컨테이너 이미지 경로 지정
+<13> init 컨테이너 이미지 버전 지정
+<14> AWX 프로젝트가 실행되는 컨테이너 이미지 경로 및 버전 지정
+<15> 프로젝트 업데이트를 실행하는 데 사용할 이미지 지정
 
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
