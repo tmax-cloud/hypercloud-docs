@@ -209,16 +209,14 @@ kube_pods_subnet: 10.244.0.0/24 <7>
 
 . *설치할 애플리케이션 구성 정보 확인*
 +
-Kubespray로 설치될 애플리케이션(`nginx`, `harbor`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. (QA: harbor -> hyperregistry) +
+Kubespray로 설치될 애플리케이션(`nginx`, `hyperregistry`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. +
 해당 애플리케이션의 구성 정보는 기본적으로 `kubespray-onpremise/roles/bootstrap-cloud/defaults/main.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `kubespray-onpremise/roles/bootstrap-cloud/task/` 및 `kubespray-onpremise/roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다.
 +
-온프레미스 환경에서는 다음과 같이 인그레스의 서비스 타입을 "NodePort"로 설정해야 한다.(QA: 설명이 모호해서 삭제) +
-(QA: hyperregistry는 default storageclass가 nfs로 고정되어 있어서 default storageclass가 바뀌다면 설정에 맞게 수정해야 한다.)
+hyperregistry는 기본 스토리지 클래스가 NFS이다. 만약 스토리지 클래스를 변경하려면 아래의 값을 변경한다.
 +
 .kubespray-onpremise/roles/bootstrap-cloud/defaults/main.yml
 ----
-ingress_nginx_service_type: NodePort (QA: 삭제)
-(QA: hyperregistry_storage_class: "nfs"   추가)
+hyperregistry_storage_class: "nfs"
 ----
 
 [#KubesprayRunArgoOn]
@@ -243,26 +241,6 @@ NOTE: 애플리케이션 설치가 정상적으로 완료되면, Gitlab과 ArgoC
 ...
 global:
   privateRegistry: 10.0.0.1:5000 <1>
-...
-  gatewayBootstrap:
-    enabled: true <2>
-    svc_type: NodePort <3>
-    tls:
-      selfsigned:
-        enabled: false <4>
-      acme:
-        enabled: true <5>
-        email: test@tmax.co.kr
-        dns:
-          type: route53
-          accessKeyID: AKIAVXXXXXXXXXX <6>
-          accessKeySecret: kFOYY4dYyXXXXXXXXXXXXXXXXXXXX <7>
-          hostedZoneID: Z077XXXXXXXXXXXX <8>
-        environment: production <9>
-...
-(QA: 변경 ↓)
-global:
-  privateRegistry: 10.0.0.1:5000 <1>
   domain: cloudqa.com <2>
 ...  
   gatewayBootstrap:
@@ -283,17 +261,24 @@ global:
 ----
 +
 <1> 프라이빗 컨테이너 이미지 레지스트리의 주소
-<2> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름 (QA: 추가)
+<2> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
 <3> 게이트웨이 부트스트랩의 포함 여부
-<4> 네트워크 서비스 타입 (QA: 추가)(NodePort, LoadBalancer) 
+<4> 네트워크 서비스 타입
+
+* NodePort
+* LoadBalancer
 <5> 자체 서명 인증서의 사용 여부
 <6> Route 53으로 생성한 도메인을 사용하기 위한 자동 인증서 관리 환경 사용 여부
 <7> AWS에서 사용하는 계정의 액세스 키 ID
 <8> 액세스 키 ID에 대한 시크릿 키
 <9> Route 53으로 생성한 도메인에 대한 호스팅 영역 ID
-<10> 실제 사용할 인증서 발급 용도 (QA: 추가)(운영용: production, 테스트용 : staging)
+<10> 실제 사용할 인증서 발급 용도
+
+* 운영용 : production
+* 테스트용 : staging
+
 +
-NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하거나, 필요시 사용자 지정 도메인을 등록한다.(QA: 사용자 지정 도메인 -> 서브 도메인)
+NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하거나, 필요시 서브 도메인을 등록한다.
 
 . *shared-values.yaml 파일 수정*
 +
@@ -302,16 +287,6 @@ NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하�
 .예시
 ----
 ...
-    repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1>
-...
-global:
-  network:
-    disabled: true <2>
-  domain: cloudqa.com <3>
-  keycloak:
-    domain: hyperauth.cloudqa.com <4>
-...
-(QA: 변경 ↓)
     repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1>
     targetRevision: HEAD <2>
 ...
@@ -326,18 +301,14 @@ global:
 ...
 ----
 <1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
-<2> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
-<3> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
-<4> 설치할 HyperAuth 도메인 이름
-
-(QA: 변경 ↓)
-
-<1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
 <2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름
-<3> 애플리케이션 타임존 설정 (UTC, Asia/Seoul)
+<3> 애플리케이션 타임존 설정 
+
+* UTC
+* Asia/Seoul
 <4> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
-<5> 마스터 클러스터와 싱글 클러스터의 hyperauth 연동 여부
-<6> 마스터 클러스터와 싱글 클러스터에서 사용할 hyperauth 주소
+<5> 마스터 클러스터와 싱글 클러스터의 HyperAuth 연동 여부
+<6> 마스터 클러스터와 싱글 클러스터에서 사용할 HyperAuth 주소
 
 . *애플리케이션 변수 설정*
 +
@@ -368,26 +339,23 @@ $ kubectl -n argocd apply -f application/app_of_apps/master-applications.yaml
 ----
 
 [#SingleClusterOn]
-== 싱글 클러스터 설치
+== 싱글 클러스터 설치 (TD: 내용 검수 필요)
 
 . *애플리케이션 파일 생성*
 +
-Console UI상에서 싱글 클러스터 상태가 "Sync Needed"로 변경되면 해당 url을 클릭한다. +
-이때 ArgoCD UI로 이동되며 사용자가 Application을 Sync해주어야 한다.
+HyperCloud 23 웹 콘솔의 "멀티 클러스터" 콘솔에서 *[클러스터]* 메뉴를 클릭하면 싱글 클러스터 목록이 조회된다. 이때 싱글 클러스터 상태가 "Sync Needed"로 변경되면 해당 상태를 클릭한다.
 +
-.예시
-----
-(QA: Console UI 캡처화면이 있으면 이해가 쉬울것같습니다)
-----
+image::../images/figure_single_cluser_install_01.png[]
++
+ArgoCD 콘솔 화면이 열리면 애플리케이션의 *[SYNC]* 버튼을 클릭한다
++
+image::../images/figure_single_cluser_install_02.png[]
 
 . *애플리케이션 변수 설정*
 +
-1번 과정에서 이동한 싱글클러스터의 애플리케이션 Repository와 Target Revision을 설정한다. 
+싱글 클러스터의 애플리케이션 동기화 옵션 중 "REPO URL"과 "TARGET REVISION" 항목을 설정한다.
 +
-.예시
-----
-(QA: Argocd UI 캡처화면이 있으면 이해가 쉬울것같습니다)
-----
+image::../images/figure_single_cluser_install_03.png[]
 
 [#ResourceDeployOn]
 == 리소스 배포
@@ -400,23 +368,6 @@ Console UI상에서 싱글 클러스터 상태가 "Sync Needed"로 변경되면 
 .마스터 클러스터 동기화 순서
 ====
 마스터 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
-1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway with console) +
-2. strimzi-kafka-operator +
-3. hyperauth +
-4. opensearch +
-5. prometheus +
-6. grafana +
-7. service-mesh(istio, jaeger, kiali) +
-8. cluster-api(aws, vsphere) +
-9. template-service-broker +
-10. catalog-controller +
-11. hypercloud +
-12. cicd-operator(tekton) +
-13. redis-operator +
-14. image-validating-webhook +
-*※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
-+
-(QA: 수정 ↓) +
 1. api-gateway-bootstrap(namespaces + cert-manager + jwt-decode-auth + api-gateway with console) +
 2. gitlab, argocd, hyperregistry +
 3. strimzi-kafka-operator +
@@ -431,26 +382,13 @@ Console UI상에서 싱글 클러스터 상태가 "Sync Needed"로 변경되면 
 12. cicd-operator(tekton) +
 13. cluster-api(aws, vsphere) +
 14. redis-operator, helm-apiserver, service-binding-operator +
-15. image-validating-webhook +
-*(QA: 삭제)※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
+15. image-validating-webhook
 ====
 
 [CAUTION]
 .싱글 클러스터 동기화 순서
 ====
 싱글 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
-1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway without console) +
-2. strimzi-kafka-operator +
-3. opensearch +
-4. prometheus +
-5. grafana +
-6. service-mesh(istio, jaeger, kiali) +
-7. harbor +
-8. cicd-operator(tekton) +
-9. redis-operator +
-*※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
-+
-(QA: 수정 ↓) +
 1. api-gateway-bootstrap(namespaces + cert-manager + jwt-decode-auth + api-gateway without console) + 
 2. opensearch or loki +
 3. prometheus +
@@ -459,8 +397,7 @@ Console UI상에서 싱글 클러스터 상태가 "Sync Needed"로 변경되면 
 6. service-mesh(istio, jaeger, kiali) + 
 7. template-service-broker +
 8. catalog-controller, cicd-operator(tekton), redis-operator, helm-apiserver, service-binding-operator +
-9. image-validating-webhook +
-*(QA: 삭제)※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
+9. image-validating-webhook
 ====
 
 . *ArgoCD 콘솔 접속*
@@ -471,8 +408,7 @@ Console UI상에서 싱글 클러스터 상태가 "Sync Needed"로 변경되면 
 ====
 ArgoCD 서버 주소는 다음의 명령을 실행하여 확인할 수 있다.
 ----
-$ kubectl get svc -n argocd argocd-server 
-(QA: 수정 $ kubectl get ingress -n argocd) 
+$ kubectl get ingress -n argocd
 ----
 ====
 
@@ -506,66 +442,3 @@ image::../images/figure_application_sync_02.png[]
 애플리케이션의 *Status* 항목에 "Healthy"와 "Synced"가 표시되는지 확인한다.
 +
 image::../images/figure_application_sync_03.png[]
-
-[#TraefikApiGatewayOn]
-== Traefik 기반의 API 게이트웨이 구성
-(QA: 이 부분 전체 삭제 : gitlab, argocd, sync를 통해 해당 작업 자동화 했습니다.)
-
-Gitlab과 ArgoCD에서 Traefik 게이트웨이를 사용하도록 설정한다.
-
-=== Gitlab
-. 다음의 명령을 실행하여 Gitlab에 대해 인그레스 리소스를 편집한다.
-+
-----
-$ kubectl edit ingress -n gitlab-system gitlab-ingress
-----
-. 편집 모드에서 다음과 같이 정보를 추가한다.
-+
-----
-...
-metadata:
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure <1>
-...
-  labels:
-    ingress.tmaxcloud.org/name: gitlab <2>
-...
-spec:
-  ingressClassName: tmax-cloud <3>
-...
-----
-<1> 주석 추가
-<2> 레이블 추가
-<3> 인그레스 클래스 추가
-
-=== ArgoCD
-. 다음의 명령을 실행하여 ArgoCD에 대해 인그레스 리소스를 편집한다.
-+
-----
-$ kubectl edit ingress -n argocd argocd-server-ingress
-----
-. 편집 모드에서 다음과 같이 정보를 추가 및 수정한다.
-+
-----
-...
-metadata:
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure <1>
-...
-  labels:
-    ingress.tmaxcloud.org/name: argocd <2>
-...
-spec:
-  ingressClassName: tmax-cloud <3>
-  rules:
-    http:
-      paths:
-      - backend:
-          serviceName: argocd-server
-          servicePort: http <4>
-...
-----
-<1> 주석 추가
-<2> 레이블 추가
-<3> 인그레스 클래스 추가
-<4> 트래픽을 처리할 서비스 포트를 ``http``로 수정

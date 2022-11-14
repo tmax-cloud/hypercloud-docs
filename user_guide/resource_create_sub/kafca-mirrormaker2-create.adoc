@@ -1,4 +1,4 @@
-= 카프카 미러 메이커 2 생성 (TD: 전체 검수 필요)(QA: 293381 clusters 항목 필수지정 반영하였습니다.)
+= 카프카 미러 메이커 2 생성
 :toc:
 :toc-title:
 
@@ -73,7 +73,7 @@ type *
 . *카프카 미러 메이커 2* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 카프카 미러 메이커 2를 생성할 특정 네임스페이스를 선택한다.
 . *[카프카 미러 메이커 2 생성]* 버튼을 클릭한다.
 . *카프카 미러 메이커 2 생성* 화면이 열리면 **"다음을 통해 설정"**을 "YAML View"로 선택한다.
-. YAML 에디터가 열리면 생성할 카프카 미러 메이커 2의 구성 정보를 작성한다. (TD: 기본 예제 작성 및 필수 항목에 대한 설명 작성 필요)
+. YAML 에디터가 열리면 생성할 카프카 미러 메이커 2의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]
@@ -81,12 +81,13 @@ type *
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaMirrorMaker2
 metadata:
-  name: my-mirror-maker-2 (1)
+  name: my-mirror-maker-2 <1>
+  namespace: default <2>
 spec:
   version: 3.0.0
   replicas: 1
-  connectCluster: "my-target-cluster" (2)
-  clusters: (3)
+  connectCluster: "my-target-cluster" <3>
+  clusters: <4>
   - alias: "my-source-cluster"
     bootstrapServers: my-source-cluster-kafka-bootstrap:9092
   - alias: "my-target-cluster"
@@ -103,6 +104,7 @@ spec:
 ----
 +
 <1> 카프카 미러 메이커 2의 이름
-<2> 미러링 target이 되는 클러스터 별칭 명세(별칭은 spec.clusters 목록에 있는 alias와 동일하게 지정)
-<3> 미러링을 위한 카프카 클러스터의 상세 명세
+<2> 카프카 미러 메이커 2가 생성될 네이스페이스의 이름
+<3> 미러링 타깃이 되는 클러스터의 별칭(spec.clusters 목록에 있는 alias와 동일하게 지정)
+<4> 미러링을 위한 카프카 클러스터의 상세 명세
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

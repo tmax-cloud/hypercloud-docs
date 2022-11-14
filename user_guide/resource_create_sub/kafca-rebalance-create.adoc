@@ -1,4 +1,4 @@
-= 카프카 리밸런스 생성 (TD: 전체 검수 필요)
+= 카프카 리밸런스 생성
 :toc:
 :toc-title:
 
@@ -46,7 +46,7 @@ Value *
 . *카프카 리밸런스* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 카프카 리밸런스를 생성할 특정 네임스페이스를 선택한다.
 . *[카프카 리밸런스 생성]* 버튼을 클릭한다.
 . *카프카 리밸런스 생성* 화면이 열리면 **"다음을 통해 설정"**을 "YAML View"로 선택한다.
-. YAML 에디터가 열리면 생성할 카프카 리밸런스의 구성 정보를 작성한다. (TD: 기본 예제 작성 및 필수 항목에 대한 설명 작성 필요)
+. YAML 에디터가 열리면 생성할 카프카 리밸런스의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]
@@ -54,7 +54,8 @@ Value *
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaRebalance 
 metadata:
-  name: my-rebalance (1)
+  name: my-rebalance <1>
+  namespace: default <2>
   labels:
     strimzi.io/cluster: my-cruise
 spec:
@@ -69,4 +70,5 @@ spec:
 ----
 +
 <1> 카프카 리밸런스의 이름
+<2> 카프카 리밸런스가 생성될 네이스페이스의 이름
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

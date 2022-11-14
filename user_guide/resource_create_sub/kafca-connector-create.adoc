@@ -1,4 +1,4 @@
-= 카프카 커넥터 생성 (TD: 전체 검수 필요)(QA: [293381] class 항목 필수지정 추가 반영했습니다.)
+= 카프카 커넥터 생성
 :toc:
 :toc-title:
 
@@ -33,7 +33,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 . *카프카 커넥터* 메인 화면이 열리면 네임스페이스 선택 영역에서 새로운 카프카 커넥터를 생성할 특정 네임스페이스를 선택한다.
 . *[카프카 커넥터 생성]* 버튼을 클릭한다.
 . *카프카 커넥터 생성* 화면이 열리면 **"다음을 통해 설정"**을 "YAML View"로 선택한다.
-. YAML 에디터가 열리면 생성할 카프카 커넥터의 구성 정보를 작성한다. (TD: 기본 예제 작성 및 필수 항목에 대한 설명 작성 필요)
+. YAML 에디터가 열리면 생성할 카프카 커넥터의 구성 정보를 작성한다.
 +
 .기본 작성 예
 [source,yaml]
@@ -41,11 +41,12 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaConnector
 metadata:
-  name: my-source-connector (1)
+  name: my-source-connector <1>
+  namespace: default <2>
   labels:
     strimzi.io/cluster: my-connect-cluster
 spec:
-  class: org.apache.kafka.connect.file.FileStreamSourceConnector (2)
+  class: org.apache.kafka.connect.file.FileStreamSourceConnector <3>
   tasksMax: 2
   config:
     file: "/opt/kafka/LICENSE"
@@ -53,5 +54,6 @@ spec:
 ----
 +
 <1> 카프카 커넥터의 이름
-<2> 카프카 커넥터의 java 클래스
+<2> 카프카 커넥터가 생성될 네이스페이스의 이름
+<3> 카프카 커넥터의 Java 클래스
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

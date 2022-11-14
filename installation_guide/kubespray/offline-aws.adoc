@@ -10,7 +10,6 @@
 . <<MasterClusterAws, 마스터 클러스터 설치>>
 . <<SingleClusterAws, 싱글 클러스터 설치>>
 . <<ResourceDeployAws, 리소스 배포>>
-. <<TraefikApiGatewayAws, Traefik 기반의 API 게이트웨이 구성>> (QA: 삭제)
 
 [#TerraformAws]
 == Terraform 구성
@@ -368,7 +367,7 @@ kube_pods_subnet: 10.244.0.0/24 <7>
 
 . *설치할 애플리케이션 구성 정보 확인*
 +
-Kubespray로 설치될 애플리케이션(`nginx`, `harbor`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. +
+Kubespray로 설치될 애플리케이션(`nginx`, `hyperregistry`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. +
 해당 애플리케이션의 구성 정보는 기본적으로 `kubespray-aws/inventory/tmaxcloud/group_vars/k8s_cluster/addon.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `kubespray-aws/roles/bootstrap-cloud/task/` 및 `kubespray-aws/roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다.
 +
 AWS 환경에서는 AWS ELB(Elastic Load Balancing)를 사용하기 위해 다음과 같이 인그레스의 서비스 타입을 "LoadBalancer"로 설정해야 한다.
@@ -527,23 +526,6 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 .마스터 클러스터 동기화 순서
 ====
 마스터 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
-1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway with console) +
-2. strimzi-kafka-operator +
-3. hyperauth +
-4. opensearch +
-5. prometheus +
-6. grafana +
-7. service-mesh(istio, jaeger, kiali) +
-8. cluster-api(aws, vsphere) +
-9. template-service-broker +
-10. catalog-controller +
-11. hypercloud +
-12. cicd-operator(tekton) +
-13. redis-operator +
-14. image-validating-webhook +
-*※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
-+
-(QA: 수정 ↓) +
 1. api-gateway-bootstrap(namespaces + cert-manager + jwt-decode-auth + api-gateway with console) +
 2. gitlab, argocd, hyperregistry +
 3. strimzi-kafka-operator +
@@ -558,26 +540,13 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 12. cicd-operator(tekton) +
 13. cluster-api(aws, vsphere) +
 14. redis-operator, helm-apiserver, service-binding-operator +
-15. image-validating-webhook +
-*(QA: 삭제)※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
+15. image-validating-webhook
 ====
 
 [CAUTION]
 .싱글 클러스터 동기화 순서
 ====
 싱글 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
-1. api-gateway-bootstrap(cert-manager + jwt-decode-auth + api-gateway without console) +
-2. strimzi-kafka-operator +
-3. opensearch +
-4. prometheus +
-5. grafana +
-6. service-mesh(istio, jaeger, kiali) +
-7. harbor +
-8. cicd-operator(tekton) +
-9. redis-operator +
-*※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
-+
-(QA: 수정 ↓) +
 1. api-gateway-bootstrap(namespaces + cert-manager + jwt-decode-auth + api-gateway without console) + 
 2. opensearch or loki +
 3. prometheus +
@@ -586,8 +555,7 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 6. service-mesh(istio, jaeger, kiali) + 
 7. template-service-broker +
 8. catalog-controller, cicd-operator(tekton), redis-operator, helm-apiserver, service-binding-operator +
-9. image-validating-webhook +
-*(QA: 삭제)※ 온프레미스 환경의 경우 `api-gateway-bootstrap` 동기화 후 반드시 Traefik 기반의 API 게이트웨이를 구성해야 한다. 구성 방법에 대한 자세한 내용은 <<TraefikApiGatewayOn, "Traefik 기반의  API 게이트웨이 구성">>을 참고한다.*
+9. image-validating-webhook
 ====
 
 . *ArgoCD 콘솔 접속*
@@ -598,8 +566,7 @@ $ kubectl -n argocd apply -f application/app_of_apps/default-cluster-application
 ====
 ArgoCD 서버 주소는 다음의 명령을 실행하여 확인할 수 있다.
 ----
-$ kubectl get svc -n argocd argocd-server
-(QA: 수정 $ kubectl get ingress -n argocd) 
+$ kubectl get ingress -n argocd
 ----
 ====
 
@@ -633,66 +600,3 @@ image::../images/figure_application_sync_02.png[]
 애플리케이션의 *Status* 항목에 "Healthy"와 "Synced"가 표시되는지 확인한다.
 +
 image::../images/figure_application_sync_03.png[]
-
-[#TraefikApiGatewayAws]
-== Traefik 기반의 API 게이트웨이 구성
-(QA: 이 부분 전체 삭제 : gitlab, argocd, sync를 통해 해당 작업 자동화 했습니다.)
-
-Gitlab과 ArgoCD에서 Traefik 게이트웨이를 사용하도록 설정한다.
-
-=== Gitlab
-. 다음의 명령을 실행하여 Gitlab에 대해 인그레스 리소스를 편집한다.
-+
-----
-$ kubectl edit ingress -n gitlab-system gitlab-ingress
-----
-. 편집 모드에서 다음과 같이 정보를 추가한다.
-+
-----
-...
-metadata:
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure <1>
-...
-  labels:
-    ingress.tmaxcloud.org/name: gitlab <2>
-...
-spec:
-  ingressClassName: tmax-cloud <3>
-...
-----
-<1> 주석 추가
-<2> 레이블 추가
-<3> 인그레스 클래스 추가
-
-=== ArgoCD
-. 다음의 명령을 실행하여 ArgoCD에 대해 인그레스 리소스를 편집한다.
-+
-----
-$ kubectl edit ingress -n argocd argocd-server-ingress
-----
-. 편집 모드에서 다음과 같이 정보를 추가 및 수정한다.
-+
-----
-...
-metadata:
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure <1>
-...
-  labels:
-    ingress.tmaxcloud.org/name: argocd <2>
-...
-spec:
-  ingressClassName: tmax-cloud <3>
-  rules:
-    http:
-      paths:
-      - backend:
-          serviceName: argocd-server
-          servicePort: http <4>
-...
-----
-<1> 주석 추가
-<2> 레이블 추가
-<3> 인그레스 클래스 추가
-<4> 트래픽을 처리할 서비스 포트를 ``http``로 수정

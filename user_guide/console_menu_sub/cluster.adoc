@@ -48,7 +48,7 @@ image::../images/figure_admin_cluster_main.png[]
 |상태|서브 클러스터의 현재 상태 정보이다.
 
 * Processing : 클러스터 클레임 승인 또는 등록이 완료되어 클러스터가 추가 중인 상태
-* Sync Needed : 애플리케이션의 Sync가 필요한 상태 (클릭 시 AroCD UI 활성화)
+* Sync Needed : 애플리케이션의 Sync가 필요한 상태 (클릭 시 AroCD 콘솔 활성화)
 * Ready : 애플리케이션 배포가 완료된 상태
 * Deleting : 클러스터가 삭제 중인 상태
 |버전|사용할 쿠버네티스의 버전 정보이다.
