@@ -1,4 +1,4 @@
-= 테라폼 클레임 생성(QA : destroy, variable 관련 내용 추가 확인 필요합니다.)
+= 테라폼 클레임 생성
 :toc:
 :toc-title:
 
@@ -48,22 +48,24 @@ metadata:
   namespace: default <2>
 spec:
   branch: master <3>
-  destroy: true <4>
-  type: public <5>
-  secret: git-credential <6>
+  destroy: false <4>
+  secret: git-credential <5>
+  type: public <6>
   url: http://gitlab.tmaxcloud.com/root/public.git <7>
-  version: 0.14.9 <8>
+  variable: AWS_ACCESS_KEY_ID=aws-access-key <8>
+  version: 0.14.9 <9>
 ----
 +
 <1> 테라폼 클레임의 이름
 <2> 테라폼 클레임이 생성될 네임스페이스의 이름
 <3> Git 브랜치 이름
-<4> 테라폼의 Destroy 기능 활성화 여부
-<5> Git 저장소의 공개 유형
+<4> 테라폼 제거시 사용되는 값으로 false로만 생성 가능 (QA : 주의 표시가 들어가야할 것 같습니다)
+<5> Git에 접근 가능한 액세스 토큰으로 생성한 시크릿 정보 (Git 저장소의 공개 유형이 "private"일 경우 반드시 설정)
+<6> Git 저장소의 공개 유형
 
 * private
 * public
-<6> Git에 접근 가능한 액세스 토큰으로 생성한 시크릿 정보 (Git 저장소의 공개 유형이 "private"일 경우 반드시 설정)
 <7> 사용할 HCL 코드가 있는 Git 주소
-<8> 사용할 테라폼 버전
+<8> tf 파일에 선언한 변수 값에 매핑할 값
+<9> 사용할 테라폼 버전
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
