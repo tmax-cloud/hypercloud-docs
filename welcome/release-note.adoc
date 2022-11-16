@@ -1,4 +1,4 @@
-= 릴리즈 정보(TD: 전체 검수 필요)
+= 릴리즈 정보
 
 :toc:
 :toc-title:
@@ -75,7 +75,7 @@ CI/CD +
 * 가장 앞단의 L4LB 유무에 따른 노드 포트 또는 LB를 연동한 GW 제공
 * 하나의 인증서로 통합하여 관리
 * 연동 모듈 추가
-** 기존 : 콘솔, HyperAuth, 그라파나, 오픈서치, GitLab, HyperRegistry, 키알리(TD: 오픈 서치는 제외 아닌가요?) (QA: 옵셔널 모듈이라서 default 메뉴에서 뺀 것이기에 오픈서치 자체 oidc 연동은 제공이긴 해요. 그대로 가도 무방합니다.) 
+** 기존 : 콘솔, HyperAuth, 그라파나, 오픈서치, GitLab, HyperRegistry, 키알리
 ** 추가 : ArgoCD, Helm, AWX
 
 === Cert Manager
@@ -110,7 +110,7 @@ CI/CD +
 
 === Kafka
 * "개발자" 콘솔에 메뉴로 제공 
-* MessageQueue를 통한 프로듀서-컨슈머간의 메시지를 Pub/Sub 관련(TD: 문장이 이해되지 않습니다. 확인 필요)(QA: "관련" > "하는 kafka 기능 제공" 으로 변경하면 좀 나을까요?) 
+* MessageQueue를 통한 프로듀서-컨슈머간의 메시지를 Pub/Sub하는 기능 제공
 * 카프카 클러스터 외 다양한 카프카 리소스를 제공
 
 === Redis
