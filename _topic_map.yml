@@ -25,21 +25,12 @@
 Name: 환영합니다
 Dir: welcome
 Topics:
-#  - Name: 제품 소개
-#    Dir: overview_sub
-#    Topics:
-#      - Name: 개요
-#        File: index
-#      - Name: 특장점
-#        File: advantage
-#      - Name: 가치 제안
-#        File: value-proposition
   - Name: 법적 고지
     File: legal-notice
   - Name: 지원 사항
     File: intro
   - Name: 제품 소개
-    Dir: overview_sub  
+    Dir: overview_sub
     Topics:
       - Name: 개요
         File: index
@@ -47,50 +38,6 @@ Topics:
         File: advantage
       - Name: 가치 제안
         File: value-proposition
-#  - Name: 법적공지
-#    File: legal-notice
-#  - Name: 릴리즈노트
-#    File: release-note
-# ---
-# Name: 구성요소
-# Dir: component
-# Topics:
-#   - Name: HyperCloud Operator
-#     File: hypercloud-operator
-#   - Name: HyperCloud Console
-#     File: hypercloud-console
-#   - Name: Kubernetes
-#     File: kubernetes
-#   - Name: Compute
-#     Dir: compute
-#     Topics:
-#       - Name: Docker
-#         File: docker
-#       - Name: CRI-O
-#         File: cri-o
-#   - Name: Storage
-#     Dir: storage
-#     Topics:
-#       - Name: Rook Ceph
-#         File: rook-ceph
-#       - Name: NFS
-#         File: nfs
-#   - Name: Network
-#     Dir: network
-#     Topics:
-#       - Name: Calico
-#         File: calico
-#   - Name: Plugin
-#     Dir: plugin
-#     Topics:
-#       - Name: Prometheus
-#         File: prometheus
-#       - Name: Grafana
-#         File: grafana
-#       - Name: Tekton
-#         File: tekton
-#       - Name: Kubevirt
-#         File: kubevirt
 ---
 Name: 릴리즈 노트
 Dir: welcome
@@ -110,67 +57,6 @@ Topics:
         File: offline-onpremise
       - Name: AWS 환경에서 구축
         File: offline-aws
-#   - Name: 쿠버네티스 클러스터 구성
-#     Dir: kube_cluster_sub
-#     Topics:
-#       - Name: 도커 설치 및 이미지 레지스트리 구성
-#         File: docker-install
-#       - Name: Keepalived 설치
-#         File: keepalived-install
-#       - Name: 클러스터 구성
-#         File: cluster-composition
-#   - Name: HyperCloud 4 설치
-#     Dir: hyper_cloud_install_sub
-#     Topics:
-#       - Name: Rook-Ceph 설치
-#         File: rook-ceph-install
-#       - Name: HyperCloud 4 서버 설치
-#         File: hyper-cloud-server-install
-#       - Name: Prometheus 설치
-#         File: prometheus-install
-#       - Name: HyperCloud 4 콘솔(UI) 설치
-#         File: hyper-cloud-ui-install
-#   - Name: 플러그인 설치
-#     Dir: plugin_install_sub
-#     Topics:
-#       - Name: Tekton 설치
-#         File: tekton-install
-#       - Name: Tekton Trigger 설치
-#         File: tekton-trigger-install
-#       - Name: Catalog Controller 설치
-#         File: catalog-controller-install
-#       - Name: Kubevirt 설치
-#         File: kubevirt-install
-#       - Name: CDI 설치
-#         File: cdi-install
-#       - Name: EFK 스택 설치
-#         File: efk-stack-install
-#       - Name: Istio 설치
-#         File: istio-install
-#       - Name: CI/CD 설치
-#         File: ci-cd-install
-#       - Name: VM Exporter 설치
-#         File: vm-exporter-install
-#       - Name: VM Image Exporter 설치
-#         File: vm-image-exporter-install
-#       - Name: Kubevirt Node Fail Controller 설치
-#         File: kubevirt-node-fail-controller-install
-#       - Name: HyperNetLocalAgent 설치
-#         File: hyper-net-local-agent-install
-#       - Name: Ingress Controller 설치
-#         File: ingress-controller-install
-# ---
-# Name: 튜닝 가이드
-# Dir: tuning_guide
-# Topics:
-#   - Name: 개요
-#     File: index
-# ---
-# Name: 백업 및 복구
-# Dir: backup_and_restore
-# Topics:
-#   - Name: 개요
-#     File: index
 ---
 Name: 웹 콘솔 기본 사용법
 Dir: user_guide
@@ -254,7 +140,7 @@ Topics:
         File: storage
       - Name: 호스트
         File: host
-      - Name: 인증&인가
+      - Name: 인증-인가
         File: permission
       - Name: 관리
         File: management
@@ -308,7 +194,7 @@ Topics:
       - Name: 스토리지 클래스 생성
         File: storage-class-create
       - Name: 시크릿 생성
-        File: secret-create        
+        File: secret-create
   - Name: 리소스 생성 (ㅇ)
     Dir: resource_create_sub
     Topics:
@@ -385,7 +271,7 @@ Topics:
         File: helm
       - Name: 서비스 메시
         File: service-mesh
-      - Name: CI&CD
+      - Name: CI-CD
         File: ci-cd
       - Name: 카프카
         File: kafka
@@ -399,7 +285,7 @@ Topics:
       - Name: 가상 서비스 생성
         File: virtual-service-create
       - Name: 게이트웨이 생성
-        File: gateway-create        
+        File: gateway-create
   - Name: 리소스 생성 (ㄹ)
     Dir: resource_create_sub
     Topics:
@@ -504,14 +390,3 @@ Topics:
     Topics:
       - Name: AWX 인스턴스 생성
         File: awx-instances-create
----
-# ---
-# Name: API Reference
-# Dir: api_reference
-# Topics:
-#   - Name: Master API
-#     File: master-api
-#   - Name: Kubernetes API
-#     File: kubernetes-api
-#   - Name: Prometheus API
-#     File: prometheus-api

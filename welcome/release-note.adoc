@@ -1,5 +1,4 @@
 = 릴리즈 정보
-
 :toc:
 :toc-title:
 
