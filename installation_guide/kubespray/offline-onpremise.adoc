@@ -339,9 +339,9 @@ $ kubectl -n argocd apply -f application/app_of_apps/master-applications.yaml
 ----
 
 [#SingleClusterOn]
-== 싱글 클러스터 설치 (TD: 내용 검수 필요)(QA: 애플리케이션 변수 설정이 우선적으로 수행되고나서 SYNC 버튼을 눌러야해서 순서 변경해두었습니다!)
+== 싱글 클러스터 설치
 
-. *애플리케이션 파일 생성*
+. *생성된 애플리케이션 파일 불러오기*
 +
 HyperCloud 23 웹 콘솔의 "멀티 클러스터" 콘솔에서 *[클러스터]* 메뉴를 클릭하면 싱글 클러스터 목록이 조회된다. 이때 싱글 클러스터 상태가 "Sync Needed"로 변경되면 해당 상태를 클릭한다.
 +
@@ -349,11 +349,11 @@ image::../images/figure_single_cluser_install_01.png[]
 
 . *애플리케이션 변수 설정*
 +
-싱글 클러스터의 애플리케이션 동기화 옵션 중 "REPO URL"과 "TARGET REVISION" 항목을 설정한다.
+싱글 클러스터의 애플리케이션 동기화 옵션 설정 화면이 열리면 "REPO URL"과 "TARGET REVISION" 항목을 설정한다.
 +
 image::../images/figure_single_cluser_install_03.png[]
 +
-ArgoCD 콘솔 화면이 열리면 애플리케이션의 *[SYNC]* 버튼을 클릭한다
+설정 완료 후 애플리케이션의 *[SYNC]* 버튼을 클릭한다
 +
 image::../images/figure_single_cluser_install_02.png[]
 

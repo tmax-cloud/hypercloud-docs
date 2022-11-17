@@ -80,12 +80,12 @@ spec:
 <8> VM의 CPU 수
 <9> 데이터 센터 이름
 <10> 데이터 저장소 이름
-<11> VM의 디스크 크기 (단위: GB. 단, 단위는 직접 입력하지 않는다.)
+<11> VM의 디스크 크기 (단위: GB. image:../images/figure_caution_icon.png[] 단, 단위는 직접 입력하지 않는다.)
 <12> 폴더 이름
 <13> VCSA의 사용자 ID
 <14> vCenter Server 애플리케이션(VCSA)의 IP 주소
 <15> 원격 클러스터(VIP)용 컨트롤 플레인의 IP 주소
-<16> VM의 메모리 크기 (단위: MB. 단, 단위는 직접 입력하지 않는다.)
+<16> VM의 메모리 크기 (단위: MB. image:../images/figure_caution_icon.png[] 단, 단위는 직접 입력하지 않는다.)
 <17> 네트워크 이름
 <18> VCSA의 비밀번호
 <19> 리소스 풀의 이름
