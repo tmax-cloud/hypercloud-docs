@@ -1,5 +1,4 @@
 = 법적 고지
-
 :toc:
 :toc-title:
 
