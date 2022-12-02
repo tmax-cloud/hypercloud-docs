@@ -492,28 +492,23 @@ $ kubectl -n argocd apply -f application/app_of_apps/master-applications.yaml
 [#SingleClusterAws]
 == 싱글 클러스터 설치
 
-. *애플리케이션 파일 생성*
+CAUTION: 클러스터 클레임 생성을 통한 클러스터 배포시, 대시보드를 통한 자원사용량 조회가 일부 지원되지 않는다.
+
+. *생성된 애플리케이션 파일 불러오기*
 +
-싱글 클러스터 생성을 위해 ArgoCD에 띄울 템플릿 파일을 생성한다. +
-이때 생성할 파일의 이름은 `{네임스페이스 이름}-{클러스터 이름}-applications.yaml` 형태로 생성한다.
+HyperCloud6 웹 콘솔의 "멀티 클러스터" 콘솔에서 *[클러스터]* 메뉴를 클릭하면 싱글 클러스터 목록이 조회된다. 이때 싱글 클러스터 상태가 "Sync Needed"로 변경되면 해당 상태를 클릭한다.
 +
-.예시
-----
-$ cp application/app_of_apps/single-applications.yaml application/app_of_apps/default-cluster-applications.yaml
-----
+image::../images/figure_single_cluser_install_01.png[]
 
 . *애플리케이션 변수 설정*
 +
-1번 과정에서 생성한 파일에 싱글 클러스터의 애플리케이션 변수를 설정한다. 이때 설정 항목에 대한 자세한 설명은 해당 파일 내의 주석을 참고한다.
-
-. *애플리케이션 등록*
+싱글 클러스터의 애플리케이션 동기화 옵션 설정 화면이 열리면 "REPO URL"과 "TARGET REVISION" 항목을 설정한다.
 +
-1번 과정에서 생성한 파일을 사용하여 마스터 클러스터 환경에 애플리케이션을 등록한다.
+image::../images/figure_single_cluser_install_03.png[]
 +
-.예시
-----
-$ kubectl -n argocd apply -f application/app_of_apps/default-cluster-applications.yaml 
-----
+설정 완료 후 애플리케이션의 *[SYNC]* 버튼을 클릭한다
++
+image::../images/figure_single_cluser_install_02.png[]
 
 [#ResourceDeployAws]
 == 리소스 배포
