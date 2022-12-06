@@ -341,11 +341,9 @@ $ kubectl -n argocd apply -f application/app_of_apps/master-applications.yaml
 [#SingleClusterOn]
 == 싱글 클러스터 설치
 
-CAUTION: 클러스터 클레임 생성을 통한 클러스터 배포시, 대시보드를 통한 자원사용량 조회가 일부 지원되지 않는다.
-
 . *생성된 애플리케이션 파일 불러오기*
 +
-HyperCloud6 웹 콘솔의 "멀티 클러스터" 콘솔에서 *[클러스터]* 메뉴를 클릭하면 싱글 클러스터 목록이 조회된다. 이때 싱글 클러스터 상태가 "Sync Needed"로 변경되면 해당 상태를 클릭한다.
+HyperCloud 6 웹 콘솔의 "멀티 클러스터" 콘솔에서 *[클러스터]* 메뉴를 클릭하면 싱글 클러스터 목록이 조회된다. 이때 싱글 클러스터 상태가 "Sync Needed"로 변경되면 해당 상태를 클릭한다.
 +
 image::../images/figure_single_cluser_install_01.png[]
 
@@ -358,6 +356,8 @@ image::../images/figure_single_cluser_install_03.png[]
 설정 완료 후 애플리케이션의 *[SYNC]* 버튼을 클릭한다
 +
 image::../images/figure_single_cluser_install_02.png[]
+
+CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우 대시보드를 통한 리소스 사용량 조회가 일부 지원되지 않는다.
 
 [#ResourceDeployOn]
 == 리소스 배포
