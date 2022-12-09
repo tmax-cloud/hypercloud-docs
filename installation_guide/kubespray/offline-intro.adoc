@@ -50,7 +50,7 @@ HyperCloud를 설치하기 전에 필요한 준비사항에 대해서 설명한�
 
 테크넷을 통해서 쿠버네티스 및 ArgoCD 설치를 위한 Kubespray 파일을 다운로드한다.
 ----
-https://technet.tmaxsoft.com/ko/front/download/viewDownload.do?cmProductCode=0804&version_seq=PVER-20220808-000001&doc_type_cd=DN
+https://technet.tmaxsoft.com/
 ----
 
 각 파일에 대한 설명은 다음과 같다.
@@ -313,7 +313,7 @@ HyperCloud 설치를 위해 노드별로 필요한 패키지를 설치한다.
 |모든 노드|nss-3.53.1-17.el8_3 +
 conntrack-1.4.4-10.el8 +
 socat-1.7.3.3-2.el8 +
-cri-o-1.19 +
+cri-o-1.21 +
 sshpass +
 nfs-utils-1:2.3.3-41.el8_4.2.x86_64 +
 java-1.8.0-openjdk-devel.x86_64 +
