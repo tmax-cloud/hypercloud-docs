@@ -186,7 +186,7 @@ CRD의 이름 및 레이블 정보를 입력해서 검색한다. +
 * Namespaced : 특정 네임스페이스에 적용
 * Cluster : 모든 네임스페이스에 적용 
 |연결됨|CRD의 활성화 여부를 표시한다.
-|image:../images/figure_action_icon.png[]|CRD의 관리를 위한 메뉴를 사용할 수 있다.+
+|image:../images/figure_action_icon.png[]|CRD의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 인스턴스 확인 : CRD를 통해 생성된 커스텀 리소스 목록을 확인

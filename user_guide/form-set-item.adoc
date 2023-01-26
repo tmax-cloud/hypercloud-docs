@@ -194,69 +194,6 @@
 │  │  topologyKey *
 ****
 
-[#Aix/Alibi/Art]
-=== Aix / Alibi / Art
-****
-▼ Args +
-│  Value * +
-Command +
-│  Value * +
-Config +
-│  KEY +
-│  Value +
-▶ <<Env>> +
-▶ <<Env From>> +
-image +
-imagePullPolicy +
-▶ <<Lifecycle>> +
-▶ <<Liveness Probe>> +
-name +
-▼ Ports +
-│  containerPort * +
-│  hostIP +
-│  hostPort +
-│  name +
-│  protocol * +
-▶ <<Readiness Probe>> +
-▼ Resources +
-│  ▼ Limits +
-│  │  KEY +
-│  │  Value +
-│  ▼ Requests +
-│  │  KEY +
-│  │  Value +
-runtimeVersion +
-▶ <<SecurityContextInferenceService,Security Context>> +
-▶ <<Startup Probe>> +
-stdin +
-stdinOnce +
-storageUri +
-terminationMessagePath +
-terminationMessagePolicy +
-tty +
-type +
-▼ Volume Devices +
-│  devicePath * +
-│  name * +
-▼ Volume Mounts +
-│  mountPath * +
-│  mountPropagation +
-│  name * +
-│  readOnly +
-│  subPath +
-│  subPathExpr +
-workingDir
-****
-
-[#Algorithm]
-=== Algorithm
-****
-algorithmName +
-▼ Algorithm Settings +
-│  name +
-│  value
-****
-
 [#AllowedTopologies]
 === Allowed Topologies
 ****
@@ -358,15 +295,6 @@ serviceName +
 
 == C
 
-[#CatalogRestrictions]
-=== Catalog Restrictions
-****
-▼ Service Class +
-│  Value * +
-▼ Service Plan +
-│  Value *
-****
-
 [#Cephfs]
 === Cephfs
 ****
@@ -379,23 +307,6 @@ secretFile +
 │  name +
 │  namespace +
 user
-****
-
-[#Chart]
-=== Chart
-****
-▼ Chart Pull Secret +
-│  name * +
-git +
-name +
-path +
-ref +
-repository +
-▼ Secret Ref +
-│  name * +
-│  namespace +
-skipDepUpdate +
-version
 ****
 
 [#Cinder]
@@ -534,74 +445,6 @@ tty +
 │  subPath +
 │  subPathExpr +
 workingDir
-****
-
-[#ContainersTfReplicaSpecs]
-=== Containers(Tf Replica Specs)
-****
-▼ Args +
-│  Value * +
-▼ Command +
-│  Value * +
-▶ <<Env>> +
-▶ <<Env From>> +
-image * +
-imagePullPolicy +
-▶ <<Lifecycle>> +
-▶ <<Liveness Probe>> +
-name * +
-▼ Ports +
-│  containerPort * +
-│  hostIP +
-│  hostPort +
-│  name +
-│  protocol +
-▶ <<Readiness Probe>> +
-▼ Resources +
-│  ▼ Limits +
-│  │  KEY +
-│  │  VALUE +
-│  ▼ Requests +
-│  │  KEY +
-│  │  VALUE +
-▼ Security Context +
-│  allowPrivilegeEscalation +
-│  ▼ Capabilities +
-│  │  ▼ Add +
-│  │  │  Value * +
-│  │  ▼ Drop +
-│  │  │  Value * +
-│  privileged +
-│  procMount +
-│  readOnlyRootFilesystem +
-│  runAsGroup +
-│  runAsNonRoot +
-│  runAsUser +
-│  ▼ Se Linux Options +
-│  │  level +
-│  │  role +
-│  │  type +
-│  │  user +
-│  ▼ Seccomp Profile +
-│  │  localhostProfile +
-│  │  type * +
-│  ▼ Windows Options +
-│  │  gmsaCredentialSpec +
-│  │  gmsaCredentialSpecName +
-│  │  runAsUserName +
-stdin +
-stdinOnce +
-terminationMessagePath +
-terminationMessagePolicy +
-tty +
-▼ Volume Mounts +
-│  mountPath * +
-│  mountPropagation +
-│  name * +
-│  readOnly +
-│  subPath +
-│  subPathExpr +
-workingDir +
 ****
 
 [#CruiseControl]
@@ -817,15 +660,6 @@ singular
 ****
 
 == E
-
-[#EarlyStopping]
-=== Early Stopping
-****
-algorithmName +
-▼ Algorithm Settings +
-│  name +
-│  value
-****
 
 [#Egress]
 === Egress
@@ -1121,68 +955,6 @@ tty +
 │  subPath +
 │  subPathExpr +
 workingDir
-****
-
-[#Explainer]
-=== Explainer
-****
-activeDeadlineSeconds +
-▶ <<Affinity>> +
-▶ <<Aix / Alibi / Art, Aix>> +
-▶ <<Aix / Alibi / Art, Alibi>> +
-▶ <<Aix / Alibi / Art, Art>> +
-automountServiceAccountToken +
-▼ Batcher +
-│  maxBatchSize +
-│  maxLatency +
-│  timeout +
-canaryTrafficPercent +
-containerConcurrency +
-▶ <<Containers>> +
-▶ <<Dns Config>> +
-dnsPolicy +
-enableServiceLinks +
-▶ <<Host Aliases>> +
-hostIPC +
-hostNetwork +
-hostPID +
-hostname +
-▼ Image Pull Secrets +
-│  name +
-▼ Logger +
-│  mode +
-│  url +
-maxReplicas +
-minReplicas +
-nodeName +
-nodeSelector +
-▼ Overhead +
-│  KEY +
-│  VALUE +
-preemptionPolicy +
-priority +
-priorityClassName +
-▼ Readiness Gates +
-│  conditionType * +
-restartPolicy +
-runtimeClassName +
-schedulerName +
-▶ <<Security Context(Inference Service), Security Context>> +
-serviceAccount +
-serviceAccountName +
-setHostnameAsFQDN +
-shareProcessNamespace +
-subdomain +
-terminationGracePeriodSeconds +
-timeout +
-▼ Tolerations +
-│  effect +
-│  key +
-│  operator +
-│  tolerationSeconds +
-│  value +
-▶ <<Topology Spread Constraints>> +
-▶ <<Volumes>>
 ****
 
 [#ExternalConfiguration]
@@ -1779,7 +1551,7 @@ image +
 ▶ <<Logging>> +
 ▶ <<Metrics Config>> +
 ▼ Rack +
-│  topologyKey *
+│  topologyKey * +
 ▼ Readiness Probe +
 │  failureThreshold +
 │  initialDelaySeconds +
@@ -1879,7 +1651,7 @@ replicas * +
 │  ▼ Pod +
 │  │  ▶ <<Affinity>> +
 │  │  enableServiceLinks +
-│  │  c <<Host Aliases>> +
+│  │  ▶ <<<Host Aliases>> +
 │  │  ▼ Image Pull Secrets +
 │  │  │  name +
 │  │  priorityClassName +
@@ -2046,81 +1818,6 @@ imagePullPolicy * +
 │  │  port *
 ****
 
-[#Lightgbm]
-=== Lightgbm
-****
-▼ Args +
-│  Value * +
-▼ Command +
-│  Value * +
-▶ <<Env>> +
-▶ <<Env From>> +
-image +
-imagePullPolicy +
-▶ <<Lifecycle>> +
-▶ <<Liveness Probe>> +
-name +
-▼ Ports +
-│  containerPort * +
-│  hostIP +
-│  hostPort +
-│  name +
-│  protocol * +
-protocolVersion +
-▶ <<Readiness Probe>> +
-▼ Resources +
-│  ▼ Limits +
-│  │  KEY +
-│  │  VALUE +
-│  ▼ Requests +
-│  │  KEY +
-│  │  VALUE +
-runtimeVersion +
-▼ Security Context +
-│  allowPrivilegeEscalation +
-│  ▼ Capabilities +
-│  │  ▼ Add +
-│  │  │  Value * +
-│  │  ▼ Drop +
-│  │  │  Value * +
-│  privileged +
-│  procMount +
-│  readOnlyRootFilesystem +
-│  runAsGroup +
-│  runAsNonRoot +
-│  runAsUser +
-│  ▼ Se Linux Options +
-│  │  level +
-│  │  role +
-│  │  type +
-│  │  user +
-│  ▼ Seccomp Profile +
-│  │  localhostProfile +
-│  │  type * +
-│  ▼ Windows Options +
-│  │  gmsaCredentialSpec +
-│  │  gmsaCredentialSpecName +
-│  │  runAsUserName +
-▶ <<Startup Probe>> +
-stdin +
-stdinOnce +
-storageUri +
-terminationMessagePath +
-terminationMessagePolicy +
-tty +
-▼ Volume Devices +
-│  devicePath * +
-│  name * +
-▼ Volume Mounts +
-│  mountPath * +
-│  mountPropagation +
-│  name * +
-│  readOnly +
-│  subPath +
-│  subPathExpr +
-workingDir
-****
-
 [#Limits]
 === Limits
 ****
@@ -2262,30 +1959,6 @@ namespace +
 type *
 ****
 
-[#MetricsCollectorSpec]
-=== Metrics Collector Spec
-****
-▼ Collector +
-│  ▼ Custom Collector +
-│  │  image * +
-│  kind * +
-▼ Source +
-│  ▼ File System Path +
-│  │  kind +
-│  │  path +
-│  ▼ Filter +
-│  │  ▼ Metrics Format +
-│  │  │  Value * +
-│  ▼ Http Get +
-│  │  host +
-│  │  ▼ Http Headers +
-│  │  │  name * +
-│  │  │  value * +
-│  │  path +
-│  │  port * +
-│  │  scheme
-****
-
 [#MetricsConfig]
 === Metrics Config
 ****
@@ -2321,28 +1994,6 @@ topicsPattern
 
 == N
 
-[#NasConfig]
-=== Nas Config
-****
-▼ Graph Config +
-│  ▼ Input Sizes +
-│  │  Value * +
-│  numLayers +
-│  ▼ Output Sizes +
-│  │  Value * +
-▼ Operations +
-│  operationType +
-│  ▼ Parameters +
-│  │  ▼ Feasible Space +
-│  │  │  ▼ List +
-│  │  │  │  Value * +
-│  │  │  max +
-│  │  │  min +
-│  │  │  step +
-│  │  name +
-│  │  parameterType
-****
-
 [#NodeAffinity]
 === Node Affinity
 ****
@@ -2360,75 +2011,7 @@ topicsPattern
 │  │  │  │  Value
 ****
 
-[#Notary]
-=== Notary
-****
-▼ Db +
-│  ▼ Resources +
-│  │  ▼ Limits +
-│  │  │  KEY +
-│  │  │  VALUE +
-│  │  ▼ Requests +
-│  │  │  KEY +
-│  │  │  VALUE +
-enabled * +
-▼ Persistent Volume Claim +
-│  ▼ Create +
-│  │  ▼ Access Modes * +
-│  │  │  Value * +
-│  │  deleteWithPvc +
-│  │  storageClassName * +
-│  │  storageSize * +
-│  ▼ Exist +
-│  │  pvcName * +
-▼ Server +
-│  ▼ Resources +
-│  │  ▼ Limits +
-│  │  │  KEY +
-│  │  │  VALUE +
-│  │  ▼ Requests +
-│  │  │  KEY +
-│  │  │  VALUE +
-serviceType +
-▼ Signer +
-│  ▼ Resources +
-│  │  ▼ Limits +
-│  │  │  KEY +
-│  │  │  VALUE +
-│  │  ▼ Requests +
-│  │  │  KEY +
-│  │  │  VALUE
-****
-
-== O
-
-[#Objective]
-=== Objective
-****
-▼ Additional Metric Names +
-│  Value * +
-goal +
-▼ Metric Strategies +
-│  name +
-│  value +
-objectiveMetricName +
-type
-****
-
 == P
-
-[#Parameters]
-=== Parameters
-****
-▼ Feasible Space +
-│  ▼ List +
-│  │  Value * +
-│  max +
-│  min +
-│  step +
-name +
-parameterType
-****
 
 [#ParametersFrom]
 === Parameters From
@@ -2436,20 +2019,6 @@ parameterType
 ▼ Secret Key Ref +
 │  key * +
 │  name *
-****
-
-[#PersistentVolumeClaim]
-=== Persistent Volume Claim
-****
-▼ Create +
-│  ▼ Access Modes * +
-│  │  Value * +
-│  deleteWithPvc +
-│  storageClassName * +
-│  storageSize * +
-▼ Exist +
-│  pvcName * +
-mountPath
 ****
 
 [#PodTemplate]
@@ -2876,86 +2445,6 @@ tty +
 workingDir
 ****
 
-[#Predictor]
-=== Predictor
-****
-activeDeadlineSeconds +
-▶ <<Affinity>> +
-automountServiceAccountToken +
-▼ Batcher +
-│  maxBatchSize +
-│  maxLatency +
-│  timeout +
-canaryTrafficPercent +
-containerConcurrency +
-▶ <<Containers>> +
-▶ <<Dns Config>> +
-dnsPolicy +
-enableServiceLinks +
-▶ <<Host Aliases>> +
-hostIPC +
-hostNetwork +
-hostPID +
-hostname +
-▼ Image Pull Secrets +
-│  name +
-▶ <<Lightgbm>> +
-▼ Logger +
-│  mode +
-│  url +
-maxReplicas +
-minReplicas +
-nodeName +
-nodeSelector +
-▶ <<Lightgbm, Onnx>> +
-▼ Overhead +
-│  KEY +
-│  VALUE +
-▶ <<Lightgbm, Pmml>> +
-preemptionPolicy +
-priority +
-priorityClassName +
-▶ <<Lightgbm, Pytorch>> +
-▼ Readiness Gates +
-│  conditionType * +
-restartPolicy +
-runtimeClassName +
-schedulerName +
-▶ <<Security Context(Inference Service), Security Context>> +
-serviceAccount +
-serviceAccountName +
-setHostnameAsFQDN +
-shareProcessNamespace +
-▶ <<Lightgbm, Sklearn>> +
-subdomain +
-▶ <<Lightgbm, Tensorflow>> +
-terminationGracePeriodSeconds +
-timeout +
-▼ Tolerations +
-│  effect +
-│  key +
-│  operator +
-│  tolerationSeconds +
-│  value +
-▶ <<Topology Spread Constraints>> +
-▶ <<Lightgbm, Triton>> +
-▶ <<Volumes>> +
-▶ <<Lightgbm, Xgboost>> +
-****
-
-[#PytorchReplicaSpecs]
-=== Pytorch Replica Specs
-****
-▼ Master +
-│  replicas +
-│  restartPolicy +
-│  ▶ <<Template(Tf Replica Specs),Template>> +
-▼ Worker +
-│  replicas +
-│  restartPolicy +
-│  ▶ <<Template(Tf Replica Specs),Template>> +
-****
-
 == R
 
 [#Rbd]
@@ -3057,27 +2546,6 @@ imagePullPolicy +
 replicas
 ****
 
-[#RegistryDeployment]
-=== Registry Deployment
-****
-labels +
-nodeSelector +
-▼ Resources +
-│  ▼ Limits +
-│  │  KEY +
-│  │  VALUE +
-│  ▼ Requests +
-│  │  KEY +
-│  │  VALUE +
-▶ <<Selector>> +
-▼ Tolerations +
-│  effect +
-│  key +
-│  operator +
-│  tolerationSeconds +
-│  value
-****
-
 [#Resources]
 === Resources
 ****
@@ -3149,35 +2617,6 @@ storageMode +
 storagePool +
 system * +
 volumeName
-****
-
-[#ScanTargets]
-=== Scan Targets
-****
-certificateSecret +
-imagePullSecret +
-▼ Images * +
-│  Value * +
-registryUrl *
-****
-
-[#SecretTransforms]
-=== Secret Transforms
-****
-▼ Add Key +
-│  jsonPathExpression * +
-│  key * +
-│  stringValue * +
-│  value * +
-▼ Add Keys From +
-│  ▼ Secret Ref +
-│  │  name +
-│  │  namespace +
-▼ Remove Key +
-│  key * +
-▼ Rename Key +
-│  from * +
-│  to *
 ****
 
 [#SecurityContext]
@@ -3264,24 +2703,6 @@ runAsUser +
 │  runAsUserName +
 ****
 
-[#SecurityContextTfReplicaSpecs]
-=== Security Context(Tf Replica Specs)
-****
-fsGroup +
-runAsNonRoot +
-runAsUser +
-▼ Se Linux Options +
-│  level +
-│  role +
-│  type +
-│  user +
-▼ Seccomp Profile +
-│  localhostProfile +
-│  type * +
-▼ Supplemental Groups +
-│  Value * +
-****
-
 [#Selector]
 === Selector
 ****
@@ -3293,7 +2714,7 @@ runAsUser +
 matchLabels
 ****
 
-NOTE: 디플로이먼트, 레플리카 셋, 데몬 셋, 스테이트풀 셋을 생성할 경우 matchLabels 항목은 필수 설정 항목입니다.  
+NOTE: 디플로이먼트, 레플리카 셋, 데몬 셋, 스테이트풀 셋을 생성할 경우 matchLabels 항목은 필수 설정 항목이다.  
 
 [#Servers]
 === Servers
@@ -3450,7 +2871,7 @@ timeoutSeconds
 │  │  │  reason +
 │  │  │  status * +
 │  │  │  type * +
-│  │  phase
+│  │  phase +
 │  │  resizeStatus
 ****
 
@@ -3765,140 +3186,6 @@ name +
 │  maxUnavailable
 ****
 
-[#TemplateNotebook]
-=== Template(Notebook Server)
-****
-▼ Spec * +
-│  activeDeadlineSeconds +
-│  ▶ <<Affinity>> +
-│  automountServiceAccountToken +
-│  ▶ <<Containers>> * +
-│  ▶ <<Dns Config>> +
-│  dnsPolicy +
-│  enableServiceLinks +
-│  ▶ <<Ephemeral Containers>> +
-│  ▶ <<Host Aliases>> +
-│  hostIPC +
-│  hostNetwork +
-│  hostPID +
-│  hostname +
-│  ▼ Image Pull Secrets +
-│  │  name +
-│  ▶ <<Containers,Init Containers>> +
-│  nodeName +
-│  nodeSelector +
-│  ▼ Overhead +
-│  │  KEY +
-│  │  VALUE +
-│  preemptionPolicy +
-│  priority +
-│  priorityClassName +
-│  ▼ Readiness Gates +
-│  │  conditionType * +
-│  restartPolicy +
-│  runtimeClassName +
-│  schedulerName +
-│  ▶ <<Security Context>> +
-│  serviceAccount +
-│  serviceAccountName +
-│  shareProcessNamespace +
-│  subdomain +
-│  terminationGracePeriodSeconds +
-│  ▼ Tolerations +
-│  │  effect +
-│  │  key +
-│  │  operator +
-│  │  tolerationSeconds +
-│  │  value +
-│  ▶ <<Topology Spread Constraints>> +
-│  ▶ <<Volumes>>
-****
-
-[#TemplateTfReplicaSpecs]
-=== Template(Tf Replica Specs)
-****
-▼ Metadata +
-│  annotations +
-│  clusterName +
-│  creationTimestamp +
-│  deletionGracePeriodSeconds +
-│  deletionTimestamp +
-│  ▼ Finalizers +
-│  │  Value * +
-│  generateName +
-│  generation +
-│  labels +
-│  ▼ Managed Fields +
-│  │  apiVersion +
-│  │  fieldsType +
-│  │  manager +
-│  │  operation +
-│  │  time +
-│  name +
-│  namespace +
-│  ▼ Owner References +
-│  │  apiVersion * +
-│  │  blockOwnerDeletion +
-│  │  controller +
-│  │  kind * +
-│  │  name * +
-│  │  uid * +
-│  resourceVersion +
-│  selfLink +
-│  uid +
-▼ Spec +
-│  activeDeadlineSeconds +
-│  ▶ <<Affinity>> +
-│  automountServiceAccountToken +
-│  ▶ <<Containers(Tf Replica Specs),Containers>> +
-│  dnsPolicy +
-│  ▶ <<Host Aliases>> +
-│  hostIPC +
-│  hostNetwork +
-│  hostPID +
-│  hostname +
-│  ▼ Image Pull Secrets +
-│  │  name +
-│  ▶ <<Containers(Tf Replica Specs),Init Containers>> +
-│  nodeName +
-│  nodeSelector +
-│  restartPolicy +
-│  schedulerName +
-│  ▶ <<Security Context(Tf Replica Specs),Security Context>> +
-│  serviceAccount +
-│  serviceAccountName +
-│  subdomain +
-│  terminationGracePeriodSeconds +
-│  ▼ Tolerations +
-│  │  effect +
-│  │  key +
-│  │  operator +
-│  │  tolerationSeconds +
-│  │  value +
-│  ▶ <<Volumes(Tf Replica Specs),Volumes>>
-****
-
-[#TfReplicaSpecs]
-=== Tf Replica Specs
-****
-▼ Chief +
-│  replicas +
-│  restartPolicy +
-│  ▶ <<Template(Tf Replica Specs),Template>> +
-▼ Evaluator +
-│  replicas +
-│  restartPolicy +
-│  ▶ <<Template(Tf Replica Specs),Template>> +
-▼ PS +
-│  replicas +
-│  restartPolicy +
-│  ▶ <<Template(Tf Replica Specs),Template>> +
-▼ Worker +
-│  replicas +
-│  restartPolicy +
-│  ▶ <<Template(Tf Replica Specs),Template>>
-****
-
 [#Tls]
 === Tls
 ****
@@ -4083,83 +3370,6 @@ whenUnsatisfiable *
 │  │  Value * +
 ****
 
-[#Transformer]
-=== Transformer
-****
-activeDeadlineSeconds +
-▶ <<Affinity>> +
-automountServiceAccountToken +
-▼ Batcher +
-│  maxBatchSize +
-│  maxLatency +
-│  timeout +
-canaryTrafficPercent +
-containerConcurrency +
-▶ <<Containers>> +
-▶ <<Dns Config>> +
-dnsPolicy +
-enableServiceLinks +
-▶ <<Host Aliases>> +
-hostIPC +
-hostNetwork +
-hostPID +
-hostname +
-▼ Image Pull Secrets +
-│  name +
-▼ Logger +
-│  mode +
-│  url +
-maxReplicas +
-minReplicas +
-nodeName +
-nodeSelector +
-▼ Overhead +
-│  KEY +
-│  VALUE +
-preemptionPolicy +
-priority +
-priorityClassName +
-▼ Readiness Gates +
-│  conditionType * +
-restartPolicy +
-runtimeClassName +
-schedulerName +
-▶ <<Security Context(Inference Service), Security Context>> +
-serviceAccount +
-serviceAccountName +
-setHostnameAsFQDN +
-shareProcessNamespace +
-subdomain +
-terminationGracePeriodSeconds +
-timeout +
-▼ Tolerations +
-│  effect +
-│  key +
-│  operator +
-│  tolerationSeconds +
-│  value +
-▶ <<Topology Spread Constraints>> +
-▶ <<Volumes>>
-****
-
-[#TrialTemplate]
-=== Trial Template
-****
-▼ Config Map +
-│  configMapName +
-│  configMapNamespace +
-│  templatePath +
-failureCondition +
-primaryContainerName +
-primaryPodLabels +
-retain +
-successCondition +
-▼ Trial Parameters +
-│  description +
-│  name +
-│  reference
-****
-
 == U
 
 [#UpdateStrategy(DaemonSet)]
@@ -4179,27 +3389,6 @@ type
 ****
 
 == V
-
-[#ValuesFrom]
-=== Values From
-****
-▼ Chart File Ref +
-│  optional +
-│  path * +
-▼ Config Map Key Ref +
-│  key +
-│  name * +
-│  namespace +
-│  optional +
-▼ External Source Ref +
-│  optional +
-│  url * +
-▼ Secret Key Ref +
-│  key +
-│  name * +
-│  namespace +
-│  optional +
-****
 
 [#Volumes]
 === Volumes
@@ -4272,212 +3461,6 @@ type
 │  ▼ Volume Claim Template +
 │  │  ▶ <<Metadata>> +
 │  │  ▶ <<Spec>> * +
-▼ Fc +
-│  fsType +
-│  lun +
-│  readOnly +
-│  ▼ Target WW Ns +
-│  │  Value * +
-│  ▼ Wwids +
-│  │  Value * +
-▼ Flex Volume +
-│  driver * +
-│  fsType +
-│  ▼ Options +
-│  │  KEY +
-│  │  VALUE +
-│  readOnly +
-│  ▼ Secret Ref +
-│  │  name +
-▼ Flocker +
-│  datasetName +
-│  datasetUUID +
-▼ Gce Persistent Disk +
-│  fsType +
-│  partition +
-│  pdName * +
-│  readOnly +
-▼ Git Repo +
-│  directory +
-│  repository * +
-│  revision +
-▼ Glusterfs +
-│  endpoints * +
-│  path * +
-│  readOnly +
-▼ Host Path +
-│  path * +
-│  type +
-▼ Iscsi +
-│  chapAuthDiscovery +
-│  chapAuthSession +
-│  fsType +
-│  initiatorName +
-│  iqn * +
-│  iscsiInterface +
-│  lun * +
-│  ▼ Portals +
-│  │  Value * +
-│  readOnly +
-│  ▼ Secret Ref +
-│  │  name +
-│  targetPortal * +
-name * +
-▼ Nfs +
-│  path * +
-│  readOnly +
-│  server * +
-▼ Persistent Volume Claim +
-│  claimName * +
-│  readOnly +
-▼ Photon Persistent Disk +
-│  fsType +
-│  pdID * +
-▼ Portworx Volume +
-│  fsType +
-│  readOnly +
-│  volumeID * +
-▼ Projected +
-│  defaultMode +
-│  ▼ Sources * +
-│  │  ▼ Config Map +
-│  │  │  ▼ Items +
-│  │  │  │  key * +
-│  │  │  │  mode +
-│  │  │  │  path * +
-│  │  │  name +
-│  │  │  optional +
-│  │  ▼ Downward API +
-│  │  │  ▼ Items +
-│  │  │  │  ▼ Field Ref +
-│  │  │  │  │  apiVersion +
-│  │  │  │  │  fieldPath * +
-│  │  │  │  mode +
-│  │  │  │  path * +
-│  │  │  │  ▼ Resource Field Ref +
-│  │  │  │  │  containerName +
-│  │  │  │  │  divisor +
-│  │  │  │  │  resource * +
-│  │  ▼ Secret +
-│  │  │  ▼ Items +
-│  │  │  │  key * +
-│  │  │  │  mode +
-│  │  │  │  path * +
-│  │  │  name +
-│  │  │  optional +
-│  │  ▼ Service Account Token +
-│  │  │  audience +
-│  │  │  expirationSeconds +
-│  │  │  path * +
-▼ Quobyte +
-│  group +
-│  readOnly +
-│  registry * +
-│  tenant +
-│  user +
-│  volume * +
-▼ Rbd +
-│  fsType +
-│  image * +
-│  keyring +
-│  ▼ Monitors * +
-│  │  Value * +
-│  pool +
-│  readOnly +
-│  ▼ Secret Ref +
-│  │  name +
-│  user +
-▼ Scale IO +
-│  fsType +
-│  gateway * +
-│  protectionDomain +
-│  readOnly +
-│  ▼ Secret Ref * +
-│  │  name +
-│  sslEnabled +
-│  storageMode +
-│  storagePool +
-│  system * +
-│  volumeName +
-▼ Secret +
-│  defaultMode +
-│  ▼ Items +
-│  │  key * +
-│  │  mode +
-│  │  path * +
-│  optional +
-│  secretName +
-▼ Storageos +
-│  fsType +
-│  readOnly +
-│  ▼ Secret Ref +
-│  │  name +
-│  volumeName +
-│  volumeNamespace +
-▼ Vsphere Volume +
-│  fsType +
-│  storagePolicyID +
-│  storagePolicyName +
-│  volumePath *
-****
-
-[#VolumesTfReplicaSpecs]
-=== Volumes(Tf Replica Specs)
-****
-▼ Aws Elastic Block Store +
-│  fsType +
-│  partition +
-│  readOnly +
-│  volumeID * +
-▼ Azure Disk +
-│  cachingMode +
-│  diskName * +
-│  diskURI * +
-│  fsType +
-│  kind +
-│  readOnly +
-▼ Azure File +
-│  readOnly +
-│  secretName * +
-│  shareName * +
-▼ Cephfs +
-│  ▼ Monitors * +
-│  │  Value * +
-│  path +
-│  readOnly +
-│  secretFile +
-│  ▼ Secret Ref +
-│  │  name +
-│  user +
-▼ Cinder +
-│  fsType +
-│  readOnly +
-│  ▼ Secret Ref +
-│  │  name +
-│  volumeID * +
-▼ Config Map +
-│  defaultMode +
-│  ▼ Items +
-│  │  key * +
-│  │  mode +
-│  │  path * +
-│  name +
-│  optional +
-▼ Downward API +
-│  defaultMode +
-│  ▼ Items +
-│  │  ▼ Field Ref +
-│  │  │  apiVersion +
-│  │  │  fieldPath * +
-│  │  mode +
-│  │  path * +
-│  │  ▼ Resource Field Ref +
-│  │  │  containerName +
-│  │  │  divisor +
-│  │  │  resource * +
-▼ Empty Dir +
-│  medium +
-│  sizeLimit +
 ▼ Fc +
 │  fsType +
 │  lun +
