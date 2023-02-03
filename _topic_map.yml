@@ -390,3 +390,84 @@ Topics:
     Topics:
       - Name: AWX 인스턴스 생성
         File: awx-instances-create
+---
+Name: 운영자 안내서
+Dir: admin_guide
+Topics:
+  - Name: 개요
+    File: intro-admin
+  - Name: 시스템 구성
+    Dir: system_configuration
+    Topics:
+      - Name: 하드웨어 구성
+        File: hardware-configuration
+      - Name: 소프트웨어 구성
+        File: software-configuration
+      - Name: 네임스페이스 정보
+        File: namespace-info
+      - Name: 소프트웨어 설정
+        File: software-setting
+  - Name: 애플리케이션
+    Dir: application
+    Topics:
+      - Name: 컨테이너 이미지 관리
+        File: container-image-management
+      - Name: HyperAuth
+        File: hyperauth
+      - Name: Kube 객체
+        File: kube-object
+  - Name: CI&CD
+    Dir: cicd
+    Topics:
+      - Name: 동작 상태와 이력 확인
+        File: history-confirm
+      - Name: Garbage 정리
+        File: garbage-clean-up
+  - Name: 모니터링
+    Dir: monitoring
+    Topics:
+      - Name: 동작 상태와 이력 확인
+        File: system-monitoring
+      - Name: 그라파나
+        File: grafana
+      - Name: OpenSearch
+        File: open-search
+  - Name: ArgoCD
+    Dir: argocd
+    Topics:
+      - Name: Git 연동하기
+        File: git-link
+      - Name: 애플리케이션 배포하기
+        File: app-deploy
+  - Name: 백업&복구
+    Dir: backup
+    Topics:
+      - Name: etcd 백업 및 복구
+        File: etcd-backup
+      - Name: hyperauth 백업 및 복구
+        File: hyperauth-backup
+      - Name: hyperregistry 백업 및 복구
+        File: hyperregistry-backup
+      - Name: gitlab 백업 및 복구
+        File: gitlab-backup
+      - Name: hypercloud5-system 백업 및 복구
+        File: hypercloud5-system-backup
+  - Name: 점검사항
+    Dir: check_point
+    Topics:
+      - Name: 노드 점검
+        File: node-check
+      - Name: 파드 점검
+        File: kube-system-pod-check
+  - Name: HyperCloud 관리
+    File: hypercloud-management
+  - Name: Kube 인증서 관리
+    File: kube-auth-management
+  - Name: 문제 해결
+    Dir: trouble_shooting
+    Topics:
+      - Name: 로그 조회
+        File: basic-log-inquire
+      - Name: 크롬 오류
+        File: chrome-error
+---

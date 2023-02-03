@@ -1,0 +1,18 @@
+= 소프트웨어 구성
+
+HyperCloud에서 사용하는 소프트웨어의 버전 정보는 다음과 같다.
+[width="100%",options="header", cols="1,1,2"]
+|====================
+|소프트웨어|버전|설명
+|Kubernetes|1.19.4|클라우드 관리
+|CRI-O|1.19.1|컨테이너 런타임
+|Calico|3.16.6|네트워크 보안 및 관리
+|MetalLB|0.9.3|IP Pool 관리
+|NFS Provisioner|4.0.0|스토리지 구성
+|NFS-Utils|2.3.3-35.el8.x86_64|스토리지 구성
+|HyperAuth|1.1.0.30|HyperCloud 계정 인증/인가 관리
+|Grafana|6.4.3|모니터링 툴 (Viewer)
+|Prometheus|0.34.0|모니터링 툴 (Collector)
+|HyperCloud-single-operator|5.0.10.0|클라우드 관리
+|HyperCloud-UI|5.0.12.0|클라우드 관리 창(TD: 웹 콘솔을 의미하는 건가?)
+|====================

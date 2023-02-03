@@ -1,0 +1,180 @@
+= HyperCloud 관리
+:toc:
+:toc-title:
+
+== HyperCloud 재기동
+HyperCloud 클러스터를 구성하고 있는 모든 노드를 일괄 재기동한다.
+
+=== 노드 종료
+
+kubectl, docker, crio 서비스를 각각 종료한 후 상태를 확인한다.
+
+. *kubelet 종료*
++
+kubelet 서비스를 종료한다.
++
+----
+$ systemctl stop kubelet
+----
+서비스 종료 후 상태가 "Active: inactive (dead)"인 것을 확인한다.
++
+----
+$ systemctl status kubelet
+----
+
+. *docker 종료*
++
+docker 서비스를 종료한다.
++
+----
+$ systemctl stop docker
+----
+서비스 종료 후 상태가 "Active: inactive (dead)"인 것을 확인한다.
++
+----
+$ systemctl status docker
+----
+
+. *cri-o 종료*
++
+cri-o 서비스를 종료한다.
++
+----
+$ systemctl stop crio
+----
+서비스 종료 후 상태가 "Active: inactive (dead)"인 것을 확인한다.
++
+----
+$ systemctl status crio
+----
+
+=== 노드 기동
+
+노드 기동 시 kubelet, docker, crio 서비스는 자동으로 실행된다. +
+노드 기동이 완료되면 서비스를 점검한다. 이때 서비스가 정상적으로 동작하지 않을 경우에는 `systemctl restart [데몬명]` 명령어를 실행하여 서비스를 재실행한다.
+
+. *keepalived 서비스 확인*
++
+마스터 노드의 VIP를 관리한다. VIP는 가용성을 위해 구성된 다수의 마스터 노드의 IP를 일원화하고, 가용성을 고려한 도커 레지스터리 역시 접근하는 IP를 일원화한다. 
++
+NOTE: VIP는 우선순위가 높은 마스터01에 위치한다.
++
+keepalived 서비스의 점검 대상은 "마스터 노드"이다. 단, 1대의 마스터 노드로 구성된 경우에는 해당되지 않는다.
++
+.keepalived 서비스 상태 확인
+----
+$ systemctl status keepalived
+● keepalived.service - LVS and VRRP High Availability Monitor
+   Loaded: loaded (/usr/lib/systemd/system/keepalived.service; enabled; vendor preset: disabled)
+   Active: active (running) since Mon 2020-12-21 14:30:52 KST; 1 weeks 6 days ago
+  Process: 1479 ExecStart=/usr/sbin/keepalived $KEEPALIVED_OPTIONS (code=exited, status=0/SUCCESS)
+ ...생략
+$ ip a | grep 192
+inet xxx.xxx.xx.xxx/24 brd 192.168.53.255 scope global ens6f1
+inet xxx.xxx.xx.xxx/32 scope global ens6f1
+----
+
+. *kubelet 서비스 확인*
++
+kubelet 서비스의 점검 대상은 "마스터 노드"와 "워커 노드"이다.
++
+점검 대상에서 kubelet 서비스 상태가 "Active: active (running)"인 것을 확인한다.
++
+.kubelet 서비스 상태 확인
+----
+$ systemctl status kubelet
+----
+
+. *docker 서비스 확인*
++
+마스터 노드에는 docker 이미지를 공유할 docker registry가 동작한다. docker 서비스와 docker registry의 동작 여부를 확인한다.
++
+docker 서비스의 점검 대상은 "마스터 노드"이다.
++
+점검 대상에서 docker 서비스 상태가 "Active: active (running)"인 것을 확인한다.
++
+.docker 서비스 상태 확인
+----
+$ systemctl status docker
+----
++
+.docker registry 동작 여부 확인
+----
+$ docker ps 
+CONTAINER ID  IMAGE      COMMAND                 CREATED       STATUS        PORTS 
+b666d9a91e5f  registry   "/entrypoint.sh /etc…" 2 months ago  Up 13 days    0.0.0.0:5000->5000/tcp
+----
+
+. *cri-o 서비스 확인*
++
+점검 대상에서 cri-o 서비스 상태가 "Active: active (running)"인 것을 확인한다.
++
+.cri-o 서비스 상태 확인
+----
+$ systemctl status crio
+----
+
+. *노드 상태 확인*
++
+모든 노드의 상태가 "Ready"인 것을 확인한다.
++
+.노드 상태 확인
+----
+[root@c1-6 ~]# kubectl get nodes
+NAME            STATUS   ROLES    AGE   VERSION
+c1-6             Ready    master   20d   v1.17.8
+c1-7             Ready    master   20d   v1.17.8
+c1-8             Ready    master   20d   v1.17.8
+----
+
+== 노드 추가
+
+워커 노드의 자원은 균등하게 사용되어야 하며 워커 노드 하나가 다운되어도 해당 노드의 파드들이 옮겨갈 수 있도록 충분한 자원이 확보되어야 한다. 만약 자원이 충분하지 않을 경우 워커 노드 추가를 통해 자원을 확보한다.
+
+. *조인 구문 생성*
++
+----
+$ kubeadm token create --print-join-command
+----
+
+. *노드 조인*
++
+출력 결과를 추가할 워커 노드에서 실행한다. 이때 cri-o를 사용하기 때문에 `--cri-socket /var/run/crio/crio.sock` 구문을 반드시 추가해야 한다.
++
+----
+$ kubeadm join {IP}:6443 --token y3ed7l.ueoh8q5psro12abw --discovery-token-ca-cert-hash sha256:9e7b58 …중략… 541a905 --cri-socket /var/run/crio/crio.sock
+----
+
+. *노드 확인*
++
+----
+$ kubectl get node
+----
+
+== 노드 제거
+
+추가한 노드를 제거한다.
+
+. *대상 노드 조회*
++
+----
+$ kubectl get nodes
+----
+
+. *대상 노드에 생성된 파드를 다른 노드로 스케줄링*
++
+----
+$ kubectl drain [노드 이름] --ignore-daemonsets
+----
+
+. *대상 노드 삭제*
++
+----
+$ kubectl delete node [노드 이름]
+----
+
+. *노드 확인*
++
+----
+$ kubectl get nodes
+----
