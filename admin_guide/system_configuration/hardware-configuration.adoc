@@ -85,11 +85,11 @@ HyperCloud에서 사용되는 주요 포트 목록은 다음과 같다.
 |====================
 |프로토콜|포트 번호|용도
 |ICMP|-|Ping 테스트
-|TCP|22|SSH
+|TCP|22|SSH, SCP, SFTP
 |TCP|80|HTTP
-|TCP|179|Calico BIRD
+|TCP|179,5473|Calico BIRD
 |TCP|443|HTTPS
-|TCP|2379-2380|SSH
+|TCP|2379-2380|ETCD
 |TCP|5000|Podman Registry
 |TCP|6443|Kube API 서버
 |TCP|7472|MetalLB speaker
@@ -97,6 +97,7 @@ HyperCloud에서 사용되는 주요 포트 목록은 다음과 같다.
 |TCP|10010|CRI-O
 |TCP|10248|Kubelet
 |TCP|10250-10259|Kubernetes가 기본적으로 사용하는 포트 (kubelet, kube-schduler, kube-controller-manager, kube-proxy) 
+|TCP,UDP|53,9153|coredns
 |UDP|53|DNS
 |UDP|123|NTP
 |UDP|4789|VXLAN
