@@ -40,5 +40,5 @@ HyperCloud에서 사용하는 소프트웨어의 버전 정보는 다음과 같�
 |cicd operator|v0.4.14|CI/CD 오퍼레이터
 |redis operator|v0.11.1|레디스 오퍼레이터
 |image validateion webhook|v5.0.4|이미지 대상 webhook 처리
-|MetalLB|0.9.6|IP Pool 관리|LB 오퍼레이터
+|MetalLB|0.9.6|LB 오퍼레이터
 |====================
