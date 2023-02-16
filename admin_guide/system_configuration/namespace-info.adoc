@@ -9,7 +9,7 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |====================
 |네임스페이스|설명
 |api-gateway-system|API Gateway 통신을 위한 네임스페이스
-|asrgocd|Kubernetes 환경을 위한 GitOps 기반 CD 도구인 ArgoCD가 생성되어 있는 네임스페이스
+|argocd|Kubernetes 환경을 위한 GitOps 기반 CD 도구인 ArgoCD가 생성되어 있는 네임스페이스
 |====================
 
 == C
