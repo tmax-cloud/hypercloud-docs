@@ -116,7 +116,7 @@ HyperCloud에서 사용되는 주요 도메인 목록은 다음과 같다.
 |cicd-system|||GitLab의 이벤트를 받는 웹훅 서비스로, Git으로부터 이벤트를 받아 CI/CD 파이프라인을 동작
 |gitlab-system|||
 |helm-ns|||
-|hyperauth|||HyperCloud 계정 관리 UI
+|hyperauth|hyperauth.xx.xx|hyperauth.tmaxcloud.com|HyperCloud 계정 관리 
 |hyperregistry|||HyperCloud 컨테이너 이미지 레지스트리
 |istio-system|||
 |kube-logging|||
