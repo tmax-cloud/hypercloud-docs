@@ -58,7 +58,7 @@ RFC 1123에 정의된 규칙은 다음과 같다.
 ----
 
 === 스왑 메모리
-`swapoff` 명령을 사용하여 스왑 메모리를 비활성화한다.(TD: 비활성화 하는 이유는?)
+`swapoff` 명령을 사용하여 스왑 메모리를 비활성화한다.(TD: 비활성화 하는 이유는?)(QA: kubelet에서 swap 메모리를 지원하지 않아 켜져있는 경우 kubelet 에러가 발생)
 ----
 $ sudo swapoff -a
 ----
@@ -68,7 +68,7 @@ $ sudo swapoff -a
 ----
 
 === SELinux
-`setenforce` 명령을 사용하여 SELinux를 비활성화한다.(TD: 비활성화 이유는?)
+`setenforce` 명령을 사용하여 SELinux를 비활성화한다.(TD: 비활성화 이유는?) (QA: selinux는 리눅스에서 제공하는 보안 정책으로 활성화 되어있는 경우 권한 문제 발생)
 ----
 $ sudo setenforce 0
 ----
@@ -128,6 +128,37 @@ HyperCloud에서 사용되는 주요 도메인 목록은 다음과 같다.
 HyperCloud에서 DNS 서버 역할을 하는 CoreDNS 설정을 통해 사용할 도메인을 등록할 수 있다. +
 내부에서 도메인 네임을 설정할 때 nodelocaldns config 설정 (예시 cm 추가) +
 Namespace : kube-system, Configmap : coredns, nodelocaldns에서 확인
+쿠버네티스 내부에서 dns 처리가 필요한 경우 아래 cm을 참고
+----
+apiVersion: v1
+data:
+  Corefile: |
+    .:53 {
+        log
+        health {
+           lameduck 5s
+        }
+        ready
+        kubernetes cluster.local in-addr.arpa ip6.arpa {
+           pods insecure
+           fallthrough in-addr.arpa ip6.arpa
+           ttl 30
+        }
+        prometheus :9153
+        forward . /etc/resolv.conf {
+           max_concurrent 1000
+        }
+        cache 30
+        loop
+        reload
+        loadbalance
+        template IN A {
+            match "(^|[.])(hypercloud.com)[.]$"
+            answer "{{ .Name }} 60 IN A 172.22.7.X"
+            fallthrough
+        }
+    }
+----
 
 
 === IP Pool
@@ -140,15 +171,20 @@ Namespace : kube-system, Configmap : coredns, nodelocaldns에서 확인
 apiVersion: crd.projectcalico.org/v1
 kind: IPPool
 metadata:
-  name: prv-dls-dev-ippool <1>
+  name: default-ipv4-ippool <1>
 spec:
-  cidr: 10.128.128.0/24
-  blockSize: 28
-  ipipMode: Never   # AWS의 경우 Always
-natOutgoing: true
+  cidr: 10.128.128.0/24  <2>
+  blockSize: 28  <3>
+  ipipMode: Never   # AWS의 경우 Always  <4>
+  vxlanMode: Never  # ncp의 경우 Always  <5>
+natOutgoing: true  <6>
 ----
-<1> IP Pool의 이름
-<2> (TD: 이외 필요한 항목의 내용 작성 필요)
+<1> IP Pool의 이름 (default ippool name : default-ipv4-ippool)
+<2> Pod가 사용할 IP 대역
+<3> 각 호스트 노드에서 관리할 만큼의 IP대역 크기 (cidr 보다 큰 값으로 지정)
+<4> IPIP 모드 설정 : Always, Never, CrossSubnet
+<5> Vxlan 모드 설정 : Always, Never, CrossSubnet > vxlan과 ipip는 둘 중 하나만 켤 수 있음
+<6> 컨테이너에서 외부로 전송되는 패킷을 nat 처리할 것인지 여부 (iptables 에 MASQUERADE Rule에 의해서 외부에 연결됨)
 . 네임스페이스 내의 모든 파드들이 IP Pool을 사용하도록 적용
 +
 .예시
@@ -157,7 +193,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   annotations: 
-    cni.projectcalico.org/ipv4pools: '["prv-dls-dev-ippool"]' <1>
-** Namespace는 .metadata.annotations 아래에 명시 (TD: 문장의 의미가 이해되지 않음)
+    cni.projectcalico.org/ipv4pools: '["default-ipv4-ippool"]' <1>
+** Namespace는 .metadata.annotations 아래에 명시 (TD: 문장의 의미가 이해되지 않음) (QA : 삭제해도 상관없을 것 같습니다 ippool 설정을 어디에 하라는 얘기 같습니다)
 ----
 <1> 네임스페이스에 적용할 IP Pool의 이름
