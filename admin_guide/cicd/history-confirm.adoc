@@ -17,10 +17,10 @@ image::../images/figure_pipelinerun_status.png[]
 
 . *파이프라인 런 상세 정보 확인* +
 파이프라인 런 목록에서 상세 정보를 확인할 파이프라인 런의 이름을 클릭한다. +
-이때 해당 파이프라인 런의 상세 화면이 열리면 *[개요]* 탭에서 각 단계별 수행 상태를 상세하게 확인할 수 있다.
+이때 해당 파이프라인 런의 상세 화면이 열리면 *[상세]* 탭에서 각 단계별 수행 상태를 상세하게 확인할 수 있다.
 +
 image::../images/figure_pipelinerun_detail_info.png[]
-<1> *[개요]* 탭 선택
+<1> *[상세]* 탭 선택
 <2> 파이프라인 런이 정상적으로 수행되지 않을 경우 어느 단계에서 문제가 발생하였는지 확인 가능
 
 
@@ -38,10 +38,10 @@ image::../images/figure_pipelinerun_log.png[]
 
 . *파이프라인 런 상세 정보 확인* +
 파이프라인 런 목록에서 로그를 확인할 파이프라인 런의 이름을 클릭한다. +
-이때 해당 파이프라인 런의 상세 화면이 열리면 *[Logs]* 탭에서 로그 내용을 확인할 수 있다.
+이때 해당 파이프라인 런의 상세 화면이 열리면 *[로그]* 탭에서 로그 내용을 확인할 수 있다.
 +
 image::../images/figure_pipelinerun_detail_log.png[]
-<1> *[Logs]* 탭 선택
+<1> *[로그]* 탭 선택
 <2> 각 단계를 클릭하여 해당 단계의 로그 내용을 확인
 
 
@@ -64,7 +64,7 @@ $ k -n dls-cicd-private-dev get ic
 
 NAME                       READY   WEBHOOKREGISTERED   AGE
 dls-mcl-cab-dev-ic01       True    True                33d
-dls-mcl-cab-dev-ic02       True    True                33d
+dls-mcl-cab-dev-ic02       False   True                33d
 dls-mcl-car-dev-ic01       True    True                33d
 dls-mcl-car-dev-ic02       True    True                33d
 ----
@@ -84,7 +84,8 @@ Labels:       <none>
 Status:                                                
   Conditions:
     Last Transition Time:  2022-06-21T10:56:36Z
-    Status:                True
+    Message:               Secret "secret" is invalid: type: Invalid value: "kubernetes.io/basic-auth": field is immutable
+    Status:                False
     Type:                  ready
     Last Transition Time:  2022-06-21T10:56:36Z
     Status:                True
@@ -138,7 +139,7 @@ Status:
 Events:          <none>
 ----
 
-. *(TD: 해당 과정은 무슨 과정인가?)*
+. *PipelineRun 상태 확인**(TD: 해당 과정은 무슨 과정인가?)*
 +
 .예시
 ----
