@@ -73,7 +73,7 @@ image::../images/figure_hyperauth_user_create_05.png[]
 [width="100%",options="header", cols="1,2a"]
 |====================
 |항목|설명
-|Password|사용자의 비밀번호를 입력한다.(TD: 입력 조건 작성 필요)
+|Password|사용자의 비밀번호를 입력한다.(TD: 입력 조건 작성 필요 QA: 영문 대/소문자, 특수기호, 숫자 중 3가지 이상을 조합하여 9~20자 사용하도록 권고(필수 X))
 |Password Confirmation|확인을 위해 *'Password'* 항목에 입력한 내용을 동일하게 입력한다.
 |Temporary|비밀번호의 재설정 여부를 선택한다.
 
