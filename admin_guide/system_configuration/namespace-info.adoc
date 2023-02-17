@@ -18,7 +18,7 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |네임스페이스|설명
 |capi-system|클러스터 API 오브젝트를 위한 네임스페이스
 |capa-system|클러스터 API 오브젝트 사용시 AWS 프로바이더 지원을 위한 네임스페이스
-|capv-system|클러스터 API 오브젝트 사용시 AWS 프로바이더 지원을 위한 네임스페이스
+|capv-system|클러스터 API 오브젝트 사용시  프로바이더 지원을 위한 네임스페이스
 |catalog|서비스 카탈로그 오브젝트를 사용하기 위한 네임스페이스
 |cert-manager|Kubernetes 클러스터 내에서 TLS 인증서를 자동으로 프로비저닝 및 관리를 위한 네임스페이스
 |cicd-system|CI/CD 관리를 위한 네임스페이스
