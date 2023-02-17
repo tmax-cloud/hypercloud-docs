@@ -41,7 +41,7 @@ image::../images/figure_hyperauth_user_create_02.png[]
 +
 image::../images/figure_hyperauth_user_create_03.png[]
 +
-각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 설정 항목) (TD: 설정 항목에 대한 설명 작성 필요 여부 판단 필요)
+각 설정 항목에 대한 설명은 다음과 같다.
 +
 [width="100%",options="header", cols="1,2"]
 |====================
