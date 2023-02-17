@@ -47,8 +47,8 @@ image::../images/figure_hyperauth_user_create_03.png[]
 |====================
 |항목|설명
 |Email |로그인에 사용할 Email 주소를 입력한다.
-|User Enabled |ON : 로그인 허용'  'OFF : 로그인 불가 
-|Email Verified |ON : 별도의 이메일 인증 필요'  'OFF : 이메일 인증 불필요
+|User Enabled |ON : 로그인 허용<br/>OFF : 로그인 불가 
+|Email Verified |ON : 별도의 이메일 인증 필요<br/>OFF : 이메일 인증 불필요
 |====================
 
 . *2 채널 인증 정보 설정* +
