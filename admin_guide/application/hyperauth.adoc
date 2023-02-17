@@ -41,7 +41,7 @@ image::../images/figure_hyperauth_user_create_02.png[]
 +
 image::../images/figure_hyperauth_user_create_03.png[]
 +
-각 설정 항목에 대한 설명은 다음과 같다. (TD: 설정 항목에 대한 설명 작성 필요 여부 판단 필요  QA: 계정 생성 시 필수로 입력해야 하는 항목에 대한 설명만 아래에 추가) 
+각 설정 항목에 대한 설명은 다음과 같다. (TD: 설정 항목에 대한 설명 작성 필요 여부 판단 필요  QA: 계정 생성 시 입력해야 하는 항목에 대한 설명만 아래에 추가) 
 +
 [width="100%",options="header", cols="1,2"]
 |====================
