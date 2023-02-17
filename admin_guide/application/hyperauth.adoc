@@ -46,7 +46,7 @@ image::../images/figure_hyperauth_user_create_03.png[]
 [width="100%",options="header", cols="1,2"]
 |====================
 |항목|설명
-|Email *|로그인에 사용할 Email 주소를 입력한다.
+|Email|로그인에 사용할 Email 주소를 입력한다.
 |User Enabled |ON : 로그인 허용을 허용한다.
 
 OFF : 로그인을 허용하지 않는다. 
