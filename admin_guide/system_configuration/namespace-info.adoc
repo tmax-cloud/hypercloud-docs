@@ -17,6 +17,8 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |====================
 |네임스페이스|설명
 |capi-system|클러스터 API 오브젝트를 위한 네임스페이스
+|capa-system|클러스터 API 오브젝트 사용시 AWS 프로바이더 지원을 위한 네임스페이스
+|capv-system|클러스터 API 오브젝트 사용시 AWS 프로바이더 지원을 위한 네임스페이스
 |catalog|서비스 카탈로그 오브젝트를 사용하기 위한 네임스페이스
 |cert-manager|Kubernetes 클러스터 내에서 TLS 인증서를 자동으로 프로비저닝 및 관리를 위한 네임스페이스
 |cicd-system|CI/CD 관리를 위한 네임스페이스
@@ -42,8 +44,7 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |네임스페이스|설명
 |helm-system|Helm 서비스 오브젝트를 사용하기 위한 네임스페이스
 |hyperauth|HyperCloud 사용자 인증 오브젝트를 위한 네임스페이스
-|hypercloud5-system(TD: hypercloud5 버전은 없는 것으로 알고 있는데. 수정이 필요할 것 같습니다.)|HyperCloud의 Kubernetes 연동을 위한 네임스페이스
-|hypersds-nfs|NFS 스토리지를 위한 네임스페이스
+|hypercloud5-system(TD: hypercloud5 버전은 없는 것으로 알고 있는데. 수정이 필요할 것 같습니다.)(QA: hypercloud5-system이 맞아서 수정 따로 필요 없어보입니다!)|HyperCloud의 Kubernetes 연동을 위한 네임스페이스
 |====================
 
 == I
@@ -78,7 +79,7 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 [width="100%",options="header", cols="1,2"]
 |====================
 |네임스페이스|설명
-|nfs|NFS 스토리지를 위한 네임스페이스(TD: hypersds-nfs와 차이가 뭔가?)
+|nfs|NFS 스토리지를 위한 네임스페이스(TD: hypersds-nfs와 차이가 뭔가?)(QA: 커스텀하게 네임스페이스를 생성해서 사용중인데 default로는 nfs가 맞아서 hypersds-nfs부분 삭제하였습니다.)
 |====================
 
 == R
