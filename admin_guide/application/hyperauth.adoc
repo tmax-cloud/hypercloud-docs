@@ -37,7 +37,7 @@ image::../images/figure_hyperauth_user_create.png[]
 image::../images/figure_hyperauth_user_create_02.png[]
 
 . *사용자 기본 정보 설정* +
-*Add user* 화면에서 생성할 사용자의 기본 정보를 설정한 후 *[Save]* 버튼을 클릭한다. (TD: Realm이 Tmax일 때 사용자 이름 입력란이 없음. 확인 필요)
+*Add user* 화면에서 생성할 사용자의 기본 정보를 설정한 후 *[Save]* 버튼을 클릭한다. (TD: Realm이 Tmax일 때 사용자 이름 입력란이 없음. 확인 필요  QA: 입력한 Email이 Username으로 자동 반영)
 +
 image::../images/figure_hyperauth_user_create_03.png[]
 +
