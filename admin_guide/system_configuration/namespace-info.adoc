@@ -96,6 +96,7 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |tekton-pipelines|CI/CD를 위한 Tekton 오브젝트가 구성되어 있는 네임스페이스
 |template|Kubernetes 애플리케이션 배포를 위한 네임스페이스
 |tsb-ns|서비스 클래스를 사용하기 위해 필요한 서비스 브로커가 생성되어 있는 네임스페이스
+|tfapplyclaim| 테라폼 클레임 operator가 구동되는 네임스페이스
 |====================
 
 == V
