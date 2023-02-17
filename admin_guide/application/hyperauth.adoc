@@ -46,11 +46,15 @@ image::../images/figure_hyperauth_user_create_03.png[]
 [width="100%",options="header", cols="1,2"]
 |====================
 |항목|설명
-|Email *|로그인에 사용할 Email 주소를 입력한다.(TD: 입력 조건 작성 필요)
+|Email *|로그인에 사용할 Email 주소를 입력한다.
 |First Name |이름을 입력한다.
 |Last Name |성을 입력한다.
-|User Enabled |
-|Email Verified |
+|User Enabled |ON : 로그인 허용을 허용한다.
+
+OFF : 로그인을 허용하지 않는다. 
+|Email Verified |ON : 별도의 이메일 인증이 필요하다.
+
+OFF : 별도의 이메일 인증이 필요하지 않다.
 |Required User Actions |사용자가 로그인할 때 요구할 행동을 선택한다. (Update Password: 사용자가 새 비밀번호를 입력하도록 요구 / Update Profile: 사용자가 새로운 개인 정보를 입력하도록 요구 / Verify Email: 사용자에게 이메일을 보내 이메일 주소 확인)
 |Locale |사용자 인터페이스에서 사용할 지역/언어를 선택한다.
 |====================
