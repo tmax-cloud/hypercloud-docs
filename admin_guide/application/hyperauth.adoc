@@ -41,12 +41,12 @@ image::../images/figure_hyperauth_user_create_02.png[]
 +
 image::../images/figure_hyperauth_user_create_03.png[]
 +
-각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 설정 항목) (TD: 설정 항목에 대한 설명 작성 필요 여부 판단 필요)(QA: 설명 작성하였습니다. 검토 부탁드립니다.)
+각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 설정 항목) (TD: 설정 항목에 대한 설명 작성 필요 여부 판단 필요)
 +
 [width="100%",options="header", cols="1,2"]
 |====================
 |항목|설명
-|Email *|로그인에 사용할 Email 주소를 입력한다.(TD: 입력 조건 작성 필요)(QA: 이메일 입력 조건 - 이메일 형식 (@ 필요), 이름&성 입력 조건 - 없음)
+|Email *|로그인에 사용할 Email 주소를 입력한다.(TD: 입력 조건 작성 필요)
 |First Name |이름을 입력한다.
 |Last Name |성을 입력한다.
 |User Enabled |ON : 로그인 허용을 허용한다.(기본값: ON)
