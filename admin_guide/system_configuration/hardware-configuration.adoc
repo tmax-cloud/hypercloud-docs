@@ -171,7 +171,7 @@ data:
 apiVersion: crd.projectcalico.org/v1
 kind: IPPool
 metadata:
-  name: default-ipv4-ippool <1>
+  name: another-ipv4-ippool <1>
 spec:
   cidr: 10.128.128.0/24  <2>
   blockSize: 28  <3>
@@ -193,7 +193,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   annotations: 
-    cni.projectcalico.org/ipv4pools: '["default-ipv4-ippool"]' <1>
+    cni.projectcalico.org/ipv4pools: '["another-ipv4-ippool"]' <1>
 ** Namespace는 .metadata.annotations 아래에 명시 (TD: 문장의 의미가 이해되지 않음) (QA : 삭제해도 상관없을 것 같습니다 ippool 설정을 어디에 하라는 얘기 같습니다)
 ----
 <1> 네임스페이스에 적용할 IP Pool의 이름
