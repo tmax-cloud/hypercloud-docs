@@ -1,5 +1,148 @@
 = 애플리케이션 배포하기
-:toc:
-:toc-title:
 
-(TD: 내용 작성 필요)
+gitlab에 생성한 argocd-installer 브랜치를 argocd에 애플리케이션으로 배포하는 방법에 대해 설명한다.
+
+CLI환경에서 argocd-installer 폴더와 gitlab의 argocd-installer 브랜치에서 환경에 맞게 아래 파일들의 변수를 수정한다. 
+
+. <<MasterValues, application/helm/master-values.yaml>>
+. <<SharedValues, application/helm/shared-values.yaml>>
+. <<AppofApps, application/app_of_apps/master-applications.yaml>>
+. <<ApplyApp, 애플리케이션 등록>>
+
+[#MasterValues]
+=== application/helm/master-values.yaml
+해당 파일에서 각 앱들의 사용여부, 로그레벨 및 세부 환경 변수를 설정할 수 있다.
+----
+global:
+  privateRegistry: 30.0.0.1:5000 <1>
+  ...
+  domain: cloudqa.com <2>
+----
+<1> 프라이빗 컨테이너 이미지 레지스트리의 주소
+<2> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
+----
+### gateway-bootstrap
+  gatewayBootstrap:
+    enabled: true
+    ...
+    service:
+      type: LoadBalancer <1>
+    tls:
+      selfsigned:
+        enabled: true <2>
+      acme:
+        enabled: false <3>
+        email: test@tmax.co.kr
+        dns:
+          type: route53
+          accessKeyID: accesskey <4>
+          accessKeySecret: secretkey <5>
+          hostedZoneID: hostedzoneid <6>
+        environment: production <7>
+----
+
+<1> 네트워크 서비스 타입
+* LoadBalancer
+* NodePort
+<2> 자체 서명 인증서의 사용 여부
+<3> Route 53으로 생성한 도메인을 사용하기 위한 자동 인증서 관리 환경 사용 여부
+<4> AWS에서 사용하는 계정의 액세스 키 ID
+<5> 액세스 키 ID에 대한 시크릿 키
+<6> Route 53으로 생성한 도메인에 대한 호스팅 영역 ID
+<7> 실제 사용할 인증서 발급 용도
+* 운영용 : production
+* 테스트용 : staging
+
+
+[#SharedValues]
+=== application/helm/shared-values.yaml
+파일을 열어 마스터 클러스터에 필요한 구성 정보를 설정한다.
+----
+spec:
+  source:
+    repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1>
+    targetRevision: HEAD <2>
+...
+global:
+  timezone: UTC <3>
+  network:
+    disabled: true <4>
+...    
+  masterSingle:
+    enabled: true <5>
+    hyperAuthDomain: "hyperauth.cloudqa.com" <6>
+...
+----
+<1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
+<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름
+<3> 애플리케이션 타임존 설정 
+
+* UTC
+* Asia/Seoul
+<4> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
+<5> 마스터 클러스터와 싱글 클러스터의 HyperAuth 연동 여부
+<6> 마스터 클러스터와 싱글 클러스터에서 사용할 HyperAuth 주소
+
+
+[#AppofApps]
+=== application/app_of_apps/master-applications.yaml
+마스터 클러스터의 애플리케이션 변수를 설정한다.
+----
+spec:
+  ...
+  source:
+    ...
+    repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1> 
+    targetRevision: HEAD <2>
+----
+<1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
+<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름
+
+
+[#ApplyApp]
+=== 애플리케이션 등록
+설치 환경에 애플리케이션을 등록한다.
+----
+$ kubectl -n argocd apply -f application/app_of_apps/master-applications.yaml
+----
+
+
+=== 주의 사항
+. *self-signed 인증서로 gitlab을 설치했을 경우 추가 작업*
++
+.gitlab에 공인인증서가 아닌 self-signed 인증서를 사용할 경우, argocd에 git repo 정보를 등록해줘야 한다. 
+```
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    managed-by: argocd.argoproj.io
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: repo-325531515 # (gen-secret-name.py 실행해서 나온 값) <1> 
+  namespace: argocd
+type: Opaque
+data:
+  insecure: dHJ1ZQ==
+  project: ZGVmYXVsdA== 
+  type: Z2l0 
+  url: aHR0cHM6Ly9naXRsYWIuZ2l0bGFiLXN5c3RlbS4xNzIuMjEuNS4yMTAubmlwLmlvL3Jvb3QvYXJnb2NkLWluc3RhbGxlci5naXQ= <2>
+  username: YWRtaW5AZXhhbXBsZS5jb20= <3>
+  password: cXdlcjEyMzQ1IQ== <4>
+```
+<1> secret의 name은 gen-secret-name.py 실행하여 나온 결과값을 기입한다.
++
+.(https://github.com/tmax-cloud/install-argocd/blob/main/gen-secret-name.py)
+```
+python3 gen-secret-name.py https://gitlab.cloudqa.com/root/argocd-installer.git
+```
+<2> gitlab  url을 base64로 인코딩한 값
+<3> gitlab의 username을 base64로 인코딩한 값
+<4> gitlab의 password를 base64로 인코딩한 값
+
+. *위에서 만든 manifest로 Repo secret 생성*
++
+.예시
+```
+kubectl apply -f {repo-secret 파일명}
+```
