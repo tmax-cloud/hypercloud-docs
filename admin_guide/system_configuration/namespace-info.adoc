@@ -24,10 +24,6 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |cicd-system|CI/CD 관리를 위한 네임스페이스
 |cluster-tsb-ns|클러스터 서비스 클래스를 사용하기 위해 필요한 서비스 브로커가 생성되어 있는 네임스페이스
 |console-system|HyperCloud 관리 UI 오브젝트를 위한 네임스페이스
-|cruz-apim-private-dev|Private-dev 클러스터의 API Gateway 통신을 위한 네임스페이스
-|cruz-apim-private-prd|Private-prd 클러스터의 API Gateway 통신을 위한 네임스페이스
-|cruz-apim-private-tst|Private-tst 클러스터의 API Gateway 통신을 위한 네임스페이스
-|cruz-apim-public-dev|Public-dev 클러스터의 API Gateway 통신을 위한 네임스페이스
 |====================
 
 == D
@@ -35,7 +31,6 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |====================
 |네임스페이스|설명
 |default|Kubernetes 기본 네임스페이스
-|dls-cicd-private-dev|Private-dev 클러스터의 CI/CD 관리를 위한 네임스페이스
 |====================
 
 == H
