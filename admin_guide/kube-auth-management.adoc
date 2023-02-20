@@ -54,3 +54,59 @@ $ kubectl get secret -A | grep "kubernetes.io/tls"
 ----
 
 == 공인 인증서 적용
+### 목표.
+- API-Gateway로 사용 중인 traefik의 default 인증서를 변경하고자 한다. 
+- 별도로 제공 받은 인증서를 kubernetes에 secret으로 저장 후 해당 secret을 default 인증서로 사용하고자 한다.
+
+#### STEP 0. 제공받은 인증서의 DNS 정보 확인
+- 외부에서 제공받은 인증서 혹은 별도로 생성한 인증서가 /path/to/cert 에 tls.key, tls.crt로 존재한다고 가정한다.
+- 아래 명령어를 통해 DNS의 정보가 맞는지 확인한다. 
+  - 예) 원하는 도메인이 tmaxcloud.org 라면 해당 인증서에 tmaxcloud.org, *.tmaxcloud.org 값이 존재해야한다.  
+```shell
+  # key와 crt가 있는지 확인 
+  ls -al /path/to/cert
+  # openssl 명령어로 인증서 정보 확인
+  cat /path/to/cert/tls.crt | openssl x509 -text -in -
+```
+
+### STEP 1. TLS 시크릿으로 저장
+- TLS를 위해 사용되는 인증서 및 관련된 키를 저장하기 위해 kubernetes.io/tls 시크릿 타입으로 저장한다. 
+    - 참고 링크: [TLS 시크릿 공식문서 설명](https://kubernetes.io/ko/docs/concepts/configuration/secret/)
+- 외부에서 제공받은 인증서 혹은 별도로 생성한 인증서가 /path/to/cert 에 tls.key, tls.crt로 존재한다고 가정한다. 
+```shell
+  # key와 crt가 있는지 확인 
+  ls -al /path/to/cert
+  # 인증서의 key의 파일명이 tls.key, 인증서 파일명이 tls.crt 일 경우 
+  kubectl create secret tls gateway-tls-from-outside --namespace api-gateway-system \
+  --cert=/path/to/cert/tls.crt \
+  --key=/path/to/cert/tls.key
+```
+```shell
+  # 생성 유무 확인 
+  kubectl get secret gateway-tls-from-outside -n api-gateway-system 
+```
+
+#### STEP 2. 시크릿으로 생성된 인증서를 default 인증서로 변경
+- api-gateway 가 설치되어 있고, api-gateway-system 네임스페이스에 존재함을 가정한다. 
+- api-gateway-system 네임스페이스에 default 라는 이름의 TLSStore 객체의 spec.defaultCertificate.secretName을 STEP 1.에서 만든 시크릿 이름으로 변경한다.  
+- edit 명령어를 사용해 secretName 변경
+```shell
+ kubectl edit tlsstore -n api-gateway-system default
+```
+- 아래 yaml 파일을 사용하여도 무방하다.
+```yaml
+apiVersion: traefik.containo.us/v1alpha1
+kind: TLSStore
+metadata:
+  name: default
+  namespace: api-gateway-system  
+spec:
+  defaultCertificate:
+    secretName: gateway-tls-from-outside
+```
+- nginx-ingress-controller 일 경우: nginx-ingress-controller 파드의 arg를 추가한다.
+```yaml
+containers:
+- args:
+    - --default-ssl-certificate=default/gateway-tls-from-outside
+```
