@@ -69,7 +69,7 @@ $ kubectl get secret -A | grep "kubernetes.io/tls"
   cat /path/to/cert/tls.crt | openssl x509 -text -in -
 ```
 
-### STEP 1. TLS 시크릿으로 저장
+#### STEP 1. TLS 시크릿으로 저장
 - TLS를 위해 사용되는 인증서 및 관련된 키를 저장하기 위해 kubernetes.io/tls 시크릿 타입으로 저장한다. 
     - 참고 링크: [TLS 시크릿 공식문서 설명](https://kubernetes.io/ko/docs/concepts/configuration/secret/)
 - 외부에서 제공받은 인증서 혹은 별도로 생성한 인증서가 /path/to/cert 에 tls.key, tls.crt로 존재한다고 가정한다. 
