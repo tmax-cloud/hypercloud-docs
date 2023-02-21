@@ -3,3 +3,367 @@
 :toc-title:
 
 (TD: 내용 작성 필요)
+
+== 개요
+etcd와 통신하기 위한 cli인 etcdctl 설치 및 alias 설정과 etcd 백업 및 복구 과정입니다. +
+etcd는 모든 클러스터 데이터(nodes, pods, configs, secrets, accounts, roles, etc.)에 대한 key-value 형태의 Kubernetes의 백업 저장소(기본 데이터 저장소)입니다.
+
+== etcdctl 설치 및 설정
+=== etcdctl 설치 확인
+----
+$ etcdctl version
+----
+
+=== etcdctl 설치 (etcdctl이 설치되어 있는 경우 생략)
+버전은 https://github.com/etcd-io/etcd/releases 를 참고한다.
+----
+$ ETCD_VER=v3.5.7
+
+# choose either URL
+$ GOOGLE_URL=https://storage.googleapis.com/etcd
+$ GITHUB_URL=https://github.com/etcd-io/etcd/releases/download
+$ DOWNLOAD_URL=${GOOGLE_URL}
+
+$ wget ${DOWNLOAD_URL}/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz
+$ tar xzvf etcd-${ETCD_VER}-linux-amd64.tar.gz
+$ mv etcd-${ETCD_VER}-linux-amd64/etcdctl /usr/local/bin/etcdctl
+$ rm -f etcd-${ETCD_VER}-linux-amd64.tar.gz
+
+# etcdctl 설치 확인
+$ etcdctl version
+혹은
+$ ETCDCTL_API=3 etcdctl version
+
+$ rm -rf etcd-${ETCD_VER}-linux-amd64/
+----
+
+=== etcdctl 명령어 사용
+TLS 인증서 기반으로 etcd를 설치한 경우, etcdctl을 사용하려면 보안 통신을 위해 인증서 정보를 명령어 내 플래그로 넘겨주어야 한다. +
+etcd가 구동 중인 서버가 아닌 타 서버에서 etcd backup을 위해서는 etcd server에 있는 인증 정보(server.crt, server.key, ca.crt)를 복사해 와야 한다. +
+명령어를 통해 인증 과정을 거치지 않을 경우, etcdctl 명령어 수행 시 context deadline exceed 에러가 발생한다.
+
+* *보안 통신을 사용하는 etcdctl 명령 예시* +
++
+----
+$ ETCDCTL_API=3 etcdctl --endpoints 127.0.0.1:2379 \
+--cert=/etc/kubernetes/pki/etcd/server.crt \
+--key=/etc/kubernetes/pki/etcd/server.key \
+--cacert=/etc/kubernetes/pki/etcd/ca.crt \
+<etcdctl 명령어>
+----
+각 노드마다 entpoint와 인증서 파일 이름을 확인 후 변경한다.
++
+[width="100%",options="header", cols="1,2"]
+|====================
+|항목|설명
+|ETCDCTL_API|etcdctl api 버전 지정. 해당 환경 변수를 따로 지정하지 않을 경우 etcdctl api 버전 2를 사용하므로 3 버전의 API를 사용하기 위해 ETCDCTL_API=3을 선언한다.
+|--cert, key|k8s에서 etcd에 접근할 수 있는 유일한 component인 kube-apiserver에서 사용하는 client 인증서와 key 지정한다.
+|--cacert|etcd 설정 시 생성한 certificate authority 파일 지정한다.
+|====================
+
+=== etcdctl alias 설정
+etcdctl 명령어를 사용하기 쉽게 alias로 다음과 같이 등록한다.
+etcdctl을 사용할 각 노드마다 entpoint와 인증서 파일 이름을 확인 후 변경한다.
+----
+alias etcdctl='ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key'
+----
+* *옵션 값인 certificate files 경로를 확인하는 방법* +
++
+- *현재 실행 중인 etcd 프로세스를 조회하는 방법*
++
+----
+# --cert 옵션
+$ ps -ef | grep etcd | grep cert-file
+
+# --key 옵션
+$ ps -ef | grep etcd | grep key-file
+
+# --cacert 옵션
+$ ps -ef | grep etcd | grep trusted-ca-file
+
+# 결과
+root     3943123 3943110  2 Feb17 ?        01:43:21 etcd --advertise-client-urls=https://172.22.7.3:2379 --auto-compaction-retention=8 --cert-file=/etc/kubernetes/ssl/etcd/server.crt --client-cert-auth=true --data-dir=/var/lib/etcd --election-timeout=5000 --experimental-initial-corrupt-check=true --experimental-watch-progress-notify-interval=5s --heartbeat-interval=250 --initial-advertise-peer-urls=https://172.22.7.3:2380 --initial-cluster=master1=https://172.22.7.3:2380 --key-file=/etc/kubernetes/ssl/etcd/server.key --listen-client-urls=https://127.0.0.1:2379,https://172.22.7.3:2379 --listen-metrics-urls=http://127.0.0.1:2381,http://172.22.7.3:2381 --listen-peer-urls=https://172.22.7.3:2380 --metrics=basic --name=master1 --peer-cert-file=/etc/kubernetes/ssl/etcd/peer.crt --peer-client-cert-auth=true --peer-key-file=/etc/kubernetes/ssl/etcd/peer.key --peer-trusted-ca-file=/etc/kubernetes/ssl/etcd/ca.crt --snapshot-count=10000 --trusted-ca-file=/etc/kubernetes/ssl/etcd/ca.crt
+----
++
+- *etcd.yaml 파일 조회하는 방법* +
+/etc/kubernetes/manifests/etcd.yaml 의 spec.containers.command 확인
++
+----
+spec:
+  containers:
+    - command:
+      ...
+      - --cert-file=/etc/kubernetes/ssl/etcd/server.crt
+      ...
+      - --key-file=/etc/kubernetes/ssl/etcd/server.key
+      ...
+      - --trusted-ca-file=/etc/kubernetes/ssl/etcd/ca.crt
+      ...
+----
+
+== 백업
+etcdctl 설치와 alias 설정이 되어있다고 가정한다. +
+etcd 클러스터 데이터를 주기적으로 백업하는 것을 권장한다. 스냅샷을 생성해도 etcd 멤버의 성능에 영향을 미치지 않는다. + 
+클러스터 복원 시 모든 member는 **동일한 스냅샷을 사용하여 복원**해야 하므로, 복원을 위해 스냅샷을 생성할 경우 하나의 스냅샷 db 파일만 있으면 된다. +
+
+=== etcdctl snapshot save 명령어를 사용하여 백업하는 방법
+현재 etcd 프로세스를 사용하는 활성 멤버에서 etcd API를 사용하여 스냅샷을 생성하는 방법이다. +
+해당 방법을 통해 만들어진 db 파일은 무결성 해시(hash)를 포함하고 있어 추후 etcdctl snapshot restore 명령으로 복구할 때 파일이 변조되었는지 무결성을 선택적으로 확인 가능하다.
+
+<1> 스냅샷 생성
++
+----
+$ etcdctl snapshot save <backup-file-location>
+
+# ex) etcdctl snapshot save snapshot.db
+----
++
+- backup-file-location: 스냅샷 파일 경로가 포함된 백업 파일명
+- etcdctl snapshot save etcd-`date +%Y%m%d_%H%M%S` 을 통해 'etcd-20230220_160848' 와 같이 생성 날짜와 시간으로 파일명이 생성되도록 설정도 가능하다.
+- 결과 예시
++
+----
+{"level":"info","ts":"2023-02-20T16:20:23.698+0900","caller":"snapshot/v3_snapshot.go:65","msg":"created temporary db file","path":"/root/snapshot.db.part"}
+{"level":"info","ts":"2023-02-20T16:20:23.711+0900","logger":"client","caller":"v3@v3.5.7/maintenance.go:212","msg":"opened snapshot stream; downloading"}
+{"level":"info","ts":"2023-02-20T16:20:23.711+0900","caller":"snapshot/v3_snapshot.go:73","msg":"fetching snapshot","endpoint":"https://127.0.0.1:2379"}
+{"level":"info","ts":"2023-02-20T16:20:47.269+0900","logger":"client","caller":"v3@v3.5.7/maintenance.go:220","msg":"completed snapshot read; closing"}
+{"level":"info","ts":"2023-02-20T16:20:47.426+0900","caller":"snapshot/v3_snapshot.go:88","msg":"fetched snapshot","endpoint":"https://127.0.0.1:2379","size":"643 MB","took":"23 seconds ago"}
+{"level":"info","ts":"2023-02-20T16:20:47.426+0900","caller":"snapshot/v3_snapshot.go:97","msg":"saved","path":"/root/snapshot.db"}
+Snapshot saved at /root/snapshot.db
+----
+
+<2> 생성한 스냅샷 확인
++
+스냅샷 파일 경로에서 파일 목록을 조회하여 스냅샷 파일이 생성되어 있는지 확인한다.
++
+----
+ex)
+$ ls -al
+-rw------- 1 root   root  643133472 Feb 20 16:20 snapshot.db
+----
++
+----
+$ etcdctl snapshot status <backup-file-location> --write-out=table
+
+# ex) etcdctl snapshot status snapshot.db --write-out=table
+----
++
+- backup-file-location: 스냅샷 파일 경로가 포함된 백업 파일명
+- 결과 예시
++
+----
++----------+------------+------------+------------+
+|   HASH   |  REVISION  | TOTAL KEYS | TOTAL SIZE |
++----------+------------+------------+------------+
+| 21efa0a0 | 1179686689 |      18946 |     643 MB |
++----------+------------+------------+------------+
+----
+
+=== db 파일을 복사하는 방법
+etcd 데이터 파일 경로(data dir)에 존재하는 db 파일을 복사하여 db 파일을 백업하는 방법이다. 현재 etcd 프로세스를 사용하는 활성 멤버가 없을 경우 사용한다. +
+해당 방법을 통해 만들어진 db 파일은 무결성 해시(hash)를 포함하고 있지 않아 추후 etcdctl snapshot restore 명령으로 복구할 때 --skip-hash-check 옵션을 추가하여 복구를 진행해야 하므로, etcdctl snapshot save 명령을 사용하여 스냅샷을 생성하는 것을 권장한다.
+
+<1> member/snap/db 파일 복사
++
+----
+$ cp <etcd-data-dir>/member/snap/db <backup-file-location>
+
+# ex) cp /var/lib/etcd/member/snap/db ~/snapshot.db
+----
++
+- backup-file-location: 스냅샷 파일 경로가 포함된 백업 파일명
+- etcd의 data dir를 확인하는 방법
++
+* 현재 실행 중인 etcd 프로세스 조회
++
+----
+$ ps -ef | grep etcd | grep data-dir
+
+# 결과
+root     17716 17703 14 Jan25 ?        3-22:03:52 etcd --advertise-client-urls=https://172.21.4.2:2379 --auto-compaction-retention=8 --cert-file=/etc/kubernetes/ssl/etcd/server.crt --client-cert-auth=true --data-dir=/var/lib/etcd --election-timeout=5000 --heartbeat-interval=250 --initial-advertise-peer-urls=https://172.21.4.2:2380 --initial-cluster=master1=https://172.21.4.2:2380 --key-file=/etc/kubernetes/ssl/etcd/server.key --listen-client-urls=https://127.0.0.1:2379,https://172.21.4.2:2379 --listen-metrics-urls=http://127.0.0.1:2381,http://172.21.4.2:2381 --listen-peer-urls=https://172.21.4.2:2380 --metrics=basic --name=master1 --peer-cert-file=/etc/kubernetes/ssl/etcd/peer.crt --peer-client-cert-auth=true --peer-key-file=/etc/kubernetes/ssl/etcd/peer.key --peer-trusted-ca-file=/etc/kubernetes/ssl/etcd/ca.crt --snapshot-count=10000 --trusted-ca-file=/etc/kubernetes/ssl/etcd/ca.crt
+----
++
+* etcd.yaml 파일 조회 +
+/etc/kubernetes/manifests/etcd.yaml 의 spec.containers.command 확인
++
+----
+spec:
+  containers:
+    - command:
+        ...
+        - --data-dir=/var/lib/etcd
+----
+
+<2> 생성한 db 백업 파일 확인
++
+db 파일을 복사한 경로에서 파일 목록을 조회하여 확인한다.
++
+----
+ex)
+$ ls -al
+-rw------- 1 root   root  643133472 Feb 20 16:20 snapshot.db
+----
+
+== 복구
+etcdctl 설치 및 alias 설정과 etcd 백업이 되어있는 상태라고 가정한다. +
+etcd 복구란, 스냅샷을 생성했던 시점으로 다시 되돌리겠다는 것을 의미한다. +
+클러스터를 복구하려면 하나의 etcd 스냅샷 db 파일이 필요하다. **모든 member는 동일한 스냅샷을 사용**하여 복원해야 한다.
+
+=== Step 0. 사전 작업
+==== Case 1. 단일 control plain 구성 (Master 1대)
+기존 etcd data dir 삭제
+----
+$ mv /var/lib/etcd /var/lib/etcd-old
+$ mkdir /var/lib/etcd
+----
+
+==== Case 2. 다중 control plain 구성 (Master 2대 이상)
+
+<1> 모든 etcd 노드에 스냅샷 복사
++
+모든 etcd 노드는 **동일한 스냅샷을 사용**하여 복구해야 하므로 모든 etcd 노드에 스냅샷을 복사한다. +
+예시
++
+----
+$ scp snapshot.db root@172.21.4.3:/root
+----
+
+<2> 모든 etcd 노드에서 기존 etcd data dir 삭제
++
+----
+$ mv /var/lib/etcd /var/lib/etcd-old
+$ mkdir /var/lib/etcd
+----
+    
+=== Step 1. 백업한 db 파일을 사용하여 restore
+
+==== Case 1. 단일 control plain 구성 (Master 1대)
+----
+$ etcdctl snapshot restore <backup-file-location> \
+--name=<host-name> \
+--data-dir=/var/lib/etcd \
+--initial-cluster=<host-name>=https://<host-ip>:2380 \
+--initial-advertise-peer-urls=https://<host-ip>:2380 \
+
+# 예시
+$ etcdctl snapshot restore snapshot.db \
+--name=master1 \
+--data-dir=/var/lib/etcd \
+--initial-cluster=master1=https://172.21.4.1:2380 \
+--initial-advertise-peer-urls=https://172.21.4.1:2380 \
+----
+- initial-cluster 값으로 member 정보를 덮어쓴다.
+- 테스트 등의 목적으로 여러 개의 클러스터를 가동하는 경우, 클러스터를 구분하기 위해 각 클러스터에 고유한 값인 --initial-cluster-token=<etcd-cluster-name> 옵션 사용해야 한다.
+- etcdctl snapshot save 명령을 통해 스냅샷을 생성한 것이 아니라, db 파일을 복사하여 백업한 파일을 통해 복구를 진행할 경우, 무결성 해시(hash)를 포함하고 있지 않아 --skip-hash-check 옵션을 추가해야 한다.
+
+==== Case 2. 다중 control plain 구성 (Master 2대 이상)
+etcd cluster로 구성한 경우, 모든 etcd node에서 동일한 작업을 수행해야 한다.
+----
+$ etcdctl snapshot restore <backup-file-location> \
+--name <host1-name> \
+--data-dir <data-dir-location> \
+--initial-cluster <host1-name>=https://<host1-ip>:2380,<host2-name>=https://<host2-ip>:2380,<host3-name>=https://<host3-ip>:2380 \
+--initial-advertise-peer-urls https://<host1-ip>:2380
+
+$ etcdctl snapshot restore <backup-file-location> \
+--name <host2-name> \
+--data-dir <data-dir-location> \
+--initial-cluster <host1-name>=https://<host1-ip>:2380,<host2-name>=https://<host2-ip>:2380,<host3-name>=https://<host3-ip>:2380 \
+--initial-advertise-peer-urls https://<host2-ip>:2380
+
+$ etcdctl snapshot restore <backup-file-location> \
+--name <host3-name> \
+--data-dir <data-dir-location> \
+--initial-cluster <host1-name>=https://<host1-ip>:2380,<host2-name>=https://<host2-ip>:2380,<host3-name>=https://<host3-ip>:2380 \
+--initial-advertise-peer-urls https://<host3-ip>:2380
+----
+예시
+----
+* master1 복구
+$ etcdctl snapshot restore snapshot.db \
+--name master1 \
+--data-dir /var/lib/etcd \
+--initial-cluster master1=https://172.21.4.2:2380,master2=https://172.21.4.3:2380,master3=https://172.21.4.4:2380 \
+--initial-advertise-peer-urls=https://172.21.4.2:2380
+
+* master2 복구
+$ etcdctl snapshot restore snapshot.db \
+--name master2 \
+--data-dir /var/lib/etcd \
+--initial-cluster master1=https://172.21.4.2:2380,master2=https://172.21.4.3:2380,master3=https://172.21.4.4:2380 \
+--initial-advertise-peer-urls=https://172.21.4.3:2380
+
+* master3 복구
+$ etcdctl snapshot restore snapshot.db \
+--name master3 \
+--data-dir /var/lib/etcd \
+--initial-cluster master1=https://172.21.4.2:2380,master2=https://172.21.4.3:2380,master3=https://172.21.4.4:2380 \
+--initial-advertise-peer-urls=https://172.21.4.4:2380
+----
+- --data-dir: 백업된 파일을 restore 하게 되면 data 파일이 생성되는데 그 data 파일의 위치. 기존 data-dir가 아닌 다른 위치로 변경한 경우 restore 후 etcd yaml 에서 data-dir 값을 변경해야 한다.
+- initial-cluster 값으로 member 정보를 덮어쓴다.
+- 테스트 등의 목적으로 여러 개의 클러스터를 가동하는 경우, 클러스터를 구분하기 위해 각 클러스터에 고유한 값인 --initial-cluster-token=<etcd-cluster-name> 옵션 사용해야 한다.
+- etcdctl snapshot save 명령을 통해 스냅샷을 생성한 것이 아니라, db 파일을 복사하여 백업한 파일을 통해 복구를 진행할 경우, 무결성 해시(hash)를 포함하고 있지 않아 --skip-hash-check 옵션을 추가해야 한다.
+- 옵션 값 확인하는 방법
+* 현재 실행 중인 프로세스 중 etcd 프로세스 조회
++
+----
+$ ps -aux | grep -i etcd
+혹은 
+$ ps -ef | grep etcd
+
+# 결과
+root     17716 17703 14 Jan25 ?        3-17:53:25 etcd --advertise-client-urls=https://172.21.4.2:2379 --auto-compaction-retention=8 --cert-file=/etc/kubernetes/ssl/etcd/server.crt --client-cert-auth=true --data-dir=/var/lib/etcd --election-timeout=5000 --heartbeat-interval=250 --initial-advertise-peer-urls=https://172.21.4.2:2380 --initial-cluster=master1=https://172.21.4.2:2380 --key-file=/etc/kubernetes/ssl/etcd/server.key --listen-client-urls=https://127.0.0.1:2379,https://172.21.4.2:2379 --listen-metrics-urls=http://127.0.0.1:2381,http://172.21.4.2:2381 --listen-peer-urls=https://172.21.4.2:2380 --metrics=basic --name=master1 --peer-cert-file=/etc/kubernetes/ssl/etcd/peer.crt --peer-client-cert-auth=true --peer-key-file=/etc/kubernetes/ssl/etcd/peer.key --peer-trusted-ca-file=/etc/kubernetes/ssl/etcd/ca.crt --snapshot-count=10000 --trusted-ca-file=/etc/kubernetes/ssl/etcd/ca.crt
+----
+* etcd.yaml 파일 조회 +
+/etc/kubernetes/manifests/etcd.yaml 의 spec.containers.command 확인
++
+----
+spec:
+  containers:
+    - command:
+        ...
+        - --data-dir=/var/lib/etcd
+        - --initial-advertise-peer-urls=https://172.21.4.2:2380
+        - --initial-cluster=master1=https://172.21.4.2:2380
+        ...
+        - --name=hc5-master1
+----
+
+=== Step 2. etcd yaml 파일 수정 (data-dir를 변경하지 않은 경우 생략)
+
+etcd pod를 생성하는 yaml 파일을 수정하여 etcd의 Data 파일 디렉터리를 변경한다. +
+다중 control plain 구성 (Master 2대 이상)일 경우 모든 노드에서 변경한다. +
+yaml 파일을 변경하여 저장하면 etcd pod가 static pod인 관계로 etcd pod를 자동으로 다시 재생성하게 되며 이때 Data 파일이 있는 디렉터리는 변경한 디렉터리를 바라보게 된다.
+
+* 기존 : /var/lib/etcd
+* 변경 : etcdctl snapshot restore 명령의 --data-dir 옵션과 동일하게 변경
+----
+$ vim /etc/kubernetes/manifests/etcd.yaml
+
+# 예시 (etcdctl snapshot restore 명령에서 --data-dir /var/lib/etcd-backup 으로 수행한 경우)
+// 기존 spec.containers.command의 data-dir
+spec:
+  containers:
+  - command:
+    ...
+    - --data-dir=/var/lib/etcd
+
+// 아래와 같이 변경
+spec:
+  containers:
+  - command:
+    ...
+    - --data-dir=/var/lib/etcd-backup
+----
+
+=== Step 3. 복구 확인
+<1> 기존의 etcd pod가 죽고 다시 생성되는지 확인한다.
+
+<2> etcd member list를 조회한다.
++
+----
+$ etcdctl member list -w table
+----
+
+<3> kube-system이 정상화되지 않을 경우, kubelet 재시작 및 etcd와 k8s-api-server log를 확인한다.
