@@ -3,18 +3,19 @@
 :toc-title:
 
 == CRI-O 설정
-(TD: CRI-O 설정의 목적 및 이유 작성 필요.)
-(TD: crio.conf 파일과 registries.conf 파일 설정이 순차적으로 진행이 되어야 하는 건가요?) 
+ 여러 형식의 이미지를 확인하고 받아오는 다양한 방법 및 컨테이너 이미지를 관리하기 위해 설정한다. 
+(TD: CRI-O 설정의 목적 및 이유 작성 필요. )(QA: 작성 완료)
+(TD: crio.conf 파일과 registries.conf 파일 설정이 순차적으로 진행이 되어야 하는 건가요?)(QA: crio.conf 파일이 registries.conf 파일에서 스토리지 기본값을 읽어와서 registries.conf 먼저 하는게 맞기는 한데 결국 두 파일을 다 바꾼 뒤 crio를 restart 할때 설정값이 적용되기 때문에 상관없습니다.) 
 
 
 
 . *crio.conf 파일 설정* +
-`/etc/crio/crio.conf` 파일을 열어 ~~을 설정한다.(TD: 해당 설정을 통해 무엇을 설정하려는 건지 의도 작성 필요)
+`/etc/crio/crio.conf` 파일에서 cri-o 컨테이너 런타임에 대한 설정을 변경한다.(TD: 해당 설정을 통해 무엇을 설정하려는 건지 의도 작성 필요)(QA: 작성 완료)
 +
-.예시 (TD: xxx 말고 샘플 데이터 작성 필요. registries 및 pids_limit 항목에 대한 예시 값도 작성하는 것이 좋을 것 같습니다.)
+.예시 (TD: xxx 말고 샘플 데이터 작성 필요. registries 및 pids_limit 항목에 대한 예시 값도 작성하는 것이 좋을 것 같습니다. QA: 변경 완료)
 ----
-pause_image = "xxx.xx.xxx.xxx:5000/k8s.gcr.io/pause:3.2"
-insecure_registries = ["xxx.xx.xxx.xxx:5000", "xxx.xx.xxx.xxx:8443"]
+pause_image = "30.0.0.1:5000/k8s.gcr.io/pause:3.2"
+insecure_registries = ["30.0.0.1:5000", "30.0.0.2:5000"]
 plugin_dirs = [
         "/opt/cni/bin",
         "/usr/libexec/cni",
@@ -35,11 +36,11 @@ PID Cgroup의 최대 허용 프로세스 수 제한이 필요한 경우 설정�
 |====================
 
 . *registries.conf 파일 설정* +
-`/etc/containers/registries.conf` 파일을 열어 ~~을 설정한다.(TD: 해당 설정을 통해 무엇을 설정하려는 건지 의도 작성 필요)
+`/etc/containers/registries.conf` 파일에서 컨테이너 이미지 레지스트리에 대한 설정을 변경한다.(TD: 해당 설정을 통해 무엇을 설정하려는 건지 의도 작성 필요)(QA: 변경 완료)
 +
-.예시 (TD: xxx 말고 샘플 데이터 작성 필요.)
+.예시 (TD: xxx 말고 샘플 데이터 작성 필요.)(QA: 변경 완료)
 ----
-unqualified-search-registries = ["registry.fedoraproject.org", "registry.access.redhat.com", "registry.centos.org", "xxx.xx.xxx.xxx:5000"]
+unqualified-search-registries = ["registry.fedoraproject.org", "registry.access.redhat.com", "registry.centos.org", "30.0.0.1:5000"]
 ----
 +
 설정 항목에 대한 설명은 다음과 같다.
