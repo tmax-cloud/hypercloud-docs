@@ -48,6 +48,7 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |helm-system|Helm 서비스 오브젝트를 사용하기 위한 네임스페이스
 |hyperauth|HyperCloud 사용자 인증 오브젝트를 위한 네임스페이스
 |hypercloud5-system(TD: hypercloud5 버전은 없는 것으로 알고 있는데. 수정이 필요할 것 같습니다.)(QA: hypercloud5-system이 맞아서 수정 따로 필요 없어보입니다!)|HyperCloud의 Kubernetes 연동을 위한 네임스페이스
+|hyperregistry|이미지 레지스트리 관리 오브젝트를 위한 네임스페이스
 |====================
 
 == I
@@ -89,7 +90,9 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 [width="100%",options="header", cols="1,2"]
 |====================
 |네임스페이스|설명
-|registry-system|이미지 레지스트리 구성을 위한 오브젝트가 있는 네임스페이스
+|registry-system|이미지 유효성 검증을 위한 오브젝트가 있는 네임스페이스
+|redis-operator|redis를 쉽게 사용할 수 있는 오브젝트가 있는 네임스페이스
+
 |====================
 
 == s
