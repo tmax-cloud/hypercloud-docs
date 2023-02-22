@@ -2,4 +2,66 @@
 :toc:
 :toc-title:
 
-(TD: 내용 작성 필요)
+본 절에서는 hypercloud5-system 애플리케이션 데이터 백업에 대해 설명한다. 
+
+== BACKUP 
+
+=== Step 1. 백업하기
+
+다음 명령어를 통해 db 컨테이너에서 백업 파일을 생성한다.
+```bash
+cd /var/lib/postgresql
+pg_dumpall -U postgres > backup.sql
+```
+
+=== Step 2. 백업 파일 노드로 복사하기
+
+컨테이너에 생성된 파일을 노드로 복사한다.
+```bash
+kubectl -n <namespace> cp <your-pod-name>:/var/lib/postgresql/backup.sql backup.sql
+# ex) kubectl -n hypercloud5-system cp postgres-d8574344-jcfcj:/var/lib/postgresql/backup.sql backup.sql 
+```
+---
+
+== RESTORE
+
+=== Step 1. 백업 파일 컨테이너 안으로 복사하기
+
+복구할 db 컨테이너 안에 백업해둔 파일을 복사한다.
+```bash
+kubectl -n <namespace> cp backup.sql <your-pod-name>:/var/lib/postgresql/backup.sql
+# ex) kubectl -n hypercloud5-system cp backup.sql postgres-e9304422-agirk:/var/lib/postgresql/backup.sql
+```
+
+=== Step 2. 복구하기
+
+백업 파일을 이용해 복구한다.
+```bash
+psql -f backup.sql -U postgres
+```
+---
+
+== 유의 사항
+
+=== tar 바이너리가 없어서 kubectl cp 명령어가 되지 않을 경우
+
+백업 파일을 db 컨테이너에서 노드로 복사할 경우
+```bash
+kubectl exec -n <namespace> <your-pod-name> -- cat /var/lib/postgresql/backup.sql  > backup.sql
+```
+
+노드에서 백업할 db 컨테이너로 백업 파일을 복사할 경우
+```bash
+kubectl -n <namespace> create configmap backup --from-file backup.sql
+```
+이 후 백업 db에 생성한 configmap 마운트
+```bash
+    volumeMounts:
+      - mountPath: /var/lib/postgresql/backup.sql
+        name: backup
+        subPath: backup.sql
+volumes:
+- name: backup
+  configmap:
+    name: backup
+```
