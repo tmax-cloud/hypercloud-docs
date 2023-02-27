@@ -90,7 +90,7 @@ CI/CD +
 === Loki
 
 * 로그 통합 모니터링 및 검색 기능 제공
-* Loki, Promtail, Grafa로 구성
+* Loki, Promtail, Grafana로 구성
 * Promtail이 수집한 로그를 Loki에 적재, Grafana에서 이를 시각화
 * OpenSearch 보다 빠른 로그 검색 기능 제공
 * 그라파나의 Explore 메뉴에서 Loki를 선택하여 진입
