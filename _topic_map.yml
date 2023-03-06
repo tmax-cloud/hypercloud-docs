@@ -22,6 +22,7 @@
 # topic groups and topics on the main page.
 #
 ---
+# topics on the main page of the doc site for this branch. Each record
 Name: 환영합니다
 Dir: welcome
 Topics:
@@ -439,7 +440,7 @@ Topics:
         File: git-link
       - Name: 애플리케이션 배포하기
         File: app-deploy
-  - Name: 백업-복구
+  - Name: 백업&복구
     Dir: backup
     Topics:
       - Name: etcd 백업 및 복구
