@@ -416,7 +416,7 @@ Topics:
         File: hyperauth
       - Name: Kube 객체
         File: kube-object
-  - Name: CI&CD
+  - Name: CI-CD
     Dir: cicd
     Topics:
       - Name: 동작 상태와 이력 확인
@@ -439,7 +439,7 @@ Topics:
         File: git-link
       - Name: 애플리케이션 배포하기
         File: app-deploy
-  - Name: 백업&복구
+  - Name: 백업-복구
     Dir: backup
     Topics:
       - Name: etcd 백업 및 복구
