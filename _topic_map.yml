@@ -440,7 +440,7 @@ Topics:
         File: git-link
       - Name: 애플리케이션 배포하기
         File: app-deploy
-  - Name: 백업&복구
+  - Name: 백업 및 복구
     Dir: backup
     Topics:
       - Name: etcd 백업 및 복구
