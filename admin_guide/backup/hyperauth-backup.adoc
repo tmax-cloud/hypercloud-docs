@@ -2,24 +2,30 @@
 :toc:
 :toc-title:
 
-== 개요
-hyperauth 모듈의 백업/복구 과정입니다. + 
-keycloak export 오픈소스 기능과 user export 자체 기능 개발을 통해 백업/복구 과정이 이루어집니다.
+hyperauth 모듈의 백업 및 복구는 keycloak export 오픈소스 기능과 user export 자체 기능 개발을 통해 진행된다.
 
-== 선행 작업
-<1> Master Realm 세팅
-* *Configure > Realm Settings > Themes 메뉴의 Account Theme, Admin Console Theme 를 tmax로 설정*
-<2> Tmax Realm 세팅
-* *Configure > Realm Settings > Themes 메뉴의 Account Theme, Admin Console Theme 를 tmax로 설정*
-<3> hyperauth 버전
-* *hyperauth:b1.1.1.45 이상 버전 사용*
+== 사전 작업
+* *Master Realm 설정* +
+*[Configure] > [Realm Settings] > [Themes]* 메뉴의 Account Theme, Admin Console Theme를 tmax로 설정
+* *Tmax Realm 설정* +
+*[Configure] > [Realm Settings] > [Themes]* 메뉴의 Account Theme, Admin Console Theme를 tmax로 설정
+* *hyperauth 버전 확인* +
+hyperauth:b1.1.1.45 이상 버전 사용
 
-== 백업 & 복구
-<1> 백업 클러스터 hyperauth 접속
-* *Manage > Export 메뉴 클릭*
-* *Export groups and roles, Export clients, Export users(Include Credentials는 선택사항) "on" 으로 세팅*
-* *Export 클릭 > json 파일 받아짐*
-<2> 복구 클러스터 hyperauth 접속
-* *Add realm > Select file 클릭*
-* *백업 클러스터에서 받아온 json 파일 선택 > Create 클릭*
-* *백업클러스터 hyperauth의 data 정상적으로 가져온지 확인*
+== 백업
+백업 클러스터 hyperauth 접속 후 아래 과정을 수행한다.
+
+. *[Manage] > [Export]* 메뉴를 클릭한다.
+. 아래의 항목을 "On"으로 설정한다.
+* Export groups and roles
+* Export clients
+* Export user
+* Include Credentials (선택 사항)
+. *[Export]* 버튼을 클릭한다. 이때 json 파일이 생성된다.
+
+== 복구
+복구 클러스터 hyperauth 접속 후 아래 과정을 수행한다.
+
+. *[Add realm]* 메뉴에서 *[Select file]* 버튼을 클릭한다.
+. 백업 클러스터에서 받아온 json 파일을 선택한 후 *[Create]* 버튼을 클릭한다.
+. 백업 클러스터 hyperauth의 데이터를 정상적으로 가져왔는지 확인한다.

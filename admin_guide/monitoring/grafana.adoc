@@ -39,20 +39,19 @@ image::../images/figure_grafana_redis.png[]
 알람 기능을 사용하면 지정한 대상이 설정해둔 자원 이상을 사용할 경우 메일을 통해 알림을 받을 수 있다. +
 알람 설정은 대시보드 생성 시에 가능하다. 단, 관리자 계정만 알람 설정이 가능하다.
 
-. 그라파나 로그인 화면에서 관리자 계정으로 로그인한다.
+. *그라파나 로그인* + 
+그라파나 로그인 화면에서 관리자 계정으로 로그인한다.
 +
 image::../images/figure_grafana_login.png[]
 +
 NOTE: 최초 관리자 계정의 ID와 비밀번호는 모두 **admin**이다. +
 최초 로그인할 경우 패스워드를 변경하라는 화면이 나오는데 Skip을 통해 넘어가거나 변경해주면 된다. Skip할 경우 다음 로그인시 다시 변경하라는 화면이 나온다.
 
-. 원하는 종류의 알림 채널을 추가한다. +
-좌측 메뉴바 Alerting > Notification channels에서 알림 채널을 추가할 수 있다. +
-사용 가능한 알림 채널은 email, slack, webhook 등이 있고, 알림 전송 주기 등을 설정할 수 있다.
+. *알림 채널 추가* +
+메뉴 영역에서 **[Alerting] > [Notification channels]**을 선택하면 알림 채널을 추가할 수 있다. +
+이때 사용 가능한 알림 채널은 email, slack, webhook 등이 있고, 알림 전송 주기 등을 설정할 수 있다.
 +
-. 요구에 맞게 쿼리를 작성하여 각 쿼리에 대해 알람을 설정한다. (TD: 알람 설정 접근 과정 및 설정값에 대한 가이드가 부족) +
-좌측 메뉴바 + > Dashboard > Add an empty panel에서 대시보드 창을 생성하고 요구에 맞게 쿼리 입력 후, Alert 탭 > Create Alert를 클릭하여 원하는 옵션을 설정한다.
-(QA: 첨부할 이미지는 요청주시면 공유드리겠습니다.)
-
+. *알람 설정* +
+메뉴 영역에서 **[+] > [Dashboard] > [Add an empty panel]**을 선택하여 대시보드 창을 생성하고 요구에 맞게 쿼리 입력한다. 이후 *[Alert]* 탭에서 *[Create Alert]* 버튼을 클릭하여 원하는 옵션을 설정한다.
 +
 image::../images/figure_grafana_alert_set.png[]

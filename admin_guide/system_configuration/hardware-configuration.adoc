@@ -4,7 +4,7 @@
 
 == 시스템 사양
 
-HyperCloud를 구성하는 노드들의 사양 정보는 다음과 같다. (QA: 메모리 수정했어요 마스터 16 > 8, 워커 32 > 16)
+HyperCloud를 구성하는 노드들의 사양 정보는 다음과 같다.
 [width="100%",options="header", cols="1,1,1,1,1"]
 |====================
 |노드|운영체제|CPU|메모리|스토리지
@@ -16,7 +16,7 @@ HyperCloud를 구성하는 노드들의 사양 정보는 다음과 같다. (QA: 
 인스톨러를 통한 HyperCloud 설치 과정에서 네트워크 포워딩, 호스트 이름, 스왑 메모리, SELinux 관련 설정이 가능하다.
 
 === 네트워크 포워딩
-IP 포워딩 기능을 활성화하기 위해 `sysctl.conf` 파일을 열어 아래와 같이 파라미터의 값을 설정한다.(TD: sysctl.conf 파일의 풀 경로가 어떻게 되나요?) (QA: /etc/sysctl.d 하위에 99-kubernetes-cri.conf와 같은 파일을 추가로 생성하여 아래와 같이 파라미터의 값을 설정한다.) 
+IP 포워딩 기능을 활성화하기 위해 `/etc/sysctl.d` 하위에 99-kubernetes-cri.conf와 같은 파일을 추가로 생성하여 아래와 같이 파라미터의 값을 설정한다.
 [width="100%",options="header", cols="2,1,2"]
 |====================
 |파라미터|설정값|설명
@@ -58,7 +58,7 @@ RFC 1123에 정의된 규칙은 다음과 같다.
 ----
 
 === 스왑 메모리
-`swapoff` 명령을 사용하여 스왑 메모리를 비활성화한다.(TD: 비활성화 하는 이유는?)(QA: kubelet에서 swap 메모리를 지원하지 않아 켜져있는 경우 kubelet 에러가 발생)
+kubelet에서 스왑 메모리를 지원하지 않으므로 `swapoff` 명령을 사용하여 스왑 메모리를 비활성화한다.
 ----
 $ sudo swapoff -a
 ----
@@ -68,7 +68,7 @@ $ sudo swapoff -a
 ----
 
 === SELinux
-`setenforce` 명령을 사용하여 SELinux를 비활성화한다.(TD: 비활성화 이유는?) (QA: selinux는 리눅스에서 제공하는 보안 정책으로 활성화 되어있는 경우 권한 문제 발생)
+리눅스에서 제공하는 보안 정책으로 인한 권한 문제가 발생할 수 있으므로 `setenforce` 명령을 사용하여 SELinux를 비활성화한다. 
 ----
 $ sudo setenforce 0
 ----
@@ -111,10 +111,10 @@ HyperCloud에서 사용되는 주요 도메인 목록은 다음과 같다.
 [width="100%",options="header", cols="1,1,1,2"]
 |====================
 |네임스페이스|호스트|기타|설명
-|api-gateway-system|console.xx.xx|console.tmaxcloud.com| hypercloud5 메인 콘솔
-|argocd|argocd.xx.xx|argocd.tmaxcloud.com| hypercloud 모듈 관리 및 배포를 지원하는 애플리케이션
-|awx|awx.xx.xx|awx.tmaxcloud.com| ansible 기반의 워크플로우 자동화 및 작업 스케줄링, 조직 및 제어 대시보드
-|cicd-system|cicd-webhook.xx.xx|cicd-webhook.tmaxcloud.com| GitLab의 이벤트를 받는 웹훅 서비스로, Git으로부터 이벤트를 받아 CI/CD 파이프라인을 동작
+|api-gateway-system|console.xx.xx|console.tmaxcloud.com|HyperCloud 메인 콘솔
+|argocd|argocd.xx.xx|argocd.tmaxcloud.com|HyperCloud 모듈 관리 및 배포를 지원하는 애플리케이션
+|awx|awx.xx.xx|awx.tmaxcloud.com|Ansible 기반의 워크플로우 자동화 및 작업 스케줄링, 조직 및 제어 대시보드
+|cicd-system|cicd-webhook.xx.xx|cicd-webhook.tmaxcloud.com|GitLab의 이벤트를 받는 웹훅 서비스로, Git으로부터 이벤트를 받아 CI/CD 파이프라인을 동작
 |gitlab-system|gitlab.xx.xx|gitlab.tmaxcloud.com| 소스 코드 관리를 지원하는 애플리케이션
 |helm-ns|helm.xx.xx|helm.tmaxcloud.com| 헬름 차트를 관리하는 애플리케이션
 |hyperauth|hyperauth.xx.xx|hyperauth.tmaxcloud.com| HyperCloud 계정 인증/인가 관리
@@ -128,9 +128,9 @@ HyperCloud에서 사용되는 주요 도메인 목록은 다음과 같다.
 
 === CoreDNS
 HyperCloud에서 DNS 서버 역할을 하는 CoreDNS 설정을 통해 사용할 도메인을 등록할 수 있다. +
-내부에서 도메인 네임을 설정할 때 nodelocaldns config 설정 (예시 cm 추가) +
-Namespace : kube-system, Configmap : coredns, nodelocaldns에서 확인
-쿠버네티스 내부에서 dns 처리가 필요한 경우 아래 cm을 참고
+쿠버네티스 내부에서 DNS 처리가 필요한 경우 nodelocaldns config를 이용하여 설정한다.
+
+.예시
 ----
 apiVersion: v1
 data:
@@ -162,7 +162,6 @@ data:
     }
 ----
 
-
 === IP Pool
 기본 IP Pool 외에 네임스페이스별 IP Pool을 분리할 수 있다.
 
@@ -178,15 +177,22 @@ spec:
   cidr: 10.128.128.0/24  <2>
   blockSize: 28  <3>
   ipipMode: Never   # AWS의 경우 Always  <4>
-  vxlanMode: Never  # ncp의 경우 Always  <5>
+  vxlanMode: Never  # NCP의 경우 Always  <5>
 natOutgoing: true  <6>
 ----
-<1> IP Pool의 이름 (default ippool name : default-ipv4-ippool)
+<1> IP Pool의 이름 (기본값: default-ipv4-ippool)
 <2> Pod가 사용할 IP 대역
-<3> 각 호스트 노드에서 관리할 만큼의 IP대역 크기 (cidr 보다 큰 값으로 지정)
-<4> IPIP 모드 설정 : Always, Never, CrossSubnet
-<5> Vxlan 모드 설정 : Always, Never, CrossSubnet > vxlan과 ipip는 둘 중 하나만 켤 수 있음
-<6> 컨테이너에서 외부로 전송되는 패킷을 nat 처리할 것인지 여부 (iptables 에 MASQUERADE Rule에 의해서 외부에 연결됨)
+<3> 각 호스트 노드에서 관리할 만큼의 IP 대역 크기 (CIDR보다 큰 값으로 지정)
+<4> IPIP 모드 설정 (image:../images/figure_caution_icon.png[] IPIP 모드를 설정할 경우 Vxlan 모드는 설정할 수 없음)
+* Always
+* Never
+* CrossSubnet
+<5> Vxlan 모드 설정 (image:../images/figure_caution_icon.png[] Vxlan 모드를 설정할 경우 IPIP 모드는 설정할 수 없음)
+* Always
+* Never
+* CrossSubnet
+<6> 컨테이너에서 외부로 전송되는 패킷의 NAT 처리 여부 (iptables의 Masquerade Rule에 의해서 외부에 연결됨)
+
 . 네임스페이스 내의 모든 파드들이 IP Pool을 사용하도록 적용
 +
 .예시
@@ -196,6 +202,5 @@ kind: Namespace
 metadata:
   annotations: 
     cni.projectcalico.org/ipv4pools: '["another-ipv4-ippool"]' <1>
-** Namespace는 .metadata.annotations 아래에 명시 (TD: 문장의 의미가 이해되지 않음) (QA : 삭제해도 상관없을 것 같습니다 ippool 설정을 어디에 하라는 얘기 같습니다)
 ----
 <1> 네임스페이스에 적용할 IP Pool의 이름

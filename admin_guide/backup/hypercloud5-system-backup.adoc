@@ -2,60 +2,66 @@
 :toc:
 :toc-title:
 
-본 절에서는 hypercloud5-system 애플리케이션 데이터 백업에 대해 설명한다. 
+본 장에서는 hypercloud5-system 애플리케이션 데이터 백업에 대해 설명한다. 
 
-== BACKUP 
+== 백업
 
-=== Step 1. 백업하기
-
-다음 명령어를 통해 db 컨테이너에서 백업 파일을 생성한다.
-```bash
+. *백업 파일 생성* +
+DB 컨테이너에서 백업 파일을 생성한다.
++
+----
 cd /var/lib/postgresql
 pg_dumpall -U postgres > backup.sql
-```
+----
 
-=== Step 2. 백업 파일 노드로 복사하기
-
+. *백업 파일 노드로 복사* +
 컨테이너에 생성된 파일을 노드로 복사한다.
-```bash
-kubectl -n <namespace> cp <your-pod-name>:/var/lib/postgresql/backup.sql backup.sql
-# ex) kubectl -n hypercloud5-system cp postgres-d8574344-jcfcj:/var/lib/postgresql/backup.sql backup.sql 
-```
----
++
+.실행 방법
+----
+kubectl -n [네임스페이스 이름] cp [파드 이름]:/var/lib/postgresql/backup.sql backup.sql
+----
++
+.예시
+----
+kubectl -n hypercloud5-system cp postgres-d8574344-jcfcj:/var/lib/postgresql/backup.sql backup.sql
+----
++
+[NOTE]
+====
+tar 바이너리가 없어서 `kubectl cp` 명령어가 수행되지 않을 경우 아래의 명령으로 대체한다.
+----
+kubectl exec -n [네임스페이스 이름] [파드 이름] -- cat /var/lib/postgresql/backup.sql  > backup.sql
+----
+====
 
-== RESTORE
+== 복구
 
-=== Step 1. 백업 파일 컨테이너 안으로 복사하기
+. *컨테이너에 백업 파일 복사* +
+복구할 DB 컨테이너에 백업해 둔 파일을 복사한다.
++
+.실행 방법
+----
+kubectl -n [네임스페이스 이름] cp backup.sql [파드 이름]:/var/lib/postgresql/backup.sql
+----
++
+.예시
+----
+kubectl -n hypercloud5-system cp backup.sql postgres-e9304422-agirk:/var/lib/postgresql/backup.sql
+----
++
+[NOTE]
+====
+tar 바이너리가 없어서 `kubectl cp` 명령어가 수행되지 않을 경우 아래의 과정으로 대체한다.
 
-복구할 db 컨테이너 안에 백업해둔 파일을 복사한다.
-```bash
-kubectl -n <namespace> cp backup.sql <your-pod-name>:/var/lib/postgresql/backup.sql
-# ex) kubectl -n hypercloud5-system cp backup.sql postgres-e9304422-agirk:/var/lib/postgresql/backup.sql
-```
-
-=== Step 2. 복구하기
-
-백업 파일을 이용해 복구한다.
-```bash
-psql -f backup.sql -U postgres
-```
----
-
-== 유의 사항
-
-=== tar 바이너리가 없어서 kubectl cp 명령어가 되지 않을 경우
-
-백업 파일을 db 컨테이너에서 노드로 복사할 경우
-```bash
-kubectl exec -n <namespace> <your-pod-name> -- cat /var/lib/postgresql/backup.sql  > backup.sql
-```
-
-노드에서 백업할 db 컨테이너로 백업 파일을 복사할 경우
-```bash
-kubectl -n <namespace> create configmap backup --from-file backup.sql
-```
-이 후 백업 db에 생성한 configmap 마운트
-```bash
+1
+. configmap 생성
+----
+kubectl -n [네임스페이스 이름] create configmap backup --from-file backup.sql
+---- 
+2
+. configmap 마운트
+----
     volumeMounts:
       - mountPath: /var/lib/postgresql/backup.sql
         name: backup
@@ -64,4 +70,12 @@ volumes:
 - name: backup
   configmap:
     name: backup
-```
+----
+====
+
+. *복구 수행* +
+백업 파일을 이용해 복구를 수행한다.
++
+----
+psql -f backup.sql -U postgres
+----

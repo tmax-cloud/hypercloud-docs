@@ -1,37 +1,69 @@
 = Gitlab에 argocd-installer 연동하기
 
-NOTE: kubespray를 통해 설치 시 gitlab과 argocd가 자동적으로 연동되어 있다. +
-하지만, gitlab에 새로운 브랜치나 프로젝트를 연동할 필요성이 있어 연동 방법에 대해 설명한다. 
+:toc:
+:toc-title:
 
-. <<NewBranchOn, argocd-installer 파일을 새로운 브랜치로 생성할 경우>>
-. <<UpdateBranchOn, 기존 브랜치에 업데이트 할 경우>>
-. <<NewProjectOn, argocd-installer 파일을 새로운 프로젝트로 생성할 경우>>
+본 장에서는 Gitlab에 새로운 브랜치나 프로젝트를 연동하는 방법에 대해 설명한다.
 
-[#NewBranchOn]
-=== argocd-installer 파일을 새로운 브랜치로 생성할 경우
-본 절에서는 업데이트된 argocd-installer 파일을 기존의 argocd-installer 프로젝트 내 새로운 브랜치로 생성하는 방법에 대해 설명한다.
+== argocd-installer 파일을 새로운 브랜치로 생성
 
-. CLI 환경에서 새 버전의 argocd-installer 를 받는다.
-. git checkout -b new -branch : argocd-installer 디렉토리에서 만들 새로운 브랜치 이름을 설정한다. 
-. git remote add new-remote http://gitlab.cloudqa.com/root/argocd-installer.git : 설치한 gitlab 주소로 원격저장소를 생성한다.
-. git add . : 업데이트된 내역을 추가한다.
-. git commit -m "add" : 업데이트된 내역을 원격저장소에 커밋한다.
-. git push -u new-remote new-branch  : 원격저장소 내용을 gitlab의 새로운 브랜치로 생성한다.
+업데이트된 argocd-installer 파일을 기존의 argocd-installer 프로젝트 내 새로운 브랜치로 생성한다.
 
-[#UpdateBranchOn]
-=== 기존 브랜치에 업데이트 할 경우
-본 절에서는 연동되어 있는 기존 브랜치에 새로운 프로젝트 내용을 업데이트 하는 방법에 대해 설명한다.
+. CLI 환경에서 새 버전의 argocd-installer를 받는다.
+. argocd-installer 디렉터리에서 만들 새로운 브랜치 이름을 설정한다.
++
+----
+git checkout -b new -branch
+----
+. 설치한 gitlab 주소로 원격 저장소를 생성한다.
++
+----
+git remote add new-remote http://gitlab.cloudqa.com/root/argocd-installer.git
+----
+. 업데이트된 내역을 추가한다.
++
+----
+git add .
+----
+. 업데이트된 내역을 원격 저장소에 커밋한다.
++
+----
+git commit -m "add"
+----
+. 원격 저장소 내용을 gitlab의 새로운 브랜치로 생성한다.
++
+----
+git push -u new-remote new-branch
+----
 
-. 기존에 존재하는 argocd-installer 디렉토리로 이동한다.
-. 수정사항을 업데이트 한다.
-. git remote rename origin oid-origin : 기존에 있던 원격저장소를 새로운 이름으로 변경한다.
-. git remote add origin http://gitlab.cloudqa.com/root/argocd-installer.git : 새로운 이름의 원격저장소를 gitlab과 연결한다.
-. git push -u origin --all : 변경사항을 gitlab에 적용한다.
+== 기존 브랜치에 업데이트
 
-[#NewProjectOn]
-=== argocd-installer 파일을 새로운 프로젝트로 생성할 경우
-본 절에서는 argocd-installer 파일을 새로운 프로젝트로 생성하는 방법에 대해 설명한다.
+연동되어 있는 기존 브랜치에 새로운 프로젝트 내용을 업데이트한다.
 
-. gitlab ui에 접속 후 create new project 버튼 클릭 후 import project 를 클릭한다.
-. import project from repo by URL 클릭한다.
-. git repository URL, Project name 작성, visibility level : Public 설정 후 create project 를 클릭한다.
+. 기존에 존재하는 argocd-installer 디렉터리로 이동한다.
+. 수정 사항을 업데이트한다.
+. 기존에 있던 원격 저장소를 새로운 이름으로 변경한다.
++
+----
+git remote rename origin oid-origin
+----
+. 새로운 이름의 원격 저장소를 gitlab과 연결한다.
++
+----
+git remote add origin http://gitlab.cloudqa.com/root/argocd-installer.git
+----
+. 변경 사항을 gitlab에 적용한다.
++
+----
+git push -u origin --all
+----
+
+== argocd-installer 파일을 새로운 프로젝트로 생성
+
+argocd-installer 파일을 새로운 프로젝트로 생성한다.
+
+. GitLab Web UI에 접속한다.
+. *[New project]* 버튼을 클릭한 후 **[Import project]** 탭을 선택한다.
+. Import project from 영역에서 **[Repo by URL]**을 클릭한다.
+. *"Git repository URL"*, *"Project name"* 항목을 설정하고, *"Visibility Level"* 항목을 "Public"으로 설정한다.
+. 설정 완료 후 *[Create project]* 버튼을 클릭한다.

@@ -8,7 +8,7 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 [width="100%",options="header", cols="1,2"]
 |====================
 |네임스페이스|설명
-|api-gateway-system|API Gateway 통신 및 HyperCloud 관리 Console을 포함한 네임스페이스 (QA: 내용 일부 수정하였어요) 
+|api-gateway-system|API Gateway 통신 및 HyperCloud 관리 Console을 포함한 네임스페이스
 |argocd|Kubernetes 환경을 위한 GitOps 기반 CD 도구인 ArgoCD가 생성되어 있는 네임스페이스
 |====================
 
@@ -17,13 +17,12 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |====================
 |네임스페이스|설명
 |capi-system|클러스터 API 오브젝트를 위한 네임스페이스
-|capa-system|클러스터 API 오브젝트 사용시 AWS 프로바이더 지원을 위한 네임스페이스
-|capv-system|클러스터 API 오브젝트 사용시 vSphere 프로바이더 지원을 위한 네임스페이스
+|capa-system|클러스터 API 오브젝트 사용 시 AWS 프로바이더 지원을 위한 네임스페이스
+|capv-system|클러스터 API 오브젝트 사용 시 vSphere 프로바이더 지원을 위한 네임스페이스
 |catalog|서비스 카탈로그 오브젝트를 사용하기 위한 네임스페이스
 |cert-manager|Kubernetes 클러스터 내에서 TLS 인증서를 자동으로 프로비저닝 및 관리를 위한 네임스페이스
 |cicd-system|CI/CD 관리를 위한 네임스페이스
 |cluster-tsb-ns|클러스터 서비스 클래스를 사용하기 위해 필요한 서비스 브로커가 생성되어 있는 네임스페이스
-|console-system|HyperCloud 관리 UI 오브젝트를 위한 네임스페이스(QA: 현재 사용하지 않는 네임스페이스라서 삭제 요청드립니다.)
 |====================
 
 == D
@@ -37,8 +36,8 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 [width="100%",options="header", cols="1,2"]
 |====================
 |네임스페이스|설명
-|gitea-system| 소스 코드 관리를 지원하는 경량 애플리케이션인 gitea를 사용하기 위한 네임스페이스
-|gitlab-system| 소스 코드 관리를 지원하는 gitlab을 사용하기 위한 네임스페이스
+|gitea-system|소스 코드 관리를 지원하는 경량 애플리케이션인 Gitea를 사용하기 위한 네임스페이스
+|gitlab-system| 소스 코드 관리를 지원하는 Gitlab을 사용하기 위한 네임스페이스
 |====================
 
 == H
@@ -47,7 +46,7 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |네임스페이스|설명
 |helm-system|Helm 서비스 오브젝트를 사용하기 위한 네임스페이스
 |hyperauth|HyperCloud 사용자 인증 오브젝트를 위한 네임스페이스
-|hypercloud5-system(TD: hypercloud5 버전은 없는 것으로 알고 있는데. 수정이 필요할 것 같습니다.)(QA: hypercloud5-system이 맞아서 수정 따로 필요 없어보입니다!)|HyperCloud의 Kubernetes 연동을 위한 네임스페이스
+|hypercloud5-system|HyperCloud의 Kubernetes 연동을 위한 네임스페이스
 |hyperregistry|이미지 레지스트리 관리 오브젝트를 위한 네임스페이스
 |====================
 
@@ -76,14 +75,13 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |네임스페이스|설명
 |metallb-system|Kubernetes 클러스터에 대한 로드 밸런서 제공을 위한 네임스페이스
 |monitoring|모니터링을 위한 네임스페이스
-|monitoring(TD: 위에도 동일한 이름의 네임스페이스가 존재함. 확인 필요)(QA: 삭제 요청드립니다.)|Kubernetes 매트릭 수집 및 대시보드 제공을 위한 네임스페이스
 |====================
 
 == N
 [width="100%",options="header", cols="1,2"]
 |====================
 |네임스페이스|설명
-|nfs|NFS 스토리지를 위한 네임스페이스(TD: hypersds-nfs와 차이가 뭔가?)(QA: 커스텀하게 네임스페이스를 생성해서 사용중인데 default로는 nfs가 맞아서 hypersds-nfs부분 삭제하였습니다.)
+|nfs|NFS 스토리지를 위한 네임스페이스
 |====================
 
 == R
@@ -91,11 +89,10 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |====================
 |네임스페이스|설명
 |registry-system|이미지 유효성 검증을 위한 오브젝트가 있는 네임스페이스
-|redis-operator|redis를 쉽게 사용할 수 있는 오브젝트가 있는 네임스페이스
-
+|redis-operator|레디스(Redis)를 쉽게 사용할 수 있는 오브젝트가 있는 네임스페이스
 |====================
 
-== s
+== S
 [width="100%",options="header", cols="1,2"]
 |====================
 |네임스페이스|설명
@@ -109,7 +106,7 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |tekton-pipelines|CI/CD를 위한 Tekton 오브젝트가 구성되어 있는 네임스페이스
 |template|작성된 템플릿에 따라 리소스들을 생성해주는 템플릿 operator가 구동되는 네임스페이스
 |tsb-ns|서비스 클래스를 사용하기 위해 필요한 서비스 브로커가 생성되어 있는 네임스페이스
-|tfapplyclaim| 테라폼 클레임 operator가 구동되는 네임스페이스
+|tfapplyclaim|테라폼 클레임 operator가 구동되는 네임스페이스
 |====================
 
 == V

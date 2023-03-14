@@ -1,17 +1,24 @@
 = 애플리케이션 배포하기
 
-gitlab에 생성한 argocd-installer 브랜치를 argocd에 애플리케이션으로 배포하는 방법에 대해 설명한다.
+:toc:
+:toc-title:
 
-CLI환경에서 argocd-installer 폴더와 gitlab의 argocd-installer 브랜치에서 환경에 맞게 아래 파일들의 변수를 수정한다. 
+본 장에서는 Gitlab에 생성한 argocd-installer 브랜치를 ArgoCD에 애플리케이션으로 배포하는 방법에 대해 설명한다.
 
-. <<MasterValues, application/helm/master-values.yaml>>
-. <<SharedValues, application/helm/shared-values.yaml>>
-. <<AppofApps, application/app_of_apps/master-applications.yaml>>
+== 개요
+
+CLI 환경에서 argocd-installer 폴더와 Gitlab의 argocd-installer 브랜치에서 환경에 맞게 아래 과정을 수행한다.
+
+. <<MasterValues, master-values.yaml 파일 설정>>
+. <<SharedValues, shared-values.yaml 파일 설정>>
+. <<AppofApps, master-applications.yaml 파일 설정>>
 . <<ApplyApp, 애플리케이션 등록>>
 
 [#MasterValues]
-=== application/helm/master-values.yaml
-해당 파일에서 각 앱들의 사용여부, 로그레벨 및 세부 환경 변수를 설정할 수 있다.
+== master-values.yaml 파일 설정
+`application/helm/master-values.yaml` 파일을 열어 각 앱들의 사용 여부, 로그 레벨 및 세부 환경 변수를 설정한다.
+
+[source,yaml]
 ----
 global:
   privateRegistry: 30.0.0.1:5000 <1>
@@ -20,6 +27,8 @@ global:
 ----
 <1> 프라이빗 컨테이너 이미지 레지스트리의 주소
 <2> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
+
+[source,yaml]
 ----
 ### gateway-bootstrap
   gatewayBootstrap:
@@ -40,7 +49,6 @@ global:
           hostedZoneID: hostedzoneid <6>
         environment: production <7>
 ----
-
 <1> 네트워크 서비스 타입
 * LoadBalancer
 * NodePort
@@ -53,10 +61,11 @@ global:
 * 운영용 : production
 * 테스트용 : staging
 
-
 [#SharedValues]
-=== application/helm/shared-values.yaml
-파일을 열어 마스터 클러스터에 필요한 구성 정보를 설정한다.
+== shared-values.yaml 파일 설정
+`application/helm/shared-values.yaml` 파일을 열어 마스터 클러스터에 필요한 구성 정보를 설정한다.
+
+[source,yaml]
 ----
 spec:
   source:
@@ -83,10 +92,11 @@ global:
 <5> 마스터 클러스터와 싱글 클러스터의 HyperAuth 연동 여부
 <6> 마스터 클러스터와 싱글 클러스터에서 사용할 HyperAuth 주소
 
-
 [#AppofApps]
-=== application/app_of_apps/master-applications.yaml
-마스터 클러스터의 애플리케이션 변수를 설정한다.
+== master-applications.yaml 파일 설정
+`application/app_of_apps/master-applications.yaml` 파일을 열어 마스터 클러스터의 애플리케이션 변수를 설정한다.
+
+[source,yaml]
 ----
 spec:
   ...
@@ -95,23 +105,26 @@ spec:
     repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1> 
     targetRevision: HEAD <2>
 ----
-<1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
+<1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 URL 마지막에 .git을 추가)
 <2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름
 
-
 [#ApplyApp]
-=== 애플리케이션 등록
+== 애플리케이션 등록
 설치 환경에 애플리케이션을 등록한다.
+
 ----
 $ kubectl -n argocd apply -f application/app_of_apps/master-applications.yaml
 ----
 
+== 주의 사항
+=== self-signed 인증서로 Gitlab을 설치했을 경우
+Gitlab에 공인 인증서가 아닌 self-signed 인증서를 사용할 경우 추가 작업이 필요하다.
 
-=== 주의 사항
-. *self-signed 인증서로 gitlab을 설치했을 경우 추가 작업*
+. *Git Repo 정보 등록* +
+ArgoCD에 Git Repo 정보를 등록한다.
 +
-.gitlab에 공인인증서가 아닌 self-signed 인증서를 사용할 경우, argocd에 git repo 정보를 등록해줘야 한다. 
-```
+[source,yaml]
+----
 apiVersion: v1
 kind: Secret
 metadata:
@@ -119,7 +132,7 @@ metadata:
     managed-by: argocd.argoproj.io
   labels:
     argocd.argoproj.io/secret-type: repository
-  name: repo-325531515 # (gen-secret-name.py 실행해서 나온 값) <1> 
+  name: repo-325531515 <1> 
   namespace: argocd
 type: Opaque
 data:
@@ -129,20 +142,25 @@ data:
   url: aHR0cHM6Ly9naXRsYWIuZ2l0bGFiLXN5c3RlbS4xNzIuMjEuNS4yMTAubmlwLmlvL3Jvb3QvYXJnb2NkLWluc3RhbGxlci5naXQ= <2>
   username: YWRtaW5AZXhhbXBsZS5jb20= <3>
   password: cXdlcjEyMzQ1IQ== <4>
-```
-<1> secret의 name은 gen-secret-name.py 실행하여 나온 결과값을 기입한다.
-+
-.(https://github.com/tmax-cloud/install-argocd/blob/main/gen-secret-name.py)
-```
-python3 gen-secret-name.py https://gitlab.cloudqa.com/root/argocd-installer.git
-```
+----
+<1> secret의 이름 (gen-secret-name.py 실행하여 나온 결과값을 입력)
 <2> gitlab  url을 base64로 인코딩한 값
 <3> gitlab의 username을 base64로 인코딩한 값
 <4> gitlab의 password를 base64로 인코딩한 값
-
-. *위에서 만든 manifest로 Repo secret 생성*
 +
-.예시
-```
+[NOTE]
+.secret 이름 설정
+====
+secret의 이름은 https://github.com/tmax-cloud/install-argocd/blob/main/gen-secret-name.py 파일을 이용하여 아래의 명령을 수행한 결과값을 입력한다.
+----
+python3 gen-secret-name.py https://gitlab.cloudqa.com/root/argocd-installer.git
+----
+====
+
+. *Repo secret 생성* +
+1번 과정에서 생성한 manifest로 Repo secret을 생성한다.
++
+.실행 방법
+----
 kubectl apply -f {repo-secret 파일명}
-```
+----

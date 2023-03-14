@@ -1,85 +1,119 @@
-= gitlab 백업 및 복구
+= Gitlab 백업 및 복구
 :toc:
 :toc-title:
 
-본 절에서는 gitlab 애플리케이션 데이터 백업에 대해 설명한다. 백업을 생성한 gitlab 버전 및 유형과 동일한 버전으로만 복구할 수 있다.
+본 장에서는 Gitlab 애플리케이션 데이터 백업에 대해 설명한다. 단, 백업을 생성한 Gitlab 버전 및 유형과 동일한 버전으로만 복구할 수 있다.
 
-== BACKUP 
+== 백업 
 
-=== Step 1. 백업하기
+. *백업 파일 생성* +
+백업 파일을 생성한다.
++
+.실행 방법
+----
+kubectl exec -it -n [네임스페이스 이름] [파드 이름] gitlab-rake gitlab:backup:create
+----
++
+.예시
+----
+# kubectl exec -it -n gitlab-system gitlab-5c59765867-rnp8v gitlab-rake gitlab:backup:create
+----
 
-다음 명령어를 통해 백업 파일을 생성한다.
-```bash
-kubectl exec -it -n {NS명} {POD명} gitlab-rake gitlab:backup:create
-# ex) kubectl exec -it -n gitlab-system gitlab-5c59765867-rnp8v gitlab-rake gitlab:backup:create
-```
+. *백업 파일 복사* +
+컨테이너에 생성된 파일을 노드로 복사한다. 이때 백업 파일의 이름은 `* _gitlab_backup.tar` 형태로 작성한다. 
++
+.실행 방법
+----
+kubectl cp [네임스페이스 이름]/[파드 이름]:var/opt/gitlab/backups/[백업 대상 파일 이름] [복사할 위치]/[백업 파일 이름]
+----
++
+.예시
+----
+# kubectl cp gitlab-system/gitlab-5c59765867-rnp8v:var/opt/gitlab/backups/1652685285_2022_05_16_13.6.4_gitlab_backup.tar ./test__gitlab_backup.tar
+----
 
-=== Step 2. 백업 파일 복사하기
-
-컨테이너에 생성된 파일을 노드로 복사한다. - 백업파일 명명규칙: `* _gitlab_backup.tar`
-```bash
-kubectl cp {NS명}/{POD명}:var/opt/gitlab/backups/{BACKUP_TAR파일명} {복사할 위치/파일명.tar}
-# ex) kubectl cp gitlab-system/gitlab-5c59765867-rnp8v:var/opt/gitlab/backups/1652685285_2022_05_16_13.6.4_gitlab_backup.tar ./test__gitlab_backup.tar
-```
-
-=== Step 3. 시크릿 및 설정값 복사하기
-
+. *시크릿 및 설정값 복사* +
 컨테이너 안에 있는 시크릿 및 설정값을 복사한다.
-```bash
-kubectl exec -it -n {NS명} {POD명} -- tar cf - "etc/gitlab" | tar xf -
++
+.실행 방법
+----
+kubectl exec -it -n [네임스페이스 이름] [파드 이름] -- tar cf - "etc/gitlab" | tar xf -
+----
++
+.예시
+----
+# kubectl exec -n "gitlab-system" "gitlab-5c59765867-rnp8v" -- tar cf - "etc/gitlab" | tar xf -
+----
 
-# ex) kubectl exec -n "gitlab-system" "gitlab-5c59765867-rnp8v" -- tar cf - "etc/gitlab" | tar xf -
-```
+. *Omnibus 설정값 복사* +
+컨테이너 안에 있는 Omnibus 설정값을 복사한다.
++
+.실행 방법
+----
+kubectl exec -it -n [네임스페이스 이름] [파드 이름] -- tar cf - "tmp/shared" | tar xf -
+----
++
+.예시
+----
+# kubectl exec -n "gitlab-system" "gitlab-5c59765867-rnp8v" -- tar cf - "tmp/shared" | tar xf -
+----
 
-=== Step 4. Omnibus 세팅값 복사하기
+== 복구
 
-컨테이너 안에 있는 Omnibus 세팅값을 복사한다.
-```bash
-kubectl exec -it -n {NS명} {POD명} -- tar cf - "tmp/shared" | tar xf -
+. *Omnibus 설정값 파드에 저장* +
+복구할 Gitlab 컨테이너 안에 백업해둔 Omnibus 설정값을 저장한다.
++
+.실행 방법
+----
+kubectl cp tmp [네임스페이스 이름]/[파드 이름]:tmp
+----
++
+.예시
+----
+# kubectl cp tmp/shared gitlab-system/gitlab-5c59765867-rnp8v:tmp
+----
 
-# ex) kubectl exec -n "gitlab-system" "gitlab-5c59765867-rnp8v" -- tar cf - "tmp/shared" | tar xf -
-```
+. *시크릿 및 설정값을 파드에 저장* +
+복구할 Gitlab 컨테이너 안에 백업해둔 시크릿 및 설정값을 저장한다.
++
+.실행 방법
+----
+kubectl cp etc/gitlab [네임스페이스 이름]/[파드 이름]:etc
+----
++
+.예시
+----
+# kubectl cp etc/gitlab gitlab-system/gitlab-5c59765867-rnp8v:etc
+----
 
----
 
-== RESTORE
+. *백업 파일 파드에 저장* +
+복구할 Gitlab 컨테이너 안에 백업해둔 파일을 저장한다.
++
+.실행 방법
+----
+kubectl cp [백업 파일 이름] [네임스페이스 이름]/[파드 이름]:var/opt/gitlab/backups
+----
++
+.예시
+----
+# kubectl cp test.tar gitlab-system/gitlab-5c59765867-rnp8v:var/opt/gitlab/backups
+----
 
-=== Step 1. omnibus 세팅값 파드에 저장하기
-
-복구할 gitlab 컨테이너 안에 백업해둔 omnibus 세팅값을 저장한다.
-```bash
-kubectl cp tmp {NS명}/{파드명}:tmp
-# ex) kubectl cp tmp/shared gitlab-system/gitlab-5c59765867-rnp8v:tmp
-```
-
-=== Step 2. 시크릿 및 설정값을  파드에 저장하기
-
-복구할 gitlab 컨테이너 안에 백업해둔 시크릿 및 설정값을 저장한다.
-```bash
-kubectl cp etc/gitlab {NS명}/{파드명}:etc
-# ex) kubectl cp etc/gitlab gitlab-system/gitlab-5c59765867-rnp8v:etc
-```
-
-=== Step 3. 백업 파일 파드에 저장하기
-
-복구할 gitlab 컨테이너 안에 백업해둔 파일을 저장한다.
-```bash
-kubectl cp "백업파일명" {NS명}/{파드명:var/opt/gitlab/backups
-# ex) kubectl cp test.tar gitlab-system/gitlab-5c59765867-rnp8v:var/opt/gitlab/backups
-```
-
-=== Step 4. Omnibus 세팅값 설정하기
-
-백업했던 gitlab과 같은 환경을 만들기 위해 Omnibus 세팅값을 설정한다.
-```bash
-kubectl exec -it -n {NS명} {pod명} bash
+. *Omnibus 값 설정* +
+백업했던 Gitlab과 같은 환경을 만들기 위해 Omnibus 값을 설정한다.
++
+----
+kubectl exec -it -n [네임스페이스 이름] [파드 이름] bash
 - export GITLAB_OMNIBUS_CONFIG="$(cat /tmp/shared/omnibus.env)"
 - echo 'export GITLAB_OMNIBUS_CONFIG="$(cat /tmp/shared/omnibus.env)"' >> /root/.bashrc
 - /assets/wrapper
-```
+----
 
-=== Step 5. 복구하기
-
-백업 일을 이용해 복구한다.
-```bash
-kubectl exec -it -n {ns명} {pod명} gitlab-backup restore BACKUP=백업파일명
+. *복구 수행* +
+백업 파일을 이용해 복구한다.
++
+.실행 방법
+----
+kubectl exec -it -n [네임스페이스 이름] [파드 이름] gitlab-backup restore BACKUP=[백업 파일 이름]
+----
