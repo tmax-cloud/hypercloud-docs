@@ -7,7 +7,7 @@
 == 백업
 백업은 "Image Registry 저장소" → "Database" → "CA" 순으로 진행한다. +
 이때 대상이 되는 Pod는 HyperRegistry의 Registry Pod이다.
-(TD: 명령어의 [] 부분을 국문으로 작성하는 것을 권장합니다.)
+(TD: 명령어의 [] 부분을 국문으로 작성하는 것을 권장합니다.)(QA: 수정하였습니다.)
 
 
 === Image Registry 저장소 백업
@@ -15,7 +15,7 @@
 
 .실행 방법
 ----
-kubectl cp -n [namespace] [hyperregistry-registry-pod-name]:/storage -c registry [backup-file-directory]/storage
+kubectl cp -n [네임스페이스명] [hyperregistry-registry 파드명]:/storage -c registry [백업 파일 디렉토리]/storage
 ----
 
 NOTE: values.yaml(또는 hr-nginx-values.yaml)에 persistance.imageChartStorage.filesystem.rootdirectory가 "/storage"인지 확인한다. 만약 "/storage"가 아닐 경우 위 명령의 ``/storage``에 해당 path를 입력한다.
@@ -25,14 +25,14 @@ NOTE: values.yaml(또는 hr-nginx-values.yaml)에 persistance.imageChartStorage.
 +
 .실행 방법
 ----
-kubectl exec -n [namespace] [hyperregistry-database-pod-name] -- bash -c "cd /var/lib/postgresql/data && pg_dumpall -U postgres > backup.sql"
+kubectl exec -n [네임스페이스명] [hyperregistry-database 파드명] -- bash -c "cd /var/lib/postgresql/data && pg_dumpall -U postgres > backup.sql"
 ----
 
 . 백업 파일 생성 후 해당 백업 파일을 노드로 이동한다.
 +
 .실행 방법
 ----
-kubectl exec -n [namespace] [hyperregistry-database-pod-name] -- cat /var/lib/postgresql/data/backup.sql > [backup-file-directory]/backup.sql
+kubectl exec -n [네임스페이스명] [hyperregistry-database 파드명] -- cat /var/lib/postgresql/data/backup.sql > [backup-file-directory]/backup.sql
 ----
 
 
@@ -51,7 +51,7 @@ https://github.com/tmax-cloud/HyperRegistry-Chart/tree/5.0#신뢰하는-서버�
 
 .실행 방법
 ----
-kubectl get secret -n [hyperregistry-namespace]
+kubectl get secret -n [네임스페이스명]
 ----
 [NOTE]
 .대상 Secret
@@ -77,12 +77,10 @@ kubectl create -f secret.yaml
 
 * `expose.tls.certSource` : secret으로 설정 
 * `expose.tls.secret.secretName` : 지정한 metadata.name으로 설정
+* `caSecretName` : secret 리소스 metadata.name으로 설정 (웹 포털에 CA download가 보일 수 있도록 함)
 . 이전 CA 사용을 위해 Notary에 아래의 항목 값을 추가한다.
 * `expose.tls.secret.notarySecretName`에 동일한 secret metadata.name으로 변경
-
-. 복원할 Hyperregistry Chart의 values.yaml(또는 hr-nginx-values.yaml)에서 아래의 항목 값을 설정한다. (TD: 3번 과정과 합쳐도 되지 않나?)
-
-* `caSecretName` : secret 리소스 metadata.name으로 설정 (웹 포털에 CA download가 보일 수 있도록 함)
+(TD: 3번 과정과 합쳐도 되지 않나?)(QA: 수정하였습니다.)
 
 === Database 복구
 . Database 백업 파일을 복원할 Hyperregistry의 hostPath로 마운트
@@ -90,14 +88,14 @@ kubectl create -f secret.yaml
 * Hyperregistry-Chart의 templates/database/database-ss.yaml에 볼륨 마운트를 추가
 * spec.template.containers[0].volumeMounts[]에 volumeMounts 추가
 * nodeSelector를 활용해 Database pod가 뜨는 노드와, 백업 데이터가 저장된 노드가 동일하게 설정
-* values.yaml (또는 hr-nginx-values.yaml) > database.internal.nodeSelector: {} (TD: 어떻게 설정하라는 건가요?)
-* <노드 label key> : <노드 label value> (TD: 어떻게 설정하라는 건가요?)
+* values.yaml (또는 hr-nginx-values.yaml) 파일의 database.internal.nodeSelector: {} 영역에 [노드 label key] : [노드 label value] 형태로 추가 (TD: 어떻게 설정하라는 건가요?)(QA: 수정하였습니다.)
+(TD: 어떻게 설정하라는 건가요?)(QA: 수정하였습니다.)
 . Hyperregistry 배포
 . Hyperregistry의 Database Pod에 대해 명령어 실행
 * Database Container에 접속해 백업 파일을 확인한다.
 +
 ----
-kubectl exec -n <namespace> <hyperregistry-harbor-database> -it -- bash
+kubectl exec -n [네임스페이스명] [hyperregistry-harbor-database 파드명] -it -- bash
 cd /var/lib/postgresql/data
 ----	
 * 현재 위치에서 Base로 저장된 데이터(예: admin user, library project)를 삭제 후 백업 파일로 복원한다.
@@ -115,7 +113,7 @@ psql -f backup.sql -U postgres
 
 백업한 이미지 레이어 디렉터리를 Registry 컨테이너로 복사한다.
 ----
-kubectl cp <backup-file-directory>/storage/docker -n [namespace] [hyperregistry-registry-pod-name]:/storage/docker -c registry`
+kubectl cp <backup-file-directory>/storage/docker -n [네임스페이스명] [hyperregistry-registry 파드명]:/storage/docker -c registry`
 ----
 
 
