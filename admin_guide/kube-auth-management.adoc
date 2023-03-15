@@ -61,7 +61,6 @@ $ kubeadm certs check-expiration
 ====
 * link:https://cert-manager.io/docs/configuration/acme/dns01/[DNS01을 통한 인증서 개요]
 * link:https://cert-manager.io/docs/configuration/acme/dns01/route53/[Route53을 통한 ClusterIssuer 생성]
-* link:https://brunch.co.kr/@topasvga/49[Route53에 대한 기본 설명] (TD: 개인 블로그를 링크로 올리는 것은 적합하지 않음. 삭제하거나 공식 문서 경로로 지정.)
 ====
 
 
