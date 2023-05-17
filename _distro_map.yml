@@ -7,11 +7,11 @@ hypercloud: # 빌드 시 _preview에 떨어지는 디렉토리명. 영문, 숫�
   site_url: https://tmaxanc.com/ # gnb 로고 또는 브래드크럼 최상위 항목 클릭 시 이동 링크 (erb: site_url)
   branches:
     5.1.1-ko: # 브랜치명
-      name: '5.1.1' # 버전명 ( adoc: product_version / erb: version)
-      dir: '5.1.1-ko' # 해당 버전의 디렉토리 명.  
-    5.1-ko: # 브랜치명
       name: '5.1' # 버전명 ( adoc: product_version / erb: version)
-      dir: '5.1-ko' # 해당 버전의 디렉토리 명.
+      dir: '5.1.1-ko' # 해당 버전의 디렉토리 명.  
+#    5.1-ko: # 브랜치명
+#      name: '5.1' # 버전명 ( adoc: product_version / erb: version)
+#      dir: '5.1-ko' # 해당 버전의 디렉토리 명.
     5-ko: # 브랜치명
       name: '5' # 버전명 ( adoc: product_version / erb: version)
       dir: '5-ko' # 해당 버전의 디렉토리 명.
