@@ -7,7 +7,6 @@
 == 백업
 백업은 "Image Registry 저장소" → "Database" → "CA" 순으로 진행한다. +
 이때 대상이 되는 Pod는 HyperRegistry의 Registry Pod이다.
-(TD: 명령어의 [] 부분을 국문으로 작성하는 것을 권장합니다.)(QA: 수정하였습니다.)
 
 
 === Image Registry 저장소 백업
@@ -80,7 +79,6 @@ kubectl create -f secret.yaml
 * `caSecretName` : secret 리소스 metadata.name으로 설정 (웹 포털에 CA download가 보일 수 있도록 함)
 . 이전 CA 사용을 위해 Notary에 아래의 항목 값을 추가한다.
 * `expose.tls.secret.notarySecretName`에 동일한 secret metadata.name으로 변경
-(TD: 3번 과정과 합쳐도 되지 않나?)(QA: 수정하였습니다.)
 
 === Database 복구
 . Database 백업 파일을 복원할 Hyperregistry의 hostPath로 마운트
@@ -88,8 +86,7 @@ kubectl create -f secret.yaml
 * Hyperregistry-Chart의 templates/database/database-ss.yaml에 볼륨 마운트를 추가
 * spec.template.containers[0].volumeMounts[]에 volumeMounts 추가
 * nodeSelector를 활용해 Database pod가 뜨는 노드와, 백업 데이터가 저장된 노드가 동일하게 설정
-* values.yaml (또는 hr-nginx-values.yaml) 파일의 database.internal.nodeSelector: {} 영역에 [노드 label key] : [노드 label value] 형태로 추가 (TD: 어떻게 설정하라는 건가요?)(QA: 수정하였습니다.)
-(TD: 어떻게 설정하라는 건가요?)(QA: 수정하였습니다.)
+* values.yaml (또는 hr-nginx-values.yaml) 파일의 database.internal.nodeSelector: {} 영역에 [노드 label key] : [노드 label value] 형태로 추가
 . Hyperregistry 배포
 . Hyperregistry의 Database Pod에 대해 명령어 실행
 * Database Container에 접속해 백업 파일을 확인한다.
