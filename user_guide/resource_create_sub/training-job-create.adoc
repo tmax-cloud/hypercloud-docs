@@ -22,13 +22,11 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 
 * Name *
 * Labels
-* activeDeadlineSeconds
-* backoffLimit
-* cleanPodPolicy
+* enableDynamicWorker
+* Run Policy
 * successPolicy
 * Tf Replica Specs * +
 하위 세부 항목은 xref:../form-set-item.adoc#TfReplicaSpecs["폼 에디터 설정 항목 참조"의 "Tf Replica Specs"]를 참고한다.
-* ttlSecondsAfterFinished
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다
 
 
@@ -48,12 +46,10 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 
 * Name *
 * Labels
-* activeDeadlineSeconds
-* backoffLimit
-* cleanPodPolicy
+* Elastic Policy
 * Pytorch Replica Specs +
 하위 세부 항목은 xref:../form-set-item.adoc#PytorchReplicaSpecs["폼 에디터 설정 항목 참조"의 "Pytorch Replica Specs"]를 참고한다.
-* ttlSecondsAfterFinished
+* Run Policy
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다
 
 == YAML 에디터
