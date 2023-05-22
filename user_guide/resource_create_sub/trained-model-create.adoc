@@ -42,7 +42,7 @@ storageUri *
 .기본 작성 예
 [source,yaml]
 ----
-apiVersion: "serving.kubeflow.org/v1alpha1"
+apiVersion: "serving.kserve.io/v1alpha1"
 kind: "TrainedModel"
 metadata:
   name: "fashion" <1>
