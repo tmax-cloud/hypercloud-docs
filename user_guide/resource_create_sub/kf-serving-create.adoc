@@ -40,7 +40,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 .기본 작성 예
 [source,yaml]
 ----
-apiVersion: "serving.kubeflow.org/v1beta1"
+apiVersion: "serving.kserve.io/v1beta1"
 kind: "InferenceService"
 metadata: <1>
   name: "triton-mms" <2>
