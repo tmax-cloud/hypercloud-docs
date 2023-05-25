@@ -9,7 +9,7 @@
 
 [caption="그림. "]
 .멀티 클러스터 환경 구성도
-image::../images/figure_install_composition.png[]
+image::../../images/figure_install_composition.png[]
 
 온프레미스와 AWS 환경 모두 마스터 클러스터로 구성할 경우 멀티 클러스터 환경 구성 순서는 다음과 같다.
 
