@@ -6,7 +6,7 @@
 
 HyperCloud를 구성하고 있는 노드에 데몬셋으로 생성되어 있는 fluentd를 통해 로그를 수집하여 OpenSearch에 저장한다. 이때 OpenSearch의 내용은 OpenSearch Dashboards를 통해 확인이 가능하다.
 
-image::../images/figure_open_search_structure.png[]
+image::../../images/figure_open_search_structure.png[]
 
 == Fluentd 설정
 
@@ -49,41 +49,41 @@ OpenSearch Dashboards의 메뉴 영역에서 *[Management] > [Stack Management] 
 . *인덱스 패턴 이름 입력* +
 인덱스 패턴 생성 화면의 "Step 1"에서 인덱스 패턴의 이름을 입력한 후 *[Next step]* 버튼을 클릭한다.
 +
-image::../images/figure_open_search_index_pattern_create.png[]
+image::../../images/figure_open_search_index_pattern_create.png[]
 
 . *인덱스 패턴 타입 선택* +
 인덱스 패턴 생성 화면의 "Step 2"에서 인덱스 패턴의 타입을 선택한 후 *[Create index pattern]* 버튼을 클릭한다.
 +
-image::../images/figure_open_search_index_pattern_create_02.png[]
+image::../../images/figure_open_search_index_pattern_create_02.png[]
 
 . *생성 확인* +
 OpenSearch Dashboards의 메뉴 영역에서 *[OpenSearch Dashboards] > [Discover]* 메뉴를 선택한다. +
 Discover 메뉴 화면의 "CHANGE INDEX PATTERN" 항목에서 등록된 인덱스 패턴을 확인한다. 
 +
-image::../images/figure_open_search_index_pattern_create_03.png[]
+image::../../images/figure_open_search_index_pattern_create_03.png[]
 
 == 로그 조회
 OpenSearch Dashboards의 메뉴 영역에서 *[OpenSearch Dashboards] > [Discover]* 메뉴를 선택하면 수집된 로그의 내용을 확인할 수 있다.
 
 === 기간 설정
-화면 오른쪽 상단의 image:../images/figure_date_icon.png[] 영역에서 로그를 조회할 기간을 선택할 수 있다.
+화면 오른쪽 상단의 image:../../images/figure_date_icon.png[] 영역에서 로그를 조회할 기간을 선택할 수 있다.
 
 * 날짜 선택
 +
-image::../images/figure_open_search_log_date.png[]
+image::../../images/figure_open_search_log_date.png[]
 
 * 시간 선택
 +
-image::../images/figure_open_search_log_time.png[]
+image::../../images/figure_open_search_log_time.png[]
 
 
 === 키워드 조회
-화면 왼쪽 상단의 image:../images/figure_keyword_icon.png[] 영역에 키워드를 입력하면 키워드가 포함된 로그 내용만 확인할 수 있다.
+화면 왼쪽 상단의 image:../../images/figure_keyword_icon.png[] 영역에 키워드를 입력하면 키워드가 포함된 로그 내용만 확인할 수 있다.
 
-image::../images/figure_open_search_keyword_search.png[]
+image::../../images/figure_open_search_keyword_search.png[]
 
 === Available fields를 이용한 조회
 
 Available fields를 선택하여 Selected fields에 추가한 후 조회를 하면 선택된 필드의 내용만 확인할 수 있다.
 
-image::../images/figure_open_search_available_fields_search.png[]
+image::../../images/figure_open_search_available_fields_search.png[]
