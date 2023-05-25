@@ -9,7 +9,7 @@
 == 그라파나 실행 및 대시보드 구성
 HyperCloud 콘솔을 통해 그라파나를 실행한다.
 
-image::../images/figure_grafana_menu.png[]
+image::../../images/figure_grafana_menu.png[]
 <1> "마스터 클러스터" 콘솔 선택
 <2> *[홈] > [그라파나]* 메뉴 클릭
 
@@ -19,19 +19,19 @@ image::../images/figure_grafana_menu.png[]
 
 * *네임스페이스별 자원 모니터링*
 +
-image::../images/figure_grafana_namespace.png[]
+image::../../images/figure_grafana_namespace.png[]
 
 * *클러스터 자원 모니터링*
 +
-image::../images/figure_grafana_cluster.png[]
+image::../../images/figure_grafana_cluster.png[]
 
 * *Kafka 모니터링*
 +
-image::../images/figure_grafana_kafka.png[]
+image::../../images/figure_grafana_kafka.png[]
 
 * *Redis 모니터링*
 +
-image::../images/figure_grafana_redis.png[]
+image::../../images/figure_grafana_redis.png[]
 
 == 알람(Alert) 설정
 
@@ -42,7 +42,7 @@ image::../images/figure_grafana_redis.png[]
 . *그라파나 로그인* + 
 그라파나 로그인 화면에서 관리자 계정으로 로그인한다.
 +
-image::../images/figure_grafana_login.png[]
+image::../../images/figure_grafana_login.png[]
 +
 NOTE: 최초 관리자 계정의 ID와 비밀번호는 모두 **admin**이다. +
 최초 로그인할 경우 패스워드를 변경하라는 화면이 나오는데 Skip을 통해 넘어가거나 변경해주면 된다. Skip할 경우 다음 로그인시 다시 변경하라는 화면이 나온다.
@@ -54,4 +54,4 @@ NOTE: 최초 관리자 계정의 ID와 비밀번호는 모두 **admin**이다. +
 . *알람 설정* +
 메뉴 영역에서 **[+] > [Dashboard] > [Add an empty panel]**을 선택하여 대시보드 창을 생성하고 요구에 맞게 쿼리 입력한다. 이후 *[Alert]* 탭에서 *[Create Alert]* 버튼을 클릭하여 원하는 옵션을 설정한다.
 +
-image::../images/figure_grafana_alert_set.png[]
+image::../../images/figure_grafana_alert_set.png[]
