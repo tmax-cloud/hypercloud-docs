@@ -2,7 +2,7 @@
 
 HyperCloud 콘솔의 메인 화면은 다음과 같이 구성된다.
 
-image::../images/figure_admin_main_02.png[]
+image::../../images/figure_admin_main_02.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
