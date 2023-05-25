@@ -30,10 +30,10 @@ HyperRegistry에서는 액세스 레벨을 이용하여 저장된 이미지에 �
 . HyperRegistry 콘솔에서 *[Administration] > [Users]* 메뉴를 선택한다.
 . *Users* 화면이 열리면 *[+ NEW USER]* 버튼을 클릭한다.
 +
-image::../images/figure_hyperregistry_new_user.png[]
+image::../../images/figure_hyperregistry_new_user.png[]
 . *New User* 팝업이 열리면 생성할 사용자의 정보를 설정한 후 *[OK]* 버튼을 클릭한다.
 +
-image::../images/figure_hyperregistry_new_user_popup.png[]
+image::../../images/figure_hyperregistry_new_user_popup.png[]
 +
 각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 설정 항목)
 +
@@ -59,10 +59,10 @@ image::../images/figure_hyperregistry_new_user_popup.png[]
 . HyperRegistry 콘솔에서 *[Projects]* 메뉴를 선택한다.
 . *Projects* 화면이 열리면 *[+ NEW PROJECT]* 버튼을 클릭한다.
 +
-image::../images/figure_hyperregistry_new_project.png[]
+image::../../images/figure_hyperregistry_new_project.png[]
 . *New Project* 팝업이 열리면 생성할 프로젝트의 정보를 설정한 후 *[OK]* 버튼을 클릭한다.
 +
-image::../images/figure_hyperregistry_new_project_popup.png[]
+image::../../images/figure_hyperregistry_new_project_popup.png[]
 +
 각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 설정 항목)
 +
@@ -87,7 +87,7 @@ image::../images/figure_hyperregistry_new_project_popup.png[]
 생성된 프로젝트의 이름을 클릭한 후 *[Repositories]* 탭에서 
 우측의 *[PUSH COMMAND]*를 클릭하면 해당 프로젝트에 이미지를 Push하기 위한 명령을 확인할 수 있다.
 
-image::../images/figure_hyperregistry_project_push_command.png[]
+image::../../images/figure_hyperregistry_project_push_command.png[]
 ====
 
 === 프로젝트 멤버 관리
@@ -97,10 +97,10 @@ image::../images/figure_hyperregistry_project_push_command.png[]
 . *Projects* 화면이 열리면 멤버를 추가할 프로젝트의 이름을 클릭한다.
 . 해당 프로젝트의 상세 화면이 열리면 *[Members]* 탭에서 *[+ USER]* 버튼을 클릭한다.
 +
-image::../images/figure_hyperregistry_new_member.png[]
+image::../../images/figure_hyperregistry_new_member.png[]
 . *New Member* 팝업이 열리면 추가할 멤버의 정보를 설정한 후 *[OK]* 버튼을 클릭한다.
 +
-image::../images/figure_hyperregistry_new_member_popup.png[]
+image::../../images/figure_hyperregistry_new_member_popup.png[]
 +
 각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 설정 항목)
 +
