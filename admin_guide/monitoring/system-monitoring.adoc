@@ -2,7 +2,7 @@
 
 시스템 모니터링을 통해 각 모듈의 상태 및 클러스터의 정보, 최근 이벤트 등에 대한 정보를 보다 쉽게 파악할 수 있다.
 
-image::../images/figure_system_monitoring.png[]
+image::../../images/figure_system_monitoring.png[]
 
 <1> "마스터 클러스터" 콘솔 선택
 <2> *[홈] > [개요]* 메뉴 클릭
