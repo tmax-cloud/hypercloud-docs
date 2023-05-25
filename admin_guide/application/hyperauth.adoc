@@ -14,10 +14,10 @@ HyperCloud 사용자를 관리하기 위해 HyperAuth 콘솔에 접속한다.
 
 . KeyCloak 초기 화면에서 *[Administration Console]* 메뉴를 클릭한다.
 +
-image::../images/figure_hyperauth_login.png[]
+image::../../images/figure_hyperauth_login.png[]
 . KeyCloak 로그인 화면이 열리면 계정 이름과 비밀번호를 입력한 후 *[Log In]* 버튼을 클릭한다. 
 +
-image::../images/figure_hyperauth_login_02.png[]
+image::../../images/figure_hyperauth_login_02.png[]
 +
 NOTE: 초기 계정의 이름과 비밀번호는 모두 **admin**이다.
 
@@ -29,17 +29,17 @@ NOTE: 초기 계정의 이름과 비밀번호는 모두 **admin**이다.
 . *Realm 선택* +
 Realm 선택 영역에 마우스를 올려 Realm 목록이 표시되면 **Tmax**를 선택한다.
 +
-image::../images/figure_hyperauth_user_create.png[]
+image::../../images/figure_hyperauth_user_create.png[]
 
 . *사용자 계정 생성* +
 *[Users]* 메뉴 화면에서 *[Add user]* 버튼을 클릭한다.
 +
-image::../images/figure_hyperauth_user_create_02.png[]
+image::../../images/figure_hyperauth_user_create_02.png[]
 
 . *사용자 기본 정보 설정* +
 *Add user* 화면에서 생성할 사용자의 기본 정보를 설정한 후 *[Save]* 버튼을 클릭한다.
 +
-image::../images/figure_hyperauth_user_create_03.png[]
+image::../../images/figure_hyperauth_user_create_03.png[]
 +
 각 설정 항목에 대한 설명은 다음과 같다.
 +
