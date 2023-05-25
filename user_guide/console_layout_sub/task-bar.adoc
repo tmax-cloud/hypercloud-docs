@@ -9,7 +9,7 @@
 HyperCloud 콘솔의 기본 세션 유효 시간은 60분이며, 세션 유효 시간이 지나면 자동으로 로그아웃된다. +
 만약 자동 로그아웃 전에 세션 유지 시간을 연장하려면 작업 표시줄 영역에서 *[시간 연장]* 버튼을 클릭한다. 해당 버튼을 클릭하면 미리 설정된 세션 유효 시간으로 초기화된다.
 
-image::../images/figure_session_extension.png[]
+image::../../images/figure_session_extension.png[]
 
 == 기본 언어 변경
 HyperCloud 콘솔의 기본 언어를 변경할 수 있다.
@@ -18,11 +18,11 @@ HyperCloud 콘솔의 기본 언어를 변경할 수 있다.
 
 . HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 **[Language]**를 클릭한다.
 +
-image::../images/figure_lang_change.png[]
+image::../../images/figure_lang_change.png[]
 
 . 드롭다운 메뉴가 열리면 변경할 언어를 선택한다.
 +
-image::../images/figure_lang_change2.png[]
+image::../../images/figure_lang_change2.png[]
 
 . HyperCloud 콘솔의 기본 언어가 선택한 언어로 변경된다.
 
@@ -32,9 +32,9 @@ YAML 내용을 직접 입력하거나 기존에 생성된 YAML 파일을 가져�
 
 다음은 YAML 가져오기 기능을 실행하는 과정에 대한 설명이다.
 
-. HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 image:../images/figure_import_yaml_icon.png[] 아이콘을 클릭한다.
+. HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 image:../../images/figure_import_yaml_icon.png[] 아이콘을 클릭한다.
 +
-image::../images/figure_import_yaml.png[]
+image::../../images/figure_import_yaml.png[]
 
 . *Import YAML* 화면이 열리면 빈 YAML 에디터에 생성할 리소스의 구성 정보를 직접 입력한다. 만약 기존에 생성된 YAML 파일을 가져오려면 YAML 에디터 영역에 가져올 YAML 파일을 드래그 앤드 드롭한다.
 
@@ -46,9 +46,9 @@ HyperCloud의 설치 및 콘솔 사용 방법에 대한 매뉴얼을 확인할 �
 
 다음은 매뉴얼을 확인하는 과정에 대한 설명이다.
 
-. HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 image:../images/figure_manual_icon.png[] 아이콘을 클릭한다.
+. HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 image:../../images/figure_manual_icon.png[] 아이콘을 클릭한다.
 +
-image::../images/figure_manual.png[]
+image::../../images/figure_manual.png[]
 . HyperCloud 매뉴얼 화면이 열리면 원하는 내용을 찾아 사용 방법을 확인한다.
 
 == 로그아웃
@@ -59,6 +59,6 @@ HyperCloud 콘솔에 현재 접속된 사용자 계정의 접속을 종료할 �
 
 . HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 계정 이름을 클릭한다.
 +
-image::../images/figure_admin_logout.png[]
+image::../../images/figure_admin_logout.png[]
 . 드롭다운 메뉴가 열리면 **[로그아웃]**을 선택한다.
 . 해당 계정이 로그아웃되고, HyperCloud 콘솔의 로그인 화면이 열린다. 
