@@ -496,17 +496,17 @@ $ kubectl -n argocd apply -f application/app_of_apps/master-applications.yaml
 +
 HyperCloud 6 웹 콘솔의 "멀티 클러스터" 콘솔에서 *[클러스터]* 메뉴를 클릭하면 싱글 클러스터 목록이 조회된다. 이때 싱글 클러스터 상태가 "Sync Needed"로 변경되면 해당 상태를 클릭한다.
 +
-image::../images/figure_single_cluser_install_01.png[]
+image::../../images/figure_single_cluser_install_01.png[]
 
 . *애플리케이션 변수 설정*
 +
 싱글 클러스터의 애플리케이션 동기화 옵션 설정 화면이 열리면 "REPO URL"과 "TARGET REVISION" 항목을 설정한다.
 +
-image::../images/figure_single_cluser_install_03.png[]
+image::../../images/figure_single_cluser_install_03.png[]
 +
 설정 완료 후 애플리케이션의 *[SYNC]* 버튼을 클릭한다
 +
-image::../images/figure_single_cluser_install_02.png[]
+image::../../images/figure_single_cluser_install_02.png[]
 
 CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우 대시보드를 통한 리소스 사용량 조회가 일부 지원되지 않는다.
 
@@ -582,16 +582,16 @@ ArgoCD 콘솔에 첫 로그인 시 위에서 확인한 계정 정보로 로그�
 +
 ArgoCD 콘솔의 **Applications 화면**에서 동기화 작업을 수행할 애플리케이션을 검색한 후 *[SYNC]* 버튼을 클릭한다.
 +
-image::../images/figure_application_sync_01.png[]
+image::../../images/figure_application_sync_01.png[]
 
 . *동기화 옵션 설정*
 +
 동기화할 리소스 및 동기화 옵션을 설정한 후 *[SYNCHRONIZE]* 버튼을 클릭한다.
 +
-image::../images/figure_application_sync_02.png[]
+image::../../images/figure_application_sync_02.png[]
 
 . *상태 확인*
 +
 애플리케이션의 *Status* 항목에 "Healthy"와 "Synced"가 표시되는지 확인한다.
 +
-image::../images/figure_application_sync_03.png[]
+image::../../images/figure_application_sync_03.png[]
