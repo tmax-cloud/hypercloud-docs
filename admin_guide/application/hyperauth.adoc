@@ -70,13 +70,13 @@ image::../../images/figure_hyperauth_user_create_03.png[]
 이때 "Key" 값으로 phone을 입력하고, "Value" 값으로 사용자의 전화번호를 입력한 후 "Actions"에서 *[Add]* 버튼을 클릭한다. +
 입력값이 정상적으로 추가되면 *[Save]* 버튼을 클릭해서 현재 설정을 저장한다.
 +
-image::../images/figure_hyperauth_user_create_04.png[]
+image::../../images/figure_hyperauth_user_create_04.png[]
 
 . *비밀번호 설정* +
 사용자 계정의 비밀번호를 설정하기 위해 생성한 사용자 계정의 상세 화면에서 *[Credentials]* 탭을 클릭한다. +
 설정이 완료되면 *[Set Password]* 버튼을 클릭해서 현재 설정을 저장한다.
 +
-image::../images/figure_hyperauth_user_create_05.png[]
+image::../../images/figure_hyperauth_user_create_05.png[]
 +
 각 설정 항목에 대한 설명은 다음과 같다.
 +
@@ -100,7 +100,7 @@ image::../images/figure_hyperauth_user_create_05.png[]
 
 로그인 실패 횟수에 따라 해당 사용자 계정을 잠글 수 있다.
 
-image::../images/figure_hyperauth_user_lock.png[]
+image::../../images/figure_hyperauth_user_lock.png[]
 
 <1> *[Realm Settings]* 메뉴 선택
 <2> *[Security Defenses]* 탭 선택
@@ -112,7 +112,7 @@ image::../images/figure_hyperauth_user_lock.png[]
 == 토큰 유효 시간 설정
 콘솔의 로그인 연장 시 로그아웃되는 현상이 발생할 경우 토큰의 유효 시간을 연장하여 해결할 수 있다.
 
-image::../images/figure_hyperauth_token_time.png[]
+image::../../images/figure_hyperauth_token_time.png[]
 
 <1> *[Realm Settings]* 메뉴 선택
 <2> *[Tokens]* 탭 선택
