@@ -10,7 +10,7 @@ NET::ERR_CERT_INVALID 오류 발생 상황 및 조치 방법에 대한 설명은
 +
 크롬에서 https로 사설 인증서를 사용하는 서비스에 접속할 때 NET::CERT_INVALID 오류가 발생하며, *[고급]* 버튼을 클릭해도 이동할 수 있는 링크가 보이지 않는 상황이다.
 +
-image::../images/figure_admin_chrome_error.png[]
+image::../../images/figure_admin_chrome_error.png[]
 
 * *조치 방법*
 +
