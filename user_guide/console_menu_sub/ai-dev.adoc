@@ -22,7 +22,7 @@
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-notebook-server-main]
-image::../images/figure_admin_notebook_server_main.png[]
+image::../../images/figure_admin_notebook_server_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -51,7 +51,7 @@ image::../images/figure_admin_notebook_server_main.png[]
 * Failed : 생성 실패
 * Running : 실행 중
 |이미지|노트북 서버를 생성한 이미지의 이름이다.
-|image:../images/figure_action_icon.png[]|노트북 서버의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|노트북 서버의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -68,7 +68,7 @@ image::../images/figure_admin_notebook_server_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-katib-main]
-image::../images/figure_admin_katib_main.png[]
+image::../../images/figure_admin_katib_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -99,7 +99,7 @@ image::../images/figure_admin_katib_main.png[]
 * Created : 튜닝 생성 중
 * Running : 튜닝 진행 중
 * Succeeded : 튜닝 완료
-|image:../images/figure_action_icon.png[]|하이퍼파라미터 튜닝의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|하이퍼파라미터 튜닝의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -115,7 +115,7 @@ image::../images/figure_admin_katib_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-training-job-main]
-image::../images/figure_admin_training_job_main.png[]
+image::../../images/figure_admin_training_job_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -151,7 +151,7 @@ image::../images/figure_admin_training_job_main.png[]
 * Failed : 생성 실패
 * Running : 실행 중
 |구성|트레이닝 잡을 구성한 프로세스들의 이름이다.
-|image:../images/figure_action_icon.png[]|트레이닝 잡의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|트레이닝 잡의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -167,7 +167,7 @@ image::../images/figure_admin_training_job_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-kf-serving-main]
-image::../images/figure_admin_kf_serving_main.png[]
+image::../../images/figure_admin_kf_serving_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -202,7 +202,7 @@ image::../images/figure_admin_kf_serving_main.png[]
 * Y : 지원함 
 * N : 지원 안 함
 |생성 시간|추론 서비스가 생성된 시간이다.
-|image:../images/figure_action_icon.png[]|추론 서비스의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|추론 서비스의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -218,7 +218,7 @@ image::../images/figure_admin_kf_serving_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-trainedmodel-main]
-image::../images/figure_admin_trainedmodel_main.png[]
+image::../../images/figure_admin_trainedmodel_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -250,7 +250,7 @@ image::../images/figure_admin_trainedmodel_main.png[]
 |추론 URL|배포할 상위 추론 서비스의 URL이다.
 |스토리지 URI|모델 리포지터리의 저장소 URI이다.
 |생성 시간|학습 모델이 생성된 시간이다.
-|image:../images/figure_action_icon.png[]|학습 모델의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|학습 모델의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
