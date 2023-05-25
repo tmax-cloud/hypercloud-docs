@@ -97,7 +97,7 @@ spec:
 . *적용 확인* +
 파드의 터미널을 통해 환경 변수가 적용된 것을 확인한다.
 +
-image::../images/figure_configmap_secret_apply.png[]
+image::../../images/figure_configmap_secret_apply.png[]
 +
 NOTE: 컨피그 맵 또는 시크릿의 설정 정보를 수정한 경우 파드를 재기동하면 수정된 내용이 자동으로 적용된다.
 
@@ -107,11 +107,11 @@ NOTE: 컨피그 맵 또는 시크릿의 설정 정보를 수정한 경우 파드
 . *[스토리지 추가] 메뉴 실행* +
 볼륨을 추가할 디플로이먼트의 *[스토리지 추가]* 메뉴를 실행한다.
 +
-image::../images/figure_deployment_storage_add.png[]
+image::../../images/figure_deployment_storage_add.png[]
 +
 <1> 마스터 클러스터 콘솔의 *[워크로드] > [디플로이먼트]* 메뉴 클릭
 <2> 네임스페이스 선택
-<3> image:../images/figure_action_icon.png[](*[액션]*) 아이콘 클릭
+<3> image:../../images/figure_action_icon.png[](*[액션]*) 아이콘 클릭
 <4> *[스토리지 추가]* 메뉴 선택
 
 . *스토리지 정보 설정* +
@@ -119,7 +119,7 @@ image::../images/figure_deployment_storage_add.png[]
 +
 NOTE: 본 과정에서는 새로운 영구 볼륨 클레임을 생성하여 추가하는 방법에 대해서 기술한다.
 +
-image::../images/figure_deployment_storage_add_02.png[]
+image::../../images/figure_deployment_storage_add_02.png[]
 +
 각 설정 항목에 대한 설명은 다음과 같다. (* : 필수 설정 항목)
 +
@@ -152,7 +152,7 @@ image::../images/figure_deployment_storage_add_02.png[]
 . *디플로이먼트 상세 페이지 이동* +
 삭제하려는 볼륨을 가지고 있는 디플로먼트의 상세 페이지로 이동한다.
 +
-image::../images/figure_deployment_storage_del.png[]
+image::../../images/figure_deployment_storage_del.png[]
 <1> 마스터 클러스터 콘솔의 *[워크로드] > [디플로이먼트]* 메뉴 클릭
 <2> 네임스페이스 선택
 <3> 볼륨을 제거할 디플로이먼트의 이름 클릭
@@ -160,8 +160,8 @@ image::../images/figure_deployment_storage_del.png[]
 . *[볼륨 제거] 메뉴 실행* +
 해당 디플로이먼트의 상세 페이지가 열리면 볼륨 목록에서 삭제할 볼륨의 *[볼륨 제거]* 메뉴를 실행한다.
 +
-image::../images/figure_deployment_storage_del_02.png[]
-<1> image:../images/figure_action_icon.png[](*[액션]*) 아이콘 클릭
+image::../../images/figure_deployment_storage_del_02.png[]
+<1> image:../../images/figure_action_icon.png[](*[액션]*) 아이콘 클릭
 <2> *[볼륨 제거]* 메뉴 선택
 
 == 영구 볼륨 클레임(PVC)
