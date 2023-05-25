@@ -183,11 +183,11 @@ natOutgoing: true  <6>
 <1> IP Pool의 이름 (기본값: default-ipv4-ippool)
 <2> Pod가 사용할 IP 대역
 <3> 각 호스트 노드에서 관리할 만큼의 IP 대역 크기 (CIDR보다 큰 값으로 지정)
-<4> IPIP 모드 설정 (image:../images/figure_caution_icon.png[] IPIP 모드를 설정할 경우 Vxlan 모드는 설정할 수 없음)
+<4> IPIP 모드 설정 (image:../../images/figure_caution_icon.png[] IPIP 모드를 설정할 경우 Vxlan 모드는 설정할 수 없음)
 * Always
 * Never
 * CrossSubnet
-<5> Vxlan 모드 설정 (image:../images/figure_caution_icon.png[] Vxlan 모드를 설정할 경우 IPIP 모드는 설정할 수 없음)
+<5> Vxlan 모드 설정 (image:../../images/figure_caution_icon.png[] Vxlan 모드를 설정할 경우 IPIP 모드는 설정할 수 없음)
 * Always
 * Never
 * CrossSubnet
