@@ -30,7 +30,7 @@ HyperRegistry에서는 액세스 레벨을 이용하여 저장된 이미지에 �
 . HyperRegistry 콘솔에서 *[Administration] > [Users]* 메뉴를 선택한다.
 . *Users* 화면이 열리면 *[+ NEW USER]* 버튼을 클릭한다.
 +
-image::../images/figure_hyperregistry_new_user.png[]
+image::../../images/figure_hyperregistry_new_user.png[]
 . *New User* 팝업이 열리면 생성할 사용자의 정보를 설정한 후 *[OK]* 버튼을 클릭한다.
 +
 image::../../images/figure_hyperregistry_new_user_popup.png[]
