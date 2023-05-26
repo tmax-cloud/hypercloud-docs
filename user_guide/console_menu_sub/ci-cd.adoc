@@ -28,7 +28,7 @@
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-task-main]
-image::../images/figure_admin_task_main.png[]
+image::../../images/figure_admin_task_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -52,7 +52,7 @@ image::../images/figure_admin_task_main.png[]
 |이름|태스크의 이름이다. 이때 이름을 클릭하면 해당 태스크의 상세 정보를 확인할 수 있는 화면이 열린다.
 |네임스페이스|태스크가 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |생성 시간|태스크가 생성된 시간이다.
-|image:../images/figure_action_icon.png[]|태스크의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|태스크의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -68,7 +68,7 @@ image::../images/figure_admin_task_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-cluster-task-main]
-image::../images/figure_admin_cluster_task_main.png[]
+image::../../images/figure_admin_cluster_task_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -88,7 +88,7 @@ image::../images/figure_admin_cluster_task_main.png[]
 |항목|설명  
 |이름|클러스터 태스크의 이름이다. 이때 이름을 클릭하면 해당 클러스터 태스크의 상세 정보를 확인할 수 있는 화면이 열린다.
 |생성 시간|클러스터 태스크가 생성된 시간이다.
-|image:../images/figure_action_icon.png[]|클러스터 태스크의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|클러스터 태스크의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -104,7 +104,7 @@ image::../images/figure_admin_cluster_task_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-task-run-main]
-image::../images/figure_admin_task_run_main.png[]
+image::../../images/figure_admin_task_run_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -128,7 +128,7 @@ image::../images/figure_admin_task_run_main.png[]
 |이름|태스크 런의 이름이다. 이때 이름을 클릭하면 해당 태스크 런의 상세 정보를 확인할 수 있는 화면이 열린다.
 |네임스페이스|태스크 런이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |생성 시간|태스크 런이 생성된 시간이다.
-|image:../images/figure_action_icon.png[]|태스크 런의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|태스크 런의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -143,7 +143,7 @@ image::../images/figure_admin_task_run_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-pipeline-main]
-image::../images/figure_admin_pipeline_main.png[]
+image::../../images/figure_admin_pipeline_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -167,7 +167,7 @@ image::../images/figure_admin_pipeline_main.png[]
 |이름|파이프라인의 이름이다. 이때 이름을 클릭하면 해당 파이프라인의 상세 정보를 확인할 수 있는 화면이 열린다.
 |네임스페이스|파이프라인이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |생성 시간|파이프라인이 생성된 시간이다.
-|image:../images/figure_action_icon.png[]|파이프라인의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|파이프라인의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -183,7 +183,7 @@ image::../images/figure_admin_pipeline_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-pipeline-run-main]
-image::../images/figure_admin_pipeline_run_main.png[]
+image::../../images/figure_admin_pipeline_run_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -217,7 +217,7 @@ image::../images/figure_admin_pipeline_run_main.png[]
 |태스크 상태|파이프라인에 정의된 태스크들의 현재 상태 정보이다. 
 |시작|파이프라인 런이 생성된 시간이다.
 |소요 시간|파이프라인 런의 수행이 모두 완료될 때까지 소요된 시간이다.
-|image:../images/figure_action_icon.png[]|파이프라인 런의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|파이프라인 런의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -234,7 +234,7 @@ image::../images/figure_admin_pipeline_run_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-pipeline-approval-main]
-image::../images/figure_admin_pipeline_approval_main.png[]
+image::../../images/figure_admin_pipeline_approval_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -264,7 +264,7 @@ image::../images/figure_admin_pipeline_approval_main.png[]
 * Rejected :  파이프라인 진행이 거부된 상태
 * Canceled : 파이프라인 런 자체가 제거되어 파이프라인 진행이 취소된 상태
 |생성 시간|파이프라인 승인이 생성된 시간이다.
-|image:../images/figure_action_icon.png[]|파이프라인 승인의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|파이프라인 승인의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -283,7 +283,7 @@ image::../images/figure_admin_pipeline_approval_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-pipeline-resource-main]
-image::../images/figure_admin_pipeline_resource_main.png[]
+image::../../images/figure_admin_pipeline_resource_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -307,7 +307,7 @@ image::../images/figure_admin_pipeline_resource_main.png[]
 |이름|파이프라인 리소스의 이름이다. 이때 이름을 클릭하면 해당 파이프라인 리소스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |네임스페이스|파이프라인 리소스가 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |생성 시간|파이프라인 리소스가 생성된 시간이다.
-|image:../images/figure_action_icon.png[]|파이프라인 리소스의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|파이프라인 리소스의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -323,7 +323,7 @@ image::../images/figure_admin_pipeline_resource_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-integration-job-main]
-image::../images/figure_admin_integration_job_main.png[]
+image::../../images/figure_admin_integration_job_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -344,7 +344,7 @@ image::../images/figure_admin_integration_job_main.png[]
 |이름|인테그레이션 잡의 이름이다. 이때 이름을 클릭하면 해당 인테그레이션 잡의 상세 정보를 확인할 수 있는 화면이 열린다.
 |네임스페이스|인테그레이션 잡이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |생성 시간|인테그레이션 잡이 생성된 시간이다.
-|image:../images/figure_action_icon.png[]|인테그레이션 잡의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|인테그레이션 잡의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -359,7 +359,7 @@ image::../images/figure_admin_integration_job_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-integration-config-main]
-image::../images/figure_admin_integration_config_main.png[]
+image::../../images/figure_admin_integration_config_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -390,7 +390,7 @@ image::../images/figure_admin_integration_config_main.png[]
 * Ready : 이벤트를 받을 수 있는 상태
 * UnReady : 이벤트를 받을 수 없는 상태
 |생성 시간|인테그레이션 컨피그가 생성된 시간이다.
-|image:../images/figure_action_icon.png[]|인테그레이션 컨피그의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|인테그레이션 컨피그의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
