@@ -30,7 +30,7 @@
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-pod-main]
-image::../images/figure_admin_multi_pod_main.png[]
+image::../../images/figure_admin_multi_pod_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -67,7 +67,7 @@ image::../images/figure_admin_multi_pod_main.png[]
 |레이블|파드에 추가된 레이블 정보이다.
 |주석|파드에 추가된 주석의 개수이다.
 |생성 시간|파드가 생성된 시간이다.
-|image:../images/figure_action_icon.png[]|파드의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|파드의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -83,7 +83,7 @@ image::../images/figure_admin_multi_pod_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-deployment-main]
-image::../images/figure_admin_multi_deployment_main.png[]
+image::../../images/figure_admin_multi_deployment_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -108,7 +108,7 @@ image::../images/figure_admin_multi_deployment_main.png[]
 |네임스페이스|디플로이먼트가 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |레이블|디플로이먼트에 추가된 레이블 정보이다.
 |파드 선택기|관리할 파드의 레이블 정보이다.
-|image:../images/figure_action_icon.png[]|디플로이먼트의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|디플로이먼트의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 스토리지 추가 : 기존의 영구 볼륨 클레임 또는 영구 볼륨 클레임을 새로 생성하여 디플로이먼트에 추가
@@ -126,7 +126,7 @@ image::../images/figure_admin_multi_deployment_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-replicaset-main]
-image::../images/figure_admin_multi_replica_main.png[]
+image::../../images/figure_admin_multi_replica_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -151,7 +151,7 @@ image::../images/figure_admin_multi_replica_main.png[]
 |네임스페이스|레플리카 셋이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |레이블|레플리카 셋에 추가된 레이블 정보이다.
 |파드 선택기|관리할 파드의 레이블 정보이다.
-|image:../images/figure_action_icon.png[]|레플리카 셋의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|레플리카 셋의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 스토리지 추가 : 기존의 영구 볼륨 클레임 또는 영구 볼륨 클레임을 새로 생성하여 레플리카 셋에 추가
@@ -169,7 +169,7 @@ image::../images/figure_admin_multi_replica_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-hpa-main]
-image::../images/figure_admin_multi_hpa_main.png[]
+image::../../images/figure_admin_multi_hpa_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -194,7 +194,7 @@ HPA의 이름 및 레이블 정보를 입력해서 검색한다. +
 |네임스페이스|HPA가 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |레이블|HPA에 추가된 레이블 정보이다.
 |파드 선택기|관리할 파드의 레이블 정보이다.
-|image:../images/figure_action_icon.png[]|HPA의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|HPA의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -210,7 +210,7 @@ HPA의 이름 및 레이블 정보를 입력해서 검색한다. +
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-daemonset-main]
-image::../images/figure_admin_multi_daemon_main.png[]
+image::../../images/figure_admin_multi_daemon_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -235,7 +235,7 @@ image::../images/figure_admin_multi_daemon_main.png[]
 |네임스페이스|데몬 셋이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |레이블|데몬 셋에 추가된 레이블 정보이다.
 |주석|데몬 셋에 추가된 주석의 개수이다.
-|image:../images/figure_action_icon.png[]|데몬 셋의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|데몬 셋의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -251,7 +251,7 @@ image::../images/figure_admin_multi_daemon_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-statefulset-main]
-image::../images/figure_admin_multi_stateful_main.png[]
+image::../../images/figure_admin_multi_stateful_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -276,7 +276,7 @@ image::../images/figure_admin_multi_stateful_main.png[]
 |레이블|스테이트풀 셋에 추가된 레이블 정보이다.
 |주석|스테이트풀 셋에 추가된 주석의 개수이다.
 |생성 시간|스테이트풀 셋이 생성된 시간이다.
-|image:../images/figure_action_icon.png[]|스테이트풀 셋의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|스테이트풀 셋의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -292,7 +292,7 @@ image::../images/figure_admin_multi_stateful_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-config-map-main]
-image::../images/figure_admin_multi_config_main.png[]
+image::../../images/figure_admin_multi_config_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -317,7 +317,7 @@ image::../images/figure_admin_multi_config_main.png[]
 |네임스페이스|컨피그 맵이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |레이블|컨피그 맵에 추가된 레이블 정보이다.
 |파드 선택기|관리할 파드의 레이블 정보이다.
-|image:../images/figure_action_icon.png[]|컨피그 맵의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|컨피그 맵의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 스토리지 추가 : 기존의 영구 볼륨 클레임 또는 영구 볼륨 클레임을 새로 생성하여 컨피그 맵에 추가
@@ -335,7 +335,7 @@ image::../images/figure_admin_multi_config_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-secret-main]
-image::../images/figure_admin_multi_secret_main.png[]
+image::../../images/figure_admin_multi_secret_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -360,7 +360,7 @@ image::../images/figure_admin_multi_secret_main.png[]
 |네임스페이스|시크릿이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |레이블|컨피그 맵에 추가된 레이블 정보이다.
 |파드 선택기|관리할 파드의 레이블 정보이다.
-|image:../images/figure_action_icon.png[]|시크릿의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|시크릿의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 스토리지 추가 : 기존의 영구 볼륨 클레임 또는 영구 볼륨 클레임을 새로 생성하여 시크릿에 추가
@@ -378,7 +378,7 @@ image::../images/figure_admin_multi_secret_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-job-main]
-image::../images/figure_admin_multi_job_main.png[]
+image::../../images/figure_admin_multi_job_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -403,7 +403,7 @@ image::../images/figure_admin_multi_job_main.png[]
 |네임스페이스|잡이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |레이블|잡에 추가된 레이블 정보이다.
 |파드 선택기|관리할 파드의 레이블 정보이다.
-|image:../images/figure_action_icon.png[]|잡의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|잡의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 스토리지 추가 : 기존의 영구 볼륨 클레임 또는 영구 볼륨 클레임을 새로 생성하여 잡에 추가
@@ -421,7 +421,7 @@ image::../images/figure_admin_multi_job_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-cron-job-main]
-image::../images/figure_admin_multi_cron_job_main.png[]
+image::../../images/figure_admin_multi_cron_job_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -445,7 +445,7 @@ image::../images/figure_admin_multi_cron_job_main.png[]
 |이름|크론 잡의 이름이다. 이때 이름을 클릭하면 해당 크론 잡의 상세 정보를 확인할 수 있는 화면이 열린다.
 |네임스페이스|크론 잡이 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |레이블|크론 잡에 추가된 레이블 정보이다.
-|image:../images/figure_action_icon.png[]|크론 잡의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|크론 잡의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -462,7 +462,7 @@ image::../images/figure_admin_multi_cron_job_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-ingress-main]
-image::../images/figure_admin_multi_ingress_main.png[]
+image::../../images/figure_admin_multi_ingress_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -487,7 +487,7 @@ image::../images/figure_admin_multi_ingress_main.png[]
 |네임스페이스|인그레스가 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |레이블|인그레스에 추가된 레이블 정보이다.
 |호스트|인그레스 규칙을 적용할 호스트 이름이다.
-|image:../images/figure_action_icon.png[]|인그레스의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|인그레스의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 수정, 삭제
@@ -503,7 +503,7 @@ image::../images/figure_admin_multi_ingress_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-service-main]
-image::../images/figure_admin_multi_service_main.png[]
+image::../../images/figure_admin_multi_service_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -528,7 +528,7 @@ image::../images/figure_admin_multi_service_main.png[]
 |네임스페이스|서비스가 생성된 네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |레이블|서비스에 추가된 레이블 정보이다.
 |파드 선택기|관리할 파드의 레이블 정보이다.
-|image:../images/figure_action_icon.png[]|서비스의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|서비스의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
@@ -544,7 +544,7 @@ image::../images/figure_admin_multi_service_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-namespace-main]
-image::../images/figure_admin_multi_namespace_main.png[]
+image::../../images/figure_admin_multi_namespace_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
@@ -568,7 +568,7 @@ image::../images/figure_admin_multi_namespace_main.png[]
 |이름|네임스페이스의 이름이다. 이때 이름을 클릭하면 해당 네임스페이스의 상세 정보를 확인할 수 있는 화면이 열린다.
 |레이블|네임스페이스에 추가된 레이블 정보이다.
 |생성 시간|네임스페이스가 생성된 시간이다.
-|image:../images/figure_action_icon.png[]|네임스페이스의 관리를 위한 메뉴를 사용할 수 있다. +
+|image:../../images/figure_action_icon.png[]|네임스페이스의 관리를 위한 메뉴를 사용할 수 있다. +
 이때 제공하는 메뉴는 다음과 같다.
 
 * 레이블 수정 : 리소스의 식별을 위한 레이블을 추가, 삭제
