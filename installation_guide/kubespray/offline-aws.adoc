@@ -367,7 +367,7 @@ kube_pods_subnet: 10.244.0.0/24 <7>
 
 . *설치할 애플리케이션 구성 정보 확인*
 +
-Kubespray로 설치될 애플리케이션(`nginx`, `hyperregistry`, `gitlab`, `argocd`)의 구성 정보를 확인 및 설정한다. +
+Kubespray로 설치될 애플리케이션(`nginx`, `hyperregistry`, `gitea`, `argocd`)의 구성 정보를 확인 및 설정한다. +
 해당 애플리케이션의 구성 정보는 기본적으로 `kubespray-aws/inventory/tmaxcloud/group_vars/k8s_cluster/addon.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `kubespray-aws/roles/bootstrap-cloud/task/` 및 `kubespray-aws/roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다.
 +
 AWS 환경에서는 AWS ELB(Elastic Load Balancing)를 사용하기 위해 다음과 같이 인그레스의 서비스 타입을 "LoadBalancer"로 설정해야 한다.
@@ -394,7 +394,7 @@ Kubespray 실행 명령의 인자 값에 대한 설명은 다음과 같다.
 |{PEM_PATH}|다운로드한 PEM 파일의 경로 (예: /root/default.pem)
 |====================
 
-NOTE: 애플리케이션 설치가 정상적으로 완료되면, Gitlab과 ArgoCD 간의 저장소가 자동으로 연동된다.
+NOTE: 애플리케이션 설치가 정상적으로 완료되면, Gitea과 ArgoCD 간의 저장소가 자동으로 연동된다.
 
 [#MasterClusterAws]
 == 마스터 클러스터 설치
@@ -446,7 +446,7 @@ NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하�
 .예시
 ----
 ...
-    repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1>
+    repoURL: https://gitea.cloudqa.com/root/argocd-installer.git <1>
 ...
 global:
   network:
@@ -456,7 +456,7 @@ global:
     domain: hyperauth.cloudqa.com <4>
 ...
 ----
-<1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
+<1> ArgoCD와 연동된 Gitea 저장소 주소 (Gitea의 경우 url 마지막에 .git을 추가)
 <2> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
 <3> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
 <4> 설치할 HyperAuth 도메인 이름
@@ -471,15 +471,15 @@ spec:
   ...
   source:
     ...
-    repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1> 
+    repoURL: https://gitea.cloudqa.com/root/argocd-installer.git <1> 
     targetRevision: HEAD <2>
 ----
-<1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
-<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름
+<1> ArgoCD와 연동된 Gitea 저장소 주소 (Gitea의 경우 url 마지막에 .git을 추가)
+<2> Gitea에 연동되어 있는 argocd-installer의 브랜치 이름
 
-. *Gitlab 동기화 작업*
+. *Gitea 동기화 작업*
 +
-ArgoCD와 연동된 Gitlab의 argocd-installer 브랜치에서 `master-values.yaml`, `shared-values.yaml`, `master-applications.yaml` 파일을 열어 위의 1~3번 과정과 동일하게 환경 변수를 설정한다.
+ArgoCD와 연동된 Gitea의 argocd-installer 브랜치에서 `master-values.yaml`, `shared-values.yaml`, `master-applications.yaml` 파일을 열어 위의 1~3번 과정과 동일하게 환경 변수를 설정한다.
 
 . *애플리케이션 등록*
 +
@@ -522,10 +522,10 @@ CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우
 ====
 마스터 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
 1. api-gateway-bootstrap(namespaces + cert-manager + jwt-decode-auth + api-gateway with console) +
-2. gitlab, argocd, hyperregistry +
+2. gitea, argocd, hyperregistry +
 3. strimzi-kafka-operator +
 4. hyperauth +
-5. opensearch or loki +
+5. loki +
 6. prometheus +
 7. grafana-operator +
 8. service-mesh(istio, jaeger, kiali) +
@@ -535,7 +535,8 @@ CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우
 12. cicd-operator(tekton) +
 13. cluster-api(aws, vsphere) +
 14. redis-operator, helm-apiserver, service-binding-operator +
-15. image-validating-webhook
+15. sonarqube, nexus +
+16. image-validating-webhook
 ====
 
 [CAUTION]
@@ -550,7 +551,8 @@ CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우
 6. service-mesh(istio, jaeger, kiali) + 
 7. template-service-broker +
 8. catalog-controller, cicd-operator(tekton), redis-operator, helm-apiserver, service-binding-operator +
-9. image-validating-webhook
+9. sonarqube, nexus +
+10. image-validating-webhook
 ====
 
 . *ArgoCD 콘솔 접속*
