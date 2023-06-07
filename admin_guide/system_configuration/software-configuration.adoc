@@ -32,8 +32,8 @@ HyperCloud에서 사용하는 소프트웨어의 버전 정보는 다음과 같�
 |template operator|0.2.7|카탈로그 템플릿 오퍼레이터
 |template service broker|0.1.4|카탈로그 템플릿 브로커
 |catalog controller|v0.3.0|카탈로그 컨트롤러
-|hypercloud-apiserver|b5.0.37.1|HyperCloud 요청 처리
-|hypercloud-single-operator|b5.0.37.1|HyperCloud 오퍼레이터
+|hypercloud-apiserver|b5.0.37.0|HyperCloud 요청 처리
+|hypercloud-single-operator|b5.0.37.0|HyperCloud 오퍼레이터
 |hypercloud-multi-operator|b5.0.37.1|멀티 오퍼레이터 클러스터 생성 및 등록 관리
 |service binding operator|1.0.0|서비스 바인딩 오퍼레이터
 |tekton CI/CD|pipeline v0.26.0, trigger v0.15.0|CI/CD 플랫폼
