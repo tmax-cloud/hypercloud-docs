@@ -4,12 +4,20 @@
 
 == 시스템 사양
 
-HyperCloud를 구성하는 노드들의 사양 정보는 다음과 같다.
+HyperCloud를 구성할 때 필요한 총 사양 정보는 다음과 같다.
+[width="100%",options="header", cols="1,1,1,1"]
+|====================
+|구분|운영체제|CPU|메모리
+|최소|Red Hat 8 계열|22 core|53 GiB
+|권장|Red Hat 8 계열|52 core|95 GiB
+|==================== 
+
+
+Ai-DevOps를 통해 모델링 시 모델 별 추가적인 사양이 필요하다. Ai-DevOps에 포함된 기본 템플릿 모델 수행 사양 정보는 다음과 같다.
 [width="100%",options="header", cols="1,1,1,1,1"]
 |====================
-|노드|운영체제|CPU|메모리|스토리지
-|마스터|Red Hat 계열 8|4|8GB|100GB
-|워커|Red Hat 계열 8|8|16GB|100GB
+|구분|운영체제|CPU|메모리|기타
+|예제|Red Hat 8 계열|32 core|34 GiB|GPU
 |====================
 
 == 운영체제 설정
@@ -114,7 +122,7 @@ HyperCloud에서 사용되는 주요 도메인 목록은 다음과 같다.
 |api-gateway-system|console.xx.xx|console.tmaxcloud.com|HyperCloud 메인 콘솔
 |argocd|argocd.xx.xx|argocd.tmaxcloud.com|HyperCloud 모듈 관리 및 배포를 지원하는 애플리케이션
 |awx|awx.xx.xx|awx.tmaxcloud.com|Ansible 기반의 워크플로우 자동화 및 작업 스케줄링, 조직 및 제어 대시보드
-|cicd-system|cicd-webhook.xx.xx|cicd-webhook.tmaxcloud.com|GitLab의 이벤트를 받는 웹훅 서비스로, Git으로부터 이벤트를 받아 CI/CD 파이프라인을 동작
+|cicd-system|cicd-webhook.xx.xx|cicd-webhook.tmaxcloud.com|Gitea의 이벤트를 받는 웹훅 서비스로, Gitea으로부터 이벤트를 받아 CI/CD 파이프라인을 동작
 |gitea-system|gitea.xx.xx|gitea.tmaxcloud.com| 소스 코드 관리를 지원하는 애플리케이션
 |helm-ns|helm.xx.xx|helm.tmaxcloud.com| 헬름 차트를 관리하는 애플리케이션
 |hyperauth|hyperauth.xx.xx|hyperauth.tmaxcloud.com| HyperCloud 계정 인증/인가 관리
