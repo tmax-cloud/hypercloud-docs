@@ -22,6 +22,13 @@
   <meta content="HyperCloud" name="application-name">
   <meta content="#000000" name="msapplication-TileColor">
   <meta content="<%= images_path %>hypercloud_favicon.png" name="msapplication-TileImage">
+  <style>
+    pre{
+      white-space: pre-wrap;
+      work-break: break-all;
+      overflow: auto;
+    }
+  </style>
 </head>
 <body onload="selectVersion('<%= version %>'); selectLanguage('<%= distro_key %>', '<%= version %>')">
   <%= render("_templates/_topnav.html.erb", :distro_key => distro_key, :site_url => site_url, :version => version, :images_path => images_path) %>
