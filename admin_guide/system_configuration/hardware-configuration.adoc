@@ -115,14 +115,13 @@ HyperCloud에서 사용되는 주요 도메인 목록은 다음과 같다.
 |argocd|argocd.xx.xx|argocd.tmaxcloud.com|HyperCloud 모듈 관리 및 배포를 지원하는 애플리케이션
 |awx|awx.xx.xx|awx.tmaxcloud.com|Ansible 기반의 워크플로우 자동화 및 작업 스케줄링, 조직 및 제어 대시보드
 |cicd-system|cicd-webhook.xx.xx|cicd-webhook.tmaxcloud.com|GitLab의 이벤트를 받는 웹훅 서비스로, Git으로부터 이벤트를 받아 CI/CD 파이프라인을 동작
-|gitlab-system|gitlab.xx.xx|gitlab.tmaxcloud.com| 소스 코드 관리를 지원하는 애플리케이션
+|gitea-system|gitea.xx.xx|gitea.tmaxcloud.com| 소스 코드 관리를 지원하는 애플리케이션
 |helm-ns|helm.xx.xx|helm.tmaxcloud.com| 헬름 차트를 관리하는 애플리케이션
 |hyperauth|hyperauth.xx.xx|hyperauth.tmaxcloud.com| HyperCloud 계정 인증/인가 관리
 |hyperregistry|hyperregistry.xx.xx|hyperregistry.tmaxcloud.com| HyperCloud 컨테이너 이미지 레지스트리
 |hyperregistry|hyperregistry-notary.xx.xx|hyperregistry-notary.tmaxcloud.com| 컨테이너 이미지 서명 관리 애플리케이션
 |istio-system|kiali.xx.xx|kiali.cloudqa.com| Istio 서비스 메쉬를 위한 트래픽, 서비스, 라우팅 등의 모니터링 대시보드
 |istio-system|jaeger.xx.xx|jaeger.cloudqa.com| 분산 시스템에서의 서비스 추적과 모니터링
-|kube-logging|opensearch-dashboard.xx.xx|opensearch-dashboard.tmaxcloud.com| 로그 데이터 수집 및 분석 
 |monitoring|grafana.xx.xx|grafana.tmaxcloud.com| Prometheus 메트릭 데이터 시각화
 |====================
 
