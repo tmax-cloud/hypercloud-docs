@@ -11,19 +11,19 @@
 * 경량화 및 원활한 모듈 관리를 위해 기본 형상 관리 시스템을 gitlab에서 gitea로 변경
 * 모니터링 속도 개선을 위해 기본 모니터링 시스템을 opensearch에서 loki로 변경
 
-=== hypercloud 모듈 리소스 설정
+=== Hypercloud 모듈 리소스 설정
 
 * 최소 설치 리소스 사양 : CPU 22 core / Memory 53Gi
 * 권장 설치 리소스 사양 : CPU 52 core / Memory 95Gi 
 * ai-devops에 포함된 템플릿 모델 수행 사양 : CPU 32 core / Memory 34Gi
 
-=== gitea
+=== Gitea
 
 * "마스터 클러스터" 콘솔에 홈 메뉴로 제공
 * gitlab에 비해 경량화되어 성능이 낮은 시스템에 설치 가능
 * 하나의 컨테이너로 구성된 gitlab과 달리 여러 개의 파드로 구성되어 로그 분석 용이
 
-=== grafana operator
+=== Grafana operator
 
 * grafana pvc를 추가하여 사용자가 수동 생성한 대시보드, data source 등의 데이터 유지 기능 추가
 * 클러스터 전체 노드의 시스템 물리 코어 수 변화를 모니터링할 수 있는 대시보드 제공
@@ -35,21 +35,21 @@
 * Kubernetes를 기반으로 하는 machine learning 툴킷
 * ML 워크플로우 단계를 Kubernetes 작업으로 변환하여 ML 라이브러리, 프레임워크, 파이프라인 및 노트북을 위한 클라우드 네이티브 인터페이스를 제공
 
-=== istio
+=== Istio
 
 * ai-devops 모듈 연동을 위한 버전 업그레이드
 
-=== jaeger
+=== Jaeger
 
 * loki 연동을 위한 버전 업
 * loki 연동 플러그인 추가
 
-=== sonarqube
+=== Sonarqube
 
 * 다양한 언어에 대해 버그, 코드 스멜, 보안 취약점 발견을 위한 정적 코드 분석 지원
 * 지속적인 코드 품질 검사 가능
 
-=== nexus
+=== Nexus
 
 * 저장소 관리자 도구이며 다양한 형태의 사설 저장소 생성 가능
 * 메인 저장소를 캐시할 수 있는 기능 제공
@@ -59,6 +59,6 @@
 
 이전 릴리즈에서 사용 가능한 일부 기능은 더 이상 사용되지 않거나, 제거되었다.
 
-=== opensearch
+=== Opensearch
 
 "마스터 클러스터" 콘솔 메인 메뉴 중에서 [홈] 메뉴 하위의 [오픈서치] 메뉴가 제거되었다.
