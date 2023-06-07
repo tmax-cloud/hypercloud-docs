@@ -334,13 +334,13 @@ python3-pbr-5.1.2-3.el8 +
 ansible-2.9.23-1.el8
 |====================
 
-[NOTE]
-====
+
 Kubespray를 설치할 노드에 아래의 명령을 실행하면 Kubespray를 실행하기 위해 필요한 패키지가 전부 설치된다. 
 ----
-$ yum -y install python3-pip python3-cryptography python3-jinja2 python3-netaddr python3-jmespath python3-ruamel-yaml python3-pbr ansible
+yum -y install 
+python3-pip python3-cryptography python3-jinja2 python3-netaddr python3-jmespath python3-ruamel-yaml python3-pbr ansible
 ----
-====
+
 
 == Kubespray 환경 설정 파일 종류
 Kubespray를 실행하기 위한 필수 설정 파일의 종류와 각 파일의 역할에 대한 설명은 다음과 같다.
