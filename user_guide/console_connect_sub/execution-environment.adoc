@@ -5,8 +5,8 @@ HyperCloud 시스템의 웹 콘솔에 접속하기 위해서 다음의 환경이
 [width="100%",options="header", cols="1,3"]
 |====================
 |실행 환경|설명  
-|운영체제|CentOS/RHEL (버전: 8.2, 8.4) +
-ProLinux (버전: 8.2, 8.4)
+|운영체제|Microsoft Windows 10 +
+Mircrosoft Windows 11
 |브라우저|Chrome +
 Microsoft Edge
 |최적 해상도|1920 × 1080
