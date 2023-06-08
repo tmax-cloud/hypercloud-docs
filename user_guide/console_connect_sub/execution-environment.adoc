@@ -6,7 +6,7 @@ HyperCloud 시스템의 웹 콘솔에 접속하기 위해서 다음의 환경이
 |====================
 |실행 환경|설명  
 |운영체제|Microsoft Windows 10 +
-Mircrosoft Windows 11
+Microsoft Windows 11
 |브라우저|Chrome +
 Microsoft Edge
 |최적 해상도|1920 × 1080
