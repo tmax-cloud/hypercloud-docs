@@ -449,8 +449,8 @@ Topics:
         File: system-monitoring
       - Name: 그라파나
         File: grafana
-      - Name: OpenSearch
-        File: open-search
+#      - Name: OpenSearch
+#        File: open-search
   - Name: ArgoCD
     Dir: argocd
     Topics:
