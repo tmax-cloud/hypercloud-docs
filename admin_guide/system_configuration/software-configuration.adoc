@@ -25,7 +25,7 @@ HyperCloud에서 사용하는 소프트웨어의 버전 정보는 다음과 같�
 |Opensearch|1.2.3|로그 모니터링 툴
 |Istio|1.15.4|서비스 메시
 |Jaeger|1.35|서비스 추적
-|Kiali|v1.21|Istio 콘솔
+|Kiali|v1.59.0|Istio 콘솔
 |Helm apiserver|0.0.5|헬름 레포지터리 및 배포 관리
 |Cluster api|v0.3.16|멀티 클러스터 관리
 |Awx operator|0.13.0|프로비저닝 자동화
