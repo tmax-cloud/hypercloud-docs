@@ -1,9 +1,9 @@
-= Gitlab에 argocd-installer 연동하기
+= Gitea에 argocd-installer 연동하기
 
 :toc:
 :toc-title:
 
-본 장에서는 Gitlab에 새로운 브랜치나 프로젝트를 연동하는 방법에 대해 설명한다.
+본 장에서는 Gitea에 새로운 브랜치나 프로젝트를 연동하는 방법에 대해 설명한다.
 
 == argocd-installer 파일을 새로운 브랜치로 생성
 
@@ -18,7 +18,7 @@ git checkout -b new -branch
 . 설치한 gitlab 주소로 원격 저장소를 생성한다.
 +
 ----
-git remote add new-remote http://gitlab.cloudqa.com/root/argocd-installer.git
+git remote add new-remote http://gitea.cloudqa.com/root/argocd-installer.git
 ----
 . 업데이트된 내역을 추가한다.
 +
@@ -30,7 +30,7 @@ git add .
 ----
 git commit -m "add"
 ----
-. 원격 저장소 내용을 gitlab의 새로운 브랜치로 생성한다.
+. 원격 저장소 내용을 gitea의 새로운 브랜치로 생성한다.
 +
 ----
 git push -u new-remote new-branch
@@ -50,9 +50,9 @@ git remote rename origin oid-origin
 . 새로운 이름의 원격 저장소를 gitlab과 연결한다.
 +
 ----
-git remote add origin http://gitlab.cloudqa.com/root/argocd-installer.git
+git remote add origin http://gitea.cloudqa.com/root/argocd-installer.git
 ----
-. 변경 사항을 gitlab에 적용한다.
+. 변경 사항을 gitea에 적용한다.
 +
 ----
 git push -u origin --all
@@ -62,8 +62,6 @@ git push -u origin --all
 
 argocd-installer 파일을 새로운 프로젝트로 생성한다.
 
-. GitLab Web UI에 접속한다.
-. *[New project]* 버튼을 클릭한 후 **[Import project]** 탭을 선택한다.
-. Import project from 영역에서 **[Repo by URL]**을 클릭한다.
-. *"Git repository URL"*, *"Project name"* 항목을 설정하고, *"Visibility Level"* 항목을 "Public"으로 설정한다.
-. 설정 완료 후 *[Create project]* 버튼을 클릭한다.
+. Gitea Web UI에 접속한다.
+. 우측 상단 *[+]* 버튼을 클릭한 후 **[새 저장소]** 탭을 선택한다.
+. 저장소 이름을 입력한 후 **[저장소 만들기]** 버튼을 클릭한다. 
