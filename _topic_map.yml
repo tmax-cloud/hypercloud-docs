@@ -467,8 +467,8 @@ Topics:
         File: hyperauth-backup
       - Name: hyperregistry 백업 및 복구
         File: hyperregistry-backup
-      - Name: gitlab 백업 및 복구
-        File: gitlab-backup
+      - Name: gitea 백업 및 복구
+        File: gitea-backup
       - Name: hypercloud5-system 백업 및 복구
         File: hypercloud5-system-backup
   - Name: 점검사항
