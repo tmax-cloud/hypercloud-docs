@@ -1,0 +1,68 @@
+= Gitea 백업 및 복구
+:toc:
+:toc-title:
+
+본 장에서는 Gitea 애플리케이션 데이터 백업에 대해 설명한다. 단, 백업을 생성한 Gitea 버전 및 유형과 동일한 버전으로만 복구할 수 있다.
+
+== 백업 
+
+. *백업 파일 생성* +
++
+.gitea 컨테이너 접속
+----
+$ kubectl exec -it -n gitea-system gitea-0 --container gitea -- /bin/bash
+----
++
+.백업 파일 생성(ex. /tmp/gitea-dump-1686808859.zip)
+----
+$ chmod -R 755 /data/ssh
+$ su git
+$ cd tmp
+$ /usr/local/bin/gitea dump
+----
+
+== 복구
+
+. *Gitea 복구* +
++
+.백업 파일 압축 해제 및 컨테이너로 복사
+----
+$ unzip gitea-dump-1686808859.zip -d ./gitea-dump-1686808859
+$ kubectl cp -n gitea-system gitea-dump-1686808859/ gitea-0:/tmp/gitea-dump-1686808859/ --container gite
+----
++
+.Gitea 데이터 복구
+----
+$ kubectl exec -it -n gitea-system gitea-0 --container gitea -- /bin/bash
+$ cp -R /tmp/gitea-dump-1686808859/data/. /data/gitea
+$ cp -R /tmp/gitea-dump-1686808859/repos/. /data/git/gitea-repositories/
+$ chown -R git:git /data
+----
++
+.Regenerate Git Hooks
+----
+$ su git
+$ /usr/local/bin/gitea -c '/data/gitea/conf/app.ini' admin regenerate hooks
+----
+
+. *mariadb 복구* +
++
+.백업 파일 컨테이너로 복사
+----
+$ kubectl cp -n gitea-system gitea-dump-1686808859/ gitea-mariadb-0:/tmp/gitea-dump-1686808859/
+----
++
+.DB 복구
+----
+$ kubectl exec -it -n gitea-system gitea-mariadb-0 -- /bin/bash
+$ cat /tmp/gitea-dump-1686808859/gitea-db.sql | sed -e 's/^INSERT INTO/REPLACE INTO/' -e 's/^CREATE INDEX/CREATE INDEX IF NOT EXISTS/' -e 's/^CREATE UNIQUE INDEX/CREATE UNIQUE INDEX IF NOT EXISTS/' | mysql --default-character-set=utf8mb4 -u gitea -p gitea
+Enter password: "gitea"
+----
+
+
+. *Gitea 파드 재실행* +
++
+.실행 방법
+----
+$ kubectl delete pod -n gitea-system gitea-0
+----
