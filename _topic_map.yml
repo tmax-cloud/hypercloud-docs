@@ -311,12 +311,8 @@ Topics:
         File: sidecar-create
       - Name: 서비스 바인딩 생성
         File: service-binding-create
-      - Name: 서비스 브로커 생성
-        File: service-broker-create
       - Name: 서비스 엔트리 생성
         File: service-entry-create
-      - Name: 서비스 인스턴스 생성
-        File: service-instance-create
   - Name: 리소스 생성 (ㅇ)
     Dir: resource_create_sub
     Topics:
@@ -348,8 +344,6 @@ Topics:
         File: kafca-connect-create
       - Name: 카프카 클러스터 생성
         File: kafca-cluster-create
-      - Name: 클러스터 서비스 브로커 생성
-        File: cluster-service-broker-create
       - Name: 클러스터 태스크 생성
         File: cluster-task-create
       - Name: 클러스터 템플릿 생성
@@ -400,13 +394,9 @@ Topics:
   - Name: 메인 메뉴
     Dir: console_menu_sub
     Topics:
-      - Name: 앤서블
-        File: ansible
   - Name: 리소스 생성 (A)
     Dir: resource_create_sub
     Topics:
-      - Name: AWX 인스턴스 생성
-        File: awx-instances-create
 ---
 Name: 운영자 안내서
 Dir: admin_guide
