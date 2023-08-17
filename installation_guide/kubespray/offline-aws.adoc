@@ -73,18 +73,22 @@ $ terraform  version
 
 쿠버네티스 설치를 위해 테크넷을 통해서 다운로드한 *kubespray-infra.zip* 파일을 압축 해제한다.
 
+압축 해제 후 `kubespray-infra/contrib/terraform/aws/` 경로의 `credentials.tfvars, terraform.tfvars, variables.tf` 파일을 사용한다.
+
 [#TerraformConfigAws]
 === Terraform 환경 설정
 
 `kubespray-infra/contrib/terraform/aws/terraform.tfvars` 파일을 열어 Terraform에 전달하는 변수의 값을 정의한다.
+
+Setting VPN Connection 부분의 경우, 온프레미스 환경과 연결이 필요한 경우 설정한다.
 ----
 #Global Vars
 aws_cluster_name = "terraform"
 
 #VPC Vars
-aws_vpc_cidr_block       = "20.0.0.0/16"
-aws_cidr_subnets_public  = ["20.0.1.0/24", "20.0.2.0/24", "20.0.3.0/24"]
-aws_cidr_subnets_private = ["20.0.6.0/24", "20.0.7.0/24", "20.0.8.0/24"]
+aws_vpc_cidr_block       = "10.0.0.0/16"
+aws_cidr_subnets_public  = ["10.0.1.0/24"]
+aws_cidr_subnets_private = ["10.0.2.0/24"]
 
 #Bastion Host
 aws_bastion_num  = 1
@@ -156,13 +160,44 @@ AWS_DEFAULT_REGION = "us-east-x"
 $ terraform init
 ----
 
-. *AWS 계정 및 액세스 키 정보 적용* 
+. *구성할 AWS 리소스 확인* 
 +
-AWS 액세스 키 ID와 보안 액세스 키 정보가 등록된 `credentials.tfvars` 파일을 *terraform apply* 명령을 사용하여 적용한다.
+AWS 액세스 키 ID와 보안 액세스 키 정보가 등록된 `credentials.tfvars` 파일을 *terraform plan* 명령을 사용하여 구성할 AWS 리소스를 확인한다.
++
+----
+$ terraform plan -var-file=credentials.tfvars
+----
+
+. *Terraform을 통한 AWS 리소스 생성* 
++
+AWS 액세스 키 ID와 보안 액세스 키 정보가 등록된 `credentials.tfvars` 파일을 *terraform apply* 명령을 사용하여 구성할 적용한다.
 +
 ----
 $ terraform apply -var-file=credentials.tfvars
 ----
++
+생성이 완료되면 추후 kubespray를 위해 Terraform 적용 후 생성된 `kubespray-infra/inventory/tmaxcloud/hosts` 파일의 `[etcd]` 부분에 생성된 master ip를 추가한다.
++
+----
+[etcd]
+ip-10-0-2-X.us-east-x.compute.internal
+ip-10-0-2-X.us-east-x.compute.internal
+ip-10-0-2-X.us-east-x.compute.internal
+----
+
+
+=== Terraform 삭제
+
+Terraform을 통해 구성한 AWS 리소스 전체 삭제 시 아래 내용을 참고한다.
+
+. *AWS 리소스 삭제*
++
+Terraform을 통해 만든 리소스만 삭제되므로, 해당 명령어 수행 이후 남아있는 리소스는 수동으로 삭제해야한다.
++
+----
+$ terraform destroy --var-file=credentials.tfvars
+----
+
 
 [#K8sInfraAws]
 == 쿠버네티스 인프라 구성
