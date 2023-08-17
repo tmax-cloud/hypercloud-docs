@@ -185,6 +185,20 @@ ip-10-0-2-X.us-east-x.compute.internal
 ip-10-0-2-X.us-east-x.compute.internal
 ----
 
+. *생성된 인스턴스와 AWS 리소스 연동을 위한 엔드포인트 생성* 
++
+ebs, ec2, efs, elb 연동을 위한 엔드포인트를 각각 생성 한다.
++
+아래는 ebs 예시이다.
++
+image::/images/endpoint1.png[]
++
+서비스에 각각 ebs, ec2, elasticfilesystem, elasticloadbalancing 을 선택하여 진행한다.
++
+image::/images/endpoint2.png[]
++
+서브넷 선택 시 Terraform으로 생성한 VPC 선택 후 private 서브넷만 선택, 보안 그룹은 모두 선택하여 생성한다.
+
 
 === Terraform 삭제
 
