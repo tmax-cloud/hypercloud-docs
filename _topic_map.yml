@@ -224,8 +224,6 @@ Topics:
     Topics:
       - Name: 파드 생성
         File: pod-create
-      - Name: 파드 보안 정책 생성
-        File: pod-security-policy-create
 ---
 Name: 싱글 클러스터 콘솔 안내서
 Dir: user_guide
