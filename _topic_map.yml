@@ -108,7 +108,7 @@ Topics:
     Topics:
       - Name: 클러스터
         File: cluster
-      - Name: 테리폼 클레임
+      - Name: 테라폼 클레임
         File: terraform
   - Name: 리소스 생성 (ㅋ)
     Dir: resource_create_sub
