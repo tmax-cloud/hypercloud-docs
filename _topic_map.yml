@@ -384,18 +384,6 @@ Topics:
       - Name: 헬름 릴리스 생성
         File: helm-release-create
 ---
-Name: 베어메탈 콘솔 안내서
-Dir: user_guide
-Topics:
-  - Name: 개요
-    File: intro-baremetal
-  - Name: 메인 메뉴
-    Dir: console_menu_sub
-    Topics:
-  - Name: 리소스 생성 (A)
-    Dir: resource_create_sub
-    Topics:
----
 Name: 운영자 안내서
 Dir: admin_guide
 Topics:
