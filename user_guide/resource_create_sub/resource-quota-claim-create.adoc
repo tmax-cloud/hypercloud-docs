@@ -26,7 +26,8 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 KEY
 VALUE
 ----
-* resourceName *
+* Scope Selector
+* Scopes
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터
