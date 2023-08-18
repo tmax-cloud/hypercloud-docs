@@ -95,8 +95,6 @@ Topics:
         File: resource-delete
       - Name: YAML 파일 다운로드
         File: yaml-down
-  - Name: 폼 에디터 설정 항목 참조
-    File: form-set-item
 ---
 Name: 멀티 클러스터 콘솔 안내서
 Dir: user_guide
