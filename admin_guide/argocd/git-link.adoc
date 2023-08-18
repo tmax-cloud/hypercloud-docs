@@ -13,9 +13,9 @@
 . argocd-installer 디렉터리에서 만들 새로운 브랜치 이름을 설정한다.
 +
 ----
-git checkout -b new -branch
+git checkout -b new-branch
 ----
-. 설치한 gitlab 주소로 원격 저장소를 생성한다.
+. 설치한 gitea 주소로 원격 저장소를 생성한다.
 +
 ----
 git remote add new-remote http://gitea.cloudqa.com/root/argocd-installer.git
@@ -47,7 +47,7 @@ git push -u new-remote new-branch
 ----
 git remote rename origin oid-origin
 ----
-. 새로운 이름의 원격 저장소를 gitlab과 연결한다.
+. 새로운 이름의 원격 저장소를 gitea과 연결한다.
 +
 ----
 git remote add origin http://gitea.cloudqa.com/root/argocd-installer.git
@@ -55,7 +55,7 @@ git remote add origin http://gitea.cloudqa.com/root/argocd-installer.git
 . 변경 사항을 gitea에 적용한다.
 +
 ----
-git push -u origin --all
+git push -u origin old-origin
 ----
 
 == argocd-installer 파일을 새로운 프로젝트로 생성
