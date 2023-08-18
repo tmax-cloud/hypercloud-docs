@@ -10,7 +10,9 @@ CRI-O 설정을 통해 여러 형식의 이미지를 확인하고 받아오는 �
 +
 .예시
 ----
-unqualified-search-registries = ["registry.fedoraproject.org", "registry.access.redhat.com", "registry.centos.org", "30.0.0.1:5000"]
+[[registry]]
+location = "30.0.0.1:5000"
+insecure = true
 ----
 +
 설정 항목에 대한 설명은 다음과 같다.
@@ -18,8 +20,8 @@ unqualified-search-registries = ["registry.fedoraproject.org", "registry.access.
 [width="100%",options="header", cols="1,2"]
 |====================
 |항목|설명
-|unqualified-search-registries|사용하는 Podman Registry를 설정한다. +
-인증서 등록을 하지 않고 Podman Registry에서 이미지를 가져올 경우 해당 주소를 설정한다.
+|insecure 설정|사용하려는 Podman Registry를 등록한다. +
+Podman Registry에서 인증서 등록을 하지 않고 이미지를 가져올 경우 해당 주소를 Insecure Registry로 설정한다.
 |====================
 
 . *crio.conf 파일 설정* +
