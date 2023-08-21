@@ -19,6 +19,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 
 * Name *
 * Labels 
+* Brokers
 * concurrentIntraBrokerPartitionMovements
 * concurrentLeaderMovements
 * concurrentPartitionMovementsPerBroker
@@ -28,6 +29,8 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 ----
 Value *
 ----
+* mode
+* rebalanceDisk
 * Replica Movement Strategies
 +
 ----
@@ -59,7 +62,7 @@ metadata:
   labels:
     strimzi.io/cluster: my-cruise
 spec:
-  goals:
+  goals: <3>
     - CpuCapacityGoal
     - NetworkInboundCapacityGoal
     - DiskCapacityGoal
@@ -71,4 +74,5 @@ spec:
 +
 <1> 카프카 리밸런스의 이름
 <2> 카프카 리밸런스가 생성될 네이스페이스의 이름
+<3> 카프카 클러스터의 리밸런싱 목표 설정
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
