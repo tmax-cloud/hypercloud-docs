@@ -115,6 +115,8 @@ Topics:
         File: cluster-registrations-create
       - Name: 클러스터 클레임 생성
         File: cluster-claims-create
+      - Name: 클러스터 업데이트 클레임 생성
+        File: cluster-update-claims-create
   - Name: 리소스 생성 (ㅌ)
     Dir: resource_create_sub
     Topics:
