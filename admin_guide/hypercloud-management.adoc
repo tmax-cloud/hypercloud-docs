@@ -135,8 +135,24 @@ c1-8             Ready    master   20d   v1.25.0
 ----
 $ kubeadm token create --print-join-command
 ----
++
+Master 노드 추가 조인 시 아래 내용을 참고 한다.
++
+----
+$ kubeadm certs certificate-key // certificate key 생성
+$ kubeadm init phase upload-certs --upload-certs --certificate-key={생성된 certificate-key}
+$ kubeadm token create --print-join-command --certificate-key={생성된 certificate-key}
+----
 
-. *노드 조인*
+. *Master 노드 조인 경우*
++
+출력 결과를 추가할 Master 노드에서 실행한다. 이때 cri-o를 사용하기 때문에 `--cri-socket /var/run/crio/crio.sock` 구문을 반드시 추가해야 한다.
++
+----
+$ kubeadm join 172.21.4.6:6443 --token 5zbwlh.zolzwnjqqyqb6fs8 --discovery-token-ca-cert-hash sha256:a8a71a …중략… 23c102 --control-plane --certificate-key 6c4c2f …중략… d95db8 --cri-socket /var/run/crio/crio.sock
+----
+
+. *Worker 노드 조인 경우*
 +
 출력 결과를 추가할 워커 노드에서 실행한다. 이때 cri-o를 사용하기 때문에 `--cri-socket /var/run/crio/crio.sock` 구문을 반드시 추가해야 한다.
 +
@@ -171,6 +187,32 @@ $ kubectl drain [노드 이름] --ignore-daemonsets
 ----
 $ kubectl delete node [노드 이름]
 ----
+
+. *Master 노드 삭제 경우*
++
+Master 노드 삭제 시 아래 내용을 참고 한다.
++
+etcd 멤버에서 삭제하고자 하는 Master 노드를 조회 후 삭제한다.
++
+----
+$ etcdctl member list  // 삭제하고자하는 노드 id 값 확인
+24c9a4a65320d26b, started, master1, https://[master1 ip]:2380, https://[master1 ip]:2379, false
+a4c1c46d6b3e5c99, started, master2, https://[master2 ip]:2380, https://[master2 ip]:2379, false
+bba9f809dc5a58ce, started, master3, https://[master3 ip]:2380, https://[master3 ip]:2379, false
+
+$ etcdctl member remove [member id 값]
+
+$ etcdctl memeber list // 삭제 되었는 지 확인
+24c9a4a65320d26b, started, master1, https://[master1 ip]:2380, https://[master1 ip]:2379, false
+a4c1c46d6b3e5c99, started, master2, https://[master2 ip]:2380, https://[master2 ip]:2379, false
+----
+
+. *Worker 노드 삭제 경우*
++
+----
+$ kubectl delete node [노드 이름]
+----
+
 
 . *노드 확인*
 +
