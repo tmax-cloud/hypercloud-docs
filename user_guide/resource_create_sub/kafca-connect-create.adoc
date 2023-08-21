@@ -101,10 +101,10 @@ spec:
   image: tmaxcloudck/kafka-connect:v1.0.3
   replicas: 1
   bootstrapServers: my-cluster-kafka-bootstrap:9092 <3>
-  jvmOptions:
+  jvmOptions: <4>
     "-Xmx": "1500m"
     "-Xms": "256m"
-  config:
+  config: <5>
     config.storage.replication.factor: 1
     offset.storage.replication.factor: 1
     status.storage.replication.factor: 1
@@ -116,7 +116,7 @@ spec:
     config.providers: secrets,configmaps
     config.providers.secrets.class: io.strimzi.kafka.KubernetesSecretConfigProvider
     config.providers.configmaps.class: io.strimzi.kafka.KubernetesConfigMapConfigProvider
-  metricsConfig:
+  metricsConfig: <6>
     type: jmxPrometheusExporter
     valueFrom:
       configMapKeyRef:
@@ -127,4 +127,7 @@ spec:
 <1> 카프카 커넥트의 이름
 <2> 카프카 커넥트가 생성될 네이스페이스의 이름
 <3> 카프카 커넥트 클러스터에 연결하기 위한 부트스트랩 
+<4> 카프카 커넥트의 JVM 옵션 설정
+<5> 카프카 커넥트의 구성 설정
+<6> 카프카 커넥트의 메트릭 수집 방법 설정
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.
