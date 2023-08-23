@@ -4,44 +4,6 @@
 
 본 장에서는 커스텀 리소스 정의(CRD) 리소스의 생성 방법에 대해서 설명한다.
 
-== 폼 에디터
-
-새로운 커스텀 리소스 정의(CRD)를 폼 에디터를 사용해서 생성할 수 있다.
-
-. "마스터 클러스터" 콘솔 메뉴에서 *[관리]* -> *[사용자 리소스 정의]* 메뉴를 선택한다.
-. *사용자 리소스 정의* 메인 화면이 열리면 *[사용자 리소스 정의 생성]* 버튼을 클릭한다.
-. *사용자 리소스 정의 생성* 화면이 열리면 **"다음을 통해 설정"**을 "Form View"로 선택한다.
-. 폼 에디터가 열리면 생성할 CRD의 구성 정보를 설정한다. +
-이때 설정 가능한 항목들은 다음과 같다. (* : 필수 설정 항목) 
-+
-NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한다.
-
-* Name *
-* Labels
-* Custom Resource Definition Spec
-+
-----
-conversion
-group *
-names *
-preserveUnknownFields
-scope *
-----
-* Custom Resource Conversion +
-하위 세부 항목은 xref:../form-set-item.adoc#CustomResourceConversion["폼 에디터 설정 항목 참조"의 "Custom Resource Conversion"]을 참고한다.
-* Custom Resource Definition Names +
-하위 세부 항목은 xref:../form-set-item.adoc#CustomResourceDefinitionNames["폼 에디터 설정 항목 참조"의 "Custom Resource Definition Names"]를 참고한다.
-* Custom Resource Definition Version
-+
-----
-name *
-schema
-served *
-storage *
-subresources
-----
-. 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
-
 == YAML 에디터
 
 새로운 커스텀 리소스 정의(CRD)를 YAML 에디터를 사용해서 생성할 수 있다.
