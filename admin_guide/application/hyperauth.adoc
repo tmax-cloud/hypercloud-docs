@@ -103,6 +103,7 @@ image::../../images/figure_hyperauth_user_lock.png[]
 <6> *[Save]* 버튼 클릭
 
 == 토큰 유효 시간 설정
+
 콘솔의 로그인 연장 시 로그아웃되는 현상이 발생할 경우 토큰의 유효 시간을 연장하여 해결할 수 있다.
 
 image::../../images/figure_hyperauth_token_time.png[]
@@ -113,3 +114,13 @@ image::../../images/figure_hyperauth_token_time.png[]
 <4> *"Access Token Lifespan"* 값 설정 : 액세스 토큰 유효 시간 (권장값: 1 Days)
 <5> *"Login timeout"* 값 설정 : 로그인 제한 시간 (권장값: 1 Days)
 <6> *[Save]* 버튼 클릭
+
+== 중복 로그인 설정
+
+여러 사용자가 동일한 계정으로 로그인할 수 있다. 
+
+image::../../images/figure_hyperauth_duplicate_login.png[]
+
+<1> *[Events]* 메뉴 선택
+<2> *[Config]* 탭 선택
+<3> *[Event Listeners]*에서 *"duplicate_login_block"*을 해제
