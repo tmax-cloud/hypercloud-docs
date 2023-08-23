@@ -270,7 +270,7 @@ Topics:
         File: helm
       - Name: 서비스 메시
         File: service-mesh
-      - Name: CI-CD
+      - Name: CI/CD
         File: ci-cd
       - Name: AI-DevOps
         File: ai-dev
@@ -411,7 +411,7 @@ Topics:
         File: hyperauth
       - Name: Kube 객체
         File: kube-object
-  - Name: CI-CD
+  - Name: CI/CD
     Dir: cicd
     Topics:
       - Name: 동작 상태와 이력 확인
