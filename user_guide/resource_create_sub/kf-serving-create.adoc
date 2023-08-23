@@ -19,12 +19,9 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 
 * Name *
 * Labels
-* Explainer +
-하위 세부 항목은 xref:../form-set-item.adoc#Explainer["폼 에디터 설정 항목 참조"의 "Explainer"]을 참고한다.
-* Predictor * +
-하위 세부 항목은 xref:../form-set-item.adoc#Predictor["폼 에디터 설정 항목 참조"의 "Predictor"]을 참고한다.
-* Transformer +
-하위 세부 항목은 xref:../form-set-item.adoc#Transformer["폼 에디터 설정 항목 참조"의 "Transformer"]을 참고한다.
+* Explainer 
+* Predictor * 
+* Transformer 
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터
