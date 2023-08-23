@@ -123,4 +123,4 @@ image::../../images/figure_hyperauth_duplicate_login.png[]
 
 <1> *[Events]* 메뉴 선택
 <2> *[Config]* 탭 선택
-<3> *[Event Listeners]*에서 *"duplicate_login_block"*을 해제
+<3> *[Evnet Listeneres]*에서 *"duplicate_login_block"*을 해제
