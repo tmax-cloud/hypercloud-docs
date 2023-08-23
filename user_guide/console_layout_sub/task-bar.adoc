@@ -49,7 +49,24 @@ HyperCloud의 설치 및 콘솔 사용 방법에 대한 매뉴얼을 확인할 �
 . HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 image:../../images/figure_manual_icon.png[] 아이콘을 클릭한다.
 +
 image::../../images/figure_manual.png[]
+. 드롭다운 메뉴가 열리면 "매뉴얼" 을 클릭한다. 
++
+image::../../images/figure_dropdown_manual.png[]
 . HyperCloud 매뉴얼 화면이 열리면 원하는 내용을 찾아 사용 방법을 확인한다.
+
+== Kubectl Command Line
+
+HyperCloud 콘솔에서 kubectl 명령어를 사용할 수 있다. 
+
+다음은 Kubectl Command Line을 실행하는 과정에 대한 설명이다.
+
+. HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 image:../../images/figure_manual_icon.png[] 아이콘을 클릭한다.
++
+image::../../images/figure_manual.png[]
+. 드롭다운 메뉴가 열리면 "kubectl Command Line" 을 클릭한다. 
++
+image::../../images/figure_dropdown_kubectl.png[]
+. 콘솔 하단에 kubectl Command Line 화면이 열리면 kubectl 명령어를 입력한다. 
 
 == 로그아웃
 
