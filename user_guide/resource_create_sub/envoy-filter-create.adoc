@@ -19,10 +19,8 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 
 * Name *
 * Labels
-* Config Patches +
-하위 세부 항목은 xref:../form-set-item.adoc#ConfigPatches["폼 에디터 설정 항목 참조"의 "Config Patches"]를 참고한다.
-* Filters +
-하위 세부 항목은 xref:../form-set-item.adoc#Filters["폼 에디터 설정 항목 참조"의 "Filters"]를 참고한다.
+* Config Patches
+* Filters
 * workloadLabels
 * Workload Selector
 +
