@@ -49,7 +49,7 @@ HyperCloud의 설치 및 콘솔 사용 방법에 대한 매뉴얼을 확인할 �
 . HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 image:../../images/figure_manual_icon.png[] 아이콘을 클릭한다.
 +
 image::../../images/figure_manual.png[]
-. 드롭다운 메뉴가 열리면 "매뉴얼" 을 클릭한다. 
+. 드롭다운 메뉴가 열리면 **[매뉴얼]** 을 클릭한다. 
 +
 image::../../images/figure_dropdown_manual.png[]
 . HyperCloud 매뉴얼 화면이 열리면 원하는 내용을 찾아 사용 방법을 확인한다.
@@ -63,10 +63,24 @@ HyperCloud 콘솔에서 kubectl 명령어를 사용할 수 있다.
 . HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 image:../../images/figure_manual_icon.png[] 아이콘을 클릭한다.
 +
 image::../../images/figure_manual.png[]
-. 드롭다운 메뉴가 열리면 "kubectl Command Line" 을 클릭한다. 
+. 드롭다운 메뉴가 열리면 **[kubectl Command Line]** 을 클릭한다. 
 +
 image::../../images/figure_dropdown_kubectl.png[]
 . 콘솔 하단에 kubectl Command Line 화면이 열리면 kubectl 명령어를 입력한다. 
+
+== 계정 관리
+
+HyperCloud 콘솔에 현재 접속된 사용자 계정을 관리할 수 있다.
+
+다음은 사용자의 계정을 관리하는 과정에 대한 설명이다. 
+
+. HyperCloud 콘솔 화면 상단의 작업 표시줄 영역에서 계정 이름을 클릭한다.
++
+image::../../images/figure_admin_logout.png[]
+. 드롭다운 메뉴가 열리면 **[계정 관리]**을 선택한다.
++
+image::../../images/figure_dropdown_account.png[]
+. Tmax OneAccount 화면이 열린다. 
 
 == 로그아웃
 
@@ -78,4 +92,6 @@ HyperCloud 콘솔에 현재 접속된 사용자 계정의 접속을 종료할 �
 +
 image::../../images/figure_admin_logout.png[]
 . 드롭다운 메뉴가 열리면 **[로그아웃]**을 선택한다.
++
+image::../../images/figure_dropdown_logout.png[]
 . 해당 계정이 로그아웃되고, HyperCloud 콘솔의 로그인 화면이 열린다. 
