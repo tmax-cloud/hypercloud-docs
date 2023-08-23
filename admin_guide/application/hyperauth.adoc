@@ -55,8 +55,8 @@ image::../../images/figure_hyperauth_user_create_03.png[]
 * OFF : 로그인 허용 안 함
 |Email Verified|이메일 인증 여부를 선택한다.
 
-* ON : 이메일 인증 필요
-* OFF : 이메일 인증 필요 없음
+* ON : 이메일이 인증된 상태 (이메일 인증 불필요)
+* OFF : 이메일이 인증되지 않은 상태 (이메일 인증 필요)
 |Required User Actions|사용자가 로그인할 때 요구할 행동을 선택한다.
 
 * Update Password: 사용자가 새 비밀번호를 입력
