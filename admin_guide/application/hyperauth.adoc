@@ -65,13 +65,6 @@ image::../../images/figure_hyperauth_user_create_03.png[]
 |Locale|사용자 인터페이스에서 사용할 지역/언어를 선택한다.
 |====================
 
-. *2 채널 인증 정보 설정* +
-2 채널 인증 정보인 전화번호를 등록하기 위해 생성한 사용자 계정의 상세 화면에서 *[Attributes]* 탭을 클릭한다. +
-이때 "Key" 값으로 phone을 입력하고, "Value" 값으로 사용자의 전화번호를 입력한 후 "Actions"에서 *[Add]* 버튼을 클릭한다. +
-입력값이 정상적으로 추가되면 *[Save]* 버튼을 클릭해서 현재 설정을 저장한다.
-+
-image::../../images/figure_hyperauth_user_create_04.png[]
-
 . *비밀번호 설정* +
 사용자 계정의 비밀번호를 설정하기 위해 생성한 사용자 계정의 상세 화면에서 *[Credentials]* 탭을 클릭한다. +
 설정이 완료되면 *[Set Password]* 버튼을 클릭해서 현재 설정을 저장한다.
