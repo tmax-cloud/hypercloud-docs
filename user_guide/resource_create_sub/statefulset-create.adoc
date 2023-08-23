@@ -22,15 +22,11 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 * podManagementPolicy
 * replicas
 * revisionHistoryLimit
-* Selector * +
-하위 세부 항목은 xref:../form-set-item.adoc#Selector["폼 에디터 설정 항목 참조"의 "Selector"]를 참고한다.
+* Selector * 
 * serviceName *
-* Template * +
-하위 세부 항목은 xref:../form-set-item.adoc#Template["폼 에디터 설정 항목 참조"의 "Template"]을 참고한다.
-* Update Strategy +
-하위 세부 항목은 xref:../form-set-item.adoc#UpdateStrategy(StatefulSet)["폼 에디터 설정 항목 참조"의 "Update Strategy(StatefulSet)"]을 참고한다.
-* Volume Claim Templates +
-하위 세부 항목은 xref:../form-set-item.adoc#VolumeClaimTemplates["폼 에디터 설정 항목 참조"의 "Volume Claim Templates"]를 참고한다.
+* Template * 
+* Update Strategy 
+* Volume Claim Templates 
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터
