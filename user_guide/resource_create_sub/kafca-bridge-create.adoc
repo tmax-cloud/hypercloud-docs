@@ -19,16 +19,13 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 
 * Name *
 * Labels
-* Authentication +
-하위 세부 항목은 xref:../form-set-item.adoc#Authentication["폼 에디터 설정 항목 참조"의 "Authentication"]을 참고한다.
+* Authentication
 * bootstrapServers *
 * clientRackInitImage
 * enableMetrics
-* Http +
-하위 세부 항목은 xref:../form-set-item.adoc#HttpKafka["폼 에디터 설정 항목 참조"의 "Http(Kafka)"]를 참고한다.
+* Http
 * image
-* Jvm Options +
-하위 세부 항목은 xref:../form-set-item.adoc#JvmOptions["폼 에디터 설정 항목 참조"의 "Jvm Options"]를 참고한다.
+* Jvm Options 
 * Liveness Probe
 +
 ----
@@ -38,8 +35,7 @@ periodSeconds
 successThreshold
 timeoutSeconds
 ----
-* Logging +
-하위 세부 항목은 xref:../form-set-item.adoc#Logging["폼 에디터 설정 항목 참조"의 "Logging"]을 참고한다.
+* Logging 
 * Rack
 * Readiness Probe
 +
@@ -51,8 +47,7 @@ successThreshold
 timeoutSeconds
 ----
 * replicas
-* Template +
-하위 세부 항목은 xref:../form-set-item.adoc#Templatekafka["폼 에디터 설정 항목 참조"의 "Template(Kafka)"]를 참고한다.
+* Template
 * Tls
 +
 ----
