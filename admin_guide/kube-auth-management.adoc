@@ -52,7 +52,7 @@ $ kubeadm certs check-expiration
 
 == 인스톨러를 통한 인증서 갱신
 
-.*인증서 기한 설정*
+. *인증서 기한 설정*
 +
 `kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 K8S의 인증서 기한을 설정한다.
 +
