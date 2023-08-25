@@ -51,6 +51,8 @@ NOTE: 최초 관리자 계정의 ID와 비밀번호는 모두 **admin**이다. +
 메뉴 영역에서 **[Alerting] > [Notification channels]**을 선택하면 알림 채널을 추가할 수 있다. +
 이때 사용 가능한 알림 채널은 email, slack, webhook 등이 있고, 알림 전송 주기 등을 설정할 수 있다.
 +
+image::../../images/figure_grafana_alert_channel.png[]
++
 . *알람 설정* +
 메뉴 영역에서 **[+] > [Dashboard] > [Add an empty panel]**을 선택하여 대시보드 창을 생성하고 요구에 맞게 쿼리 입력한다. 이후 *[Alert]* 탭에서 *[Create Alert]* 버튼을 클릭하여 원하는 옵션을 설정한다.
 +
