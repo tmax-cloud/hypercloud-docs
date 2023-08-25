@@ -70,7 +70,7 @@ dls-mcl-car-dev-ic01       True    True                33d
 dls-mcl-car-dev-ic02       True    True                33d
 ----
 +
-만약 IntegrationConfig가 오류일 경우 describe 정보에서 status 내용을 확인한다.
+만약 IntegrationConfig가 오류 상태일 경우 describe 정보에서 status 내용을 확인한다.
 +
 .예시
 ----
@@ -107,7 +107,7 @@ version-tst-dls-ic01-1fd1f-2wldk   Failed   6h8m        6h8m             6h8m
 version-tst-dls-ic01-b2640-3zxg7   Failed   5h37m       5h37m            5h37m
 ----
 +
-만약 IntegrationJob이 오류일 경우 describe 정보에서 status 내용을 확인한다.
+만약 IntegrationJob이 오류 상태일 경우 describe 정보에서 status 내용을 확인한다.
 +
 .예시
 ----
@@ -171,7 +171,7 @@ version-tst-dls-ic01-00000-72of3-git-clone-4jdtt-pod-dv6m8        0/1     Comple
 version-tst-dls-ic01-00000-72of3-gradle-build-version-tst-l78l4   0/1     Error              0          122m
 ----
 +
-만약 Pod가 오류일 경우 describe 정보에서 status 내용을 확인한다.
+만약 Pod가 오류 상태일 경우 describe 정보에서 status 내용을 확인한다.
 +
 .예시
 ----
