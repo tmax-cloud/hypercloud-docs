@@ -74,7 +74,7 @@ cert_days: 3650
 ----
 ansible-playbook -i kubespray-infra/inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml -v -t update-kubeadm-cert
 ----
-+
+
 . *kubelet 인증서 갱신*
 ----
 ansible-playbook -i kubespray-infra/inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml -v -t update-kubelet-cert
