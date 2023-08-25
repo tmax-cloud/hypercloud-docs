@@ -40,7 +40,6 @@ image::../../images/figure_pipelinerun_log.png[]
 파이프라인 런 목록에서 로그를 확인할 파이프라인 런의 이름을 클릭한다. +
 이때 해당 파이프라인 런의 상세 화면이 열리면 *[로그]* 탭에서 로그 내용을 확인할 수 있다.
 +
-image::../../images/figure_pipelinerun_detail_log.png[]
 <1> *[로그]* 탭 선택
 <2> 각 단계를 클릭하여 해당 단계의 로그 내용을 확인
 
