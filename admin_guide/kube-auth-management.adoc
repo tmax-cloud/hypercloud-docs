@@ -62,18 +62,19 @@ $ kubeadm certs check-expiration
 update_cert: true
 cert_days: [기한(일)]
 ----
++
 .예시
 ----
 ## k8s certs days
 update_cert: true
 cert_days: 3650
 ----
-
++
 . *kube-system 인증서 갱신*
 ----
 ansible-playbook -i kubespray-infra/inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml -v -t update-kubeadm-cert
 ----
-
++
 . *kubelet 인증서 갱신*
 ----
 ansible-playbook -i kubespray-infra/inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml -v -t update-kubelet-cert
