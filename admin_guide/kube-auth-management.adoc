@@ -50,6 +50,35 @@ $ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 $ kubeadm certs check-expiration
 ----
 
+== 인스톨러를 통한 인증서 갱신
+
+.*인증서 기한 설정*
++
+`kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 K8S의 인증서 기한을 설정한다.
++
+.실행 방법
+----
+## k8s certs days
+update_cert: true
+cert_days: [기한(일)]
+----
+.예시
+----
+## k8s certs days
+update_cert: true
+cert_days: 3650
+----
+
+. *kube-system 인증서 갱신*
+----
+ansible-playbook -i kubespray-infra/inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml -v -t update-kubeadm-cert
+----
+
+. *kubelet 인증서 갱신*
+----
+ansible-playbook -i kubespray-infra/inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml -v -t update-kubelet-cert
+----
+
 == 공인 인증서 적용
 
 === AWS route53을 통한 유효한 인증서 발급
