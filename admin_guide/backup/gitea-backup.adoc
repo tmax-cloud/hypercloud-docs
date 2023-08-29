@@ -20,6 +20,19 @@ $ su git
 $ cd tmp
 $ /usr/local/bin/gitea dump
 ----
++
+. *백업 파일 복사* +
++
+.컨테이너 나가기
+----
+$ exit
+----
++
+.백업 파일을 로컬로 복사 
+----
+$ kubectl cp -n gitea-system gitea-0:/tmp/gitea-dump-1686808859.zip --container gitea gitea-dump-1686808859.zip
+tar: removing leading '/' from member names
+----
 
 == 복구
 
@@ -28,7 +41,7 @@ $ /usr/local/bin/gitea dump
 .백업 파일 압축 해제 및 컨테이너로 복사
 ----
 $ unzip gitea-dump-1686808859.zip -d ./gitea-dump-1686808859
-$ kubectl cp -n gitea-system gitea-dump-1686808859/ gitea-0:/tmp/gitea-dump-1686808859/ --container gite
+$ kubectl cp -n gitea-system gitea-dump-1686808859/ gitea-0:/tmp/gitea-dump-1686808859/ --container gitea
 ----
 +
 .Gitea 데이터 복구
