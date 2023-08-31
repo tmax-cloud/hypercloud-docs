@@ -27,6 +27,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 * startingDeadlineSeconds
 * successfulJobsHistoryLimit
 * suspend
+* timeZone
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터
@@ -42,7 +43,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 .기본 작성 예
 [source,yaml]
 ----
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: hello <1>
