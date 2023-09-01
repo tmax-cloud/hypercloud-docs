@@ -31,6 +31,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 * hostIPC
 * hostNetwork
 * hostPID
+* hostUsers
 * hostname
 * Image Pull Secrets
 +

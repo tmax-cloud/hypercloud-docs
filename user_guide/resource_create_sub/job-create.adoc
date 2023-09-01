@@ -21,9 +21,17 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 * Labels
 * activeDeadlineSeconds
 * backoffLimit
+* completionMode
 * completions
 * manualSelector
 * parallelism
+* Pod Failure Policy
+* Selector +
+하위 세부 항목은 xref:../form-set-item.adoc#Selector["폼 에디터 설정 항목 참조"의 "Selector"]를 참고한다.
+* suspend
+* Template * +
+하위 세부 항목은 xref:../form-set-item.adoc#Template["폼 에디터 설정 항목 참조"의 "Template"]를 참고한다.
+=======
 * Selector
 * Template *
 * ttlSecondsAfterFinished
@@ -48,7 +56,8 @@ metadata:
   name: pi <1>
   namespace: default <2>
 spec:
-  completions: 10 <3>
+  
+  s: 10 <3>
   parallelism: 2 <4>
   backoffLimit: 4 <5>
   activeDeadlineSeconds: 100 <6>
