@@ -19,12 +19,9 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 
 * Name *
 * Labels
-* TLS +
-하위 세부 항목은 xref:../form-set-item.adoc#TlsRedis["폼 에디터 설정 항목 참조"의 "Tls(Redis)"]를 참고한다.
-* Affinity +
-하위 세부 항목은 xref:../form-set-item.adoc#AffinityRedis["폼 에디터 설정 항목 참조"의 "Affinity(Redis)"]을 참고한다.
-* Kubernetes Config * +
-하위 세부 항목은 xref:../form-set-item.adoc#KubernetesConfig["폼 에디터 설정 항목 참조"의 "Kubernetes Config"]을 참고한다.
+* TLS 
+* Affinity 
+* Kubernetes Config *
 * Liveness Probe
 +
 ----
@@ -50,14 +47,10 @@ timeoutSeconds
 ----
 additionalRedisConfig
 ----
-* Redis Exporter +
-하위 세부 항목은 xref:../form-set-item.adoc#RedisExporter["폼 에디터 설정 항목 참조"의 "Redis Exporter"]를 참고한다.
-* Security Context +
-하위 세부 항목은 xref:../form-set-item.adoc#SecurityContextRedis["폼 에디터 설정 항목 참조"의 "Security Context(Redis)"]를 참고한다.
-* Sidecars +
-하위 세부 항목은 xref:../form-set-item.adoc#Sidecars["폼 에디터 설정 항목 참조"의 "Sidecars"]를 참고한다.
-* Storage +
-하위 세부 항목은 xref:../form-set-item.adoc#Storage["폼 에디터 설정 항목 참조"의 "Storage"]를 참고한다.
+* Redis Exporter 
+* Security Context 
+* Sidecars 
+* Storage 
 * Tolerations
 +
 ----

@@ -3,30 +3,19 @@
 :toc:
 :toc-title:
 
-본 장에서는 Gitlab에 생성한 argocd-installer 브랜치를 ArgoCD에 애플리케이션으로 배포하는 방법에 대해 설명한다.
+본 장에서는 Gitea에 생성한 argocd-installer 브랜치를 ArgoCD에 애플리케이션으로 배포하는 방법에 대해 설명한다.
 
 == 개요
 
-CLI 환경에서 argocd-installer 폴더와 Gitlab의 argocd-installer 브랜치에서 환경에 맞게 아래 과정을 수행한다.
+CLI 환경에서 argocd-installer 폴더와 Gitea의 argocd-installer 브랜치에서 환경에 맞게 아래 과정을 수행한다.
 
 . <<MasterValues, master-values.yaml 파일 설정>>
-. <<SharedValues, shared-values.yaml 파일 설정>>
 . <<AppofApps, master-applications.yaml 파일 설정>>
 . <<ApplyApp, 애플리케이션 등록>>
 
 [#MasterValues]
 == master-values.yaml 파일 설정
-`application/helm/master-values.yaml` 파일을 열어 각 앱들의 사용 여부, 로그 레벨 및 세부 환경 변수를 설정한다.
-
-[source,yaml]
-----
-global:
-  privateRegistry: 30.0.0.1:5000 <1>
-  ...
-  domain: cloudqa.com <2>
-----
-<1> 프라이빗 컨테이너 이미지 레지스트리의 주소
-<2> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
+`application/helm/master-values.yaml` 파일을 열어 gateway 설정, 각 앱들의 사용 여부, 로그 레벨 및 세부 환경 변수를 설정한다.
 
 [source,yaml]
 ----
@@ -61,36 +50,30 @@ global:
 * 운영용 : production
 * 테스트용 : staging
 
-[#SharedValues]
-== shared-values.yaml 파일 설정
-`application/helm/shared-values.yaml` 파일을 열어 마스터 클러스터에 필요한 구성 정보를 설정한다.
-
 [source,yaml]
 ----
-spec:
-  source:
-    repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1>
-    targetRevision: HEAD <2>
-...
-global:
-  timezone: UTC <3>
-  network:
-    disabled: true <4>
-...    
-  masterSingle:
-    enabled: true <5>
-    hyperAuthDomain: "hyperauth.cloudqa.com" <6>
-...
+### cluster-api
+  capi:
+    ...
+    providers:
+      aws:
+        enabled: true <1>
+        credentials:
+          accessKeyID: access-key <2>
+          secretAccessKeyID: secret-access-key <3>
+      ...
+      vsphere:
+        enabled: true <4>
+        credentials:
+          username: "user" <5>
+          password: "password" <6>
 ----
-<1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 url 마지막에 .git을 추가)
-<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름
-<3> 애플리케이션 타임존 설정 
-
-* UTC
-* Asia/Seoul
-<4> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
-<5> 마스터 클러스터와 싱글 클러스터의 HyperAuth 연동 여부
-<6> 마스터 클러스터와 싱글 클러스터에서 사용할 HyperAuth 주소
+<1> capa 설치 여부
+<2> 멀티클러스터용 AWS에서 사용하는 계정의 액세스 키 ID
+<3> 액세스 키 ID에 대한 시크릿 키
+<4> capv 설치 여부
+<5> vcenter ID
+<6> vcenter Password
 
 [#AppofApps]
 == master-applications.yaml 파일 설정
@@ -98,15 +81,41 @@ global:
 
 [source,yaml]
 ----
-spec:
-  ...
-  source:
-    ...
-    repoURL: https://gitlab.cloudqa.com/root/argocd-installer.git <1> 
-    targetRevision: HEAD <2>
+source:
+      ...
+      parameters:
+        - name: global.domain
+          value: "글로벌 도메인을 입력하세요 ex) testdomain.com" <1>
+        - name: global.masterSingle.hyperAuthDomain
+          value: "hyperauth full 도메인을 입력하세요 ex) hyperauth.testdomain.com" <2>
+        # Avaliable values: UTC, Asia/Seoul
+        - name: global.timeZone
+          value: "UTC" <3>
+        - name: global.network.disabled
+          value: "true" <4>
+        - name: global.privateRegistry
+          value: "폐쇄망일 경우 image registry 주소를 입력하세요 ex) https://hyperregistry.testdomain.com" <5>
+        - name: spec.source.repoURL
+          value: "git repository URL을 입력하세요 ex) https://github.com/tmax-cloud/argocd-installer.git" <6>
+        - name: spec.source.targetRevision
+          value: "target Revision을 입력하세요 ex) main" <7>
+    path: application/helm
+    # 환경에 맞게 url 주소 변경 필요
+    repoURL: https://github.com/tmax-cloud/argocd-installer <8>
+    # 환경에 맞게 target branch/release 변경 필요
+    targetRevision: HEAD <9>
 ----
-<1> ArgoCD와 연동된 Gitlab 저장소 주소 (Gitlab의 경우 URL 마지막에 .git을 추가)
-<2> Gitlab에 연동되어 있는 argocd-installer의 브랜치 이름
+<1> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
+<2> 마스터 클러스터와 싱글 클러스터에서 사용할 HyperAuth 주소
+<3> 애플리케이션 타임존 설정 
+* UTC
+* Asia/Seoul
+<4> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
+<5> 프라이빗 컨테이너 이미지 레지스트리의 주소
+<6> 최상위 변수용 ArgoCD와 연동된 Gitea 저장소 주소 (Gitea의 경우 URL 마지막에 .git을 추가)
+<7> 최상위 변수용 Gitea에 연동되어 있는 argocd-installer의 브랜치 이름
+<8> master-applications.yaml용 ArgoCD와 연동된 Gitea 저장소 주소 (Gitea의 경우 URL 마지막에 .git을 추가)
+<9> master-applications.yaml용 Gitea에 연동되어 있는 argocd-installer의 브랜치 이름
 
 [#ApplyApp]
 == 애플리케이션 등록
@@ -117,8 +126,8 @@ $ kubectl -n argocd apply -f application/app_of_apps/master-applications.yaml
 ----
 
 == 주의 사항
-=== self-signed 인증서로 Gitlab을 설치했을 경우
-Gitlab에 공인 인증서가 아닌 self-signed 인증서를 사용할 경우 추가 작업이 필요하다.
+=== self-signed 인증서로 Gitea을 설치했을 경우
+Gitea에 공인 인증서가 아닌 self-signed 인증서를 사용할 경우 추가 작업이 필요하다.
 
 . *Git Repo 정보 등록* +
 ArgoCD에 Git Repo 정보를 등록한다.
@@ -144,9 +153,9 @@ data:
   password: cXdlcjEyMzQ1IQ== <4>
 ----
 <1> secret의 이름 (gen-secret-name.py 실행하여 나온 결과값을 입력)
-<2> gitlab  url을 base64로 인코딩한 값
-<3> gitlab의 username을 base64로 인코딩한 값
-<4> gitlab의 password를 base64로 인코딩한 값
+<2> gitea url을 base64로 인코딩한 값
+<3> gitea의 username을 base64로 인코딩한 값
+<4> gitea의 password를 base64로 인코딩한 값
 +
 [NOTE]
 .secret 이름 설정
@@ -164,3 +173,33 @@ python3 gen-secret-name.py https://gitlab.cloudqa.com/root/argocd-installer.git
 ----
 kubectl apply -f {repo-secret 파일명}
 ----
+
+=== 싱글 클러스터용 shared-values.yaml 파일 설정
+`application/helm/shared-values.yaml` 파일을 열어 싱글 클러스터에 필요한 구성 정보를 설정한다.
+
+[source,yaml]
+----
+spec:
+  source:
+    repoURL: https://gitea.cloudqa.com/root/argocd-installer.git <1>
+    targetRevision: HEAD <2>
+...
+global:
+  timezone: UTC <3>
+  network:
+    disabled: true <4>
+...    
+  masterSingle:
+    enabled: true <5>
+    hyperAuthDomain: "hyperauth.cloudqa.com" <6>
+...
+----
+<1> ArgoCD와 연동된 Gitea 저장소 주소 (Gitea의 경우 url 마지막에 .git을 추가)
+<2> Gitea에 연동되어 있는 argocd-installer의 브랜치 이름
+<3> 애플리케이션 타임존 설정 
+
+* UTC
+* Asia/Seoul
+<4> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
+<5> 마스터 클러스터와 싱글 클러스터의 HyperAuth 연동 여부
+<6> 싱글 클러스터에서 사용할 HyperAuth 주소

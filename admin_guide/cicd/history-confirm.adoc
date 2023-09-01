@@ -4,7 +4,7 @@
 
 == 파이프라인의 동작 상태 조회
 
-HyperCloud는 현재 진행 중인 CI/CD의 각 단계(태스크)에 대한 진행 상황을 한눈에 파악이 가능하며, 문제가 발생할 경우 어느 단계에서 문제가 발생하였는지 확인하기가 간편하다.
+HyperCloud는 현재 진행 중인 CI/CD의 각 단계(태스크)에 대한 진행 상황을 한눈에 파악할 수 있으며, 오류가 발생할 경우 어느 단계에서 문제가 발생하였는지 확인하기가 간편하다.
 
 . *파이프라인 런 목록 조회 및 상태 확인* +
 파이프라인 런 목록을 조회하여 수행 상태를 확인한다.
@@ -17,7 +17,7 @@ image::../../images/figure_pipelinerun_status.png[]
 
 . *파이프라인 런 상세 정보 확인* +
 파이프라인 런 목록에서 상세 정보를 확인할 파이프라인 런의 이름을 클릭한다. +
-이때 해당 파이프라인 런의 상세 화면이 열리면 *[상세]* 탭에서 각 단계별 수행 상태를 상세하게 확인할 수 있다. (TD: 이미지는 [개요]로 되어 있음. [상세]가 맞다면 이미지 교체 필요) 
+이때 해당 파이프라인 런의 상세 화면이 열리면 *[상세]* 탭에서 각 단계별 수행 상태를 상세하게 확인할 수 있다.
 +
 image::../../images/figure_pipelinerun_detail_info.png[]
 <1> *[상세]* 탭 선택
@@ -38,7 +38,7 @@ image::../../images/figure_pipelinerun_log.png[]
 
 . *파이프라인 런 상세 정보 확인* +
 파이프라인 런 목록에서 로그를 확인할 파이프라인 런의 이름을 클릭한다. +
-이때 해당 파이프라인 런의 상세 화면이 열리면 *[로그]* 탭에서 로그 내용을 확인할 수 있다. (TD: 이미지는 [Logs]로 되어 있음. [로그]가 맞다면 이미지 교체 필요) 
+이때 해당 파이프라인 런의 상세 화면이 열리면 *[로그]* 탭에서 로그 내용을 확인할 수 있다.
 +
 image::../../images/figure_pipelinerun_detail_log.png[]
 <1> *[로그]* 탭 선택
@@ -51,7 +51,8 @@ image::../../images/figure_pipelinerun_detail_log.png[]
 HyperCloud에서의 CI/CD 파이프라인은 IntegrationConfig, IntegrationJob, Task, Pipeline Run, Pod 정도의 개체에서 동작 내용을 확인한다.
 
 NOTE: IntegrationConfig는 파이프라인을 정의한 것이다. 파이프라인은 Job으로 구성되며, Job은 Task를 참조할 수 있다. +
-파이프라인 구동은 cicd-operator가 GitLab에서 발생한 이벤트를 받아 해당 IntegrationConfig를 이용하여 IntegrationJob을 생성한다. 이때 IntegrationJob에 의해 Pipeline Run이 생성되고 Pipeline Run에서 Job에 해당하는 Pod를 생성하여 Job 업무를 처리하게 된다. +
+파이프라인 구동은 cicd-operator가 Gitea 또는 GitLab에서 발생한 이벤트를 받아 해당 IntegrationConfig를 이용하여 IntegrationJob을 생성한다. +
+이때 IntegrationJob에 의해 Pipeline Run이 생성되고 Pipeline Run에서 Job에 해당하는 Pod를 생성하여 Job 업무를 처리하게 된다. +
 로그를 조회하는 순서도 위와 같은 순서로 진행한다.
 
 다음은 CLI 환경에서 로그를 확인하는 과정이다.
@@ -60,7 +61,7 @@ NOTE: IntegrationConfig는 파이프라인을 정의한 것이다. 파이프라�
 +
 .예시
 ----
-$ k -n dls-cicd-private-dev get ic
+$ kubectl -n dls-cicd-private-dev get ic
 
 NAME                       READY   WEBHOOKREGISTERED   AGE
 dls-mcl-cab-dev-ic01       True    True                33d
@@ -69,11 +70,11 @@ dls-mcl-car-dev-ic01       True    True                33d
 dls-mcl-car-dev-ic02       True    True                33d
 ----
 +
-만약 IntegrationConfig가 오류일 경우 describe 정보에서 status 내용을 확인한다.
+만약 IntegrationConfig가 오류 상태일 경우 describe 정보에서 status 내용을 확인한다.
 +
 .예시
 ----
-$ k -n dls-cicd-private-dev describe ic dls-mcl-car-dev-ic02
+$ kubectl -n dls-cicd-private-dev describe ic dls-mcl-car-dev-ic02
 
 Name:         dls-mcl-car-dev-ic02
 Namespace:    dls-cicd-private-dev
@@ -98,7 +99,7 @@ Events:                    <none>
 +
 .예시
 ----
-$ k -n dls-cicd-private-dev get ij 
+$ kubectl -n dls-cicd-private-dev get ij 
 
 NAME                               STATE    STARTTIME   COMPLETIONTIME   AGE
 version-tst-dls-ic01-00000-72of3   Failed   120m        60m              120m
@@ -106,11 +107,11 @@ version-tst-dls-ic01-1fd1f-2wldk   Failed   6h8m        6h8m             6h8m
 version-tst-dls-ic01-b2640-3zxg7   Failed   5h37m       5h37m            5h37m
 ----
 +
-만약 IntegrationJob이 오류일 경우 describe 정보에서 status 내용을 확인한다.
+만약 IntegrationJob이 오류 상태일 경우 describe 정보에서 status 내용을 확인한다.
 +
 .예시
 ----
-$ k -n dls-cicd-private-dev describe ij version-tst-dls-ic01-00000-72of3
+$ kubectl -n dls-cicd-private-dev describe ij version-tst-dls-ic01-00000-72of3
 
 Name:         version-tst-dls-ic01-00000-72of3
 Namespace:    dls-cicd-private-dev
@@ -143,7 +144,7 @@ Events:          <none>
 +
 .예시
 ----
-$ k -n dls-cicd-private-dev get pipelinerun
+$ kubectl -n dls-cicd-private-dev get pipelinerun
 
 NAME                               SUCCEEDED   REASON   STARTTIME   COMPLETIONTIME
 version-tst-dls-ic01-00000-72of3   False       Failed   121m        61m
@@ -155,7 +156,7 @@ version-tst-dls-ic01-b2640-3zxg7   False       Failed   5h38m       5h38m
 +
 .예시
 ----
-$ k -n dls-cicd-private-dev get pod --sort-by=.metadata.creationTimestamp
+$ kubectl -n dls-cicd-private-dev get pod --sort-by=.metadata.creationTimestamp
 
 NAME                                                              READY   STATUS             RESTARTS   AGE
 echo-taskrun-pod-nhjf9                                            0/1     Completed          0          179d
@@ -170,9 +171,9 @@ version-tst-dls-ic01-00000-72of3-git-clone-4jdtt-pod-dv6m8        0/1     Comple
 version-tst-dls-ic01-00000-72of3-gradle-build-version-tst-l78l4   0/1     Error              0          122m
 ----
 +
-만약 Pod가 오류일 경우 describe 정보에서 status 내용을 확인한다.
+만약 Pod가 오류 상태일 경우 describe 정보에서 status 내용을 확인한다.
 +
 .예시
 ----
-$ k -n dls-cicd-private-dev describe pod version-tst-dls-ic01-1fd1f-2wldk-gradle-build-version-tst-85czn
+$ kubectl -n dls-cicd-private-dev describe pod version-tst-dls-ic01-1fd1f-2wldk-gradle-build-version-tst-85czn
 ----

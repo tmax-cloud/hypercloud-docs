@@ -108,14 +108,16 @@ Topics:
         File: cluster
       - Name: 테라폼 클레임
         File: terraform
-  - Name: 리소스 생성 (ㅋ)
+  - Name: 리소스 생성 (클러스터)
     Dir: resource_create_sub
     Topics:
       - Name: 클러스터 등록 생성
         File: cluster-registrations-create
       - Name: 클러스터 클레임 생성
         File: cluster-claims-create
-  - Name: 리소스 생성 (ㅌ)
+      - Name: 클러스터 업데이트 클레임 생성
+        File: cluster-update-claims-create
+  - Name: 리소스 생성 (테라폼 클레임)
     Dir: resource_create_sub
     Topics:
       - Name: 테라폼 클레임 생성
@@ -139,89 +141,80 @@ Topics:
         File: storage
       - Name: 호스트
         File: host
-      - Name: 인증-인가
+      - Name: 인증/인가
         File: permission
       - Name: 관리
         File: management
-  - Name: 리소스 생성 (H)
-    Dir: resource_create_sub
-    Topics:
-      - Name: HPA 생성
-        File: hpa-create
-  - Name: 리소스 생성 (ㄴ)
+  - Name: 리소스 생성 (홈)
     Dir: resource_create_sub
     Topics:
       - Name: 네임스페이스 생성
         File: namespace-create
       - Name: 네임스페이스 클레임 생성
         File: namespace-claim-create
-      - Name: 네트워크 정책 생성
-        File: network-policy-create     
-  - Name: 리소스 생성 (ㄷ)
+  - Name: 리소스 생성 (워크로드)
     Dir: resource_create_sub
     Topics:
-      - Name: 데몬 셋 생성
-        File: daemonset-create
+      - Name: 파드 생성
+        File: pod-create
       - Name: 디플로이먼트 생성
         File: deployment-create
-  - Name: 리소스 생성 (ㄹ)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 레플리카 셋 생성
-        File: replicaset-create
-      - Name: 롤 생성
-        File: role-create
-      - Name: 롤 바인딩 생성
-        File: role-binding-create
-      - Name: 롤 바인딩 클레임 생성
-        File: role-binding-claim-create
-      - Name: 리소스 쿼타 생성
-        File: resource-quota-create
-      - Name: 리소스 쿼타 클레임 생성
-        File: resource-quota-claim-create
-  - Name: 리소스 생성 (ㅅ)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 사용자 리소스 정의 생성
-        File: custom-resource-create
-      - Name: 서비스 생성
-        File: service-create
-      - Name: 서비스 계정 생성
-        File: service-account-create
       - Name: 스테이트풀 셋 생성
         File: statefulset-create
-      - Name: 스토리지 클래스 생성
-        File: storage-class-create
       - Name: 시크릿 생성
         File: secret-create
-  - Name: 리소스 생성 (ㅇ)
+      - Name: 컨피그 맵 생성
+        File: config-map-create
+      - Name: 크론 잡 생성
+        File: cron-job-create
+      - Name: 잡 생성
+        File: job-create
+      - Name: 데몬 셋 생성
+        File: daemonset-create
+      - Name: 레플리카 셋 생성
+        File: replicaset-create
+      - Name: HPA 생성
+        File: hpa-create
+  - Name: 리소스 생성 (네트워크)
+    Dir: resource_create_sub
+    Topics:
+      - Name: 서비스 생성
+        File: service-create
+      - Name: 인그레스 생성
+        File: ingress-create
+      - Name: 네트워크 정책 생성
+        File: network-policy-create
+  - Name: 리소스 생성 (스토리지)
     Dir: resource_create_sub
     Topics:
       - Name: 영구 볼륨 생성
         File: persistent-volume-create
       - Name: 영구 볼륨 클레임 생성
         File: persistent-volume-claim-create
-      - Name: 인그레스 생성
-        File: ingress-create
-  - Name: 리소스 생성 (ㅈ)
+      - Name: 스토리지 클래스 생성
+        File: storage-class-create
+  - Name: 리소스 생성 (인증/인가)
     Dir: resource_create_sub
     Topics:
-      - Name: 잡 생성
-        File: job-create
+      - Name: 서비스 계정 생성
+        File: service-account-create
+      - Name: 롤 생성
+        File: role-create
+      - Name: 롤 바인딩 생성
+        File: role-binding-create
+      - Name: 롤 바인딩 클레임 생성
+        File: role-binding-claim-create
+  - Name: 리소스 생성 (관리)
+    Dir: resource_create_sub
+    Topics:
+      - Name: 리소스 쿼타 생성
+        File: resource-quota-create
+      - Name: 리소스 쿼타 클레임 생성
+        File: resource-quota-claim-create
       - Name: 제한 범위 생성
         File: basic-resource-create
-  - Name: 리소스 생성 (ㅋ)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 컨피그 맵 생성
-        File: config-map-create
-      - Name: 크론 잡 생성
-        File: cron-job-create
-  - Name: 리소스 생성 (ㅍ)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 파드 생성
-        File: pod-create
+      - Name: 사용자 리소스 정의 생성
+        File: custom-resource-create
 ---
 Name: 싱글 클러스터 콘솔 안내서
 Dir: user_guide
@@ -239,16 +232,19 @@ Topics:
         File: single-role-binding
       - Name: 리소스 쿼타
         File: single-resource-quota
-  - Name: 리소스 생성 (ㄴ)
+  - Name: 리소스 생성 (홈)
     Dir: resource_create_sub
     Topics:
       - Name: 네임스페이스 생성
         File: single-namespace-create
-  - Name: 리소스 생성 (ㄹ)
+  - Name: 리소스 생성 (인증/인가)
     Dir: resource_create_sub
     Topics:
       - Name: 롤 바인딩 생성
         File: single-role-binding-create
+  - Name: 리소스 생성 (관리)
+    Dir: resource_create_sub
+    Topics:
       - Name: 리소스 쿼타 생성
         File: single-resource-quota-create
 ---
@@ -268,7 +264,7 @@ Topics:
         File: helm
       - Name: 서비스 메시
         File: service-mesh
-      - Name: CI-CD
+      - Name: CI/CD
         File: ci-cd
       - Name: AI-DevOps
         File: ai-dev
@@ -278,111 +274,102 @@ Topics:
         File: redis
       - Name: 서비스 바인딩
         File: service-binding
-  - Name: 리소스 생성 (ㄱ)
+  - Name: 리소스 생성 (서비스 카탈로그)
     Dir: resource_create_sub
     Topics:
-      - Name: 가상 서비스 생성
-        File: virtual-service-create
-      - Name: 게이트웨이 생성
-        File: gateway-create
-  - Name: 리소스 생성 (ㄴ)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 노트북 서버 생성
-        File: notebook-server-create
-  - Name: 리소스 생성 (ㄹ)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 레디스 생성
-        File: redis-create
-      - Name: 레디스 클러스터 생성
-        File: redis-cluster-create
-  - Name: 리소스 생성 (ㅁ)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 목적지 규칙 생성
-        File: destination-rule-create
-  - Name: 리소스 생성 (ㅅ)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 사이드카 생성
-        File: sidecar-create
-      - Name: 서비스 바인딩 생성
-        File: service-binding-create
-      - Name: 서비스 엔트리 생성
-        File: service-entry-create
-  - Name: 리소스 생성 (ㅇ)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 엔보이 필터 생성
-        File: envoy-filter-create
-      - Name: 요청 인증 생성
-        File: request-auth-create
-      - Name: 인가 정책 생성
-        File: auth-policy-create
-      - Name: 인테그레이션 컨피그 생성
-        File: integration-config-create
-  - Name: 리소스 생성 (ㅊ)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 추론 서비스 생성
-        File: kf-serving-create
-  - Name: 리소스 생성 (ㅋ)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 카프카 리밸런스 생성
-        File: kafca-rebalance-create
-      - Name: 카프카 미러 메이커 2 생성
-        File: kafca-mirrormaker2-create
-      - Name: 카프카 브릿지 생성
-        File: kafca-bridge-create
-      - Name: 카프카 커넥터 생성
-        File: kafca-connector-create
-      - Name: 카프카 커넥트 생성
-        File: kafca-connect-create
-      - Name: 카프카 클러스터 생성
-        File: kafca-cluster-create
-      - Name: 클러스터 태스크 생성
-        File: cluster-task-create
+      - Name: 템플릿 생성
+        File: template-create
       - Name: 클러스터 템플릿 생성
         File: cluster-template-create
       - Name: 클러스터 템플릿 클레임 생성
         File: catalog-service-claim-create
-  - Name: 리소스 생성 (ㅌ)
+      - Name: 템플릿 인스턴스 생성
+        File: template-instance-create
+  - Name: 리소스 생성 (헬름)
+    Dir: resource_create_sub
+    Topics:
+      - Name: 헬름 리포지터리 생성
+        File: helm-repo-create
+      - Name: 헬름 릴리스 생성
+        File: helm-release-create
+  - Name: 리소스 생성 (서비스 메시)
+    Dir: resource_create_sub
+    Topics:
+      - Name: 가상 서비스 생성
+        File: virtual-service-create
+      - Name: 목적지 규칙 생성
+        File: destination-rule-create
+      - Name: 엔보이 필터 생성
+        File: envoy-filter-create
+      - Name: 게이트웨이 생성
+        File: gateway-create
+      - Name: 사이드카 생성
+        File: sidecar-create
+      - Name: 서비스 엔트리 생성
+        File: service-entry-create
+      - Name: 요청 인증 생성
+        File: request-auth-create
+      - Name: 피어 인증 생성
+        File: peer-auth-create
+      - Name: 인가 정책 생성
+        File: auth-policy-create
+  - Name: 리소스 생성 (CI/CD)
     Dir: resource_create_sub
     Topics:
       - Name: 태스크 생성
         File: task-create
+      - Name: 클러스터 태스크 생성
+        File: cluster-task-create
       - Name: 태스크 런 생성
         File: task-run-create
-      - Name: 템플릿 생성
-        File: template-create
-      - Name: 템플릿 인스턴스 생성
-        File: template-instance-create
-      - Name: 트레이닝 잡 생성
-        File: training-job-create
-  - Name: 리소스 생성 (ㅍ)
-    Dir: resource_create_sub
-    Topics:
       - Name: 파이프라인 생성
         File: pipeline-create
       - Name: 파이프라인 런 생성
         File: pipeline-run-create
       - Name: 파이프라인 리소스 생성
         File: pipeline-resource-create
-      - Name: 피어 인증 생성
-        File: peer-auth-create
-  - Name: 리소스 생성 (ㅎ)
+      - Name: 인테그레이션 컨피그 생성
+        File: integration-config-create
+  - Name: 리소스 생성 (AI DevOps)
     Dir: resource_create_sub
     Topics:
+      - Name: 노트북 서버 생성
+        File: notebook-server-create
       - Name: 하이퍼파라미터 튜닝 생성
         File: katib-create
+      - Name: 트레이닝 잡 생성
+        File: training-job-create
+      - Name: 추론 서비스 생성
+        File: kf-serving-create
       - Name: 학습 모델 생성
         File: trained-model-create
-      - Name: 헬름 리포지터리 생성
-        File: helm-repo-create
-      - Name: 헬름 릴리스 생성
-        File: helm-release-create
+  - Name: 리소스 생성 (카프카)
+    Dir: resource_create_sub
+    Topics:
+      - Name: 카프카 클러스터 생성
+        File: kafca-cluster-create
+      - Name: 카프카 커넥트 생성
+        File: kafca-connect-create
+      - Name: 카프카 커넥터 생성
+        File: kafca-connector-create
+      - Name: 카프카 브릿지 생성
+        File: kafca-bridge-create
+      - Name: 카프카 미러 메이커 2 생성
+        File: kafca-mirrormaker2-create
+      - Name: 카프카 리밸런스 생성
+        File: kafca-rebalance-create
+  - Name: 리소스 생성 (레디스)
+    Dir: resource_create_sub
+    Topics:
+      - Name: 레디스 생성
+        File: redis-create
+      - Name: 레디스 클러스터 생성
+        File: redis-cluster-create
+  - Name: 리소스 생성 (서비스 바인딩)
+    Dir: resource_create_sub
+    Topics:
+      - Name: 서비스 바인딩 생성
+        File: service-binding-create
 ---
 Name: 운영자 안내서
 Dir: admin_guide
@@ -409,7 +396,7 @@ Topics:
         File: hyperauth
       - Name: Kube 객체
         File: kube-object
-  - Name: CI-CD
+  - Name: CI/CD
     Dir: cicd
     Topics:
       - Name: 동작 상태와 이력 확인

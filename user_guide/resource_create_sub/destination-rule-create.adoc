@@ -25,10 +25,8 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 Value *
 ----
 * host
-* Subsets +
-하위 세부 항목은 xref:../form-set-item.adoc#Subsets["폼 에디터 설정 항목 참조"의 "Subsets"]을 참고한다.
-* Traffic Policy +
-하위 세부 항목은 xref:../form-set-item.adoc#TrafficPolicy["폼 에디터 설정 항목 참조"의 "Traffic Policy"]를 참고한다.
+* Subsets
+* Traffic Policy
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 
 == YAML 에디터

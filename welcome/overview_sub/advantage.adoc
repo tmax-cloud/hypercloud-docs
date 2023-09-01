@@ -23,7 +23,7 @@ image::../images/figure_multi_architecture.png[]
 == OSS에 대한 검증 및 기술지원 제공
 
 티맥스클라우드는 오픈소스를 잘 활용하여 비용절감이라는 효과를 얻고자하는 고객의 어려움을 해결하고자 한다. +
-이를 위해 Apache, Tomcat, Wildfly, Maria DB, Spring 등 사용 빈도가 높은 오픈소스를 직접 검증하여 {product-title} {product-version}의 카탈로그에 포함시켰다. 이에 고객은 필요한 서비스를 적시에 사용할 수 있고, 문제가 발생하는 경우 티맥스클라우드의 전문적인 기술지원까지 받을 수 있다. 즉, {product-title} {product-version}을 통해서 오픈소스 서비스에 대한 선택권뿐만 아니라 안정적인 운영환경까지 보장받을 수 있는 것이다.
+이를 위해 Apache, Tomcat, Wildfly, Maria DB, Spring 등 사용 빈도가 높은 오픈소스를 직접 검증하여 {product-title} {product-version}의 카탈로그에 포함시켰다. 이에 고객은 필요한 서비스를 템플릿으로 구성하여 즉각 사용할 수 있고, 문제가 발생하는 경우 티맥스클라우드의 전문적인 기술지원까지 받을 수 있다. 즉, {product-title} {product-version}을 통해서 오픈소스 서비스에 대한 지속적인 업데이트와 내재화를 통해서 안정적인 운영환경까지 보장받을 수 있는 것이다.
 
 {product-title} {product-version}에서 제공하는 서비스 카탈로그 목록은 아래와 같다.
 

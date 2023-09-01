@@ -19,7 +19,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 
 * Name *
 * Labels
-* class *
+* class 
 * pause
 * tasksMax
 
@@ -44,16 +44,21 @@ metadata:
   name: my-source-connector <1>
   namespace: default <2>
   labels:
-    strimzi.io/cluster: my-connect-cluster
+    strimzi.io/cluster: my-connect-cluster <3>
 spec:
-  class: org.apache.kafka.connect.file.FileStreamSourceConnector <3>
-  tasksMax: 2
-  config:
-    file: "/opt/kafka/LICENSE"
-    topic: my-topic
+  class: org.apache.kafka.connect.file.FileStreamSourceConnector <4>
+  tasksMax: 2 <5>
+  config: <6>
+    file: "/opt/kafka/LICENSE" <7>
+    topic: my-topic <8>
 ----
 +
 <1> 카프카 커넥터의 이름
 <2> 카프카 커넥터가 생성될 네이스페이스의 이름
-<3> 카프카 커넥터의 Java 클래스
+<3> 동일 네임스페이스에 존재하는 카프카 커넥트 인스턴스의 이름 
+<4> 카프카 커넥터 클래스의 이름
+<5> 카프카 커넥터가 생성할 수 있는 최대 작업의 수
+<6> 카프카 커넥터의 설정
+<7> 카프카 커넥터가 사용할 파일의 경로 지정
+<8> 카프카 커넥터가 생성한 데이터를 전송할 카프카 topic의 이름 지정
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

@@ -55,8 +55,8 @@ image::../../images/figure_hyperauth_user_create_03.png[]
 * OFF : 로그인 허용 안 함
 |Email Verified|이메일 인증 여부를 선택한다.
 
-* ON : 이메일 인증 필요
-* OFF : 이메일 인증 필요 없음
+* ON : 이메일이 인증된 상태 (이메일 인증 불필요)
+* OFF : 이메일이 인증되지 않은 상태 (이메일 인증 필요)
 |Required User Actions|사용자가 로그인할 때 요구할 행동을 선택한다.
 
 * Update Password: 사용자가 새 비밀번호를 입력
@@ -64,13 +64,6 @@ image::../../images/figure_hyperauth_user_create_03.png[]
 * Verify Email: 사용자에게 이메일을 보내 이메일 주소 확인
 |Locale|사용자 인터페이스에서 사용할 지역/언어를 선택한다.
 |====================
-
-. *2 채널 인증 정보 설정* +
-2 채널 인증 정보인 전화번호를 등록하기 위해 생성한 사용자 계정의 상세 화면에서 *[Attributes]* 탭을 클릭한다. +
-이때 "Key" 값으로 phone을 입력하고, "Value" 값으로 사용자의 전화번호를 입력한 후 "Actions"에서 *[Add]* 버튼을 클릭한다. +
-입력값이 정상적으로 추가되면 *[Save]* 버튼을 클릭해서 현재 설정을 저장한다.
-+
-image::../../images/figure_hyperauth_user_create_04.png[]
 
 . *비밀번호 설정* +
 사용자 계정의 비밀번호를 설정하기 위해 생성한 사용자 계정의 상세 화면에서 *[Credentials]* 탭을 클릭한다. +
@@ -110,6 +103,7 @@ image::../../images/figure_hyperauth_user_lock.png[]
 <6> *[Save]* 버튼 클릭
 
 == 토큰 유효 시간 설정
+
 콘솔의 로그인 연장 시 로그아웃되는 현상이 발생할 경우 토큰의 유효 시간을 연장하여 해결할 수 있다.
 
 image::../../images/figure_hyperauth_token_time.png[]
@@ -120,3 +114,13 @@ image::../../images/figure_hyperauth_token_time.png[]
 <4> *"Access Token Lifespan"* 값 설정 : 액세스 토큰 유효 시간 (권장값: 1 Days)
 <5> *"Login timeout"* 값 설정 : 로그인 제한 시간 (권장값: 1 Days)
 <6> *[Save]* 버튼 클릭
+
+== 중복 로그인 설정
+
+여러 사용자가 동일한 계정으로 로그인할 수 있다. 
+
+image::../../images/figure_hyperauth_duplicate_login.png[]
+
+<1> *[Events]* 메뉴 선택
+<2> *[Config]* 탭 선택
+<3> *"duplicate_login_block"* 해제

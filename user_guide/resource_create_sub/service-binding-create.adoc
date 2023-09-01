@@ -70,13 +70,13 @@ spec:
     kind: Deployment
     name: deployment
     version: v1
-  bindAsFiles: true 
-  detectBindingResources: true 
-  mappings: 
+  bindAsFiles: true <4>
+  detectBindingResources: true <5> 
+  mappings: <6>
   - name: key
     value: value
-  namingStrategy: '{{ .name | upper }}' 
-  services: <4>
+  namingStrategy: '{{ .name | upper }}' <7> 
+  services: <8>
   - group: kafka.strimzi.io
     kind: Kafka
     name: kafka
@@ -86,7 +86,11 @@ spec:
 +
 <1> 서비스 바인딩의 이름
 <2> 서비스 바인딩이 생성될 네이스페이스의 이름
-<3> 애플리케이션(바인딩 데이터 제공받는 대상)의 상세 정보
-<4> 백업 서비스(바인딩 데이터 제공하는 대상)의 상세 정보
+<3> 애플리케이션(바인딩 데이터를 제공받는 대상)의 상세 정보
+<4> 바인딩 데이터의 저장 방식 결정(true 설정 시 파일 / false 설정 시 환경 변수)
+<5> 백업 서비스(바인딩 데이터를 제공하는 대상)의 바인딩 데이터를 자동으로 감지할지 여부 결정
+<6> 바인딩된 리소스의 속성을 특정 환경 변수 또는 설정으로 매핑 시 사용
+<7> 바인딩된 데이터의 이름 설정
+<8> 백업 서비스(바인딩 데이터를 제공하는 대상)의 상세 정보
 
 . 작성이 완료되면 *[생성]* 버튼을 클릭해서 작성 내용을 저장한다.

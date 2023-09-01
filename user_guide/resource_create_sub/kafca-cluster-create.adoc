@@ -37,23 +37,17 @@ generateSecretOwnerReference
 renewalDays
 validityDays
 ----
-* Cruise Control +
-하위 세부 항목은 xref:../form-set-item.adoc#CruiseControl["폼 에디터 설정 항목 참조"의 "Cruise Control"]를 참고한다.
-* Entity Operator +
-하위 세부 항목은 xref:../form-set-item.adoc#EntityOperator["폼 에디터 설정 항목 참조"의 "Entity Operator"]를 참고한다.
-* Jmx Trans +
-하위 세부 항목은 xref:../form-set-item.adoc#JmxTrans["폼 에디터 설정 항목 참조"의 "Jmx Trans"]를 참고한다.
-* Kafka * +
-하위 세부 항목은 xref:../form-set-item.adoc#Kafka["폼 에디터 설정 항목 참조"의 "Kafka"]를 참고한다.
-* Kafka Exporter +
-하위 세부 항목은 xref:../form-set-item.adoc#KafkaExporter["폼 에디터 설정 항목 참조"의 "Kafka Exporter"]를 참고한다.
+* Cruise Control
+* Entity Operator
+* Jmx Trans
+* Kafka *
+* Kafka Exporter
 * Maintenance Time Windows
 +
 ----
 Value *
 ----
-* Zookeeper * +
-하위 세부 항목은 xref:../form-set-item.adoc#Zookeeper["폼 에디터 설정 항목 참조"의 "Zookeeper"]를 참고한다.
+* Zookeeper *
 
 . 설정이 완료되면 *[생성]* 버튼을 클릭해서 설정 내용을 저장한다.
 

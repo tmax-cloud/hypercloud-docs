@@ -38,62 +38,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 . *클러스터 클레임 생성* 화면이 열리면 **"다음을 통해 설정"**을 "YAML View"로 선택한다.
 . YAML 에디터가 열리면 생성할 클러스터 클레임의 구성 정보를 작성한다. 이때 프로바이더(클러스터 API 공급자)의 종류에 따른 기본 작성 예시는 다음과 같다.
 +
-.기본 작성 예 (vSphere 공급자)
-[source,yaml]
-----
-apiVersion: claim.tmax.io/v1alpha1
-kind: ClusterClaim
-metadata:
-  name: example <1>
-  namespace: default <2>
-spec:
-  clusterName: example <3>
-  masterNum: 1 <4>
-  provider: vSphere <5>
-  providerVsphereSpec: <6>
-    podCidr: 10.0.0.0/16 <7>
-    vcenterCpuNum: 3 <8>
-    vcenterDataCenter: Datacenter1 <9>
-    vcenterDataStore: datastore1 <10>
-    vcenterDiskSize: 25 <11>
-    vcenterFolder: vm <12>
-    vcenterId: administrator@vsphere.local <13>
-    vcenterIp: 192.168.10.10 <14>
-    vcenterKcpIp: 192.168.10.20 <15>
-    vcenterMemSize: 8192 <16>
-    vcenterNetwork: VM Network <17>
-    vcenterPassword: Password! <18>
-    vcenterResourcePool: 192.168.10.11/Resources <19>
-    vcenterTemplate: ubuntu-1804-kube-v1.19.6 <20>
-    vcenterThumbprint: 'A1:B2:C3:DD:E5:G6:FF:AA:AB:35:AF:17:D7:7A:38:88:55:74:A3:C2' <21>
-  version: v1.19.6 <22>
-  workerNum: 1 <23>
-----
-+  
-<1> 클러스터 클레임의 이름
-<2> 클러스터 클레임이 생성될 네임스페이스의 이름
-<3> 생성할 클러스터의 이름
-<4> 마스터 노드 수
-<5> VM이 생성된 클라우드 제공 업체의 이름
-<6> 공급자 vSphere 사양
-<7> 파드용 내부 IP 주소 CIDR 블록
-<8> VM의 CPU 수
-<9> 데이터 센터 이름
-<10> 데이터 저장소 이름
-<11> VM의 디스크 크기 (단위: GB. image:../images/figure_caution_icon.png[] 단, 단위는 직접 입력하지 않는다.)
-<12> 폴더 이름
-<13> VCSA의 사용자 ID
-<14> vCenter Server 애플리케이션(VCSA)의 IP 주소
-<15> 원격 클러스터(VIP)용 컨트롤 플레인의 IP 주소
-<16> VM의 메모리 크기 (단위: MB. image:../images/figure_caution_icon.png[] 단, 단위는 직접 입력하지 않는다.)
-<17> 네트워크 이름
-<18> VCSA의 비밀번호
-<19> 리소스 풀의 이름
-<20> 클라우드 초기화의 템플릿 이름
-<21> 컴퓨터 인증서의 TLS 지문
-<22> Kubernetes 버전
-<23> 작업자 노드 수
-+
+
 .기본 작성 예 (AWS 공급자)
 [source,yaml]
 ----

@@ -21,8 +21,7 @@ NOTE: 각 항목에 대한 자세한 설명은 제품 내의 설명을 참고한
 * Labels
 * concurrencyPolicy
 * failedJobsHistoryLimit
-* Job Template * +
-하위 세부 항목은 xref:../form-set-item.adoc#JobTemplate["폼 에디터 설정 항목 참조"의 "Job Template"]을 참고한다.
+* Job Template *
 * schedule *
 * startingDeadlineSeconds
 * successfulJobsHistoryLimit

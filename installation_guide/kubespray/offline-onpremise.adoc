@@ -127,6 +127,20 @@ kube_pods_subnet: 10.244.0.0/24 <2>
 <1> 서비스 IP 주소 대역
 <2> 파드 서브넷 IP 주소 대역
 
+. *K8S 인증서 기한 설정*
++
+`kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 K8S의 인증서 기한을 설정한다. 
++
+.예시
+----
+## k8s certs days
+update_cert: true <1>
+cert_days: 3650 <2>
+----
++
+<1> 인증서 기한 설정 활성화 (false인 경우 인증서의 기한은 1년입니다. )
+<2> 인증서의 기한 (CA 인증서는 적용되지 않습니다. )
+
 [#KubesprayRunK8sOn]
 === Kubespray 실행
 
