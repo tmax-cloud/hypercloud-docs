@@ -59,3 +59,7 @@
 === Bare metal
 
 * "콘솔" 중에서 베어메탈 콘솔이 제거되었다. 
+
+=== Multi Cluster
+
+* "provider" 중에서 vSphere가 제거되었다. 
