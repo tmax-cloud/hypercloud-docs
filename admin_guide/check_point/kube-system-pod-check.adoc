@@ -19,21 +19,17 @@ NOTE: CLI 환경에서는 `kubectl get pods -n kube-system` 명령을 사용하�
 
 HyperCloud가 정상적으로 기동되기 위해서 필요한 파드들로 이중 하나라도 이상이 있을 경우 HyperCloud는 정상적인 동작을 하지 않는다.
 
-(TD: hypercloud5-system 네임스페이스가 선택된 화면 캡처 필요)
-
-image::../../images/figure_admin_kube_sys_pod_check.png[]
+image::../../images/figure_admin_hc_sys_pod_check.png[]
 <1> "마스터 클러스터" 콘솔 선택
 <2> *[워크로드] > [파드]* 메뉴 클릭
-<3> "hypercloud5-system", "console-system", "hyperauth" 네임스페이스를 각각 선택
+<3> "hypercloud5-system", "api-gateway-system", "hyperauth" 네임스페이스를 각각 선택
 <4> 조회된 파드들의 상태가 모두 "Running" 인지 확인
 
 == 기타 파드 점검
 
 k8s와 HyperCloud 이외에 사용자가 올린 서비스들의 상태를 점검한다.
 
-(TD: 기타 네임스페이스가 선택된 화면 캡처 필요)
-
-image::../../images/figure_admin_kube_sys_pod_check.png[]
+image::../../images/figure_admin_etc_pod_check.png[]
 <1> "마스터 클러스터" 콘솔 선택
 <2> *[워크로드] > [파드]* 메뉴 클릭
 <3> k8s 및 HyperCloud 파드 관련 외의 네임스페이스를 각각 선택
