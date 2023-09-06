@@ -14,7 +14,10 @@ HyperCloud에서 사용하는 소프트웨어의 버전 정보는 다음과 같�
 |Gitlab|15.3.2-ce.0|ArgoCD와 CI/CD 연동 Git 저장소
 |ArgoCD|v2.5.7|HyperCloud 배포 관리
 |Cert Manager|v1.10.1|인증서 생성 및 갱신 관리
-|API Gateway|traefik 2.8.7, jwt-decode 5.0.0.5|GW 및 인증
+|API Gateway|traefik 2.8.7
++
+jwt-decode 5.0.0.5|GW 및 인증
+|Oauth2-Proxy|v7.3.2|HyperCloud 인가 관리
 |Console|5.2.x.x|HyperCloud 웹 콘솔
 |Strimzi kafka operator|0.32.0|카프카 리소스 관리
 |HyperAuth|b1.1.2.6|HyperCloud 계정 인증/인가 관리
