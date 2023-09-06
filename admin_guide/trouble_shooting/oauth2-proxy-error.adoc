@@ -15,7 +15,7 @@ image::../../images/figure_oauth2_403_error.png[]
 * *조치 방법*
 +
 *sing in* 버튼을 클릭하면 Hypercloud 5.2 콘솔로 이동한다. 
-+
+
 
 == 500 오류
 
