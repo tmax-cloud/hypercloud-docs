@@ -446,6 +446,8 @@ Topics:
   - Name: 문제 해결
     Dir: trouble_shooting
     Topics:
+      - Name: oauth2-proxy 오류
+        File: oauth2-proxy-error    
       - Name: 로그 조회
         File: basic-log-inquire
       - Name: 크롬 오류
