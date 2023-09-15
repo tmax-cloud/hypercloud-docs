@@ -38,10 +38,18 @@ HyperCloud 설치를 위한 시스템 요구사항은 다음과 같다.
 
 ProLinux (버전: 8, 최신 버전 : 8.6)
 
-|메모리|Master 노드의 경우: 1500MB 이상
+|메모리|HyperCloud(최소 : 42.5Gi, 권장 : 81Gi)
 
-Worker 노드의 경우: 1024MB 이상
+Ai-Devops(최소 15Gi, 권장 35Gi)
+|CPU|HyperCloud(최소 : 22core, 권장 : 56core)
+
+Ai-Devops(최소 : 15core, 권장 : 32core)
 |====================
+[NOTE]
+==== 
+Hypercloud의 최소사양은 모듈 설치에 필요한 리소스 기준이며 고객사 환경에 따라 조정해야한다. +
+Ai-devops 리소스는 기본 템플릿을 기준으로 산정하였다.
+====
 
 == 설치 전 준비사항
 HyperCloud를 설치하기 전에 필요한 준비사항에 대해서 설명한다.
@@ -62,6 +70,59 @@ https://technet.tmaxsoft.com/
 |kubespray-aws.zip|AWS 환경에서 ArgoCD 설치를 위한 파일
 |====================
 
+=== 쿠버네티스 설치 진행을 위한 OS 환경 설정
+. *os hostname 설정*
++
+os hostname을 변경한다.
++
+----
+hostnamectl set-hostname {hostname}
+----
++
+이후 설정한 hostname과 ip를 /etc/hosts에 등록한다.
++
+----
+ 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+ ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+ {node ip} {hostname}
+----
+
+. *방화벽 설정*
++
+방화벽 설정을 해제한다. 
++
+----
+$ sudo systemctl stop firewalld
+$ sudo systemctl disable firewalld
+----
++
+. *스왑 메모리 설정*
++
+스왑 메모리를 영구적으로 비활성화 한다.
++
+----
+$ sudo swapoff -a
+ 
+sudo vi /etc/fstab 에서 swap 관련 부분 주석처리
+$ # /dev/mapper/centos-swap   swap     swap   defaults   0 
+----
++ 
+. *SELinux 설정*
++
+SELinux 설정을 해제한다.
++
+----
+$ sudo setenforce 0
+$ sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+----
++
+. *timezone 설정*
++
+클러스터를 구축할 노드들의 timezone을 동기화한다.
++
+----
+
+----
 === 웹 서버 리포지터리 구성
 
 . *files-repo 다운로드*
@@ -71,7 +132,7 @@ HyperCloud 설치에 필요한 패키지들을 다운로드한다.
 아래의 FTP 서버에서 files-repo를 다운로드한다.
 +
 ----
-192.168.1.150:/home/ck-ftp/k8s/install/offline/files-repo
+192.168.1.150:/home/ck-ftp/backups/ck-ftp/k8s/install/offline/files-repo-k8s-v1.25
 ----
 
 . *로컬 리포지터리 구성*
@@ -158,8 +219,10 @@ httpd.conf 파일의 인자 값에 대한 설명은 다음과 같다.
 +
 ----
 $ chcon -R -t httpd_user_content_t {FILES_REPO_PATH}
-
 $ chmod 711 {FILES_REPO_PATH}
+$ chmod 777 {FILES_REPO_PATH}/repodata/repomd.xml
+
+이후 curl {server ip}/repodata/repomd.xml를 통해 repomd.xml 호출이 되는지 확인한다.
 ----
 +
 파일 리포지터리 권한 설정 명령어의 인자 값에 대한 설명은 다음과 같다.
@@ -313,25 +376,25 @@ HyperCloud 설치를 위해 노드별로 필요한 패키지를 설치한다.
 [width="100%",options="header", cols="1,3"]
 |====================
 |노드|패키지
-|모든 노드|nss-3.53.1-17.el8_3 +
-conntrack-1.4.4-10.el8 +
-socat-1.7.3.3-2.el8 +
-cri-o-1.21 +
-sshpass +
-nfs-utils-1:2.3.3-41.el8_4.2.x86_64 +
-java-1.8.0-openjdk-devel.x86_64 +
+|모든 노드|nss-3.67.0-4.el8_4.x86_64.rpm +
+conntrack-tools-1.4.4-10.el8.x86_64.rpm +
+socat-1.7.4.1-1.el8.x86_64.rpm +
+cri-o-1.25.2-8.1.el8.x86_64.rpm +
+sshpass-1.06-8.el8.x86_64.rpm +
+nfs-utils-2.3.3-41.el8.x86_64.rpm +
+java-1.8.0-openjdk-1.8.0.282.b08-4.el8.x86_64.rpm +
 unzip +
 tar
 |프라이빗 레지스트리 노드|podman
-|웹 서버 리포지터리 노드|httpd(apache-2.4.37)
-|Kubespray 설치 노드|python3-pip-python 3.6 +
-python3-cryptography-3.2.1-4.el8 +
-python3-jinja2- 2.10.1-2.el8_0 +
-python3-netaddr-0.7.19-8.el8 +
-python3-jmespath-0.9.0-11.el8 +
-python3-ruamel-yaml-0.15.41-2.el8 +
-python3-pbr-5.1.2-3.el8 +
-ansible-2.9.23-1.el8
+|웹 서버 리포지터리 노드|httpd(apache)
+|Kubespray 설치 노드|python3-pip + 
+python3-cryptography +
+python3-jinja2 +
+python3-netaddr +
+python3-jmespath +
+python3-ruamel-yaml +
+python3-pbr +
+ansible
 |====================
 
 [NOTE]
