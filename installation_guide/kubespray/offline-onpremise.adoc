@@ -51,7 +51,7 @@ loadbalancer_apiserver:
   port: 6443 <3>
   
 upstream_dns_servers: <4>
-  - 192.168.1.150  
+  - /etc/resolv.conf
 ----
 +
 <1> 쿠버네티스 API 서버 주소
@@ -147,6 +147,7 @@ cert_days: 3650 <2>
 ansible-playbook 명령을 사용하여 Kubespray를 실행한다.
 ----
 $ ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml
+$ ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml -e ignore_assert_errors=yes (worker가 없을 경우)
 ----
 
 [#ArgoCDInstallOn]
@@ -213,7 +214,7 @@ kube_service_addresses: 10.96.0.0/24 <6>
 kube_pods_subnet: 10.244.0.0/24 <7>
 ----
 +
-<1> nip.io 도메인의 사용 여부 (Self-Signed 도메인을 사용할 경우 true)
+<1> nip.io 도메인의 사용 여부
 <2> 커스텀 도메인의 사용 여부 (DNS를 사용할 경우 true)
 <3> 프록시 노드에 맵핑된 DNS 이름
 <4> 프록시 노드의 IP 주소 
@@ -246,83 +247,72 @@ NOTE: 애플리케이션 설치가 정상적으로 완료되면, Gitea과 ArgoCD
 [#MasterClusterOn]
 == 마스터 클러스터 설치
 
-. *master-values.yaml 파일 수정*
+. *master-values.yaml 파일 gateway 수정*
 +
-`kubespray-onpremise/roles/bootstrap-cloud/templates/argocd_installer/application/helm/master-values.yaml` 파일을 열어 애플리케이션을 Helm Chart로 설치하기 위해 사용할 환경 변수를 정의한다.
+`kubespray-onpremise/roles/bootstrap-cloud/templates/argocd_installer/application/helm/master-values.yaml` 파일을 열어 gateway 설정, 각 앱들의 사용 여부, 로그 레벨 및 세부 환경 변수를 정의한다.
 +
 .예시
 ----
 ...
-global:
-  privateRegistry: 10.0.0.1:5000 <1>
-  domain: cloudqa.com <2>
-...  
   gatewayBootstrap:
-    enabled: true <3>
-    svc_type: NodePort <4>
+    enabled: true
+    ...
+    service:
+      type: LoadBalancer <1>
     tls:
       selfsigned:
-        enabled: false <5>
+        enabled: true <2>
       acme:
-        enabled: true <6>
+        enabled: false <3>
         email: test@tmax.co.kr
         dns:
           type: route53
-          accessKeyID: AKIAVXXXXXXXXXX <7>
-          accessKeySecret: kFOYY4dYyXXXXXXXXXXXXXXXXXXXX <8>
-          hostedZoneID: Z077XXXXXXXXXXXX <9>
-        environment: production <10>
+          accessKeyID: accesskey <4>
+          accessKeySecret: secretkey <5>
+          hostedZoneID: hostedzoneid <6>
+        environment: production <7>
 ----
-+
-<1> 프라이빗 컨테이너 이미지 레지스트리의 주소
-<2> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
-<3> 게이트웨이 부트스트랩의 포함 여부
-<4> 네트워크 서비스 타입
-
-* NodePort
+<1> 네트워크 서비스 타입
 * LoadBalancer
-<5> 자체 서명 인증서의 사용 여부
-<6> Route 53으로 생성한 도메인을 사용하기 위한 자동 인증서 관리 환경 사용 여부
-<7> AWS에서 사용하는 계정의 액세스 키 ID
-<8> 액세스 키 ID에 대한 시크릿 키
-<9> Route 53으로 생성한 도메인에 대한 호스팅 영역 ID
-<10> 실제 사용할 인증서 발급 용도
-
+* NodePort
+<2> 자체 서명 인증서의 사용 여부
+<3> Route 53으로 생성한 도메인을 사용하기 위한 자동 인증서 관리 환경 사용 여부
+<4> AWS에서 사용하는 계정의 액세스 키 ID
+<5> 액세스 키 ID에 대한 시크릿 키
+<6> Route 53으로 생성한 도메인에 대한 호스팅 영역 ID
+<7> 실제 사용할 인증서 발급 용도
 * 운영용 : production
 * 테스트용 : staging
-
 +
-NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하거나, 필요시 서브 도메인을 등록한다.
-
-. *shared-values.yaml 파일 수정*
-+
-`kubespray-onpremise/roles/bootstrap-cloud/templates/argocd_installer/application/helm/shared-values.yaml` 파일을 열어 마스터 클러스터에 필요한 구성 정보를 설정한다.
+. *멀티클러스터를 사용할 경우 master-values.yaml 파일 cluster-api 수정*
 +
 .예시
 ----
-...
-    repoURL: https://gitea.cloudqa.com/root/argocd-installer.git <1>
-    targetRevision: HEAD <2>
-...
-global:
-  timezone: UTC <3>
-  network:
-    disabled: true <4>
-...    
-  masterSingle:
-    enabled: true <5>
-    hyperAuthDomain: "hyperauth.cloudqa.com" <6>
-...
+### cluster-api
+  capi:
+    ...
+    providers:
+      aws:
+        enabled: true <1>
+        credentials:
+          accessKeyID: access-key <2>
+          secretAccessKeyID: secret-access-key <3>
+      ...
+      vsphere:
+        enabled: true <4>
+        credentials:
+          username: "user" <5>
+          password: "password" <6>
 ----
-<1> ArgoCD와 연동된 Gitea 저장소 주소 (Gitea의 경우 url 마지막에 .git을 추가)
-<2> Gitea에 연동되어 있는 argocd-installer의 브랜치 이름
-<3> 애플리케이션 타임존 설정 
+<1> capa 설치 여부
+<2> 멀티클러스터용 AWS에서 사용하는 계정의 액세스 키 ID
+<3> 액세스 키 ID에 대한 시크릿 키
+<4> capv 설치 여부
+<5> vcenter ID
+<6> vcenter Password
 
-* UTC
-* Asia/Seoul
-<4> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
-<5> 마스터 클러스터와 싱글 클러스터의 HyperAuth 연동 여부
-<6> 마스터 클러스터와 싱글 클러스터에서 사용할 HyperAuth 주소
++
+NOTE: 예시 외에 설치할 모듈에 대한 enabled 값을 true로 설정하거나, 필요시 서브 도메인을 등록한다.
 
 . *애플리케이션 변수 설정*
 +
@@ -330,15 +320,41 @@ global:
 +
 .예시
 ----
-spec:
-  ...
-  source:
-    ...
-    repoURL: https://gitea.cloudqa.com/root/argocd-installer.git <1> 
-    targetRevision: HEAD <2>
+source:
+      ...
+      parameters:
+        - name: global.domain
+          value: "글로벌 도메인을 입력하세요 ex) testdomain.com" <1>
+        - name: global.masterSingle.hyperAuthDomain
+          value: "hyperauth full 도메인을 입력하세요 ex) hyperauth.testdomain.com" <2>
+        # Avaliable values: UTC, Asia/Seoul
+        - name: global.timeZone
+          value: "UTC" <3>
+        - name: global.network.disabled
+          value: "true" <4>
+        - name: global.privateRegistry
+          value: "폐쇄망일 경우 image registry 주소를 입력하세요 ex) https://hyperregistry.testdomain.com" <5>
+        - name: spec.source.repoURL
+          value: "git repository URL을 입력하세요 ex) https://github.com/tmax-cloud/argocd-installer.git" <6>
+        - name: spec.source.targetRevision
+          value: "target Revision을 입력하세요 ex) main" <7>
+    path: application/helm
+    # 환경에 맞게 url 주소 변경 필요
+    repoURL: https://github.com/tmax-cloud/argocd-installer <8>
+    # 환경에 맞게 target branch/release 변경 필요
+    targetRevision: HEAD <9>
 ----
-<1> ArgoCD와 연동된 Gitea 저장소 주소 (Gitea의 경우 url 마지막에 .git을 추가)
-<2> Gitea에 연동되어 있는 argocd-installer의 브랜치 이름
+<1> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
+<2> 마스터 클러스터와 싱글 클러스터에서 사용할 HyperAuth 주소
+<3> 애플리케이션 타임존 설정 
+* UTC
+* Asia/Seoul
+<4> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
+<5> 프라이빗 컨테이너 이미지 레지스트리의 주소
+<6> 최상위 변수용 ArgoCD와 연동된 Gitea 저장소 주소 (Gitea의 경우 URL 마지막에 .git을 추가)
+<7> 최상위 변수용 Gitea에 연동되어 있는 argocd-installer의 브랜치 이름
+<8> master-applications.yaml용 ArgoCD와 연동된 Gitea 저장소 주소 (Gitea의 경우 URL 마지막에 .git을 추가)
+<9> master-applications.yaml용 Gitea에 연동되어 있는 argocd-installer의 브랜치 이름
 
 . *Gitea 동기화 작업*
 +
@@ -384,10 +400,10 @@ CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우
 .마스터 클러스터 동기화 순서
 ====
 마스터 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
-1. api-gateway-bootstrap(namespaces + cert-manager + jwt-decode-auth + api-gateway with console) +
-2. gitea, argocd, hyperregistry +
-3. strimzi-kafka-operator +
-4. hyperauth +
+1. cert-manager + api-gateway with console) +
+2. strimzi-kafka-operator + hyperauth +
+3. oauth2-proxy +
+4. gitea, argocd, hyperregistry +
 5. loki +
 6. prometheus +
 7. grafana-operator +
