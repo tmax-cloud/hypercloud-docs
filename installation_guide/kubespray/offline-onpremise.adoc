@@ -147,7 +147,6 @@ cert_days: 3650 <2>
 ansible-playbook 명령을 사용하여 Kubespray를 실행한다.
 ----
 $ ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml
-$ ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml -e ignore_assert_errors=yes (worker가 없을 경우)
 ----
 
 [#ArgoCDInstallOn]
@@ -242,8 +241,21 @@ ansible-playbook 명령을 사용하여 애플리케이션을 설치한다.
 $ ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml -t bootstrap-cloud
 ----
 
-NOTE: 애플리케이션 설치가 정상적으로 완료되면, Gitea과 ArgoCD 간의 저장소가 자동으로 연동된다.
+애플리케이션 설치가 정상적으로 완료되면, Gitea과 ArgoCD 간의 저장소가 자동으로 연동된다.
 
+CAUTION: Selfsigned 인증서로 Gitea를 설치했을 경우, kubespray-onpremise/roles/bootstrap-cloud/tasks/install-argocd.yml 에서 Gitea 주소를 적용하는 task 주석을 제거한다.
+----
+- name: ArgoCD | Apply Secret for self-signed Gitea
+  ansible.builtin.shell: |
+    sudo chmod +755 ./argocd-apply-gitea-repo-secret.sh
+    sudo ./argocd-apply-gitea-repo-secret.sh
+  args:
+    chdir: "{{ kube_config_dir }}/addons/argocd"
+  ignore_errors: true
+----
+====
+
+====
 [#MasterClusterOn]
 == 마스터 클러스터 설치
 
@@ -358,7 +370,7 @@ source:
 
 . *Gitea 동기화 작업*
 +
-ArgoCD와 연동된 Gitea의 argocd-installer 브랜치에서 `master-values.yaml`, `shared-values.yaml`, `master-applications.yaml` 파일을 열어 위의 1~3번 과정과 동일하게 환경 변수를 설정한다.
+ArgoCD와 연동된 Gitea의 argocd-installer 브랜치에서 `master-values.yaml`, `master-applications.yaml` 파일을 열어 위의 1~3번 과정과 동일하게 환경 변수를 설정한다.
 
 . *애플리케이션 등록*
 +
@@ -422,7 +434,7 @@ CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우
 .싱글 클러스터 동기화 순서
 ====
 싱글 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
-1. api-gateway-bootstrap(namespaces + cert-manager + jwt-decode-auth + api-gateway without console) + 
+1. cert-manager + api-gateway + oauth2-proxy without console) +
 2. loki +
 3. prometheus +
 4. grafana-operator +
