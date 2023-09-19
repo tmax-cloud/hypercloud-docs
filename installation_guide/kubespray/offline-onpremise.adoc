@@ -424,10 +424,11 @@ CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우
 10. template-service-broker +
 11. catalog-controller +
 12. cicd-operator(tekton) +
-13. cluster-api(aws, vsphere) +
-14. redis-operator, helm-apiserver, service-binding-operator +
-15. sonarqube, nexus +
-16. image-validating-webhook
+13. ai-devops + 
+14. cluster-api(aws, vsphere) +
+15. redis-operator, helm-apiserver, service-binding-operator +
+16. sonarqube, nexus +
+17. image-validating-webhook
 ====
 
 [CAUTION]
@@ -442,7 +443,7 @@ CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우
 6. service-mesh(istio, jaeger, kiali) + 
 7. template-service-broker +
 8. catalog-controller, cicd-operator(tekton), redis-operator, helm-apiserver, service-binding-operator +
-9. sonarqube, nexus +
+9. ai-devops, sonarqube, nexus +
 10. image-validating-webhook
 ====
 
