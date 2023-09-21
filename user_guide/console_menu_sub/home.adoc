@@ -12,7 +12,7 @@
 |감사 로그|리소스의 생성 및 변경 정보(리소스 이름, 계정, 액션, 코드)를 데이터베이스에 저장하여 특정 조건에 해당하는 정보만 조회 
 |이벤트|네임스페이스에서 발생한 이벤트를 실시간으로 조회 (최대 1시간)
 |ArgoCD|Hypercloud 애플리케이션의 배포 및 지속적인 관리
-|Argo Rollout|
+|Argo Rollout|애플리케이션의 다양한 배포 방식을 지원
 |그라파나|선택한 네임스페이스의 파드 정보를 모니터링
 |Gitea|HyperCloud 클러스터에 내장된 Gitea을 이용하여 개발자 콘솔의 소스 코드를 관리
 |이미지 레지스트리|컨테이너 이미지를 제공하는 레지스트리 및 멀티 테넌트 방식의 레지스트리를 관리
@@ -248,7 +248,7 @@ image::../../images/figure_admin_argocd_main.png[]
 == ArgoCD Rollout
 
 "마스터 클러스터" 콘솔 메뉴에서 *[홈]* -> *[Argo Rollout]* 메뉴를 선택하면 *Argo Rollout* 메인 화면으로 이동한다. +
-*Argo Rollout* 메인 화면에서는 애플리케이션의 배포 및 지속적인 관리를 위한 기능을 제공한다. Argo Rollout 툴의 사용 방법에 대한 자세한 설명은 link:https://argoproj.github.io/argo-rollouts/[Argo Rollout 설명서]를 참고한다. +
+*Argo Rollout* 메인 화면에서는 애플리케이션의 다양한 배포를 위한 기능을 제공한다. Argo Rollout 툴의 사용 방법에 대한 자세한 설명은 link:https://argoproj.github.io/argo-rollouts/[Argo Rollout 설명서]를 참고한다. +
 
 image::../../images/figure_admin_argorollout_main.png[]
 
