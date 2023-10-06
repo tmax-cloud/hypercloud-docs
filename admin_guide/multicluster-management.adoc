@@ -22,7 +22,7 @@ AWS 액세스 키를 생성하는 방법은 AWS 사용 설명서를 참고한다
 === AWS 액세스 키 입력
 
 AWS 액세스 키는 credentials로 관리된다. 
-+
+
 capa-system 네임스페이스의 capa-manager-bootstrap-credentials 시크릿에서 credentials의 값을 수정한다. 
 
 
