@@ -3,16 +3,13 @@
 :toc-title:
 
 == AWS 
-+
 AWS에 멀티 클러스터를 생성하기 위해 AWS 액세스 키 정보가 필요하다.
 +
 
 === AWS 액세스 키 생성
-+
 AWS 액세스 키를 생성하는 방법은 AWS 사용 설명서를 참고한다. 
 +
 
-+
 [NOTE]
 .참고 문서
 ====
@@ -21,16 +18,13 @@ AWS 액세스 키를 생성하는 방법은 AWS 사용 설명서를 참고한다
 +
 
 === AWS 액세스 키 입력
-+
 AWS 액세스 키는 credentials로 관리된다. 
 capa-system 네임스페이스의 capa-manager-bootstrap-credentials 시크릿에서 credentials의 값을 수정한다. 
 +
 
-+
 image::../images/figure_capa_credentials.png[]
 +
 
-+
 .credentials 양식
 ----
 [default]
@@ -38,4 +32,3 @@ aws_access_key_id =
 aws_secret_access_key = 
 region = 
 ----
-+
