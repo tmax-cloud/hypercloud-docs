@@ -21,8 +21,9 @@ AWS 액세스 키는 credentials로 관리된다.
 capa-system 네임스페이스의 capa-manager-bootstrap-credentials 시크릿에서 credentials의 값을 수정한다. 
 
 image::../images/figure_capa_credentials.png[]
++
 
-. *credentials 양식*
+. credentials 양식
 ----
 [default]
 aws_access_key_id = 
