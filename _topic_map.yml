@@ -443,6 +443,8 @@ Topics:
     File: hypercloud-management
   - Name: Kube 인증서 관리
     File: kube-auth-management
+  - Name: 멀티 클러스터 계정 관리
+    File: multicluster-management
   - Name: 문제 해결
     Dir: trouble_shooting
     Topics:
