@@ -22,7 +22,7 @@ capa-system 네임스페이스의 capa-manager-bootstrap-credentials 시크릿�
 
 image::../images/figure_capa_credentials.png[]
 
-.credentials 양식
+. *credentials 양식*
 ----
 [default]
 aws_access_key_id = 
