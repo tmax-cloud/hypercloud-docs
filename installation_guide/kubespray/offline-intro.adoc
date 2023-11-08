@@ -127,13 +127,21 @@ $ sudo yum install -y keepalived
 # keepalived 설정
 $ sudo vi /etc/keepalived/keepalived.conf
 
+global_defs{
+    vrrp_garp_master_refresh 10
+    vrrp_garp_master_refresh_repeat 1
+}
 vrrp_instance VI_1 {    
-state {MASTER or BACKUP}   
-interface {network interface}    
-virtual_router_id {virtual router id}    
-priority {priority}    
-advert_int 1    
-nopreempt    
+  state {MASTER or BACKUP}   
+  interface {network interface}    
+  virtual_router_id {virtual router id}    
+  priority {priority}    
+  advert_int 1    
+  nopreempt    
+  unicast_peer{
+        {another Master ip1}
+        {another Master ip2}        
+    }
 authentication {        
 	auth_type PASS        
 	auth_pass {password}  
