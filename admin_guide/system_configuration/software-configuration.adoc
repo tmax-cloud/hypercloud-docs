@@ -32,7 +32,7 @@ HyperCloud에서 사용하는 소프트웨어의 버전 정보는 다음과 같�
 |Cluster api|1.2.7|멀티 클러스터 관리
 |Terraform operator|b5.0.36.3|테라폼 관리
 |Template operator|0.2.8|카탈로그 템플릿 오퍼레이터
-|Hypercloud-apiserver|b5.1.3.3|HyperCloud 요청 처리
+|Hypercloud-apiserver|b5.1.3.4|HyperCloud 요청 처리
 |Hypercloud-single-operator|b5.1.3.0|HyperCloud 오퍼레이터
 |Hypercloud-multi-operator|b5.1.3.3|멀티 오퍼레이터 클러스터 생성 및 등록 관리
 |Service binding operator|b3693e45|서비스 바인딩 오퍼레이터
