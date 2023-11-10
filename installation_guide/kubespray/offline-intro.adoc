@@ -390,6 +390,21 @@ $ podman run -it -d -p{IMAGE_REGISTRY_IP:PORT}:5000 --privileged -v {IMAGE_FILE_
 |{IMAGE_FILE_PATH}|hypercloud5.2-images.tar 파일 및 ai-devops-5.2.tar 파일의 압축을 해제한 경로 입력 (예: /root/hypercloud5.2-registry)
 |====================
 
+. *이미지 레지스트리 확인*
++
+----
+$ podman ps -a
+$ curl {IMAGE_REGISTRY_IP}:5000/v2/_catalog
+----
++
+이미지 레지스트리 확인 명령어의 인자 값에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|인자 값|설명
+|{IMAGE_REGISTRY_IP}|이미지 레지스트리를 구성한 서버의 IP 주소 (예: 10.0.10.50)
+|====================
+
 === SSH 키 배포
 
 Kubespray를 실행하는 노드에서 생성한 SSH 키를 인프라 환경을 구성할 모든 노드에 배포하여 비밀번호 없이 SSH 접근을 가능하게 한다.
