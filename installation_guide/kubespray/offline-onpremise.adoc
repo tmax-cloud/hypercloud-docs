@@ -21,12 +21,12 @@
 . <<KubesprayRunK8sOn, Kubespray 실행>>
 
 [#KubesprayDecompressionK8sOn]
-=== Kubespray 파일 압축 해제
+=== Kubespray Infra 파일 압축 해제
 
 쿠버네티스 설치를 위해 테크넷을 통해서 다운로드한 *kubespray-infra.zip* 파일의 압축을 해제한다.
 
 [#KubesprayConfigK8sOn]
-=== Kubespray 환경 설정
+=== Kubespray Infra 환경 설정
 
 Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 
@@ -142,7 +142,7 @@ nfs_path: /root/test <6>
 <6> NFS 서버 공유 폴더 경로
 
 [#KubesprayRunK8sOn]
-=== Kubespray 실행
+=== Kubespray Infra 실행
 
 ansible-playbook 명령을 사용하여 Kubespray를 실행한다.
 ----
