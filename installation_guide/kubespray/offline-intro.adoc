@@ -128,8 +128,8 @@ $ sudo yum install -y keepalived
 $ sudo vi /etc/keepalived/keepalived.conf
 
 global_defs{
-    vrrp_garp_master_refresh 10
-    vrrp_garp_master_refresh_repeat 1
+    vrrp_garp_master_refresh 60  # minimum time interval for refreshing gratuitous ARPs while MASTER (in seconds)
+    vrrp_garp_master_refresh_repeat 2  # number of gratuitous ARP messages to send at a time while MASTER
 }
 vrrp_instance VI_1 {    
   state {MASTER or BACKUP}   
@@ -166,8 +166,15 @@ timedatectl 을 통해 노드 sync 확인
 
 $ timedatectl set-ntp true
 ----
++
+. *resolv.conf 파일 확인*
++
+구축할 모든 노드에 /etc/resolv.conf 파일이 있는지 확인, 없으면 생성한다.
 
 === 웹 서버 리포지터리 구성
+웹 서버 리포지터리 구성은 1개의 node에서만 진행한다.
+
+AWS와 같은 다른 provider에 sub cluster 구축 시에는 on-premise node에 구축 가능하고, 접근 환경에 따라 AWS 보안그룹 수정 및 transit gateway 설정이 추가로 필요할 수 있다.
 
 . *files-repo 다운로드*
 +
@@ -176,7 +183,7 @@ HyperCloud 설치에 필요한 패키지들을 다운로드한다.
 아래의 FTP 서버에서 files-repo를 다운로드한다.
 +
 ----
-192.168.1.150:/home/ck-ftp/backups/ck-ftp/k8s/install/offline/files-repo-k8s-v1.25
+192.168.1.150:/backups/ck-ftp/k8s/install/offline/files-repo-k8s-v1.25
 ----
 
 . *로컬 리포지터리 구성*
@@ -202,7 +209,7 @@ $ dnf config-manager --add-repo file://$LOCAL_REPO_PATH
 |{FILES_REPO_PATH}|files-repo의 경로 입력
 |====================
 +
-만약 `*createrepo_c*` 명령어를 사용할 수 없는 경우에는 `*createrepo*` 명령어를 사용하고, `*dnf*` 명령어를 사용할 수 없는 경우에는 /etc/yum.repos.d/ 하위에 아래와 같이 files-repo.repo 파일을 생성한다.
+만약 `*createrepo_c*` 명령어를 사용할 수 없는 경우에는 `*createrepo*` 명령어를 사용하고, `*dnf*` 명령어를 사용할 수 없는 경우에는 /etc/yum.repos.d/ 하위에 아래와 같이 files-repo.repo 파일을 생성한다. *해당 .repo의 파일명은 반드시 files-repo로 지정하도록 한다.*
 +
 .files-repo.repo 파일
 ----
@@ -254,7 +261,7 @@ httpd.conf 파일의 인자 값에 대한 설명은 다음과 같다.
 |====================
 |인자 값|설명
 |{WEB_SERVER_REPO_IP}|웹 서버 리포지터리를 구성한 서버의 IP 주소 (예: 10.0.0.1)
-|{FILES_REPO_PATH}|files-repo의 경로 입력
+|{FILES_REPO_PATH}|files-repo의 경로 입력 (예: /home/tmax/files-repo)
 |====================
 
 . *파일 리포지터리 권한 설정*
@@ -274,7 +281,7 @@ $ chmod 777 {FILES_REPO_PATH}/repodata/repomd.xml
 [width="100%",options="header", cols="1,3"]
 |====================
 |인자 값|설명
-|{FILES_REPO_PATH}|files-repo의 경로 입력
+|{FILES_REPO_PATH}|files-repo의 경로 입력 (예: /home/tmax/files-repo)
 |====================
 
 . *httpd 재시작*
@@ -308,6 +315,9 @@ files-repo.repo 파일의 인자 값에 대한 설명은 다음과 같다.
 |====================
 
 === 이미지 레지스트리 구성
+이미지 레지스트리 구성은 1개의 node에서만 진행한다.
+
+AWS와 같은 다른 provider에 sub cluster 구축 시에는 on-premise node에 구축 가능하다.
 
 . *Podman 설치 및 환경 설정* 
 +
@@ -320,8 +330,9 @@ $ yum install podman
 +
 .registries.conf 파일
 ----
-[registires.insecure]
-registries = ['{INTERNAL_IP:PORT}']
+[[registry]]
+location = ['{INTERNAL_IP:PORT}']
+insecure = true
 ----
 +
 registries.conf 파일의 인자 값에 대한 설명은 다음과 같다.
@@ -344,7 +355,7 @@ registries.conf 파일의 인자 값에 대한 설명은 다음과 같다.
 ====
 +
 ----
-192.168.1.150:/home/ck-ftp/backups/ck-ftp/k8s/install/offline/supercloud-images-k8s-v1.25
+192.168.1.150:/backups/ck-ftp/k8s/install/offline/supercloud-images-k8s-v1.25
 ----
 
 . *이미지 파일 로드*
@@ -382,6 +393,8 @@ $ podman run -it -d -p{IMAGE_REGISTRY_IP:PORT}:5000 --privileged -v {IMAGE_FILE_
 === SSH 키 배포
 
 Kubespray를 실행하는 노드에서 생성한 SSH 키를 인프라 환경을 구성할 모든 노드에 배포하여 비밀번호 없이 SSH 접근을 가능하게 한다.
+
+AWS 환경에서는 생략한다.
 
 . *sshpass 설치*
 +
