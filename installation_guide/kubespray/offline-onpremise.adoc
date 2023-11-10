@@ -149,6 +149,17 @@ ansible-playbook 명령을 사용하여 Kubespray를 실행한다.
 $ ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root cluster.yml
 ----
 
+=== Kubespray Infra 삭제
+
+Kubespray를 통해 구성한 k8s 리소스 전체 삭제 시 아래 내용을 참고한다.
+
+master에 image registry를 구축했다면 reset시에 함께 삭제 되므로, 이후 클러스터 재설치시에는 image registry를 재구성 해야 한다.
+
+*k8s 리소스 삭제*
+----
+$ ansible-playbook -i inventory/tmaxcloud/inventory.ini --become --become-user=root reset.yml
+----
+
 [#ArgoCDInstallOn]
 == ArgoCD 설치
 본 절에서는 Kubespray를 이용하여 ArgoCD를 설치하는 방법에 대해서 설명한다.
