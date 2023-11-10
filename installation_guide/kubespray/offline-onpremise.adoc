@@ -87,15 +87,6 @@ calico_ip_auto_method: "cidr=192.168.7.0/24" <1>
 ----
 +
 <1> Calico가 자동으로 감지할 노드들의 CIDR 값 
-+
-vxlan mode 설정이 필요한 경우 아래 설정을 참고한다.
-+
-.예시
-----
-calico_ipv4pool_ipip: "Never"
-calico_ipip_mode: "Never"
-calico_vxlan_mode: "Always"
-----
 
 . *IP 주소 대역 설정*
 +
