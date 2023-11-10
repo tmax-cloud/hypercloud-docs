@@ -248,13 +248,28 @@ loadbalancer_apiserver:
   port: 6443 <2>
   
 upstream_dns_servers: <3>
-  - 20.0.0.2
+  - /etc/resolv.conf
 ----
 +
 <1> AWS ELB(Elastic Load Balancing) 주소
 <2> 쿠버네티스 API 서버 포트 번호
 <3> AWS 도메인 네임서버 주소
- 
+
+. *폐쇄망 정보 설정*
++
+`kubespray-infra/inventory/tmaxcloud/group_vars/all/offline.yml` 파일을 열어 폐쇄망 관련 정보를 설정한다.
++
+.예시
+----
+is_this_offline: true <1>
+registry_host: "10.0.10.50:5000" <2>
+files_repo: "http://172.22.5.2" <3>
+----
++
+<1> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
+<2> 프라이빗 레지스트리 주소
+<3> 파일 리포지터리 주소
+
 . *Calico 구성 정보 설정*
 +
 `kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-net-calico.yml` 파일을 열어 Calico 관련 정보를 설정한다.
@@ -267,6 +282,24 @@ calico_ip_auto_method: "cidr=20.0.6.0/24, 20.0.7.0/24, 20.0.8.0/24" <2>
 +
 <1> Calico의 IP-in-IP 모드 활성화 여부
 <2> Calico가 자동으로 감지할 노드들의 CIDR 값 
+
+. *IP 주소 대역 설정*
++
+`kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 파드 및 서비스의 IP 주소 대역 정보를 설정한다.
++
+.예시
+----
+# Kubernetes internal network for services, unused block of space.
+kube_service_addresses: 10.96.0.0/24 <1>
+
+# internal network. When used, it will assign IP
+# addresses from this range to individual pods.
+# This network must be unused in your network infrastructure!
+kube_pods_subnet: 10.244.0.0/24 <2>
+----
++
+<1> 서비스 IP 주소 대역
+<2> 파드 서브넷 IP 주소 대역
 
 . *추가 설치 모듈 설정*
 +
@@ -290,39 +323,6 @@ aws_efs_filesystem_id: fs-XXX <7>
 <5> AWS EFS CSI 드라이버 설치 여부
 <6> AWS EFS CSI 스토리지의 네임스페이스 이름
 <7> AWS EFS 파일 시스템의 ID
-
-. *폐쇄망 정보 설정*
-+
-`kubespray-infra/inventory/tmaxcloud/group_vars/all/offline.yml` 파일을 열어 폐쇄망 관련 정보를 설정한다.
-+
-.예시
-----
-is_this_offline: true <1>
-registry_host: "10.0.10.50:5000" <2>
-files_repo: "http://172.22.5.2" <3>
-----
-+
-<1> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
-<2> 프라이빗 레지스트리 주소
-<3> 파일 리포지터리 주소
-
-. *IP 주소 대역 설정*
-+
-`kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 파드 및 서비스의 IP 주소 대역 정보를 설정한다.
-+
-.예시
-----
-# Kubernetes internal network for services, unused block of space.
-kube_service_addresses: 10.96.0.0/24 <1>
-
-# internal network. When used, it will assign IP
-# addresses from this range to individual pods.
-# This network must be unused in your network infrastructure!
-kube_pods_subnet: 10.244.0.0/24 <2>
-----
-+
-<1> 서비스 IP 주소 대역
-<2> 파드 서브넷 IP 주소 대역
 
 [#KubesprayRunK8sAws]
 === Kubespray 실행
