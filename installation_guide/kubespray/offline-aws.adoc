@@ -228,7 +228,7 @@ $ terraform destroy --var-file=credentials.tfvars
 
 Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 
-NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. 반드시  xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 환경을 구성한다. 
+NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. 반드시  xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 환경을 구성한다. bastion을 proxy하여 master node나 worker node에 접근한다. bastion에도 다른 노드에 접근하기 위해서 pem 파일이 필요하다.
 
 CAUTION: RHEL 운영체제일 경우 `kubespray-infra/cluster.yml` 파일을 열어 *- { role: bootstrap-os, tags: bootstrap-os}* 행을 반드시 주석 처리해야 한다.
 
@@ -340,6 +340,15 @@ Kubespray 실행 명령의 인자 값에 대한 설명은 다음과 같다.
 |인자 값|설명
 |{PEM_PATH}|다운로드한 PEM 파일의 경로 (예: /root/default.pem)
 |====================
+
+=== Kubespray Infra 삭제
+
+Kubespray를 통해 구성한 k8s 리소스 전체 삭제 시 아래 내용을 참고한다.
+
+*k8s 리소스 삭제*
+----
+$ ansible-playbook -i ./inventory/tmaxcloud/hosts ./reset.yml -e ansible_user=centos -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v
+----
 
 [#ArgoCDInstallAws]
 == ArgoCD 설치
