@@ -239,12 +239,14 @@ CAUTION: RHEL 운영체제일 경우 `kubespray-infra/cluster.yml` 파일을 열
 
 . *쿠버네티스 기본 정보 설정*
 +
-`kubespray-infra/inventory/tmaxcloud/group_vars/all/all.yml` 파일을 열어 Kubernetes의 기본 정보를 설정한다.
+`kubespray-infra/inventory/tmaxcloud/group_vars/all/all.yml` 파일을 열어 Kubernetes의 기본 정보를 설정한다. + 
+이때 loadbalancer_apiserver의 address 명은 주석처리 한다.
 +
 .예시
 ----
 apiserver_loadbalancer_domain_name: "kubernetes-nlb-test-xxx.elb.us-east-x.amazonaws.com" <1>
 loadbalancer_apiserver:
+# address:
   port: 6443 <2>
   
 upstream_dns_servers: <3>
@@ -277,7 +279,7 @@ files_repo: "http://172.22.5.2" <3>
 .예시
 ----
 calico_ipip_mode: "Always" <1>
-calico_ip_auto_method: "cidr=20.0.6.0/24, 20.0.7.0/24, 20.0.8.0/24" <2>
+calico_ip_auto_method: "[cidr=20.0.6.0/24, 20.0.7.0/24, 20.0.8.0/24]" <2>
 ----
 +
 <1> Calico의 IP-in-IP 모드 활성화 여부
@@ -331,7 +333,7 @@ ansible-playbook 명령을 사용하여 Kubespray를 실행한다.
 
 .사용 방법
 ----
-$ ansible-playbook -i .inventory/tmaxcloud/hosts ./cluster.yml -e ansible_user=centos -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v
+$ ansible-playbook -i .inventory/tmaxcloud/hosts ./cluster.yml -e ansible_user=ec2-user -e bootstrap_os=redhat -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v
 ----
 Kubespray 실행 명령의 인자 값에 대한 설명은 다음과 같다.
 
@@ -347,7 +349,7 @@ Kubespray를 통해 구성한 k8s 리소스 전체 삭제 시 아래 내용을 �
 
 *k8s 리소스 삭제*
 ----
-$ ansible-playbook -i ./inventory/tmaxcloud/hosts ./reset.yml -e ansible_user=centos -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v
+$ ansible-playbook -i ./inventory/tmaxcloud/hosts ./reset.yml -e ansible_user=ec2-user -e bootstrap_os=redhat -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v
 ----
 
 [#ArgoCDInstallAws]
@@ -616,7 +618,7 @@ CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우
 .마스터 클러스터 동기화 순서
 ====
 마스터 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
-1. cert-manager + api-gateway with console) +
+1. cert-manager + api-gateway with console +
 2. strimzi-kafka-operator + hyperauth +
 3. oauth2-proxy +
 4. gitea, argocd, hyperregistry +
@@ -639,7 +641,7 @@ CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우
 .싱글 클러스터 동기화 순서
 ====
 싱글 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
-1. cert-manager + api-gateway + oauth2-proxy without console) +
+1. cert-manager + api-gateway + oauth2-proxy without console +
 2. loki +
 3. prometheus +
 4. grafana-operator +
