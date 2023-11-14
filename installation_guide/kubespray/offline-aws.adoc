@@ -278,12 +278,14 @@ files_repo: "http://172.22.5.2" <3>
 +
 .예시
 ----
-calico_ipip_mode: "Always" <1>
-calico_ip_auto_method: "[cidr=20.0.6.0/24, 20.0.7.0/24, 20.0.8.0/24]" <2>
+calico_ipv4pool_ipip: "Always" <1>
+calico_ipip_mode: "Always" <2>
+calico_ip_auto_method: "cidr=20.0.6.0/24, 20.0.7.0/24, 20.0.8.0/24" <3>
 ----
 +
-<1> Calico의 IP-in-IP 모드 활성화 여부
-<2> Calico가 자동으로 감지할 노드들의 CIDR 값 
+<1> 기본 ippool의 IP-in-IP 모드 활성화 여부
+<2> Calico의 IP-in-IP 모드 활성화 여부
+<3> Calico가 자동으로 감지할 노드들의 CIDR 값 
 
 . *IP 주소 대역 설정*
 +
