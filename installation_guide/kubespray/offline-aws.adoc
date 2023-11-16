@@ -335,7 +335,7 @@ ansible-playbook 명령을 사용하여 Kubespray를 실행한다.
 
 .사용 방법
 ----
-$ ansible-playbook -i .inventory/tmaxcloud/hosts ./cluster.yml -e ansible_user=ec2-user -e bootstrap_os=redhat -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v
+$ ansible-playbook -i ./inventory/tmaxcloud/hosts ./cluster.yml -e ansible_user=ec2-user -e bootstrap_os=redhat -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v
 ----
 Kubespray 실행 명령의 인자 값에 대한 설명은 다음과 같다.
 
@@ -344,6 +344,16 @@ Kubespray 실행 명령의 인자 값에 대한 설명은 다음과 같다.
 |인자 값|설명
 |{PEM_PATH}|다운로드한 PEM 파일의 경로 (예: /root/default.pem)
 |====================
+
+=== Kubernetes config
+
+Master Node에서 아래 명령어를 실행한다.
+
+----
+$ mkdir -p $HOME/.kube
+$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+----
 
 === Kubespray Infra 삭제
 
