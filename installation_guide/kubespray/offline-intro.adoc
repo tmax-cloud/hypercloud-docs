@@ -230,7 +230,8 @@ https://github.com/tmax-cloud/install-pkg-repo/tree/5.0
 
 . *httpd 설치 및 환경 설정*
 +
-httpd를 설치한 후 /etc/httpd/conf/ 하위의 httpd.conf 파일을 열어 아래와 같이 내용을 수정한다.
+httpd를 설치한 후 /etc/httpd/conf/ 하위의 httpd.conf 파일을 열어 아래와 같이 내용을 수정한다. +
+files-repo 경로를 입력한 DocumentRoot 이외의 DocumentRoot는 주석 처리한다.
 +
 .httpd 설치
 ----
