@@ -34,9 +34,9 @@ HyperCloud 설치를 위한 시스템 요구사항은 다음과 같다.
 [width="100%",options="header", cols="1,3"]
 |====================
 |구분|요구사항
-|운영체제|CentOS/RHEL (버전: 8, 최신 버전: 8.6)
+|운영체제|CentOS/RHEL (버전: 8.4 이상 8 버전)
 
-ProLinux (버전: 8, 최신 버전 : 8.6)
+ProLinux (버전: 8.4 이상 8 버전)
 
 |메모리|HyperCloud(최소 : 42.5Gi, 권장 : 81Gi)
 
@@ -180,10 +180,12 @@ AWS와 같은 다른 provider에 sub cluster 구축 시에는 on-premise node에
 +
 HyperCloud 설치에 필요한 패키지들을 다운로드한다.
 +
-아래의 FTP 서버에서 files-repo를 다운로드한다.
+아래의 FTP 서버에서 files-repo-k8s-v1.25를 다운로드한 뒤 파일명을 files-repo로 변경한다.
 +
 ----
 192.168.1.150:/backups/ck-ftp/k8s/install/offline/files-repo-k8s-v1.25
+
+mv files-repo-k8s-v1.25 files-repo
 ----
 
 . *로컬 리포지터리 구성*
@@ -409,7 +411,7 @@ $ curl {IMAGE_REGISTRY_IP}:5000/v2/_catalog
 
 Kubespray를 실행하는 노드에서 생성한 SSH 키를 인프라 환경을 구성할 모든 노드에 배포하여 비밀번호 없이 SSH 접근을 가능하게 한다.
 
-AWS 환경에서는 생략한다.
+AWS 환경에서는 pem 파일을 통해 접근하므로 이 과정을 생략한다.
 
 . *sshpass 설치*
 +
