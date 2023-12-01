@@ -245,7 +245,7 @@ image:../../images/figure_pause_button.png[](정지) 버튼을 클릭하면 실�
 [#img-argocd-main]
 image::../../images/figure_admin_argocd_main.png[]
 
-== ArgoCD Rollout
+== Argo Rollout
 
 "마스터 클러스터" 콘솔 메뉴에서 *[홈]* -> *[Argo Rollout]* 메뉴를 선택하면 *Argo Rollout* 메인 화면으로 이동한다. +
 *Argo Rollout* 메인 화면에서는 애플리케이션의 다양한 배포를 위한 기능을 제공한다. Argo Rollout 툴의 사용 방법에 대한 자세한 설명은 link:https://argoproj.github.io/argo-rollouts/[Argo Rollout 설명서]를 참고한다. +
