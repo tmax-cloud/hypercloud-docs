@@ -7,16 +7,24 @@
 이번 릴리즈에는 다음과 같이 새로운 기능과 개선된 기능이 추가되었다.
 
 === 기본 설치 모듈 변경
-
 * kubernetes v1.25 버전에서 서비스 카탈로그 오픈소스의 미지원에 따라 catalog-controller 모듈 제거 및 template-operator로 기능이 대체되었다.
+* 콘솔의 로그인 프로세스가 변경되어 jwt-decode-auth가 oauth2-proxy로 대체되었다.
+* 모듈 별 로그레벨을 지정할 수 있는 기능이 추가되었다.
 
 === Hypercloud 모듈 리소스 설정
-
-* 최소 설치 리소스 사양 : CPU 22 core / Memory 53Gi
-* 권장 설치 리소스 사양 : CPU 52 core / Memory 95Gi 
+* 최소 설치 리소스 사양 : CPU 21 core / Memory 43Gi
+* 권장 설치 리소스 사양 : CPU 56 core / Memory 81Gi 
 * ai-devops에 포함된 템플릿 모델 수행 사양 : CPU 32 core / Memory 34Gi
 
-=== cicd-operator
+=== Argocd
+* 원하는 앱만 볼 수 있는 favorite 기능이 추가되었다.
+* 다크모드가 추가되었다.
+
+=== Argo-rollout
+* 다양한 배포 방식과 dashboard 를 지원하기 위해 추가되었다.
+* "마스터 클러스터" 콘솔 메인 메뉴 중에서 [홈] 메뉴 하위의 [Argo Rollout] 메뉴가 추가되었다.
+
+=== Cicd-operator
 * 파이프라인의 재실행 기능이 추가되었다.
 * 인테그레이션 컨피그의 jobs.when.branch 필드에 지정한 브랜치와 income branch가 일치하는 경우에만 인테그레이션 잡이 생성되도록 기능이 개선되었다.
 
@@ -30,45 +38,39 @@
 * 카프카 미러 메이커 2 리스트 화면에서 동기화 될 소스-타겟 카프카 클러스터의 정보를 보여주는 "미러 수" 항목이 추가되었다.
 * 카프카 리밸런스 리스트 화면에서 리소스의 상태를 나타내는 "상태" 항목이 추가되었다.
 
+=== Hyperauth
+* 여러 사용자가 동일한 계정으로 로그인할 경우 먼저 접속한 사용자가 로그아웃되도록 변경되었다. 
+
+=== Hypercloud API Server
+* 시크릿이 갱신되는 순간을 감지하여 자동으로 갱신된 인증서를 사용할 수 있도록 기능이 개선되었다.
+
 === Hyperregistry
 * job service의 모든 task를 확인 가능한 jobservice dashboard가 추가되었다.
 * consign binary 설치를 통해 이미지 서명(cosign, notary)을 선택할 수 있게 추가되었다.
 * 로그의 갱신 주기를 설정하는 기능이 추가되었다.
 * 취약점 검사 시 CVE allowlist를 선택하는 기능이 추가되었다. 
 
-=== argocd
-* 원하는 앱만 볼 수 있는 favorite 기능이 추가되었다.
-* 다크모드가 추가되었다.
-
-=== oauth2-proxy
- * 하나의 계정으로 Hypercloud, argocd, gitea에 접속할 수 있도록 인가 정보를 제공한다.
-
-=== Hyperauth
-* 여러 사용자가 동일한 계정으로 로그인할 경우 먼저 접속한 사용자가 로그아웃되도록 변경되었다. 
-
 === MetalLB
 * 특정 노드의 특정 인터페이스로 ARP proxy 하도록 설정할 수 있는 l2advertisements 기능이 추가되었다.
 
-=== Hypercloud API Server
-* 시크릿이 갱신되는 순간을 감지하여 자동으로 갱신된 인증서를 사용할 수 있도록 기능이 개선되었다.
+=== Oauth2-proxy
+ * 하나의 계정으로 Hypercloud, argocd, gitea에 접속할 수 있도록 인가 정보를 제공한다.
 
 == 기능 제거
-
 이전 릴리즈에서 사용 가능한 일부 기능은 더 이상 사용되지 않거나, 제거되었다.
 
-=== Pod Security Policy
-* k8s v1.25 에서 Pod Security Policy가 Pod Security Admission으로 대체됨에 따라, "마스터 클러스터" 콘솔 메인 메뉴 중에서 [관리] 메뉴 하위의 [파드 보안 정책] 메뉴가 제거되었다.
+=== Bare metal
+* OS provisioning 기능이 TCP IaaS의 HOM(HostOS Master)에서 제공하는 형태로 변경됨에 따라, "콘솔" 중에서 베어메탈 콘솔이 제거되었다. 
+* 베어메탈 콘솔에서 제공하던 AWX 메뉴 또한 사용 고객사 부재 및 업그레이드 지원이 어려운 관계로 제거되었다. 
 
 === Catalog
 * 사용된 오픈 소스 서비스 카탈로그가 k8s v1.21 이하 버전 기준으로 제공된 0.3.1 버전 이후로는 업데이트를 지원하지 않음에 따라, 서비스 인스턴스 관련 메뉴는 제거, 템플릿을 통해 기능을 제공하는 형태로 변경되었다. 
 * "개발자" 콘솔 메뉴 중에서 [서비스 카탈로그] 메뉴 하위의 [서비스 브로커], [서비스 클래스], [클러스터 서비스 브로커], [클러스터 서비스 클래스], [서비스 인스턴스] 메뉴가 제거되었다.
 * "개발자" 콘솔 메뉴 중에서 [Add] 메뉴 하위의 [카탈로그] 메뉴를 통해 클러스터 템플릿과 템플릿 항목을 카드뷰 형태로 제공 받아 사용할 수 있다.
 
-=== Bare metal
-
-* OS provisioning 기능이 TCP IaaS의 HOM(HostOS Master)에서 제공하는 형태로 변경됨에 따라, "콘솔" 중에서 베어메탈 콘솔이 제거되었다. 
-* 베어메탈 콘솔에서 제공하던 AWX 메뉴 또한 사용 고객사 부재 및 업그레이드 지원이 어려운 관계로 제거되었다. 
-
 === Multi Cluster
-
 * 클러스터 클레임의 경우 AWS와 vSphere를 "provider" 로 제공하던 것에서 vSphere의 사용 고객사 부재 및 업그레이드 지원이 어려운 관계로 제거되었다. 
+
+=== Pod Security Policy
+* k8s v1.25 에서 Pod Security Policy가 Pod Security Admission으로 대체됨에 따라, "마스터 클러스터" 콘솔 메인 메뉴 중에서 [관리] 메뉴 하위의 [파드 보안 정책] 메뉴가 제거되었다.
+
