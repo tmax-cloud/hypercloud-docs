@@ -1,0 +1,67 @@
+= 소프트웨어 설정
+:toc:
+:toc-title:
+
+== CRI-O 설정
+CRI-O 설정을 통해 여러 형식의 이미지를 확인하고 받아오는 다양한 방법 및 컨테이너 이미지를 관리할 수 있다.
+
+. *registries.conf 파일 설정* +
+`/etc/containers/registries.conf` 파일에서 컨테이너 이미지 레지스트리에 대한 설정을 변경한다.
++
+.예시
+----
+[[registry]]
+location = "30.0.0.1:5000"
+insecure = true
+----
++
+설정 항목에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,2"]
+|====================
+|항목|설명
+|insecure 설정|사용하려는 Podman Registry를 등록한다. +
+Podman Registry에서 인증서 등록을 하지 않고 이미지를 가져올 경우 해당 주소를 Insecure Registry로 설정한다.
+|====================
+
+. *crio.conf 파일 설정* +
+`/etc/crio/crio.conf` 파일에서 CRI-O 컨테이너 런타임에 대한 설정을 변경한다.
++
+.예시
+----
+[crio.runtime]
+pids_limit = 1024
+
+[crio.image]
+pause_image = "30.0.0.1:5000/k8s.gcr.io/pause:3.3"
+insecure_registries = ["30.0.0.1:5000", "30.0.0.2:5000"]
+registries = [
+  "30.0.0.1:5000"
+]
+
+[crio.network]
+plugin_dirs = [
+        "/opt/cni/bin",
+        "/usr/libexec/cni",
+]
+----
++
+설정 항목에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,2"]
+|====================
+|항목|설명
+|pids_limit|컨테이너에서 허용되는 최대 프로세스의 수이다. (기본값: 1024) +
+PID Cgroup의 최대 허용 프로세스 수 제한이 필요한 경우 설정한다. 단, 시스템의 제한 값인 /proc/sys/kernel/pid_max의 값 이하로 설정해야 한다.
+|pause_image|Pause 이미지가 포함된 이미지 경로를 설정한다.
+|insecure_registries|인증서 등록을 하지 않고 Podman Registry에서 이미지를 가져올 경우 해당 주소를 설정한다.
+|registries|이미지를 가져올 경우 해당 레지스트리의 경로를 설정한다.
+|plugin_dirs|CNI 플러그인 바이너리 디렉터리 경로를 설정한다.
+|====================
+
+. *CRI-O 재실행* +
+설정 내용을 적용하기 위해 CRI-O를 재실행한다.
++
+----
+$ systemctl restart crio
+----
