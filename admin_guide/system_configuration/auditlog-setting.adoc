@@ -1,67 +1,126 @@
-= 소프트웨어 설정
+= 감사 로그 설정
 :toc:
 :toc-title:
 
-== CRI-O 설정
-CRI-O 설정을 통해 여러 형식의 이미지를 확인하고 받아오는 다양한 방법 및 컨테이너 이미지를 관리할 수 있다.
+== 감사 로그 설정
+감사 로그 설정을 통해 콘솔에서 행해지는 사용자의 특정 리소스에 대한 액세스 시도를 관리할 수 있다.
 
-. *registries.conf 파일 설정* +
-`/etc/containers/registries.conf` 파일에서 컨테이너 이미지 레지스트리에 대한 설정을 변경한다.
+. *감사 로그 정책 지정* +
+`/etc/kubernetes/pki/audit-policy.yaml` 파일에 어떤 이벤트를 로그에 기록하고 제외할지 설정한다.
 +
-.예시
 ----
-[[registry]]
-location = "30.0.0.1:5000"
-insecure = true
+apiVersion: audit.k8s.io/v1 # This is required.
+kind: Policy
+omitStages:
+  - "ResponseStarted"
+  - "RequestReceived"
+rules:
+
+  # Don't log system requests.
+  - level: None
+    userGroups: ["system:serviceaccounts:hypercloud5-system", "system:nodes", "system:serviceaccounts", "system:masters"]
+    
+  # Don't log requests by hypercloud5-admin and kube-system user.
+  - level: None
+    users: ["system:serviceaccount:hypercloud5-system:hypercloud5-admin", "system:kube-controller-manager", "system:kube-scheduler", "system:apiserver"]
+    
+  # Don't log watch and get request
+  - level: None
+    verbs: ["watch", "get", "list"]
+    
+  # Log the request body of configmap changes in kube-system.
+  - level: Metadata
+    resources:
+    # k8s resource
+    - group: ""
+    - group: "admissionregistration.k8s.io"
+    - group: "apiextensions.k8s.io"
+    - group: "apiregistration.k8s.io"
+    - group: "apps"
+    - group: "autoscaling"
+    - group: "rbac.authorization.k8s.io"
+    - group: "batch"
+    - group: "servicecatalog.k8s.io"
+    - group: "storage.k8s.io"
+    - group: "policy"
+    # storage
+    - group: "ceph.rook.io"
+    # istio
+    - group: "authentication.istio.io"
+    - group: "config.istio.io"
+    - group: "networking.istio.io"
+    - group: "rbac.istio.io"
+    - group: "security.istio.io"
+    # tmax.io
+    - group: "tmax.io"
+    - group: "claim.tmax.io"
+    - group: "cluster.tmax.io"
+    - group: "console.tmax.io"
+    - group: "cicd.tmax.io"
+    - group: "cicdapi.tmax.io"
+    - group: "helmapi.tmax.io"
+    # cicd
+    - group: "tekton.dev"
+    - group: "triggers.tekton.dev"
+    # multi cluster
+    - group: "types.kubefed.io"
+    - group: "core.kubefed.io"
+    - group: "cluster.x-k8s.io"
+    - group: "addons.cluster.x-k8s.io"
+    - group: "exp.cluster.x-k8s.io"
+    - group: "bootstrap.cluster.x-k8s.io"
+    - group: "controlplane.cluster.x-k8s.io"
+    - group: "infrastructure.cluster.x-k8s.io"
+    - group: "multiclusterdns.kubefed.io"
+    - group: "scheduling.kubefed.io"
+    # hyperframe
+    - group: "kafka.strimzi.io"
+    - group: "redis.redis.opstreelabs.in"
+    # ML
+    - group: "kubeflow.org"
+    - group: "serving.kubeflow.org"
+    # etc
+    - group: "binding.operators.coreos.com"
+  
+  # Don't log others.
+  - level: None
+----
+
+. *웹훅 서버의 구성 파일 지정* +
+`/etc/kubernetes/pki/audit-webhook-config` 파일에서 감사 로그를 전달할 웹훅 서버의 인증 정보를 설정한다.
++
+----
+apiVersion: v1
+kind: Config
+clusters:
+- cluster:
+    certificate-authority-data: LS0tLS1CRU...Q0FURS0tLS0tCg==
+    server: https://hypercloud5-api-server-service.hypercloud5-system.svc/audit
+  name: audit-webhook-service
+contexts:
+- context:
+    cluster: audit-webhook-service
+  name: audit-webhook-context
+current-context: audit-webhook-context
+
 ----
 +
-설정 항목에 대한 설명은 다음과 같다.
+clusters.cluster 설정 항목에 대한 설명은 다음과 같다.
 +
 [width="100%",options="header", cols="1,2"]
 |====================
 |항목|설명
-|insecure 설정|사용하려는 Podman Registry를 등록한다. +
-Podman Registry에서 인증서 등록을 하지 않고 이미지를 가져올 경우 해당 주소를 Insecure Registry로 설정한다.
+|certificate-authority-data|hypercloud5-system 네임스페이스의 hypercloud5-api-server-certs 시크릿의 ca.crt와 동일하게 설정한다.
+|server|웹훅 서버의 url을 지정한다.
 |====================
 
-. *crio.conf 파일 설정* +
-`/etc/crio/crio.conf` 파일에서 CRI-O 컨테이너 런타임에 대한 설정을 변경한다.
-+
-.예시
-----
-[crio.runtime]
-pids_limit = 1024
-
-[crio.image]
-pause_image = "30.0.0.1:5000/k8s.gcr.io/pause:3.3"
-insecure_registries = ["30.0.0.1:5000", "30.0.0.2:5000"]
-registries = [
-  "30.0.0.1:5000"
-]
-
-[crio.network]
-plugin_dirs = [
-        "/opt/cni/bin",
-        "/usr/libexec/cni",
-]
-----
-+
-설정 항목에 대한 설명은 다음과 같다.
-+
-[width="100%",options="header", cols="1,2"]
-|====================
-|항목|설명
-|pids_limit|컨테이너에서 허용되는 최대 프로세스의 수이다. (기본값: 1024) +
-PID Cgroup의 최대 허용 프로세스 수 제한이 필요한 경우 설정한다. 단, 시스템의 제한 값인 /proc/sys/kernel/pid_max의 값 이하로 설정해야 한다.
-|pause_image|Pause 이미지가 포함된 이미지 경로를 설정한다.
-|insecure_registries|인증서 등록을 하지 않고 Podman Registry에서 이미지를 가져올 경우 해당 주소를 설정한다.
-|registries|이미지를 가져올 경우 해당 레지스트리의 경로를 설정한다.
-|plugin_dirs|CNI 플러그인 바이너리 디렉터리 경로를 설정한다.
-|====================
-
-. *CRI-O 재실행* +
-설정 내용을 적용하기 위해 CRI-O를 재실행한다.
+. *kube-apiserver.yaml 설정* +
+설정 내용을 적용하기 위해 `/etc/kubernetes/manifests/kube-apiserver.yaml` 파일을 수정한다. +
+해당 설정은 모든 마스터 노드에서 진행해야 한다.
 +
 ----
-$ systemctl restart crio
+spec.containers.command:
+   - --audit-policy-file=/etc/kubernetes/pki/audit-policy.yaml
+   - --audit-webhook-config-file=/etc/kubernetes/pki/audit-webhook-config 
+spec.dnsPolicy: ClusterFirstWithHostNet
 ----
