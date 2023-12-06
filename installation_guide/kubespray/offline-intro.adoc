@@ -334,7 +334,7 @@ $ yum install podman
 .registries.conf 파일
 ----
 [[registry]]
-location = ['{INTERNAL_IP:PORT}']
+location = "{INTERNAL_IP:PORT}"
 insecure = true
 ----
 +
