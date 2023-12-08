@@ -245,7 +245,9 @@ image::../../images/figure_admin_trainedmodel_main.png[]
 
 * Unknown : 생성 중
 * Ready : 사용 가능
-* Not Ready : 사용 불가능
+* Not Ready : 사용 불가능 + 
+  KServe(0.10.0) 버전과 Knative(1.8.0) 버전 간의 호환성 문제로 인해, + 
+  학습 모델이 실제론 사용 가능한 상태이나 **Not Ready** 상태를 유지하는 현상이 있다.
 |프레임워크|학습에서 사용하는 프레임워크의 종류이다.
 |추론 URL|배포할 상위 추론 서비스의 URL이다.
 |스토리지 URI|모델 리포지터리의 저장소 URI이다.
