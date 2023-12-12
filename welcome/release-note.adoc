@@ -46,7 +46,7 @@
 
 === Hyperregistry
 * job service의 모든 task를 확인 가능한 jobservice dashboard가 추가되었다.
-* consign binary 설치를 통해 이미지 서명(cosign, notary)을 선택할 수 있게 추가되었다.
+* cosign binary 설치를 통해 이미지 서명(cosign, notary)을 선택할 수 있게 추가되었다.
 * 로그의 갱신 주기를 설정하는 기능이 추가되었다.
 * 취약점 검사 시 CVE allowlist를 선택하는 기능이 추가되었다. 
 
