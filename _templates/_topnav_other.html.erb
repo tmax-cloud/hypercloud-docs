@@ -1,12 +1,13 @@
 <div class="navbar navbar-other" role="navigation">
 	<div class="nav-logo">
 		<a href="<%= site_url %>">
-			<img src="<%= File.join(images_path, 'hypercloud_nav_logo.svg')%>">
+			<img src="<%= File.join(images_path, 'hypercloud_logo_new.png')%>">
 		</a>
 	</div>
 	<div class="nav-version">
 		<ul class="navbar-nav">
 			<li class="nav-item hidden-xs">
+				<!-- <a class="nav-link manual" href="javascript:void(0);">매뉴얼</a> -->
 				<a class="nav-link manual" href="javascript:void(0);" onclick="goFirstPage('<%= distro_key %>', '<%= version %>'); return false;" >매뉴얼</a>
 				<div class="divider"></div>
 			</li>
@@ -21,30 +22,20 @@
 					<option value="5.1">HyperCloud 5.1</option>
 					<option value="5">HyperCloud 5</option>
 					<option value="4.1">HyperCloud 4.1</option>
-					<!-- <option value="4">HyperCloud 4</option> -->
 					<!-- <option value="3">HyperCloud 3</option> -->
 				</select>
 			</li>
 		</ul>
 	</div>
 	<div class="nav-right">
-		<!-- 20200918 국문/영문 선택, 콘솔 이동 버튼 제거 -->
-	    <ul class="navbar-nav">
-			<!-- <li class="nav-item dropdown">				
-				     <span class="fa fa-globe" style="color:white"></span>				
-				     <a class="nav-link dropdown-toggle" href="#" id="language-selector" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-				     <div class="dropdown-menu" id="language-options" aria-labelledby="navbarDropdown">
-					
-					    <a class="dropdown-item" value="ko" href="javascript:void(0);" onclick="languageSelector(this, '<%= distro_key %>','<%= version %>')">한국어</a>
-					    <a class="dropdown-item" value="en" href="javascript:void(0);" onclick="languageSelector(this, '<%= distro_key %>','<%= version %>')">English</a>
-				</div> 
-			</li> --!>
-			    <!-- <li class="nav-item console hidden-xs" >
+		<ul class="navbar-nav">
+			
+			<!-- <li class="nav-item console hidden-xs" >
 				<a class="nav-link" href="https://console.tmaxcloud.com/" target="_blank">
 					콘솔
 					<span class="fa fa-external-link"></span>
 				</a>
 			</li> --!>
-		</ul> 
+		</ul>
 	</div>
 </div>
