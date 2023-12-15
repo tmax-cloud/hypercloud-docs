@@ -9,7 +9,7 @@ HyperCloud에서 사용하는 소프트웨어의 버전 정보는 다음과 같�
 |Calico|v3.24.1|네트워크 보안 및 관리
 |NFS Provisioner|v4.0.2|스토리지 구성
 |EFS CSI Driver|v1.6.0|스토리지 구성
-|MetalLB|v1.13.10|베어메탈 k8s 클러스터를 위한 로드밸런서
+|MetalLB|v0.13.10|베어메탈 k8s 클러스터를 위한 로드밸런서
 |Ingress Controller|v1.5.1|인그레스 관리
 |HyperRegistry|2.7.0|이미지 레포지터리 및 보안 관리
 |Gitea|1.18.0|ArgoCD와 CI/CD 연동 Git 저장소
