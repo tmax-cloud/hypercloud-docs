@@ -423,12 +423,12 @@ CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우
 .마스터 클러스터 동기화 순서
 ====
 마스터 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
-1. cert-manager + api-gateway with console) +
+1. cert-manager, api-gateway, console +
 2. strimzi-kafka-operator + hyperauth +
 3. oauth2-proxy +
 4. gitea, argocd, hyperregistry +
-5. loki +
-6. prometheus +
+5. prometheus +
+6. loki +
 7. grafana-operator +
 8. service-mesh(istio, jaeger, kiali) +
 9. hypercloud +
@@ -446,9 +446,9 @@ CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우
 .싱글 클러스터 동기화 순서
 ====
 싱글 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
-1. cert-manager + api-gateway + oauth2-proxy without console) +
-2. loki +
-3. prometheus +
+1. cert-manager, api-gateway, jwt-decode-auth, oauth2-proxy, console +
+2. prometheus +
+3. loki +
 4. grafana-operator +
 5. hyperregistry +
 6. service-mesh(istio, jaeger, kiali) + 
