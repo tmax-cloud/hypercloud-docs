@@ -481,7 +481,9 @@ sshpass-1.06-8.el8.x86_64.rpm +
 nfs-utils-2.3.3-41.el8.x86_64.rpm +
 java-1.8.0-openjdk-1.8.0.282.b08-4.el8.x86_64.rpm +
 unzip +
-tar
+tar +
+ebtables +
+bash-completion
 |프라이빗 레지스트리 노드|podman
 |웹 서버 리포지터리 노드|httpd(apache)
 |Kubespray 설치 노드|python3-pip-9.0.3-19.el8.noarch.rpm + 
