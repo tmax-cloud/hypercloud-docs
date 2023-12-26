@@ -230,6 +230,23 @@ https://github.com/tmax-cloud/install-pkg-repo/tree/5.0
 ----
 ====
 
+. *모듈 스트림 활성화*
++ 
+.webserver repo node에서 실행
+----
+$ dnf module enable httpd
+----
++
+.kubespray install 실행하는 node에서 실행
+----
+$ dnf module enable python36
+----
++
+.모든 node에서 실행
+----
+$ dnf module enable container-tools javapackages-runtime
+----
+
 . *httpd 설치 및 환경 설정*
 +
 httpd를 설치한 후 /etc/httpd/conf/ 하위의 httpd.conf 파일을 열어 아래와 같이 내용을 수정한다. +
@@ -459,7 +476,9 @@ sshpass-1.06-8.el8.x86_64.rpm +
 nfs-utils-2.3.3-41.el8.x86_64.rpm +
 java-1.8.0-openjdk-1.8.0.282.b08-4.el8.x86_64.rpm +
 unzip +
-tar
+tar +
+ebtables +
+bash-completion
 |프라이빗 레지스트리 노드|podman
 |웹 서버 리포지터리 노드|httpd(apache)
 |Kubespray 설치 노드|python3-pip-9.0.3-19.el8.noarch.rpm + 
