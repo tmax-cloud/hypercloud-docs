@@ -237,11 +237,6 @@ https://github.com/tmax-cloud/install-pkg-repo/tree/5.0
 $ dnf module enable httpd
 ----
 +
-.private registry node에서 실행
-----
-$ dnf module enable container-tools
-----
-+
 .kubespray install 실행하는 node에서 실행
 ----
 $ dnf module enable python36
@@ -249,7 +244,7 @@ $ dnf module enable python36
 +
 .모든 node에서 실행
 ----
-$ dnf module enable javapackages-runtime
+$ dnf module enable container-tools javapackages-runtime
 ----
 
 . *httpd 설치 및 환경 설정*
