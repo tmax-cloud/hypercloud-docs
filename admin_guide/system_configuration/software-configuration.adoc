@@ -24,7 +24,7 @@ HyperCloud에서 사용하는 소프트웨어의 버전 정보는 다음과 같�
 |HyperAuth|b1.1.2.6|HyperCloud 계정 인증/인가 관리
 |Prometheus|2.41.0|리소스 모니터링 툴 (Collector)
 |Grafana|9.3.2|리소스 모니터링 툴 (Viewer)
-|Grafana-operator|v0.0.10|네임스페이스별 그라파나 대시보드 관리
+|Grafana-operator|v0.0.11|네임스페이스별 그라파나 대시보드 관리
 |Loki|2.7.1|로그 모니터링 툴
 |Opensearch|1.3.7|로그 모니터링 툴
 |Istio|1.15.4|서비스 메시
@@ -43,7 +43,7 @@ HyperCloud에서 사용하는 소프트웨어의 버전 정보는 다음과 같�
 |Redis operator|v0.11.1|레디스(Redis) 오퍼레이터
 |Sonarqube|9.8.0-community|정적 코드 분석
 |Nexus|3.45.0|저장소 관리자 도구
-|Kubeflow|v1.2.5|AI 모델 러닝 관리
+|Kubeflow|v1.8.0|AI 모델 러닝 관리
 |Image validateion webhook|v5.0.6|이미지 대상 Webhook 처리
 |Argo Rollout|1.4.0|배포 방식 지원
 |====================
