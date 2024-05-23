@@ -58,6 +58,8 @@ Topics:
         File: offline-onpremise
       - Name: AWS 환경에서 구축
         File: offline-aws
+      - Name: AKS 환경에서 구축
+        File: offline-aks
 ---
 Name: 웹 콘솔 기본 사용법
 Dir: user_guide
@@ -96,33 +98,33 @@ Topics:
       - Name: YAML 파일 다운로드
         File: yaml-down
 ---
-Name: 멀티 클러스터 콘솔 안내서
-Dir: user_guide
-Topics:
-  - Name: 개요
-    File: intro-multi
-  - Name: 메인 메뉴
-    Dir: console_menu_sub
-    Topics:
-      - Name: 클러스터
-        File: cluster
-      - Name: 테라폼 클레임
-        File: terraform
-  - Name: 리소스 생성 (클러스터)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 클러스터 등록 생성
-        File: cluster-registrations-create
-      - Name: 클러스터 클레임 생성
-        File: cluster-claims-create
+#Name: 멀티 클러스터 콘솔 안내서
+#Dir: user_guide
+#Topics:
+#  - Name: 개요
+#    File: intro-multi
+#  - Name: 메인 메뉴
+#    Dir: console_menu_sub
+#    Topics:
+#      - Name: 클러스터
+#        File: cluster
+#      - Name: 테라폼 클레임
+#        File: terraform
+#  - Name: 리소스 생성 (클러스터)
+#    Dir: resource_create_sub
+#    Topics:
+#      - Name: 클러스터 등록 생성
+#        File: cluster-registrations-create
+#      - Name: 클러스터 클레임 생성
+#        File: cluster-claims-create
 #      - Name: 클러스터 업데이트 클레임 생성
 #        File: cluster-update-claims-create
-  - Name: 리소스 생성 (테라폼 클레임)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 테라폼 클레임 생성
-        File: terraform-claim-create
----
+#  - Name: 리소스 생성 (테라폼 클레임)
+#    Dir: resource_create_sub
+#    Topics:
+#      - Name: 테라폼 클레임 생성
+#        File: terraform-claim-create
+#---
 Name: 마스터 클러스터 콘솔 안내서
 Dir: user_guide
 Topics:
@@ -150,8 +152,8 @@ Topics:
     Topics:
       - Name: 네임스페이스 생성
         File: namespace-create
-      - Name: 네임스페이스 클레임 생성
-        File: namespace-claim-create
+#      - Name: 네임스페이스 클레임 생성
+#        File: namespace-claim-create
   - Name: 리소스 생성 (워크로드)
     Dir: resource_create_sub
     Topics:
@@ -209,45 +211,45 @@ Topics:
     Topics:
       - Name: 리소스 쿼타 생성
         File: resource-quota-create
-      - Name: 리소스 쿼타 클레임 생성
-        File: resource-quota-claim-create
+#      - Name: 리소스 쿼타 클레임 생성
+#        File: resource-quota-claim-create
       - Name: 제한 범위 생성
         File: basic-resource-create
       - Name: 사용자 리소스 정의 생성
         File: custom-resource-create
 ---
-Name: 싱글 클러스터 콘솔 안내서
-Dir: user_guide
-Topics:
-  - Name: 개요
-    File: intro-single
-  - Name: 관리 대상 서브 클러스터 선택
-    File: single-cluster-select
-  - Name: 메뉴
-    Dir: console_menu_sub
-    Topics:
-      - Name: 네임스페이스
-        File: single-namespace
-      - Name: 롤 바인딩
-        File: single-role-binding
-      - Name: 리소스 쿼타
-        File: single-resource-quota
-  - Name: 리소스 생성 (홈)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 네임스페이스 생성
-        File: single-namespace-create
-  - Name: 리소스 생성 (인증/인가)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 롤 바인딩 생성
-        File: single-role-binding-create
-  - Name: 리소스 생성 (관리)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 리소스 쿼타 생성
-        File: single-resource-quota-create
----
+#Name: 싱글 클러스터 콘솔 안내서
+#Dir: user_guide
+#Topics:
+#  - Name: 개요
+#    File: intro-single
+#  - Name: 관리 대상 서브 클러스터 선택
+#    File: single-cluster-select
+#  - Name: 메뉴
+#    Dir: console_menu_sub
+#    Topics:
+#      - Name: 네임스페이스
+#        File: single-namespace
+#      - Name: 롤 바인딩
+#        File: single-role-binding
+#      - Name: 리소스 쿼타
+#        File: single-resource-quota
+#  - Name: 리소스 생성 (홈)
+#    Dir: resource_create_sub
+#    Topics:
+#      - Name: 네임스페이스 생성
+#        File: single-namespace-create
+#  - Name: 리소스 생성 (인증/인가)
+#    Dir: resource_create_sub
+#    Topics:
+#      - Name: 롤 바인딩 생성
+#        File: single-role-binding-create
+#  - Name: 리소스 생성 (관리)
+#    Dir: resource_create_sub
+#    Topics:
+#      - Name: 리소스 쿼타 생성
+#        File: single-resource-quota-create
+#---
 Name: 개발자 콘솔 안내서
 Dir: user_guide
 Topics:
@@ -260,20 +262,20 @@ Topics:
         File: topology
       - Name: 서비스 카탈로그
         File: service-catalog
-      - Name: 헬름
-        File: helm
+#      - Name: 헬름
+#        File: helm
       - Name: 서비스 메시
         File: service-mesh
       - Name: CI/CD
         File: ci-cd
-      - Name: AI-DevOps
-        File: ai-dev
-      - Name: 카프카
-        File: kafka
-      - Name: 레디스
-        File: redis
-      - Name: 서비스 바인딩
-        File: service-binding
+#      - Name: AI-DevOps
+#        File: ai-dev
+#      - Name: 카프카
+#        File: kafka
+#      - Name: 레디스
+#        File: redis
+#      - Name: 서비스 바인딩
+#        File: service-binding
   - Name: 리소스 생성 (서비스 카탈로그)
     Dir: resource_create_sub
     Topics:
@@ -285,13 +287,13 @@ Topics:
         File: catalog-service-claim-create
       - Name: 템플릿 인스턴스 생성
         File: template-instance-create
-  - Name: 리소스 생성 (헬름)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 헬름 리포지터리 생성
-        File: helm-repo-create
-      - Name: 헬름 릴리스 생성
-        File: helm-release-create
+#  - Name: 리소스 생성 (헬름)
+#    Dir: resource_create_sub
+#    Topics:
+#      - Name: 헬름 리포지터리 생성
+#        File: helm-repo-create
+#      - Name: 헬름 릴리스 생성
+#        File: helm-release-create
   - Name: 리소스 생성 (서비스 메시)
     Dir: resource_create_sub
     Topics:
@@ -330,47 +332,47 @@ Topics:
         File: pipeline-resource-create
       - Name: 인테그레이션 컨피그 생성
         File: integration-config-create
-  - Name: 리소스 생성 (AI DevOps)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 노트북 서버 생성
-        File: notebook-server-create
-      - Name: 하이퍼파라미터 튜닝 생성
-        File: katib-create
-      - Name: 트레이닝 잡 생성
-        File: training-job-create
-      - Name: 추론 서비스 생성
-        File: kf-serving-create
-      - Name: 학습 모델 생성
-        File: trained-model-create
-  - Name: 리소스 생성 (카프카)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 카프카 클러스터 생성
-        File: kafca-cluster-create
-      - Name: 카프카 커넥트 생성
-        File: kafca-connect-create
-      - Name: 카프카 커넥터 생성
-        File: kafca-connector-create
-      - Name: 카프카 브릿지 생성
-        File: kafca-bridge-create
-      - Name: 카프카 미러 메이커 2 생성
-        File: kafca-mirrormaker2-create
-      - Name: 카프카 리밸런스 생성
-        File: kafca-rebalance-create
-  - Name: 리소스 생성 (레디스)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 레디스 생성
-        File: redis-create
-      - Name: 레디스 클러스터 생성
-        File: redis-cluster-create
-  - Name: 리소스 생성 (서비스 바인딩)
-    Dir: resource_create_sub
-    Topics:
-      - Name: 서비스 바인딩 생성
-        File: service-binding-create
----
+#  - Name: 리소스 생성 (AI DevOps)
+#    Dir: resource_create_sub
+#    Topics:
+#      - Name: 노트북 서버 생성
+#        File: notebook-server-create
+#      - Name: 하이퍼파라미터 튜닝 생성
+#        File: katib-create
+#      - Name: 트레이닝 잡 생성
+#        File: training-job-create
+#      - Name: 추론 서비스 생성
+#        File: kf-serving-create
+#      - Name: 학습 모델 생성
+#        File: trained-model-create
+#  - Name: 리소스 생성 (카프카)
+#    Dir: resource_create_sub
+#    Topics:
+#      - Name: 카프카 클러스터 생성
+#        File: kafca-cluster-create
+#      - Name: 카프카 커넥트 생성
+#        File: kafca-connect-create
+#      - Name: 카프카 커넥터 생성
+#        File: kafca-connector-create
+#      - Name: 카프카 브릿지 생성
+#        File: kafca-bridge-create
+#      - Name: 카프카 미러 메이커 2 생성
+#        File: kafca-mirrormaker2-create
+#      - Name: 카프카 리밸런스 생성
+#        File: kafca-rebalance-create
+#  - Name: 리소스 생성 (레디스)
+#    Dir: resource_create_sub
+#    Topics:
+#      - Name: 레디스 생성
+#        File: redis-create
+#      - Name: 레디스 클러스터 생성
+#        File: redis-cluster-create
+#  - Name: 리소스 생성 (서비스 바인딩)
+#    Dir: resource_create_sub
+#    Topics:
+#      - Name: 서비스 바인딩 생성
+#        File: service-binding-create
+#---
 Name: 운영자 안내서
 Dir: admin_guide
 Topics:
@@ -450,8 +452,8 @@ Topics:
   - Name: 문제 해결
     Dir: trouble_shooting
     Topics:
-      - Name: oauth2-proxy 오류
-        File: oauth2-proxy-error    
+#      - Name: oauth2-proxy 오류
+#        File: oauth2-proxy-error    
       - Name: 로그 조회
         File: basic-log-inquire
       - Name: 크롬 오류
