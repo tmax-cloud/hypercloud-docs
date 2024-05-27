@@ -1,395 +1,40 @@
-= AWS 환경에서 구축
+= AKS 환경에서 구축
 
-본 장에서는 AWS 환경에서 폐쇄망으로 Kubespray를 이용하여 HyperCloud를 설치하는 방법에 대해서 설명한다.
+본 장에서는 AKS 환경에서 폐쇄망으로 Kubespray를 이용하여 HyperCloud를 설치하는 방법에 대해서 설명한다.
 
 설치하는 과정은 크게 다음과 같다.
 
-. <<TerraformAws, Terraform 구성>>
-. <<K8sInfraAws, 쿠버네티스 인프라 구성>>
-. <<ArgoCDInstallAws, ArgoCD 설치>>
-. <<MasterClusterAws, 마스터 클러스터 설치>>
-. <<SingleClusterAws, 싱글 클러스터 설치>>
-. <<ResourceDeployAws, 리소스 배포>>
+. <<ArgoCDInstallAks, ArgoCD 설치>>
+. <<MasterClusterAks, 마스터 클러스터 설치>>
+. <<ResourceDeployAks, 리소스 배포>>
 
-[#TerraformAws]
-== Terraform 구성
 
-Terraform을 이용하여 CSP(AWS, vSphere) 환경에서의 쿠버네티스 클러스터 구성을 위한 인프라 리소스를 생성할 수 있다.
-
-.Terraform을 설치하기 위해서는 다음과 같은 사전 준비가 필요하다.
-[NOTE]
-====
-* IAM 계정 발급
-* 액세스 키 ID 및 시크릿 키 저장
-* 키페어 발급
-====
-
-Terraform을 구성하는 순서는 다음과 같다.
-
-. <<TerraformInstallAws, Terraform 설치>>
-. <<KubesprayDownTerraform, Kubespray 파일 압축 해제>>
-. <<TerraformConfigAws, Terraform 환경 설정>>
-. <<TerraformRunAws, Terraform 적용>>
-
-
-[#TerraformInstallAws]
-=== Terraform 설치
-
-외부망 환경에서 Terraform을 사용하기 위해 관련 패키지를 설치한다.
-
-. *저장소 추가*
-+
-패키지 설치에 사용할 저장소를 추가한다.
-+
-----
-$ sudo yum install -y yum-utils
-$ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-----
-
-. *패키지 설치*
-+
-설치 가능한 Terraform의 버전을 확인한다.
-+
-----
-$ yum --showduplicate list terraform
-----
-+
-추가한 저장소에 Terraform을 설치한다.
-+
-----
-$ sudo yum -y install terraform
-----
-
-. *설치 확인*
-+
-설치된 Terraform의 버전을 확인한다.
-+
-----
-$ terraform  version
-----
-
-[#KubesprayDownTerraform]
-=== Kubespray 파일 압축 해제
-
-쿠버네티스 설치를 위해 테크넷을 통해서 다운로드한 *kubespray-infra.zip* 파일을 압축 해제한다.
-
-압축 해제 후 `kubespray-infra/contrib/terraform/aws/` 경로의 `credentials.tfvars, terraform.tfvars, variables.tf` 파일을 사용한다.
-
-[#TerraformConfigAws]
-=== Terraform 환경 설정
-
-`kubespray-infra/contrib/terraform/aws/terraform.tfvars` 파일을 열어 Terraform에 전달하는 변수의 값을 정의한다.
-
-Setting VPN Connection 부분의 경우, 온프레미스 환경과 연결이 필요한 경우 설정한다.
-----
-#Global Vars
-aws_cluster_name = "terraform"
-
-#VPC Vars
-aws_vpc_cidr_block       = "10.0.0.0/16"
-aws_cidr_subnets_public  = ["10.0.1.0/24"]
-aws_cidr_subnets_private = ["10.0.2.0/24"]
-
-#Bastion Host
-aws_bastion_num  = 1
-aws_bastion_size = "t2.medium" 
-
-#Kubernetes Cluster
-aws_kube_master_num  = 3
-aws_kube_master_size = "t2.2xlarge"
-aws_kube_master_disk_size = 30
-
-aws_etcd_num  = 0
-aws_etcd_size = "t2.medium"
-aws_etcd_disk_size = 30
-
-aws_kube_worker_num  = 1
-aws_kube_worker_size = "t2.2xlarge"
-aws_kube_worker_disk_size = 30
-
-#EC2 Source/Dest Check
-aws_src_dest_check      = false
-
-#Settings AWS ELB
-aws_elb_api_port          = 6443
-k8s_secure_api_port       = 6443
-aws_elb_api_internal      = true
-aws_elb_api_public_subnet = false
-
-default_tags = {
-    Env = "terraform-qatest"
-    Product = "kubernetes"
-    Team = "QA"
-}
-
-#Setting VPN Connection
-
-vpn_connection_enable = true
-customer_gateway_ip   = "175.195.xxx.xxx"
-local_cidr            = "30.0.0.0/16"
-
-inventory_file = "../../../inventory/tmaxcloud/hosts"
-----
-
-[#TerraformRunAws]
-=== Terraform 적용
-
-변경된 Terraform의 환경 설정을 적용하기 위해 AWS 계정 및 액세스 키 정보를 등록한다.
-
-. *AWS 계정 및 액세스 키 정보 등록*
-+
-`credentials.tfvars` 파일을 생성한 후 사전에 발급받은 AWS 액세스 키 ID와 보안 액세스 키 정보를 등록한다.
-+
-.예시
-----
-#AWS Access Key
-AWS_ACCESS_KEY_ID = "AKIAVVIW**********"
-#AWS Secret Key
-AWS_SECRET_ACCESS_KEY = "oa3ph/GBPkO5Km8rlM*********************"
-#EC2 SSH Key Name
-AWS_SSH_KEY_NAME = "default"
-#AWS Region
-AWS_DEFAULT_REGION = "us-east-x"
-----
-
-. *Terraform 초기화* 
-+
-*terraform init* 명령을 수행하여 설정한 Terraform 정보를 저장하고, 필요한 플러그인을 설치한다.
-+
-----
-$ terraform init
-----
-
-. *구성할 AWS 리소스 확인* 
-+
-AWS 액세스 키 ID와 보안 액세스 키 정보가 등록된 `credentials.tfvars` 파일을 *terraform plan* 명령을 사용하여 구성할 AWS 리소스를 확인한다.
-+
-----
-$ terraform plan -var-file=credentials.tfvars
-----
-
-. *Terraform을 통한 AWS 리소스 생성* 
-+
-AWS 액세스 키 ID와 보안 액세스 키 정보가 등록된 `credentials.tfvars` 파일을 *terraform apply* 명령을 사용하여 구성할 적용한다.
-+
-----
-$ terraform apply -var-file=credentials.tfvars
-----
-+
-생성이 완료되면 추후 kubespray를 위해 Terraform 적용 후 생성된 `kubespray-infra/inventory/tmaxcloud/hosts` 파일의 `[etcd]` 부분에 생성된 master ip를 추가한다.
-+
-----
-[etcd]
-ip-10-0-2-X.us-east-x.compute.internal
-ip-10-0-2-X.us-east-x.compute.internal
-ip-10-0-2-X.us-east-x.compute.internal
-----
-
-. *생성된 인스턴스와 AWS 리소스 연동을 위한 엔드포인트 생성* 
-+
-ebs, ec2, efs, elb 연동을 위한 엔드포인트를 각각 생성 한다.
-+
-아래는 ebs 예시이다.
-+
-image::../../images/endpoint1.png[]
-+
-서비스에 각각 ebs, ec2, elasticfilesystem, elasticloadbalancing 을 선택하여 진행한다.
-+
-image::../../images/endpoint2.png[]
-+
-서브넷 선택 시 Terraform으로 생성한 VPC 선택 후 private 서브넷만 선택, 보안 그룹은 모두 선택하여 생성한다.
-
-
-=== Terraform 삭제
-
-Terraform을 통해 구성한 AWS 리소스 전체 삭제 시 아래 내용을 참고한다.
-
-. *AWS 리소스 삭제*
-+
-Terraform을 통해 만든 리소스만 삭제되므로, 해당 명령어 수행 이후 남아있는 리소스는 수동으로 삭제해야한다.
-+
-----
-$ terraform destroy --var-file=credentials.tfvars
-----
-
-
-[#K8sInfraAws]
-== 쿠버네티스 인프라 구성
-
-본 절에서는 Terraform을 통해 생성한 bastion 노드에서 Kubespray를 이용하여 쿠버네티스 인프라를 구성하는 방법에 대해서 설명한다.
-
-쿠버네티스 인프라를 구성하는 순서는 다음과 같다.
-
-. <<KubesprayConfigK8sAws, Kubespray 환경 설정>>
-. <<KubesprayRunK8sAws, Kubespray 실행>>
-
-[#KubesprayConfigK8sAws]
-=== Kubespray 환경 설정
-
-Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
-
-NOTE: Kubespray를 실행하기 위해서는 사전 준비가 필요하다. 반드시  xref:offline-intro.adoc[설치 전 준비사항]을 참고하여 환경을 구성한다. bastion을 proxy하여 master node나 worker node에 접근한다. bastion에도 다른 노드에 접근하기 위해서 pem 파일이 필요하다.
-
-CAUTION: RHEL 운영체제일 경우 `kubespray-infra/cluster.yml` 파일을 열어 *- { role: bootstrap-os, tags: bootstrap-os}* 행을 반드시 주석 처리해야 한다.
-
-. *노드 정보 등록*
-+ 
-`kubespray-infra/inventory/tmaxcloud/inventory.ini` 파일을 열어 kubespray에서 설치할 노드들의 정보를 등록한다. +
-이때 all 그룹은 `*[호스트 이름] [Ansible IP 주소] [Backup IP 주소]*` 형태로 작성하고, 그 외 그룹은 all 그룹에서 정의한 호스트 이름만 작성한다.
-
-. *쿠버네티스 기본 정보 설정*
-+
-`kubespray-infra/inventory/tmaxcloud/group_vars/all/all.yml` 파일을 열어 Kubernetes의 기본 정보를 설정한다. + 
-이때 loadbalancer_apiserver의 address 명은 주석처리 한다.
-+
-.예시
-----
-apiserver_loadbalancer_domain_name: "kubernetes-nlb-test-xxx.elb.us-east-x.amazonaws.com" <1>
-loadbalancer_apiserver:
-# address:
-  port: 6443 <2>
-  
-upstream_dns_servers: <3>
-  - /etc/resolv.conf
-----
-+
-<1> AWS ELB(Elastic Load Balancing) 주소
-<2> 쿠버네티스 API 서버 포트 번호
-<3> AWS 도메인 네임서버 주소
-
-. *폐쇄망 정보 설정*
-+
-`kubespray-infra/inventory/tmaxcloud/group_vars/all/offline.yml` 파일을 열어 폐쇄망 관련 정보를 설정한다.
-+
-.예시
-----
-is_this_offline: true <1>
-registry_host: "10.0.10.50:5000" <2>
-files_repo: "http://172.22.5.2" <3>
-----
-+
-<1> 폐쇄망 환경 여부 (폐쇄망일 경우 true)
-<2> 프라이빗 레지스트리 주소
-<3> 파일 리포지터리 주소
-
-. *Calico 구성 정보 설정*
-+
-`kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-net-calico.yml` 파일을 열어 Calico 관련 정보를 설정한다.
-+
-.예시
-----
-calico_ipv4pool_ipip: "Always" <1>
-calico_ipip_mode: "Always" <2>
-calico_ip_auto_method: "cidr=20.0.6.0/24, 20.0.7.0/24, 20.0.8.0/24" <3>
-----
-+
-<1> 기본 ippool의 IP-in-IP 모드 활성화 여부
-<2> Calico의 IP-in-IP 모드 활성화 여부
-<3> Calico가 자동으로 감지할 노드들의 CIDR 값 
-
-. *IP 주소 대역 설정*
-+
-`kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 파드 및 서비스의 IP 주소 대역 정보를 설정한다.
-+
-.예시
-----
-# Kubernetes internal network for services, unused block of space.
-kube_service_addresses: 10.96.0.0/24 <1>
-
-# internal network. When used, it will assign IP
-# addresses from this range to individual pods.
-# This network must be unused in your network infrastructure!
-kube_pods_subnet: 10.244.0.0/24 <2>
-----
-+
-<1> 서비스 IP 주소 대역
-<2> 파드 서브넷 IP 주소 대역
-
-. *추가 설치 모듈 설정*
-+
-`kubespray-infra/inventory/tmaxcloud/group_vars/k8s_cluster/addons.yml` 파일을 열어 추가 설치가 가능한 모듈 관련 정보를 설정한다.
-+
-.예시
-----
-default_storageclass_name: efs-sc <1>
-sc_name_0: efs-sc-0 <2>
-sc_name_999: efs-sc-999 <3>
-nfs_external_provisioner_enabled: false <4>
-aws_efs_csi_enabled: true <5>
-aws_efs_csi_namespace: aws-efs-csi <6>
-aws_efs_filesystem_id: fs-XXX <7>
-----
-+
-<1> 기본값으로 설정할 스토리지 이름
-<2> HyperRegistry에서 Postgres PVC의 스토리지 클래스 이름
-<3> 그 외의 PVC 스토리지 클래스 이름
-<4> NFS Provisioner 설치 여부
-<5> AWS EFS CSI 드라이버 설치 여부
-<6> AWS EFS CSI 스토리지의 네임스페이스 이름
-<7> AWS EFS 파일 시스템의 ID
-
-[#KubesprayRunK8sAws]
-=== Kubespray 실행
-
-ansible-playbook 명령을 사용하여 Kubespray를 실행한다.
-
-.사용 방법
-----
-$ ansible-playbook -i ./inventory/tmaxcloud/hosts ./cluster.yml -e ansible_user=ec2-user -e bootstrap_os=redhat -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v
-----
-Kubespray 실행 명령의 인자 값에 대한 설명은 다음과 같다.
-
-[width="100%",options="header", cols="1,3"]
-|====================
-|인자 값|설명
-|{PEM_PATH}|다운로드한 PEM 파일의 경로 (예: /root/default.pem)
-|====================
-
-=== Kubernetes config
-
-Master Node에서 아래 명령어를 실행한다.
-
-----
-$ mkdir -p $HOME/.kube
-$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
-----
-
-=== Kubespray Infra 삭제
-
-Kubespray를 통해 구성한 k8s 리소스 전체 삭제 시 아래 내용을 참고한다.
-
-*k8s 리소스 삭제*
-----
-$ ansible-playbook -i ./inventory/tmaxcloud/hosts ./reset.yml -e ansible_user=ec2-user -e bootstrap_os=redhat -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root --flush-cache -v
-----
-
-[#ArgoCDInstallAws]
+[#ArgoCDInstallAks]
 == ArgoCD 설치
 
-본 절에서는 Terraform을 통해 생성한 bastion 노드에서 Kubespray를 이용하여 ArgoCD를 설치하는 방법에 대해서 설명한다.
+본 절에서는 AKS 클러스터에 연결한 Azure bastion에서 Kubespray를 이용하여 ArgoCD를 설치하는 방법에 대해서 설명한다.
 
 ArgoCD를 설치하는 순서는 다음과 같다.
 
-. <<KubesprayDecompressionArgoAws, Kubespray 파일 압축 해제>>
-. <<KubesprayConfigArgoAws, Kubespray 환경 설정>>
-. <<KubesprayRunArgoAws, Kubespray 실행>>
+. <<KubesprayDecompressionArgoAks, Kubespray 파일 압축 해제>>
+. <<KubesprayConfigArgoAks, Kubespray 환경 설정>>
+. <<KubesprayRunArgoAks, Kubespray 실행>>
 
-[#KubesprayDecompressionArgoAws]
+[#KubesprayDecompressionArgoAks]
 === Kubespray 파일 압축 해제
 
-ArgoCD 설치를 위해 테크넷을 통해서 다운로드한 *kubespray-aws.zip* 파일의 압축을 해제한다.
+ArgoCD 설치를 위해 테크넷을 통해서 다운로드한 *kubespray-aks.zip* 파일의 압축을 해제한다.
 
-[#KubesprayConfigArgoAws]
+[#KubesprayConfigArgoAks]
 === Kubespray 환경 설정
 
 Kubespray를 실행하기 위한 필수 설정 파일들을 정의한다.
 
-CAUTION: RHEL 운영체제일 경우 `kubespray-aws/cluster.yml` 파일을 열어 *- { role: bootstrap-os, tags: bootstrap-os}* 행을 반드시 주석 처리해야 한다.
+CAUTION: RHEL 운영체제일 경우 `kubespray-aks/cluster.yml` 파일을 열어 *- { role: bootstrap-os, tags: bootstrap-os}* 행을 반드시 주석 처리해야 한다.
 
 . *노드 정보 등록*
 + 
-`kubespray-aws/inventory/tmaxcloud/inventory.ini` 파일을 열어 kubespray에서 설치할 노드들의 정보를 등록한다. +
+`kubespray-aks/inventory/tmaxcloud/inventory.ini` 파일을 열어 kubespray에서 설치할 노드들의 정보를 등록한다. +
 이때 all 그룹은 `*[호스트 이름] [Ansible IP 주소] [Backup IP 주소]*` 형태로 작성하고, 그 외 그룹은 all 그룹에서 정의한 호스트 이름만 작성한다.
 
 . *폐쇄망 정보 설정*
@@ -409,7 +54,7 @@ files_repo: "http://172.22.5.2" <3>
 
 . *사용자 지정 도메인 등록*
 +
-`kubespray-aws/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 외부에 노출할 사용자 지정 도메인의 정보를 등록한다.
+`kubespray-aks/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml` 파일을 열어 외부에 노출할 사용자 지정 도메인의 정보를 등록한다.
 +
 .예시
 ----
@@ -440,17 +85,17 @@ kube_pods_subnet: 10.244.0.0/24 <7>
 . *설치할 애플리케이션 구성 정보 확인*
 +
 Kubespray로 설치될 애플리케이션(`nginx`, `hyperregistry`, `gitea`, `argocd`)의 구성 정보를 확인 및 설정한다. +
-해당 애플리케이션의 구성 정보는 기본적으로 `kubespray-aws/inventory/tmaxcloud/group_vars/k8s_cluster/addon.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `kubespray-aws/roles/bootstrap-cloud/task/` 및 `kubespray-aws/roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다.
+해당 애플리케이션의 구성 정보는 기본적으로 `kubespray-aks/inventory/tmaxcloud/group_vars/k8s_cluster/addon.yml` 파일에서 설정이 가능하며, 추가적으로 커스터마이징이 필요할 경우에는 `kubespray-aks/roles/bootstrap-cloud/task/` 및 `kubespray-aks/roles/bootstrap-cloud/templates/` 하위 파일에서 설정이 가능하다.
 +
 
-[#KubesprayRunArgoAws]
+[#KubesprayRunArgoAks]
 === Kubespray 실행
 
 ansible-playbook 명령을 사용하여 애플리케이션을 설치한다.
 
 .사용 방법
 ----
-$ ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -t bootstrap-cloud -e ansible_user=centos -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aws -b --become-user=root
+$ ansible-playbook -i ./inventory/tmaxcloud/inventory.ini ./cluster.yml -t bootstrap-cloud -e ansible_user=centos -e ansible_ssh_private_key_file={PEM_PATH} -e cloud_provider=aks -b --become-user=root
 ----
 Kubespray 실행 명령의 인자 값에 대한 설명은 다음과 같다.
 
@@ -474,7 +119,7 @@ CAUTION: Selfsigned 인증서로 Gitea를 설치했을 경우, kubespray-onpremi
 ----
 ====
 
-[#MasterClusterAws]
+[#MasterClusterAks]
 == 마스터 클러스터 설치
 
 . *master-values.yaml 파일 gateway 수정*
@@ -507,7 +152,7 @@ CAUTION: Selfsigned 인증서로 Gitea를 설치했을 경우, kubespray-onpremi
 * NodePort
 <2> 자체 서명 인증서의 사용 여부
 <3> Route 53으로 생성한 도메인을 사용하기 위한 자동 인증서 관리 환경 사용 여부
-<4> AWS에서 사용하는 계정의 액세스 키 ID
+<4> AKS에서 사용하는 계정의 액세스 키 ID
 <5> 액세스 키 ID에 대한 시크릿 키
 <6> Route 53으로 생성한 도메인에 대한 호스팅 영역 ID
 <7> 실제 사용할 인증서 발급 용도
@@ -522,7 +167,7 @@ CAUTION: Selfsigned 인증서로 Gitea를 설치했을 경우, kubespray-onpremi
   capi:
     ...
     providers:
-      aws:
+      aks:
         enabled: true <1>
         credentials:
           accessKeyID: access-key <2>
@@ -535,7 +180,7 @@ CAUTION: Selfsigned 인증서로 Gitea를 설치했을 경우, kubespray-onpremi
           password: "password" <6>
 ----
 <1> capa 설치 여부
-<2> 멀티클러스터용 AWS에서 사용하는 계정의 액세스 키 ID
+<2> 멀티클러스터용 AKS에서 사용하는 계정의 액세스 키 ID
 <3> 액세스 키 ID에 대한 시크릿 키
 <4> capv 설치 여부
 <5> vcenter ID
@@ -598,28 +243,7 @@ ArgoCD와 연동된 Gitea의 argocd-installer 브랜치에서 `master-values.yam
 $ kubectl -n argocd apply -f application/app_of_apps/master-applications.yaml
 ----
 
-[#SingleClusterAws]
-== 싱글 클러스터 설치
-
-. *생성된 애플리케이션 파일 불러오기*
-+
-HyperCloud 웹 콘솔의 "멀티 클러스터" 콘솔에서 *[클러스터]* 메뉴를 클릭하면 싱글 클러스터 목록이 조회된다. 이때 싱글 클러스터 상태가 "Sync Needed"로 변경되면 해당 상태를 클릭한다.
-+
-image::../../images/figure_single_cluser_install_01.png[]
-
-. *애플리케이션 변수 설정*
-+
-싱글 클러스터의 애플리케이션 동기화 옵션 설정 화면이 열리면 "REPO URL"과 "TARGET REVISION" 항목을 설정한다.
-+
-image::../../images/figure_single_cluser_install_03.png[]
-+
-설정 완료 후 애플리케이션의 *[SYNC]* 버튼을 클릭한다
-+
-image::../../images/figure_single_cluser_install_02.png[]
-
-CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우 대시보드를 통한 리소스 사용량 조회가 일부 지원되지 않는다.
-
-[#ResourceDeployAws]
+[#ResourceDeployAks]
 == 리소스 배포
 
 애플리케이션 동기화 작업을 통해 리소스를 배포한다.
@@ -649,21 +273,6 @@ CAUTION: 클러스터 클레임으로 생성한 클러스터를 배포할 경우
 17. image-validating-webhook
 ====
 
-[CAUTION]
-.싱글 클러스터 동기화 순서
-====
-싱글 클러스터에서 애플리케이션 동기화 순서는 다음과 같다. 반드시 순서에 맞게 동기화 작업을 수행한다. +
-1. cert-manager, api-gateway, console +
-2. prometheus +
-3. loki + 
-4. grafana-operator +
-5. hyperregistry +
-6. service-mesh(istio, jaeger, kiali) + 
-7. template-service-broker +
-8. catalog-controller, cicd-operator(tekton), redis-operator, helm-apiserver, service-binding-operator +
-9. ai-devops, sonarqube, nexus +
-10. image-validating-webhook
-====
 
 . *ArgoCD 콘솔 접속*
 +
