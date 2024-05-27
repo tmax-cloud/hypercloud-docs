@@ -34,27 +34,32 @@
 
 === Console
 * kubectl Command Line 창 기능이 제거되었다. 
-* 멀티 클러스터와 싱글 클러스터 콘솔이 제거되었다.
 * hypercloud5-api-server가 제거됨에 따라 각 모듈의 버전을 보여주는 대시보드 카드가 제거되었다. 
 * single-operator가 제거됨에 따라 클레임류(네임스페이스 클레임, 롤 바인딩 클레임, 리소스 쿼타 클레임) 메뉴가 제거되었다. 
+* 멀티 클러스터와 싱글 클러스터 콘솔이 제거되었다.
+* 개발자 콘솔의 헬름, AI DevOps, 카프카, 레디스, 서비스 바인딩 메뉴가 제거되었다.
 
 === Single Operator
-*
+* 클레임류(네임스페이스 클레임, 롤 바인딩 클레임, 리소스 쿼타 클레임) 기능이 제거됨에 따라 함께 제거되었다.
 
 === Multi Operator
 *
 
 === Notebook Controller
-* 
+* AI DevOps 기능이 제거됨에 따라 함께 제거되었다.
 
 === Kale Extension
-*
+* AI DevOps 기능이 제거됨에 따라 함께 제거되었다.
 
 === Service Binding Operator
-*
+* 서비스 바인딩 기능이 제거됨에 따라 함께 제거되었다.
 
 === Helm API Server
 *
 
 === Image Validating Webhook
 *
+
+=== Redis Operator
+* 
+
