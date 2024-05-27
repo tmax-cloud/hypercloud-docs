@@ -1,0 +1,516 @@
+= 개요
+:toc:
+:toc-title:
+
+== 설치 구성
+
+{product-title} {product-version}은 멀티 클러스터 환경에서 효율적인 클러스터 통합 관리를 지원한다. +
+하나의 마스터 콘솔에서 모든 클러스터의 콘솔을 관리하여 모든 애플리케이션을 모니터링하고 분석할 수 있다.
+
+[caption="그림. "]
+.멀티 클러스터 환경 구성도
+image::../../images/figure_install_composition.png[]
+
+온프레미스와 AWS 환경 모두 마스터 클러스터로 구성할 경우 멀티 클러스터 환경 구성 순서는 다음과 같다.
+
+* *온프레미스 환경*
+. 마스터 노드와 워커 노드 구성을 통한 인프라 환경 구축
+. 웹 서버 리포지터리 및 이미지 레지스트리 구성
+. kubespray-infra 수행을 통한 쿠버네티스 인프라 구성
+. kubespray-onpremise 수행을 통한 nginx-ingress, hyperregistry, gitea, argocd 설치
+. ArgoCD를 통해 애플리케이션을 배포
+
+* *AWS 환경*
+. Terraform을 통해 AWS에 노드 구성
+. 웹 서버 리포지터리 및 이미지 레지스트리 구성
+. kubespray-infra 수행을 통한 쿠버네티스 인프라 구성
+. kubespray-aws를 수행을 통한 nginx-ingress, hyperregistry, gitea, argocd 설치
+. ArgoCD를 통해 애플리케이션을 배포
+
+
+== 시스템 요구사항
+HyperCloud 설치를 위한 시스템 요구사항은 다음과 같다.
+
+[width="100%",options="header", cols="1,3"]
+|====================
+|구분|요구사항
+|운영체제|CentOS/RHEL (버전: 8.4 이상 8 버전)
+
+ProLinux (버전: 8.4 이상 8 버전)
+
+|메모리|HyperCloud(최소 : 42.5Gi, 권장 : 81Gi)
+
+Ai-Devops(최소 15Gi, 권장 35Gi)
+|CPU|HyperCloud(최소 : 22core, 권장 : 56core)
+
+Ai-Devops(최소 : 15core, 권장 : 32core)
+|====================
+[NOTE]
+==== 
+Hypercloud의 최소사양은 모듈 설치에 필요한 리소스 기준이며 고객사 환경에 따라 조정해야한다. +
+Ai-devops 리소스는 기본 템플릿을 기준으로 산정하였다.
+====
+
+== 설치 전 준비사항
+HyperCloud를 설치하기 전에 필요한 준비사항에 대해서 설명한다.
+
+=== Kubespray 파일 다운로드
+
+테크넷을 통해서 쿠버네티스 및 ArgoCD 설치를 위한 Kubespray 파일을 다운로드한다.
+----
+https://technet.tmaxsoft.com/
+----
+
+각 파일에 대한 설명은 다음과 같다.
+[width="100%",options="header", cols="1,3"]
+|====================
+|파일|설명
+|kubespray-infra.zip|쿠버네티스 설치를 위한 파일
+|kubespray-onpremise.zip|온프레미스 환경에서 ArgoCD 설치를 위한 파일
+|kubespray-aws.zip|AWS 환경에서 ArgoCD 설치를 위한 파일
+|====================
+
+=== 쿠버네티스 설치 진행을 위한 OS 환경 설정
+. *os hostname 설정*
++
+os hostname을 변경한다.
++
+----
+hostnamectl set-hostname {hostname}
+----
++
+이후 설정한 hostname과 ip를 /etc/hosts에 등록한다.
++
+----
+ 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+ ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+ {node ip} {hostname}
+----
+
+. *방화벽 설정*
++
+방화벽 설정을 해제한다. 
++
+----
+$ sudo systemctl stop firewalld
+$ sudo systemctl disable firewalld
+----
++
+. *스왑 메모리 설정*
++
+스왑 메모리를 영구적으로 비활성화 한다.
++
+----
+$ sudo swapoff -a
+ 
+sudo vi /etc/fstab 에서 swap 관련 부분 주석처리
+$ # /dev/mapper/centos-swap   swap     swap   defaults   0 
+----
++ 
+. *SELinux 설정*
++
+SELinux 설정을 해제한다.
++
+----
+$ sudo setenforce 0
+$ sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+----
++
+. *keepalived 설정*
++
+다중 마스터 클러스터를 위해 keepalived를 설정한다.
++
+----
+# keepalived 설치
+$ sudo yum install -y keepalived
+
+# keepalived 설정
+$ sudo vi /etc/keepalived/keepalived.conf
+
+global_defs{
+    vrrp_garp_master_refresh 60  # minimum time interval for refreshing gratuitous ARPs while MASTER (in seconds)
+    vrrp_garp_master_refresh_repeat 2  # number of gratuitous ARP messages to send at a time while MASTER
+}
+vrrp_instance VI_1 {    
+  state {MASTER or BACKUP}   
+  interface {network interface}    
+  virtual_router_id {virtual router id}    
+  priority {priority}    
+  advert_int 1    
+  nopreempt    
+  unicast_peer{
+        {another Master ip1}
+        {another Master ip2}        
+    }
+authentication {        
+	auth_type PASS        
+	auth_pass {password}  
+	}   
+virtual_ipaddress {        
+	{VIP}  
+	} 
+}
+
+# keepalived 재시작
+$ sudo systemctl restart keepalived
+$ sudo systemctl enable keepalived
+$ sudo systemctl status keepalived
+----
++
+. *timezone 설정*
++
+클러스터를 구축할 노드들의 timezone을 동기화한다.
++
+----
+timedatectl 을 통해 노드 sync 확인
+
+$ timedatectl set-ntp true
+----
++
+. *resolv.conf 파일 확인*
++
+구축할 모든 노드에 /etc/resolv.conf 파일이 있는지 확인, 없으면 생성한다.
+
+=== 웹 서버 리포지터리 구성
+웹 서버 리포지터리 구성은 1개의 node에서만 진행한다.
+
+AWS와 같은 다른 provider에 sub cluster 구축 시에는 on-premise node에 구축 가능하고, 접근 환경에 따라 AWS 보안그룹 수정 및 transit gateway 설정이 추가로 필요할 수 있다.
+
+. *files-repo 다운로드*
++
+HyperCloud 설치에 필요한 패키지들을 다운로드한다.
++
+아래의 FTP 서버에서 files-repo-k8s-v1.25를 다운로드한 뒤 파일명을 files-repo로 변경한다.
++
+----
+192.168.1.150:/backups/ck-ftp/k8s/install/offline/files-repo-k8s-v1.25
+
+mv files-repo-k8s-v1.25 files-repo
+----
+
+. *로컬 리포지터리 구성*
++
+외부 통신이 되지 않는 폐쇄망 환경을 운영하기 위한 RPM 패키지 저장소를 구성한다.
++
+.로컬 리포지터리 구축
+----
+$ pushd {FILES_REPO_PATH}
+$ createrepo_c ./
+$ modifyrepo_c modules.yaml ./repodata
+$ export LOCAL_REPO_PATH={FILES_REPO_PATH}
+$ popd
+
+$ dnf config-manager --add-repo file://$LOCAL_REPO_PATH
+----
++
+로컬 리포지터리 구축 명령어의 인자 값에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|인자 값|설명
+|{FILES_REPO_PATH}|files-repo의 경로 입력
+|====================
++
+만약 `*createrepo_c*` 명령어를 사용할 수 없는 경우에는 `*createrepo*` 명령어를 사용하고, `*dnf*` 명령어를 사용할 수 없는 경우에는 /etc/yum.repos.d/ 하위에 아래와 같이 files-repo.repo 파일을 생성한다. *해당 .repo의 파일명은 반드시 files-repo로 지정하도록 한다.*
++
+.files-repo.repo 파일
+----
+[files-repo]
+name=files-repo
+baseurl=file://$LOCAL_REPO_PATH
+enabled=1
+gpgcheck=0
+----
++
+[NOTE]
+====
+로컬 리포지터리를 구축하기 위한 다른 방법에 대한 자세한 설명은 아래의 주소를 참고한다.
+----
+https://github.com/tmax-cloud/install-pkg-repo/tree/5.0
+----
+====
+
+. *httpd 설치 및 환경 설정*
++
+httpd를 설치한 후 /etc/httpd/conf/ 하위의 httpd.conf 파일을 열어 아래와 같이 내용을 수정한다. +
+files-repo 경로를 입력한 DocumentRoot 이외의 DocumentRoot는 주석 처리한다.
++
+.httpd 설치
+----
+$ yum install httpd -y
+----
++
+.httpd.conf 파일
+----
+ServerName {WEB_SERVER_REPO_IP}
+
+<Directory />
+   AllowOverride All
+   Require all granted
+   Order deny,allow
+</Directory>
+
+DocumentRoot "{FILES_REPO_PATH}"
+
+<Directory "{FILES_REPO_PATH}">
+   AllowOverride None
+   Require all granted
+</Directory>
+----
++
+httpd.conf 파일의 인자 값에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|인자 값|설명
+|{WEB_SERVER_REPO_IP}|웹 서버 리포지터리를 구성한 서버의 IP 주소 (예: 10.0.0.1)
+|{FILES_REPO_PATH}|files-repo의 경로 입력 (예: /home/tmax/files-repo)
+|====================
+
+. *파일 리포지터리 권한 설정*
++
+파일 리포지터리에 대한 접근 권한을 설정한다.
++
+----
+$ chcon -R -t httpd_user_content_t {FILES_REPO_PATH}
+$ chmod 711 {FILES_REPO_PATH}
+$ chmod 777 {FILES_REPO_PATH}/repodata/repomd.xml
+
+이후 curl {server ip}/repodata/repomd.xml를 통해 repomd.xml 호출이 되는지 확인한다.
+----
++
+파일 리포지터리 권한 설정 명령어의 인자 값에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|인자 값|설명
+|{FILES_REPO_PATH}|files-repo의 경로 입력 (예: /home/tmax/files-repo)
+|====================
+
+. *httpd 재시작*
++
+httpd 서비스를 다시 시작한다.
++
+----
+$ systemctl restart httpd
+----
+
+. *웹 서버 리포지터리 연결*
++
+Kubespray를 이용하여 설치할 모든 노드(Master, Worker)에 구축한 웹 서버 리포지터리가 연결되도록 설정한다. +
+이때 모든 노드의 /etc/yum.repos.d/ 하위의 files-repo.repo 파일을 열어 아래와 같이 내용을 수정한다.
++
+.files-repo.repo 파일
+----
+[files_repo]
+name=files-repo
+baseurl=http://{WEB_SERVER_REPO_IP}/
+enabled=1
+gpgcheck=0
+----
++
+files-repo.repo 파일의 인자 값에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|인자 값|설명
+|{WEB_SERVER_REPO_IP}|웹 서버 리포지터리를 구성한 서버의 IP 주소 (예: 10.0.10.50)
+|====================
+
+=== 이미지 레지스트리 구성
+이미지 레지스트리 구성은 1개의 node에서만 진행한다.
+
+AWS와 같은 다른 provider에 sub cluster 구축 시에는 on-premise node에 구축 가능하다.
+
+. *Podman 설치 및 환경 설정* 
++
+Podman을 설치한 후 /etc/containers/ 하위의 registries.conf 파일을 열어 아래와 같이 insecure registry를 등록한다.
++
+.Podman 설치
+----
+$ yum install podman
+----
++
+.registries.conf 파일
+----
+[[registry]]
+location = "{INTERNAL_IP:PORT}"
+insecure = true
+----
++
+registries.conf 파일의 인자 값에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|인자 값|설명
+|{INTERNAL_IP:PORT}|이미지 레지스트리를 구성할 서버의 IP 주소와 Registry 이미지의 포트 번호 (예: 10.0.10.50:5000)
+|====================
+
+. *hypercloud5.2 이미지 및 registry.tar 다운로드*
++
+아래의 FTP 서버에서 hypercloud5.2-images.tar, ai-devops-5.2.tar와 registry.tar를 다운로드한다.
++
+[NOTE]
+==== 
+*hypercloud5.2-images.tar* 파일은 HyperCloud 설치에 필요한 이미지 파일이다. +
+*ai-devops-5.2.tar* 파일은 ai-devops 사용 시 설치에 필요한 이미지 파일이다. +
+*registry.tar* 파일은 이미지 레지스트리를 구성하기 위한 Registry 이미지 파일이다.
+====
++
+----
+192.168.1.150:/backups/ck-ftp/k8s/install/offline/supercloud-images-k8s-v1.25
+----
+
+. *이미지 파일 로드*
++
+다운로드한 registry.tar 파일로 이미지를 생성한다.
++
+----
+$ podman load -i registry.tar
+----
+
+. *컨테이너 실행*
++
+다운로드한 hypercloud5.2-images.tar 파일 및 ai-devops-5.2.tar 파일을 압축 해제한 후 해당 이미지를 이용해서 컨테이너를 실행한다.
++
+.hypercloud5.2-images.tar 파일 및 ai-devops-5.2.tar 파일 압축 해제
+----
+$ tar -xvf hypercloud5.2-images.tar
+$ tar -xvf ai-devops-5.2.tar
+----
++
+.컨테이너 실행
+----
+$ podman run -it -d -p{IMAGE_REGISTRY_IP:PORT}:5000 --privileged -v {IMAGE_FILE_PATH}:/var/lib/registry registry
+----
++
+컨테이너 실행 명령어의 인자 값에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|인자 값|설명
+|{IMAGE_REGISTRY_IP:PORT}|이미지 레지스트리를 구성한 서버의 IP 주소와 Registry 이미지의 포트 번호 (예: 10.0.10.50:5000)
+|{IMAGE_FILE_PATH}|hypercloud5.2-images.tar 파일 및 ai-devops-5.2.tar 파일의 압축을 해제한 경로 입력 (예: /root/hypercloud5.2-registry)
+|====================
+
+. *이미지 레지스트리 확인*
++
+----
+$ podman ps -a
+$ curl {IMAGE_REGISTRY_IP}:5000/v2/_catalog
+----
++
+이미지 레지스트리 확인 명령어의 인자 값에 대한 설명은 다음과 같다.
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|인자 값|설명
+|{IMAGE_REGISTRY_IP}|이미지 레지스트리를 구성한 서버의 IP 주소 (예: 10.0.10.50)
+|====================
+
+=== SSH 키 배포
+
+Kubespray를 실행하는 노드에서 생성한 SSH 키를 인프라 환경을 구성할 모든 노드에 배포하여 비밀번호 없이 SSH 접근을 가능하게 한다.
+
+AWS 환경에서는 pem 파일을 통해 접근하므로 이 과정을 생략한다.
+
+. *sshpass 설치*
++
+Kubespray를 실행하는 노드에 sshpass를 설치한다.
++
+----
+$ yum -y install sshpass
+----
+
+. *SSH 키 생성*
++
+SSH 키를 생성한다.
++
+----
+$ ssh-keygen -t rsa
+----
+
+. *SSH 키 복사*
++
+생성한 SSH 키를 복사한 후 인프라 환경을 구성할 모든 노드에 배포한다.
++
+----
+$ ssh-copy-id -i root@{NODE_IP}
+----
++
+[width="100%",options="header", cols="1,3"]
+|====================
+|인자 값|설명
+|{NODE_IP}|복사한 SSH 키를 배포할 노드의 IP 주소
+|====================
+
+=== 노드별 패키지 설치
+
+HyperCloud 설치를 위해 노드별로 필요한 패키지를 설치한다.
+
+[width="100%",options="header", cols="1,3"]
+|====================
+|노드|패키지
+|모든 노드|nss-3.67.0-4.el8_4.x86_64.rpm +
+conntrack-tools-1.4.4-10.el8.x86_64.rpm +
+socat-1.7.4.1-1.el8.x86_64.rpm +
+cri-o-1.25.2-8.1.el8.x86_64.rpm +
+sshpass-1.06-8.el8.x86_64.rpm +
+nfs-utils-2.3.3-41.el8.x86_64.rpm +
+java-1.8.0-openjdk-1.8.0.282.b08-4.el8.x86_64.rpm +
+unzip +
+tar
+|프라이빗 레지스트리 노드|podman
+|웹 서버 리포지터리 노드|httpd(apache)
+|Kubespray 설치 노드|python3-pip-9.0.3-19.el8.noarch.rpm + 
+python3-cryptography-3.2.1-4.el8.x86_64.rpm +
+python3-jinja2-2.10.1-2.el8_0.noarch.rpm +
+python3-netaddr-0.7.19-8.el8.noarch.rpm +
+python3-jmespath-0.9.0-11.el8.noarch.rpm +
+python3-ruamel-yaml +
+python3-pbr +
+ansible
+|====================
+
+[NOTE]
+====
+Kubespray를 설치할 노드에 아래의 명령을 실행하면 Kubespray를 실행하기 위해 필요한 패키지가 전부 설치된다. 
+----
+$ yum -y install python3-pip python3-cryptography python3-jinja2 python3-netaddr python3-jmespath python3-ruamel-yaml python3-pbr ansible
+----
+====
+
+== Kubespray 환경 설정 파일 종류
+Kubespray를 실행하기 위한 필수 설정 파일의 종류와 각 파일의 역할에 대한 설명은 다음과 같다.
+----
+kubespray
++-- inventory
+    +-- tmaxcloud
+        +-- group_vars
+            +-- all
+                |-- all.yml <1>
+                |-- offline.yml <2>
+            +-- k8s_cluster
+                |-- addons.yml <3>
+                |-- k8s-cluster.yml <4>
+                |-- k8s-net-calico.yml <5>
+        |-- inventory.ini <6>
+----
+<1> `kubespray/inventory/tmaxcloud/group_vars/all/all.yml`
++
+: 쿠버네티스 관련 기본 설정 파일
+<2> `kubespray/inventory/tmaxcloud/group_vars/all/offline.yml`
++
+: 폐쇄망 설정 파일
+<3> `kubespray/inventory/tmaxcloud/group_vars/k8s_cluster/addons.yml`
++
+: 추가 모듈 설정 파일 
+<4> `kubespray/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-cluster.yml`
++
+: 사용자 지정 도메인 설정 파일
+<5> `kubespray/inventory/tmaxcloud/group_vars/k8s_cluster/k8s-net-calico.yml`
++
+: Calico 옵션 설정 파일
+<6> `kubespray/inventory/tmaxcloud/inventory.ini`
++
+: 쿠버네티스 노드 구성 설정 파일
