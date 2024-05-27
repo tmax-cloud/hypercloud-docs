@@ -20,9 +20,9 @@ HyperCloud 설치를 위한 시스템 요구사항은 다음과 같다.
 
 ProLinux (버전: 8.4 이상 8 버전)
 
-|메모리|HyperCloud(최소 : 42.5Gi, 권장 : 81Gi)
+|메모리|최소 : 42.5Gi, 권장 : 81Gi
 
-|CPU|HyperCloud(최소 : 22core, 권장 : 56core)
+|CPU|최소 : 22core, 권장 : 56core
 
 |====================
 [NOTE]
