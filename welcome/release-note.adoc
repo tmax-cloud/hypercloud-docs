@@ -21,9 +21,15 @@
 이전 릴리즈에서 사용 가능한 일부 기능은 더 이상 사용되지 않거나, 제거되었다.
 
 === Traefik
-* 왜 제거했지
+* NGINX로 대체 가능해서
 
-=== Cert-manager
+=== Cert Manager
+* 필요 없어서
+
+=== JWT Decode Auth
+* 멀티 클러스터가 제거됨에 따라 함께 제거되었다. 
+
+=== Oauth2 Proxy
 * 필요 없어서
 
 === Console
@@ -31,3 +37,24 @@
 * 멀티 클러스터와 싱글 클러스터 콘솔이 제거되었다.
 * hypercloud5-api-server가 제거됨에 따라 각 모듈의 버전을 보여주는 대시보드 카드가 제거되었다. 
 * single-operator가 제거됨에 따라 클레임류(네임스페이스 클레임, 롤 바인딩 클레임, 리소스 쿼타 클레임) 메뉴가 제거되었다. 
+
+=== Single Operator
+*
+
+=== Multi Operator
+*
+
+=== Notebook Controller
+* 
+
+=== Kale Extension
+*
+
+=== Service Binding Operator
+*
+
+=== Helm API Server
+*
+
+=== Image Validating Webhook
+*
