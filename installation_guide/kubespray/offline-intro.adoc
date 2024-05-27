@@ -4,27 +4,9 @@
 
 == 설치 구성
 
-{product-title} {product-version}은 멀티 클러스터 환경에서 효율적인 클러스터 통합 관리를 지원한다. +
-하나의 마스터 콘솔에서 모든 클러스터의 콘솔을 관리하여 모든 애플리케이션을 모니터링하고 분석할 수 있다.
-
-[caption="그림. "]
-.멀티 클러스터 환경 구성도
-image::../../images/figure_install_composition.png[]
-
-온프레미스와 AWS 환경 모두 마스터 클러스터로 구성할 경우 멀티 클러스터 환경 구성 순서는 다음과 같다.
-
-* *온프레미스 환경*
-. 마스터 노드와 워커 노드 구성을 통한 인프라 환경 구축
-. 웹 서버 리포지터리 및 이미지 레지스트리 구성
-. kubespray-infra 수행을 통한 쿠버네티스 인프라 구성
-. kubespray-onpremise 수행을 통한 nginx-ingress, hyperregistry, gitea, argocd 설치
-. ArgoCD를 통해 애플리케이션을 배포
-
-* *AWS 환경*
-. Terraform을 통해 AWS에 노드 구성
-. 웹 서버 리포지터리 및 이미지 레지스트리 구성
-. kubespray-infra 수행을 통한 쿠버네티스 인프라 구성
-. kubespray-aws를 수행을 통한 nginx-ingress, hyperregistry, gitea, argocd 설치
+* *AKS 환경*
+. AKS 클러스터 구성
+. kubespray-aks를 수행을 통한 nginx-ingress, argocd 설치
 . ArgoCD를 통해 애플리케이션을 배포
 
 
@@ -40,15 +22,12 @@ ProLinux (버전: 8.4 이상 8 버전)
 
 |메모리|HyperCloud(최소 : 42.5Gi, 권장 : 81Gi)
 
-Ai-Devops(최소 15Gi, 권장 35Gi)
 |CPU|HyperCloud(최소 : 22core, 권장 : 56core)
 
-Ai-Devops(최소 : 15core, 권장 : 32core)
 |====================
 [NOTE]
 ==== 
 Hypercloud의 최소사양은 모듈 설치에 필요한 리소스 기준이며 고객사 환경에 따라 조정해야한다. +
-Ai-devops 리소스는 기본 템플릿을 기준으로 산정하였다.
 ====
 
 == 설치 전 준비사항
