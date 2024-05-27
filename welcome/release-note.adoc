@@ -45,6 +45,11 @@
 === Multi Operator
 *
 
+=== Grafana Operator
+* Grafana Operator 기능이 제거됨에 따라 함께 제거되었다.
+* Grafana Operator 기능이 제거됨에 따라 유저 별 대시보드 권한 부여는 수동 설정해야 한다.
+* 파드, 노드, 로키 대시보드를 기본 제공하며 대시보드 상단의 변수를 선택하여 원하는 내용을 조회할 수 있다.
+
 === Notebook Controller
 * AI DevOps 기능이 제거됨에 따라 함께 제거되었다.
 
