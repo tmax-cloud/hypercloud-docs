@@ -65,9 +65,9 @@ image::../../images/create_bastion_03.png[]
 [#BastionTunnel]
 === Bastion Tunnel 연결
 
-AKS 클러스터 인스턴스에 파일을 업로드하기 위해서는 다음 과정을 수행한다. 
+AKS 클러스터 인스턴스에 파일을 업로드하기 위해서는 Bastion Tunnel 연결이 필요하다.
 
-Bastion의 구성을 변경한다. 
+Tunnel 연결을 위해 Bastion의 구성을 변경한다. 
 
 image::../../images/config_bastion.png[]
 
