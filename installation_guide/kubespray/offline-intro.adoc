@@ -16,17 +16,23 @@ HyperCloud 설치를 위한 시스템 요구사항은 다음과 같다.
 [width="100%",options="header", cols="1,3"]
 |====================
 |구분|요구사항
-|운영체제|CentOS/RHEL (버전: 8.4 이상 8 버전)
+|AKS 구성|Kubernetes 버전 : 1.27.9
 
-ProLinux (버전: 8.4 이상 8 버전)
+인증 및 권한 부여 : Kuberentes RBAC가 있는 로컬 계정
 
-|메모리|최소 : 42.5Gi 
+|노드 풀|운영체제 : Ubuntu Linux 
 
-권장 : 81Gi
+이미지 버전 : AKSUbuntu-2204gen2containerd-202403.19.0 이상 
 
-|CPU|최소 : 22core
+vCPU(최소 : 10core, 권장 : core)
 
-권장 : 56core
+메모리(최소 : GiB, 권장 : core)
+
+데이터 디스크 수(최소 : 개, 권장 : 개)
+
+|네트워크|네트워크 유형 : Azure CNI
+
+네트워크 정책 : Azure
 
 |====================
 [NOTE]
