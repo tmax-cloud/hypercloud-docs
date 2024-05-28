@@ -5,7 +5,7 @@
 설치하는 과정은 크게 다음과 같다.
 
 . <<AzureBastion, Bastion 설치>>
-. <<ArgoCDInstallAks, ArgoCD 설치>>
+. <<ArgocdInstallAks, ArgoCD 설치>>
 . <<MasterClusterAks, 마스터 클러스터 설치>>
 . <<ResourceDeployAks, 리소스 배포>>
 
@@ -15,8 +15,22 @@
 
 본 절에서는 Kubespray를 AKS 클러스터에서 사용하기 위한 Azure Bastion을 설치하는 방법에 대해서 설명한다. 
 
+Bastion을 설치하는 순서는 다음과 같다.
 
-[#ArgoCDInstallAks]
+. <<CreateSshKey, SSH 키 쌍 생성>>
+. <<ConfingNetwork, 네트워크 설정>>
+. <<CreateBastion, Bastion 생성>>
+
+[#CreateSshKey]
+=== SSH 키 쌍 생성
+
+AKS 클러스터에 SSH로 접근하기 위해 SSH 키 쌍을 생성한다. 
+
+
+
+
+
+[#ArgocdInstallAks]
 == ArgoCD 설치
 
 본 절에서는 AKS 클러스터에 연결한 Azure bastion에서 Kubespray를 이용하여 ArgoCD를 설치하는 방법에 대해서 설명한다.
