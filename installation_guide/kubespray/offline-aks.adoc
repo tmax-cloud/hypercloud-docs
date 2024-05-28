@@ -24,10 +24,11 @@ Bastion을 설치하는 순서는 다음과 같다.
 [#CreateSshKey]
 === SSH 키 쌍 생성
 
-AKS 클러스터에 SSH로 접근하기 위해 SSH 키 쌍을 생성한다. 
+Bastion에서 SSH 키를 이용하여 AKS 클러스터에 접근하기 위해 SSH 키 쌍을 생성한다. 
 
-
-
+image::../../images/create_ssh_key_01.png[]
+SSH 키 쌍을 다운로드하여 저장하도록 한다. 
+image::../../images/create_ssh_key_02.png[]
 
 
 [#ArgocdInstallAks]
