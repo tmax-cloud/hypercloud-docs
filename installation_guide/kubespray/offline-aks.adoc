@@ -73,7 +73,7 @@ image::../../images/config_bastion.png[]
 
 azure cli를 이용하여 Bastion에 Tunnel을 연결한다.
 
-. *Tunnel 연결*
+.Tunnel 연결
 ----
 az network bastion tunnel --name {Bastion 이름} --resource-group {리소스 그룹 이름} --target-ip-address {VM 인스턴스의 IP 주소} --resource-port {VM 인스턴스의 포트} --port {로컬 PC의 포트}
 ----
