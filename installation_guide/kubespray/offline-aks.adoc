@@ -39,7 +39,7 @@ Bastion에서 SSH를 통해 AKS 클러스터에 접근하기 위해 SSH 포트(T
 
 image::../../images/confing_network_rule_01.png[]
 
-"TCP/22"에 대한 Inbound 허용 규칙을 작성한다.
+SSH의 Inbound를 허용하는 규칙을 작성한다. 
 
 image::../../images/confing_network_rule_02.png[]
 
