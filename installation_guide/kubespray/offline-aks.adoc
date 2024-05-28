@@ -83,6 +83,13 @@ az network bastion tunnel --name {Bastion 이름} --resource-group {리소스 �
 az network bastion tunnel --name aks-vnet-25935767-bastion --resource-group MC_HCV_group_HCV_koreacentral --target-ip-address 10.224.1.166 --resource-port 22 --port 50022
 ----
 
+.파일 업로드 예시
+----
+scp -i aks.pem -P 50022 test.txt azureuser@127.0.0.1:/home/azureuser/.
+----
+
+CAUTION: AKS 또는 VMSS 재기동 시 인스턴스에 저장한 파일과 디렉터리가 초기화되므로 주의한다.
+
 
 [#ArgocdInstallAks]
 == ArgoCD 설치
