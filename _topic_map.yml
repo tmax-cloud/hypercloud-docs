@@ -204,8 +204,8 @@ Topics:
         File: role-create
       - Name: 롤 바인딩 생성
         File: role-binding-create
-      - Name: 롤 바인딩 클레임 생성
-        File: role-binding-claim-create
+#      - Name: 롤 바인딩 클레임 생성
+#        File: role-binding-claim-create
   - Name: 리소스 생성 (관리)
     Dir: resource_create_sub
     Topics:
