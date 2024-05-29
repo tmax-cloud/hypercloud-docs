@@ -24,7 +24,7 @@ image::../../images/keycloak_user_register.png[]
 |Email|Hypercloud 콘솔의 로그인 ID로 사용할 이메일 주소를 입력한다. 
 |Username|Hypercloud 콘솔에서 사용할 이름을 입력한다. 
 |Password|계정의 비밀번호를 입력한다.
-|Confirm Password|계정의 비밀번호를 한 번 더 입력한다. 
+|Confirm Password|확인을 위해 *'Password'* 항목에 입력한 내용을 동일하게 입력한다.  
 |====================
 
 . *'이메일'* 항목에 입력한 이메일 주소로 인증 메일이 전송되면, 해당 메일을 열어 *[이메일 인증]* 버튼을 클릭한다. 이때 반드시 메일 수신 시간을 기준으로 10분 이내에 클릭해야 한다.
