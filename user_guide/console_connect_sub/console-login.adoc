@@ -4,13 +4,13 @@ HyperCloud 시스템의 웹 콘솔에 로그인하는 과정은 다음과 같다
 
 . 웹 브라우저의 주소 표시줄에 HyperCloud 콘솔 접속 주소를 입력한다.
 . HyperCloud 콘솔 로그인 화면이 열리면 계정 ID(이메일)와 비밀번호를 입력한 후 *[로그인]* 버튼을 클릭한다. +
-만약 **'로그인 상태 유지하기'**를 선택한 후 로그인하면 브라우저가 종료되더라도 직접 로그아웃하기 전까지는 로그인 상태를 계속 유지한다.
+만약 **'Remeber me'**를 선택한 후 로그인하면 브라우저가 종료되더라도 직접 로그아웃하기 전까지는 로그인 상태를 계속 유지한다.
 +
 [#img-admin-login-main]
-image::../../images/figure_admin_login_change.png[]
+image::../../images/keycloak_login.png[]
 
 . 정상적으로 로그인이 완료되면 HyperCloud 콘솔의 메인 화면이 열린다. 콘솔의 메인 화면 구성에 대한 자세한 내용은 xref:../console_layout_sub/console-layout-main.adoc[메인 화면 구성]을 참고한다.
 +
-image::../../images/figure_admin_login_05.png[]
+image::../../images/aks_console_dashboard.png[]
 
 //<<hc-summary-layout,HyperCloud 콘솔 화면 구성>>
