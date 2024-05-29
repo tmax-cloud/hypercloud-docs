@@ -381,16 +381,16 @@ Topics:
   - Name: 시스템 구성
     Dir: system_configuration
     Topics:
-      - Name: 하드웨어 구성
-        File: hardware-configuration
+#      - Name: 하드웨어 구성
+#        File: hardware-configuration
       - Name: 소프트웨어 구성
         File: software-configuration
       - Name: 네임스페이스 정보
         File: namespace-info
-      - Name: 소프트웨어 설정
-        File: software-setting
-      - Name: 감사 로그 설정
-        File: auditlog-setting
+#      - Name: 소프트웨어 설정
+#        File: software-setting
+#      - Name: 감사 로그 설정
+#        File: auditlog-setting
   - Name: 애플리케이션
     Dir: application
     Topics:
