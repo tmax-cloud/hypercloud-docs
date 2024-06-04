@@ -54,10 +54,10 @@ Topics:
     Topics:
       - Name: 개요
         File: offline-intro
-      - Name: 온프레미스 환경에서 구축
-        File: offline-onpremise
-      - Name: AWS 환경에서 구축
-        File: offline-aws
+#      - Name: 온프레미스 환경에서 구축
+#        File: offline-onpremise
+#      - Name: AWS 환경에서 구축
+#        File: offline-aws
       - Name: AKS 환경에서 구축
         File: offline-aks
 ---
