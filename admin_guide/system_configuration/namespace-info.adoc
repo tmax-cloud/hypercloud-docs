@@ -16,10 +16,6 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 [width="100%",options="header", cols="1,2"]
 |====================
 |네임스페이스|설명
-|capi-system|클러스터 API 오브젝트를 위한 네임스페이스
-|capa-system|클러스터 API 오브젝트 사용 시 AWS 프로바이더 지원을 위한 네임스페이스
-|capv-system|클러스터 API 오브젝트 사용 시 vSphere 프로바이더 지원을 위한 네임스페이스
-|cert-manager|Kubernetes 클러스터 내에서 TLS 인증서를 자동으로 프로비저닝 및 관리를 위한 네임스페이스
 |cicd-system|CI/CD 관리를 위한 네임스페이스
 |====================
 
@@ -35,14 +31,12 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |====================
 |네임스페이스|설명
 |gitea-system|소스 코드 관리를 지원하는 경량 애플리케이션인 Gitea를 사용하기 위한 네임스페이스
-|gitlab-system| 소스 코드 관리를 지원하는 Gitlab을 사용하기 위한 네임스페이스
 |====================
 
 == H
 [width="100%",options="header", cols="1,2"]
 |====================
 |네임스페이스|설명
-|helm-system|Helm 서비스 오브젝트를 사용하기 위한 네임스페이스
 |hyperauth|HyperCloud 사용자 인증 오브젝트를 위한 네임스페이스
 |hypercloud5-system|HyperCloud의 Kubernetes 연동을 위한 네임스페이스
 |hyperregistry|이미지 레지스트리 관리 오브젝트를 위한 네임스페이스
@@ -61,41 +55,19 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |====================
 |네임스페이스|설명
 |kafka|Kafka 오브젝트가 있는 네임스페이스
-|kube-logging| OpenSearch 또는 EFK 구성을 위한 오브젝트가 있는 네임스페이스
-|kube-node-lease|클러스터가 스케일링될 때 노드 하트 비트의 성능을 향상시키는 각 노드와 관련된 Lease 오브젝트에 대한 네임스페이스
-|kube-public|모든 사용자가 읽기 권한으로 접근할 수 있는 네임스페이스
-|kube-system|Kubernetes 클러스터에서 생성한 오브젝트를 위한 네임스페이스
-|kubeflow|Kubernetes 클러스터에서 머신 러닝 워크플로우를 실행 및 관리하기 위한 네임스페이스
 |====================
 
 == M
 [width="100%",options="header", cols="1,2"]
 |====================
 |네임스페이스|설명
-|metallb-system|Kubernetes 클러스터에 대한 로드 밸런서 제공을 위한 네임스페이스
 |monitoring|모니터링을 위한 네임스페이스
-|====================
-
-== N
-[width="100%",options="header", cols="1,2"]
-|====================
-|네임스페이스|설명
-|nfs|NFS 스토리지를 위한 네임스페이스
-|====================
-
-== R
-[width="100%",options="header", cols="1,2"]
-|====================
-|네임스페이스|설명
-|registry-system|이미지 유효성 검증을 위한 오브젝트가 있는 네임스페이스
-|redis-operator|레디스(Redis)를 쉽게 사용할 수 있는 오브젝트가 있는 네임스페이스
 |====================
 
 == S
 [width="100%",options="header", cols="1,2"]
 |====================
 |네임스페이스|설명
-|service-binding-operator|서비스 바인딩 operator가 구동되는 네임스페이스
 |sonarqube|다양한 프로그래밍 언어의 정적 코드 분석 제공을 위한 네임스페이스
 |====================
 
@@ -105,5 +77,4 @@ HyperCloud의 주요 네임스페이스 목록은 다음과 같다.
 |네임스페이스|설명
 |tekton-pipelines|CI/CD를 위한 Tekton 오브젝트가 구성되어 있는 네임스페이스
 |template|작성된 템플릿에 따라 리소스들을 생성해주는 템플릿 operator가 구동되는 네임스페이스
-|tfapplyclaim|테라폼 클레임 operator가 구동되는 네임스페이스
 |====================
