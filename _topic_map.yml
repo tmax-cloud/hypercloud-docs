@@ -426,16 +426,16 @@ Topics:
   - Name: 백업 및 복구
     Dir: backup
     Topics:
-      - Name: etcd 백업 및 복구
-        File: etcd-backup
+#      - Name: etcd 백업 및 복구
+#        File: etcd-backup
       - Name: hyperauth 백업 및 복구
         File: hyperauth-backup
       - Name: hyperregistry 백업 및 복구
         File: hyperregistry-backup
       - Name: gitea 백업 및 복구
         File: gitea-backup
-      - Name: hypercloud5-system 백업 및 복구
-        File: hypercloud5-system-backup
+#      - Name: hypercloud5-system 백업 및 복구
+#        File: hypercloud5-system-backup
   - Name: 점검사항
     Dir: check_point
     Topics:
@@ -443,10 +443,10 @@ Topics:
         File: node-check
       - Name: 파드 점검
         File: kube-system-pod-check
-  - Name: HyperCloud 관리
-    File: hypercloud-management
-  - Name: Kube 인증서 관리
-    File: kube-auth-management
+#  - Name: HyperCloud 관리
+#    File: hypercloud-management
+#  - Name: Kube 인증서 관리
+#    File: kube-auth-management
 #  - Name: 멀티 클러스터 계정 관리
 #    File: multicluster-management
   - Name: 문제 해결
