@@ -37,7 +37,7 @@ image::../../images/figure_hyperauth_user_create.png[]
 image::../../images/figure_hyperauth_user_create_02.png[]
 
 . *사용자 기본 정보 설정* +
-*Add user* 화면에서 생성할 사용자의 기본 정보를 설정한 후 *[Save]* 버튼을 클릭한다.
+*Create user* 화면에서 생성할 사용자의 기본 정보를 설정한 후 *[Save]* 버튼을 클릭한다.
 +
 image::../../images/figure_hyperauth_user_create_03.png[]
 +
@@ -46,23 +46,21 @@ image::../../images/figure_hyperauth_user_create_03.png[]
 [width="100%",options="header", cols="1,2a"]
 |====================
 |항목|설명
-|Email|로그인에 사용할 Email 주소를 입력한다.
-|First Name|이름을 입력한다.
-|Last Name|성을 입력한다.
-|User Enabled|로그인 허용 여부를 선택한다.
-
-* ON : 로그인 허용
-* OFF : 로그인 허용 안 함
-|Email Verified|이메일 인증 여부를 선택한다.
-
-* ON : 이메일이 인증된 상태 (이메일 인증 불필요)
-* OFF : 이메일이 인증되지 않은 상태 (이메일 인증 필요)
 |Required User Actions|사용자가 로그인할 때 요구할 행동을 선택한다.
 
 * Update Password: 사용자가 새 비밀번호를 입력
 * Update Profile: 사용자가 새로운 개인 정보를 입력
 * Verify Email: 사용자에게 이메일을 보내 이메일 주소 확인
-|Locale|사용자 인터페이스에서 사용할 지역/언어를 선택한다.
+
+|Username|로그인에 사용할 유저네임을 입력한다. 
+|Email|로그인에 사용할 Email 주소를 입력한다.
+|First Name|이름을 입력한다.
+|Last Name|성을 입력한다.
+|Email Verified|이메일 인증 여부를 선택한다.
+
+* ON : 이메일이 인증된 상태 (이메일 인증 불필요)
+* OFF : 이메일이 인증되지 않은 상태 (이메일 인증 필요)
+
 |====================
 
 . *비밀번호 설정* +
