@@ -14,10 +14,10 @@ HyperCloud 사용자를 관리하기 위해 HyperAuth 콘솔에 접속한다.
 
 . KeyCloak 초기 화면에서 *[Administration Console]* 메뉴를 클릭한다.
 +
-image::../../images/figure_hyperauth_login.png[]
+image::../../images/hyperauth_user_create_01.png[]
 . KeyCloak 로그인 화면이 열리면 계정 이름과 비밀번호를 입력한 후 *[Log In]* 버튼을 클릭한다. 
 +
-image::../../images/figure_hyperauth_login_02.png[]
+image::../../images/hyperauth_user_create_02.png[]
 +
 NOTE: 초기 계정의 이름과 비밀번호는 모두 **admin**이다.
 
@@ -66,9 +66,10 @@ image::../../images/figure_hyperauth_user_create_03.png[]
 
 . *비밀번호 설정* +
 사용자 계정의 비밀번호를 설정하기 위해 생성한 사용자 계정의 상세 화면에서 *[Credentials]* 탭을 클릭한다. +
+*[Credential Reset]* 버튼을 클릭하여 비밀번호를 설정한다. +
 설정이 완료되면 *[Set Password]* 버튼을 클릭해서 현재 설정을 저장한다.
 +
-image::../../images/figure_hyperauth_user_create_05.png[]
+image::../../images/hyperauth_user_create_04.png[]
 +
 각 설정 항목에 대한 설명은 다음과 같다.
 +
@@ -92,7 +93,7 @@ image::../../images/figure_hyperauth_user_create_05.png[]
 
 로그인 실패 횟수에 따라 해당 사용자 계정을 잠글 수 있다.
 
-image::../../images/figure_hyperauth_user_lock.png[]
+image::../../images/hyperauth_user_lock.png[]
 
 <1> *[Realm Settings]* 메뉴 선택
 <2> *[Security Defenses]* 탭 선택
@@ -105,21 +106,13 @@ image::../../images/figure_hyperauth_user_lock.png[]
 
 콘솔의 로그인 연장 시 로그아웃되는 현상이 발생할 경우 토큰의 유효 시간을 연장하여 해결할 수 있다.
 
-image::../../images/figure_hyperauth_token_time.png[]
+image::../../images/hyperauth_session_setting.png[]
+
+image::../../images/hyperauth_token_setting.png[]
 
 <1> *[Realm Settings]* 메뉴 선택
-<2> *[Tokens]* 탭 선택
+<2> *[Seesions]* 탭 선택
 <3> *"SSO Session Idle"* 값 설정 : 세션 유효 시간 (권장값: 1 Days)
-<4> *"Access Token Lifespan"* 값 설정 : 액세스 토큰 유효 시간 (권장값: 1 Days)
-<5> *"Login timeout"* 값 설정 : 로그인 제한 시간 (권장값: 1 Days)
-<6> *[Save]* 버튼 클릭
-
-== 중복 로그인 설정
-
-여러 사용자가 동일한 계정으로 로그인할 수 있다. 
-
-image::../../images/figure_hyperauth_duplicate_login.png[]
-
-<1> *[Events]* 메뉴 선택
-<2> *[Config]* 탭 선택
-<3> *"duplicate_login_block"* 해제
+<4> *"Login timeout"* 값 설정 : 로그인 제한 시간 (권장값: 1 Days)
+<5> *[Tokens]* 탭 선택
+<6> *"Access Token Lifespan"* 값 설정 : 액세스 토큰 유효 시간 (권장값: 1 Days)
