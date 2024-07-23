@@ -4,30 +4,37 @@
 
 == 새로운 기능 및 개선 사항
 
-이번 릴리즈에는 다음과 같이 새로운 기능과 개선된 기능이 추가되었다.
+이번 릴리즈는 CSP 사에서 제공하는 관리형 kubernetes 서비스를 통해 구축한 kubernetes 환경에서 Hypercloud를 설치하기 위해 제작되었다. +
+kubernetes 1.27.9 버전 기준으로 제작되었고, 다음과 같이 새로운 기능과 개선된 기능이 추가되었다.
+
 
 === 기본 설치 모듈 변경
 * API Gateway가 Traefik에서 NGINX로 변경되었다. 
 
 === Hypercloud 모듈 리소스 설정
-* 최소 설치 리소스 사양 : CPU 21 core / Memory 43Gi
-* 권장 설치 리소스 사양 : CPU 56 core / Memory 81Gi 
-* ai-devops에 포함된 템플릿 모델 수행 사양 : CPU 32 core / Memory 34Gi
+* 최소 설치 리소스 사양 : CPU 18 core / Memory 41Gi
+* 권장 설치 리소스 사양 : CPU 50 core / Memory 74Gi 
 
 === Hyperauth
 * Keycloak 23.0.6 버전으로 개선되었다. 
 
+=== Hyperregistry
+* 오픈소스화 정책에 따라 Harbor로 변경하였고, pull time 에러가 해결된 Harbor 2.8.6 버전으로 개선되었다.
+
+=== Prometheus
+* Prometheus v2.46.0 버전으로 개선되었다.
+
 == 기능 제거
-이전 릴리즈에서 사용 가능한 일부 기능은 더 이상 사용되지 않거나, 제거되었다.
+Hypercloud 바닐라화 정책에 따라 모듈을 오픈소스화 하며 사용 가능한 일부 기능은 더 이상 사용되지 않거나, 제거되었다.
 
 === Cert Manager
-* 필요 없어서
+* 수동으로 인증서를 관리하는 방식으로 변경되어 제거되었다.
 
 === JWT Decode Auth
 * 멀티 클러스터가 제거됨에 따라 함께 제거되었다. 
 
 === Oauth2 Proxy
-* 필요 없어서
+* 관리형 kubernetes 서비스를 통한 인증 방식 변경으로 인해 제거되었다.
 
 === Console
 * kubectl Command Line 창 기능이 제거되었다. 
@@ -40,7 +47,10 @@
 * 클레임류(네임스페이스 클레임, 롤 바인딩 클레임, 리소스 쿼타 클레임) 기능이 제거됨에 따라 함께 제거되었다.
 
 === Multi Cluster
-* 
+* Hypercloud 바닐라화 정책에 따라 기능이 제거되었다.
+
+=== Cluster-API
+* Multi Cluster 기능이 제거됨에 따라 함께 제거되었다.
 
 === Grafana Operator
 * Grafana Operator 기능이 제거됨에 따라 함께 제거되었다.
@@ -54,14 +64,14 @@
 * AI DevOps 기능이 제거됨에 따라 함께 제거되었다.
 
 === Service Binding Operator
-* 서비스 바인딩 기능이 제거됨에 따라 함께 제거되었다.
+* 오퍼레이터류 기능이 제거됨에 따라 함께 제거되었다.
 
 === Helm API Server
-*
+* 오퍼레이터류 기능이 제거됨에 따라 함께 제거되었다.
 
 === Image Validating Webhook
-*
+* 오퍼레이터류 기능이 제거됨에 따라 함께 제거되었다.
 
 === Redis Operator
-* 
+* 오퍼레이터류 기능이 제거됨에 따라 함께 제거되었다.
 
