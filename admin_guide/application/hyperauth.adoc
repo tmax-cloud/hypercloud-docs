@@ -61,6 +61,7 @@ image::../../images/figure_hyperauth_user_create_03.png[]
 * ON : 이메일이 인증된 상태 (이메일 인증 불필요)
 * OFF : 이메일이 인증되지 않은 상태 (이메일 인증 필요)
 
+|Join Groups|유저가 포함될 그룹을 선택한다. 
 |====================
 
 . *비밀번호 설정* +
