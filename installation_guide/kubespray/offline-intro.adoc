@@ -53,4 +53,5 @@ https://technet.tmaxsoft.com/
 |====================
 |파일|설명
 |kubespray-aks.zip|AWS 환경에서 ArgoCD 설치를 위한 파일
+|argocd-installer-5.3.zip|ArgoCD를 통한 Hypercloud 모듈 설치 파일
 |====================
