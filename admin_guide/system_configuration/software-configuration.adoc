@@ -9,7 +9,7 @@ HyperCloud에서 사용하는 소프트웨어의 버전 정보는 다음과 같�
 |Harbor|2.8.6|이미지 레포지터리 및 보안 관리
 |Gitea|1.18.0|ArgoCD와 CI/CD 연동 Git 저장소
 |ArgoCD|v2.5.7|HyperCloud 배포 관리
-|Console|0.0.20|HyperCloud 웹 콘솔
+|Console|0.0.23|HyperCloud 웹 콘솔
 |Strimzi kafka operator|0.32.0|카프카 리소스 관리
 |HyperAuth|b2.0.0.4|HyperCloud 계정 인증/인가 관리
 |Prometheus|2.46.0|리소스 모니터링 툴 (Collector)
