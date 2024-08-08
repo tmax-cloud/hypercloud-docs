@@ -6,7 +6,7 @@
 감사 로그 설정을 통해 콘솔에서 행해지는 사용자의 특정 리소스에 대한 액세스 시도를 관리할 수 있다.
 
 . *감사 로그 정책 지정* +
-`/etc/kubernetes/pki/audit-policy.yaml` 파일에 어떤 이벤트를 로그에 기록하고 제외할지 설정한다.
+`/etc/kubernetes/pki/audit-policy.yaml` 파일에 항목을 추가/제거하여 어떤 이벤트를 로그에 기록하고 제외할지 설정한다.
 +
 ----
 apiVersion: audit.k8s.io/v1 # This is required.
@@ -18,8 +18,8 @@ rules:
 
   # Don't log system requests.
   - level: None
-    userGroups: ["system:serviceaccounts:hypercloud5-system", "system:nodes", "system:serviceaccounts", "system:masters"]
-    
+    userGroups: ["system:serviceaccounts:hypercloud5-system", "system:nodes", "system:masters", "system:serviceaccounts:kube-system", "system:serviceaccounts:monitoring", ...]
+
   # Don't log requests by hypercloud5-admin and kube-system user.
   - level: None
     users: ["system:serviceaccount:hypercloud5-system:hypercloud5-admin", "system:kube-controller-manager", "system:kube-scheduler", "system:apiserver"]
@@ -95,7 +95,7 @@ kind: Config
 clusters:
 - cluster:
     certificate-authority-data: LS0tLS1CRU...Q0FURS0tLS0tCg==
-    server: https://hypercloud5-api-server-service.hypercloud5-system.svc/audit
+    server: https://hypercloud5-api-server-service.hypercloud5-system.svc.cluster.local/audit
   name: audit-webhook-service
 contexts:
 - context:
@@ -110,7 +110,7 @@ clusters.cluster 설정 항목에 대한 설명은 다음과 같다.
 [width="100%",options="header", cols="1,2"]
 |====================
 |항목|설명
-|certificate-authority-data|hypercloud5-system 네임스페이스의 hypercloud5-api-server-certs 시크릿의 ca.crt와 동일하게 설정한다.
+|certificate-authority-data|hypercloud5-system 네임스페이스의 hypercloud5-api-server-service-account-token 시크릿의 ca.crt와 동일하게 설정한다.
 |server|웹훅 서버의 url을 지정한다.
 |====================
 
@@ -118,9 +118,205 @@ clusters.cluster 설정 항목에 대한 설명은 다음과 같다.
 설정 내용을 적용하기 위해 `/etc/kubernetes/manifests/kube-apiserver.yaml` 파일을 수정한다. +
 해당 설정은 모든 마스터 노드에서 진행해야 한다.
 +
+*Step1)* kube-system 네임스페이스 kubelet-config cm 에서 resolvConf 절 존재 유무 확인 후 있으면 삭제를 진행한다. +
+*Step2)* kube-apiserver.yaml 파일을 수정한다.
++
 ----
-spec.containers.command:
-   - --audit-policy-file=/etc/kubernetes/pki/audit-policy.yaml
-   - --audit-webhook-config-file=/etc/kubernetes/pki/audit-webhook-config 
-spec.dnsPolicy: ClusterFirstWithHostNet
+  containers:
+  - command:
+    - kube-apiserver
+    - --audit-log-path=/var/log/kubernetes/audit/audit.log 
+    - --audit-policy-file=/etc/kubernetes/pki/audit-policy.yaml
+    - --audit-webhook-config-file=/etc/kubernetes/pki/audit-webhook-config
+    volumeMounts:
+    - mountPath: /var/log/kubernetes/audit
+      name: audit-log
+      readOnly: false
+  dnsPolicy: ClusterFirstWithHostNet 
+  volumes:
+  - hostPath:
+      path: /var/log/kubernetes/audit
+      type: DirectoryOrCreate
+    name: audit-log 
+----
+
+. *TLS 인증서 생성* +
+K8S CA 인증서로 서명된 TLS 인증서 생성를 생성한다.
++
+----
+$ openssl genrsa -out tls.key 2048
+
+$ cat > server.csr.cnf <<EOF
+[req]
+default_bits       = 2048
+distinguished_name = req_distinguished_name
+req_extensions     = req_ext
+x509_extensions    = v3_ca # The extentions to add to the self signed cert
+
+[req_distinguished_name]
+countryName                = Country Name (2 letter code)
+countryName_default        = US
+stateOrProvinceName        = State or Province Name (full name)
+stateOrProvinceName_default = California
+localityName               = Locality Name (eg, city)
+localityName_default       = San Francisco
+organizationName           = Organization Name (eg, company)
+organizationName_default   = My Company
+commonName                 = Common Name (e.g. server FQDN or YOUR name)
+commonName_default         = [mydomain.com](http://mydomain.com/)
+
+[req_ext]
+subjectAltName = @alt_names
+
+[v3_ca]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = hypercloud5-api-server-service.hypercloud5-system.svc.cluster.local
+EOF
+
+$ openssl req -new -key tls.key -out tls.csr -config server.csr.cnf
+
+$ openssl x509 -req -in tls.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out tls.crt -extensions req_ext -extfile server.csr.cnf
+----
+
+. *Secret 생성* +
+생성한 TLS 인증서로 시크릿을 생성하여 파드에 mount 시킨다.
++
+----
+$ kubectl create secret tls tls-secret --cert=tls.crt --key=tls.key -n hypercloud5-system
+
+$ k edit deploy -n hypercloud5-system hypercloud5-api-server
+          volumeMounts:
+            - mountPath: /var/run/secrets/tls	
+              name: tls-secret	
+              readOnly: true
+      serviceAccountName: hypercloud5-admin
+      volumes:	  
+        - name: tls-secret	
+          secret:	
+            defaultMode: 420	
+            secretName: tls-secret	  
+----
+. *Ingress 수정* +
+Ingress에 TLS 설정을 추가한다. 
++
+----
+$ k edit ingress -n hypercloud5-system hc-api-server-ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
+  name: hc-api-server-ingress
+  namespace: hypercloud5-system
+spec:
+  ingressClassName: nginx-system
+  rules:
+  - host: console.xxx.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: hypercloud5-api-server-service
+            port:
+              number: 443
+        path: /api/webhook(/|$)(.*)
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - console.xxx.com
+    secretName: ingress-secret
+----
+. *추가 설정* +
+감사 로그에서 특정 사용자의 리소스에 대한 액세스 시도를 보다 편리하게 구분하기 위해 아래의 설정을 추가로 진행한다. +
+a. *SA 생성*
++
+----
+apiVersion: v1
+automountServiceAccountToken: false
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/instance: hyperauth
+  name: test.tmax.co.kr # 유저 아이디로 지정(단, 이름 제약으로 인하여 @, _ 등의 문자 사용 불가)
+  namespace: hyperauth
+----
+b. *Secret 생성* 
++
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    kubernetes.io/service-account.name: test.tmax.co.kr
+  labels:
+    app.kubernetes.io/instance: hyperauth
+  name: test-token
+  namespace: hyperauth
+type: kubernetes.io/service-account-token
+----
+c. *SA에 Secret 추가* 
++
+----
+apiVersion: v1
+automountServiceAccountToken: false
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/instance: hyperauth
+  name: test.tmax.co.kr
+  namespace: hyperauth
+secrets:
+- name: test-token
+----
+d. *token 값 확인* 
++
+----
+$ k get secret -n hyperauth test-token -o jsonpath='{.data.token}' | base64 -d
+----
+e. *HyperAuth user에 token 등록* +
+HyperAuth 특정 유저의 Attributes에 token 값을 추가한다.
++
+[width="100%",options="header", cols="1,2"]
+|====================
+|항목|설정
+|Key|sa-token
+|Value|위에서 확인한 token 값
+|====================
+f. *role/rolebinding 생성* +
+특정 유저가 특정 네임스페이스 내에서 수행한 작업을 감사 로그에서 확인할 수 있도록 설정한다. 아래는 설정 예시이다.
++
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: monitoirng-role
+  namespace: monitoring
+rules:
+- apiGroups:
+  - '*'
+  resources:
+  - '*'
+  verbs:
+  - '*'
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: monitoring-rolebinding
+  namespace: monitoring
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: monitoirng-role
+subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: test@tmax.co.kr
+  - kind: ServiceAccount
+    name: test.tmax.co.kr
+    namespace: hyperauth
 ----
