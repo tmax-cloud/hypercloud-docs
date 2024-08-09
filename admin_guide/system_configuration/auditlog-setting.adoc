@@ -141,7 +141,7 @@ clusters.cluster 설정 항목에 대한 설명은 다음과 같다.
 ----
 
 . *TLS 인증서 생성* +
-K8S CA 인증서로 서명된 TLS 인증서 생성를 생성한다.
+K8S CA 인증서로 서명된 TLS 인증서를 생성한다. 인증서의 기간은 10년으로 되어있다.
 +
 ----
 $ openssl genrsa -out tls.key 2048
@@ -177,7 +177,7 @@ EOF
 
 $ openssl req -new -key tls.key -out tls.csr -config server.csr.cnf
 
-$ openssl x509 -req -in tls.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out tls.crt -extensions req_ext -extfile server.csr.cnf
+$ openssl x509 -req -in tls.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out tls.crt -extensions req_ext -extfile server.csr.cnf -days 3650
 ----
 
 . *Secret 생성* +
