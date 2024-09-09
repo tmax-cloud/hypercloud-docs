@@ -220,38 +220,6 @@ Topics:
       - Name: 사용자 리소스 정의 생성
         File: custom-resource-create
 ---
-#Name: 싱글 클러스터 콘솔 안내서
-#Dir: user_guide
-#Topics:
-#  - Name: 개요
-#    File: intro-single
-#  - Name: 관리 대상 서브 클러스터 선택
-#    File: single-cluster-select
-#  - Name: 메뉴
-#    Dir: console_menu_sub
-#    Topics:
-#      - Name: 네임스페이스
-#        File: single-namespace
-#      - Name: 롤 바인딩
-#        File: single-role-binding
-#      - Name: 리소스 쿼타
-#        File: single-resource-quota
-#  - Name: 리소스 생성 (홈)
-#    Dir: resource_create_sub
-#    Topics:
-#      - Name: 네임스페이스 생성
-#        File: single-namespace-create
-#  - Name: 리소스 생성 (인증/인가)
-#    Dir: resource_create_sub
-#    Topics:
-#      - Name: 롤 바인딩 생성
-#        File: single-role-binding-create
-#  - Name: 리소스 생성 (관리)
-#    Dir: resource_create_sub
-#    Topics:
-#      - Name: 리소스 쿼타 생성
-#        File: single-resource-quota-create
-#---
 Name: 개발자 콘솔 안내서
 Dir: user_guide
 Topics:
@@ -374,6 +342,38 @@ Topics:
 #    Topics:
 #      - Name: 서비스 바인딩 생성
 #        File: service-binding-create
+#---
+#Name: 싱글 클러스터 콘솔 안내서
+#Dir: user_guide
+#Topics:
+#  - Name: 개요
+#    File: intro-single
+#  - Name: 관리 대상 서브 클러스터 선택
+#    File: single-cluster-select
+#  - Name: 메뉴
+#    Dir: console_menu_sub
+#    Topics:
+#      - Name: 네임스페이스
+#        File: single-namespace
+#      - Name: 롤 바인딩
+#        File: single-role-binding
+#      - Name: 리소스 쿼타
+#        File: single-resource-quota
+#  - Name: 리소스 생성 (홈)
+#    Dir: resource_create_sub
+#    Topics:
+#      - Name: 네임스페이스 생성
+#        File: single-namespace-create
+#  - Name: 리소스 생성 (인증/인가)
+#    Dir: resource_create_sub
+#    Topics:
+#      - Name: 롤 바인딩 생성
+#        File: single-role-binding-create
+#  - Name: 리소스 생성 (관리)
+#    Dir: resource_create_sub
+#    Topics:
+#      - Name: 리소스 쿼타 생성
+#        File: single-resource-quota-create
 #---
 Name: 운영자 안내서
 Dir: admin_guide
