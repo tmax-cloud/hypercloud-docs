@@ -859,13 +859,12 @@ loadbalancer_apiserver:
 # address:
   port: 6443 <2>
   
-upstream_dns_servers: <3>
+upstream_dns_servers:
   - /etc/resolv.conf
 ----
 +
 <1> AWS ELB(Elastic Load Balancing) 주소
 <2> 쿠버네티스 API 서버 포트 번호
-<3> AWS 도메인 네임서버 주소
 
 . *폐쇄망 정보 설정*
 +
