@@ -970,7 +970,7 @@ source:
     targetRevision: HEAD <9>
 ----
 <1> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
-<2> 마스터 클러스터와 싱글 클러스터에서 사용할 HyperAuth 주소
+<2> 마스터 클러스터에서 사용할 HyperAuth 주소
 <3> 애플리케이션 타임존 설정 
 * UTC
 * Asia/Seoul
@@ -1013,7 +1013,7 @@ $ kubectl -n argocd apply -f application/app_of_apps/master-applications.yaml
 
 애플리케이션 동기화 작업을 통해 리소스를 배포한다.
 
-이때 마스터 클러스터와 싱글 클러스터에서 각각 동기화 작업을 진행해야 하며, 각 애플리케이션의 동기화 순서는 아래를 참고한다.
+각 애플리케이션의 동기화 순서는 아래를 참고한다.
 
 [CAUTION]
 .마스터 클러스터 동기화 순서
