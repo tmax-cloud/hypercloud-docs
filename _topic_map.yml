@@ -60,6 +60,8 @@ Topics:
 #        File: offline-aws
       - Name: AKS 환경에서 구축
         File: offline-aks
+      - Name: EKS 환경에서 구축
+        File: offline-eks
 ---
 Name: 웹 콘솔 기본 사용법
 Dir: user_guide
