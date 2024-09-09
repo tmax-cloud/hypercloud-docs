@@ -8,7 +8,7 @@
 
 HyperCloud 콘솔의 신규 계정을 생성하는 과정은 다음과 같다.
 
-. <<../console_connect_sub/img-admin-login-main,HyperCloud 콘솔 로그인 화면>>에서 **[Register]**을 클릭한다.
+. **[HyperCloud 콘솔 로그인]**에서 **[Register]**을 클릭한다.
 +
 image::../../images/keycloak_user_register.png[]
 
