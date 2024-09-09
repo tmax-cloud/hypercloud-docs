@@ -493,7 +493,7 @@ source:
     targetRevision: HEAD <9>
 ----
 <1> 애플리케이션 설치 시 인그레스 주소에 사용될 커스텀 도메인 이름
-<2> 마스터 클러스터와 싱글 클러스터에서 사용할 HyperAuth 주소
+<2> 마스터 클러스터에서 사용할 HyperAuth 주소
 <3> 애플리케이션 타임존 설정
 * UTC
 * Asia/Seoul
