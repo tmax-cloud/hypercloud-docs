@@ -33,7 +33,7 @@ image::../../images/keycloak_user_register.png[]
 
 계정의 비밀번호를 분실했을 때 계정 등록 정보를 이용하여 새로운 비밀번호를 생성하는 과정은 다음과 같다.
 
-. <<../console_connect_sub/img-admin-login-main,HyperCloud 콘솔 로그인 화면>>에서 **[Forget Password?]**를 클릭한다.
+. <<HyperCloud 콘솔 로그인 화면>>에서 **[Forget Password?]**를 클릭한다.
 +
 image::../../images/keycloak_forgot_password.png[]
 
