@@ -341,7 +341,7 @@ CAUTION: RHEL 운영체제일 경우 `kubespray-5.3/cluster.yml` 파일을 열�
 . *노드 정보 등록*
 +
 `kubespray-5.3/inventory/tmaxcloud/inventory.ini` 파일을 열어 kubespray에서 설치할 노드들의 정보를 등록한다. +
-eks는 사용자가 control-plane 노드에 접근을 하지 못해 [kube_control_plane]을 bastion 노드로 설정한다.
+aks는 사용자가 control-plane 노드에 접근을 하지 못해 [kube_control_plane]을 bastion 노드로 설정한다.
 +
 .예시
 ----
@@ -382,13 +382,12 @@ loadbalancer_apiserver:
 # address:
   port: 6443 <2>
 
-upstream_dns_servers: <3>
+upstream_dns_servers:
   - /etc/resolv.conf
 ----
 +
 <1> AKS kube-apiserver 엔드포인트
 <2> 쿠버네티스 API 서버 포트 번호
-<3> AWS 도메인 네임서버 주소
 
 . *폐쇄망 정보 설정*
 +
@@ -511,7 +510,7 @@ source:
 해당 파일에서 설치하고자 하는 모듈의 pvc storageclass를 aks에 맞게 변경한다.
 
 [CAUTION]
-.eks용 모듈별 pvc storageclass 설정
+.aks용 모듈별 pvc storageclass 설정
 ====
 1. hyperregistry_storage_class : default  +
 2. hyperregistry_database_storage_class : default +
