@@ -243,7 +243,7 @@ image::../images/figure_admin_secret_main.png[]
 
 //[caption="그림. "] //캡션 제목 변경
 [#img-config-map-main]
-image::../images/figure_admin_config_main.png[]
+image::../images/figure_admin_configmap_main.png[]
 
 각 영역에 대한 설명은 다음과 같다.
 
