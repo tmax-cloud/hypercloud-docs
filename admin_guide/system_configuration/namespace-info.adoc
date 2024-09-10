@@ -10,6 +10,7 @@ HyperCloud 5.3의 주요 네임스페이스 목록은 다음과 같다.
 |네임스페이스|설명
 |api-gateway-system|API Gateway 통신 및 HyperCloud 관리 Console을 포함한 네임스페이스
 |argocd|Kubernetes 환경을 위한 GitOps 기반 CD 도구인 ArgoCD가 생성되어 있는 네임스페이스
+|argo-rollouts|다양한 배포 기능을 지원하는 Argo-Rollouts가 생성되어 있는 네임스페이스
 |====================
 
 == C
@@ -39,7 +40,7 @@ HyperCloud 5.3의 주요 네임스페이스 목록은 다음과 같다.
 |네임스페이스|설명
 |hyperauth|HyperCloud 사용자 인증 오브젝트를 위한 네임스페이스
 |hypercloud5-system|HyperCloud의 Kubernetes 연동을 위한 네임스페이스
-|harbor|이미지 레지스트리 관리 오브젝트를 위한 네임스페이스
+|hyperregistry|이미지 레지스트리 관리 오브젝트를 위한 네임스페이스
 |====================
 
 == I
